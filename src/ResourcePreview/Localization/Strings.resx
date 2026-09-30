@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <!-- Engels: standaardtaal en terugvaloptie. Nieuwe tekst? Eerst hier toevoegen, daarna in de andere talen. -->
+  <data name="LocationFormat" xml:space="preserve">
+    <value>{0}, line {1}</value>
+    <comment>{0} = file path, {1} = line number</comment>
+  </data>
+  <data name="AlsoDefinedIn" xml:space="preserve">
+    <value>Also defined in:</value>
+  </data>
+  <data name="AndMoreFormat" xml:space="preserve">
+    <value>and {0} more</value>
+    <comment>{0} = number of extra definitions</comment>
+  </data>
+  <data name="NotFoundUnderFormat" xml:space="preserve">
+    <value>not found under {0}</value>
+    <comment>{0} = solution folder</comment>
+  </data>
+  <data name="CannotLoadFormat" xml:space="preserve">
+    <value>Cannot load {0} '{1}': {2}</value>
+    <comment>{0} = XAML element type, {1} = resource key, {2} = error message</comment>
+  </data>
+  <data name="MissingInSolutionFormat" xml:space="preserve">
+    <value>Not found in the solution: {0}</value>
+    <comment>{0} = comma separated keys</comment>
+  </data>
+  <data name="NoPreviewForFormat" xml:space="preserve">
+    <value>No preview available for {0}.</value>
+    <comment>{0} = .NET type name</comment>
+  </data>
+  <data name="CannotOpenFileFormat" xml:space="preserve">
+    <value>Cannot open {0}.</value>
+    <comment>{0} = file path</comment>
+  </data>
+  <data name="OptionsCategoryGeneral" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="OptionsLanguageName" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="OptionsLanguageDescription" xml:space="preserve">
+    <value>Language of the texts in the preview. Automatic uses the language of Visual Studio.</value>
+  </data>
+  <data name="LanguageAutomatic" xml:space="preserve">
+    <value>Automatic (Visual Studio language)</value>
+  </data>
+  <data name="100" xml:space="preserve">
+    <value>XAML Resource Preview</value>
+    <comment>Legacy Options dialog: category name (product name, normally not translated)</comment>
+  </data>
+  <data name="101" xml:space="preserve">
+    <value>General</value>
+    <comment>Legacy Options dialog: page name</comment>
+  </data>
+  <data name="OptionsRootDescription" xml:space="preserve">
+    <value>Shows a preview of XAML resources when you hover over StaticResource or DynamicResource.</value>
+  </data>
+  <data name="OptionsCategoryAppearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="OptionsMaxDefinitionsName" xml:space="preserve">
+    <value>Maximum number of other definitions</value>
+  </data>
+  <data name="OptionsMaxDefinitionsDescription" xml:space="preserve">
+    <value>How many other definitions of the same key are listed below the preview. 0 hides the list.</value>
+  </data>
+  <data name="OptionsTileSizeName" xml:space="preserve">
+    <value>Tile size (pixels)</value>
+  </data>
+  <data name="OptionsTileSizeDescription" xml:space="preserve">
+    <value>Width and height of a preview tile, between 16 and 256.</value>
+  </data>
+  <data name="OptionsTilesName" xml:space="preserve">
+    <value>Tiles</value>
+  </data>
+  <data name="OptionsTilesDescription" xml:space="preserve">
+    <value>Which preview tiles are shown.</value>
+  </data>
+  <data name="TilesBoth" xml:space="preserve">
+    <value>Light and dark</value>
+  </data>
+  <data name="TilesLight" xml:space="preserve">
+    <value>Light only</value>
+  </data>
+  <data name="TilesDark" xml:space="preserve">
+    <value>Dark only</value>
+  </data>
+  <data name="OptionsLightForegroundName" xml:space="preserve">
+    <value>Light tile: foreground color</value>
+  </data>
+  <data name="OptionsLightBackgroundName" xml:space="preserve">
+    <value>Light tile: background color</value>
+  </data>
+  <data name="OptionsDarkForegroundName" xml:space="preserve">
+    <value>Dark tile: foreground color</value>
+  </data>
+  <data name="OptionsDarkBackgroundName" xml:space="preserve">
+    <value>Dark tile: background color</value>
+  </data>
+  <data name="OptionsForegroundDescription" xml:space="preserve">
+    <value>Color for a Geometry, which has no color of its own. A color name or #RRGGBB.</value>
+  </data>
+  <data name="OptionsBackgroundDescription" xml:space="preserve">
+    <value>Background color of the tile. A color name or #RRGGBB.</value>
+  </data>
+  <data name="StyleInheritedFromFormat" xml:space="preserve">
+    <value>inherited from {0}</value>
+    <comment>{0} = key of the base style (BasedOn)</comment>
+  </data>
+  <data name="StyleTriggersFormat" xml:space="preserve">
+    <value>Triggers ({0}): {1}</value>
+    <comment>{0} = number of triggers, {1} = comma separated property names</comment>
+  </data>
+  <data name="StyleNoSetters" xml:space="preserve">
+    <value>No setters</value>
+  </data>
+  <data name="ThicknessFormat" xml:space="preserve">
+    <value>Left {0} · Top {1} · Right {2} · Bottom {3}</value>
+    <comment>{0}..{3} = left, top, right, bottom</comment>
+  </data>
+  <data name="CornerRadiusFormat" xml:space="preserve">
+    <value>Top left {0} · Top right {1} · Bottom right {2} · Bottom left {3}</value>
+    <comment>{0}..{3} = top left, top right, bottom right, bottom left</comment>
+  </data>
+  <data name="FontNotInstalledFormat" xml:space="preserve">
+    <value>{0} is not installed on this computer. The sample uses a fallback font.</value>
+    <comment>{0} = font family name</comment>
+  </data>
+  <data name="FontFileNotFoundFormat" xml:space="preserve">
+    <value>{0} was not found in {1}. The sample uses a fallback font.</value>
+    <comment>{0} = font family name, {1} = folder or file</comment>
+  </data>
+  <data name="SampleText" xml:space="preserve">
+    <value>Sample</value>
+    <comment>Text shown inside the live sample control</comment>
+  </data>
+  <data name="SampleNormal" xml:space="preserve">
+    <value>Normal</value>
+    <comment>Label under the enabled sample</comment>
+  </data>
+  <data name="SampleDisabled" xml:space="preserve">
+    <value>Disabled</value>
+    <comment>Label under the sample with IsEnabled=False</comment>
+  </data>
+  <data name="NoLiveSampleFormat" xml:space="preserve">
+    <value>No live sample: {0}</value>
+    <comment>{0} = error message from WPF</comment>
+  </data>
+  <data name="TemplateMoreElementsFormat" xml:space="preserve">
+    <value>… {0} more elements</value>
+    <comment>{0} = number of elements not shown</comment>
+  </data>
+  <data name="TemplateEmpty" xml:space="preserve">
+    <value>Empty template</value>
+    <comment>Template without elements</comment>
+  </data>
+  <data name="NoLiveSampleOwnTypeFormat" xml:space="preserve">
+    <value>No live sample: {0} is not a WPF type, so Visual Studio can't load it.</value>
+    <comment>{0} = type name with prefix, e.g. local:FancyControl</comment>
+  </data>
+  <data name="NoPreviewOwnTypeFormat" xml:space="preserve">
+    <value>No preview: {0} is not a WPF type, so Visual Studio can't load it.</value>
+    <comment>{0} = type name with prefix, e.g. local:Book</comment>
+  </data>
+  <data name="OptionsLiveSampleName" xml:space="preserve">
+    <value>Show live sample</value>
+  </data>
+  <data name="OptionsLiveSampleDescription" xml:space="preserve">
+    <value>Shows a real control with the style or ControlTemplate applied. A second, disabled sample appears when the style reacts to IsEnabled.</value>
+  </data>
+</root>

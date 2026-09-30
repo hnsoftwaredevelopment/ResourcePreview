@@ -1,0 +1,9 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Second definition of "Check": tests the "Also defined in" line in the tooltip. -->
+    <GeometryGroup x:Key="Check">
+        <Geometry>M2,12 L9,19 22,4 20,2 9,15 4,10 Z</Geometry>
+    </GeometryGroup>
+
+</ResourceDictionary>

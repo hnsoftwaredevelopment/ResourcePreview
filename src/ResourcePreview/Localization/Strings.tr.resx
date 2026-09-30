@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="LocationFormat" xml:space="preserve">
+    <value>{0}, satır {1}</value>
+  </data>
+  <data name="AlsoDefinedIn" xml:space="preserve">
+    <value>Ayrıca şurada tanımlı:</value>
+  </data>
+  <data name="AndMoreFormat" xml:space="preserve">
+    <value>ve {0} tane daha</value>
+  </data>
+  <data name="NotFoundUnderFormat" xml:space="preserve">
+    <value>{0} altında bulunamadı</value>
+  </data>
+  <data name="CannotLoadFormat" xml:space="preserve">
+    <value>{0} '{1}' yüklenemiyor: {2}</value>
+  </data>
+  <data name="MissingInSolutionFormat" xml:space="preserve">
+    <value>Çözümde bulunamadı: {0}</value>
+  </data>
+  <data name="NoPreviewForFormat" xml:space="preserve">
+    <value>{0} için önizleme yok.</value>
+  </data>
+  <data name="CannotOpenFileFormat" xml:space="preserve">
+    <value>{0} açılamıyor.</value>
+  </data>
+  <data name="OptionsCategoryGeneral" xml:space="preserve">
+    <value>Genel</value>
+  </data>
+  <data name="OptionsLanguageName" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="OptionsLanguageDescription" xml:space="preserve">
+    <value>Önizlemedeki metinlerin dili. Otomatik, Visual Studio dilini kullanır.</value>
+  </data>
+  <data name="LanguageAutomatic" xml:space="preserve">
+    <value>Otomatik (Visual Studio dili)</value>
+  </data>
+  <data name="100" xml:space="preserve">
+    <value>XAML Resource Preview</value>
+  </data>
+  <data name="101" xml:space="preserve">
+    <value>Genel</value>
+  </data>
+  <data name="OptionsRootDescription" xml:space="preserve">
+    <value>StaticResource veya DynamicResource üzerine geldiğinizde XAML kaynaklarının önizlemesini gösterir.</value>
+  </data>
+  <data name="OptionsCategoryAppearance" xml:space="preserve">
+    <value>Görünüm</value>
+  </data>
+  <data name="OptionsMaxDefinitionsName" xml:space="preserve">
+    <value>Diğer tanımların en fazla sayısı</value>
+  </data>
+  <data name="OptionsMaxDefinitionsDescription" xml:space="preserve">
+    <value>Aynı anahtarın kaç başka tanımının önizlemenin altında listeleneceği. 0 listeyi gizler.</value>
+  </data>
+  <data name="OptionsTileSizeName" xml:space="preserve">
+    <value>Kutucuk boyutu (piksel)</value>
+  </data>
+  <data name="OptionsTileSizeDescription" xml:space="preserve">
+    <value>Önizleme kutucuğunun genişliği ve yüksekliği, 16 ile 256 arasında.</value>
+  </data>
+  <data name="OptionsTilesName" xml:space="preserve">
+    <value>Kutucuklar</value>
+  </data>
+  <data name="OptionsTilesDescription" xml:space="preserve">
+    <value>Hangi önizleme kutucuklarının gösterileceği.</value>
+  </data>
+  <data name="TilesBoth" xml:space="preserve">
+    <value>Açık ve koyu</value>
+  </data>
+  <data name="TilesLight" xml:space="preserve">
+    <value>Yalnızca açık</value>
+  </data>
+  <data name="TilesDark" xml:space="preserve">
+    <value>Yalnızca koyu</value>
+  </data>
+  <data name="OptionsLightForegroundName" xml:space="preserve">
+    <value>Açık kutucuk: ön plan rengi</value>
+  </data>
+  <data name="OptionsLightBackgroundName" xml:space="preserve">
+    <value>Açık kutucuk: arka plan rengi</value>
+  </data>
+  <data name="OptionsDarkForegroundName" xml:space="preserve">
+    <value>Koyu kutucuk: ön plan rengi</value>
+  </data>
+  <data name="OptionsDarkBackgroundName" xml:space="preserve">
+    <value>Koyu kutucuk: arka plan rengi</value>
+  </data>
+  <data name="OptionsForegroundDescription" xml:space="preserve">
+    <value>Kendi rengi olmayan bir Geometry için renk. Bir renk adı veya #RRGGBB.</value>
+  </data>
+  <data name="OptionsBackgroundDescription" xml:space="preserve">
+    <value>Kutucuğun arka plan rengi. Bir renk adı veya #RRGGBB.</value>
+  </data>
+  <data name="StyleInheritedFromFormat" xml:space="preserve">
+    <value>{0} öğesinden devralındı</value>
+  </data>
+  <data name="StyleTriggersFormat" xml:space="preserve">
+    <value>Tetikleyiciler ({0}): {1}</value>
+  </data>
+  <data name="StyleNoSetters" xml:space="preserve">
+    <value>Setter yok</value>
+  </data>
+  <data name="ThicknessFormat" xml:space="preserve">
+    <value>Sol {0} · Üst {1} · Sağ {2} · Alt {3}</value>
+  </data>
+  <data name="CornerRadiusFormat" xml:space="preserve">
+    <value>Sol üst {0} · Sağ üst {1} · Sağ alt {2} · Sol alt {3}</value>
+  </data>
+  <data name="FontNotInstalledFormat" xml:space="preserve">
+    <value>{0} bu bilgisayarda yüklü değil. Örnek, yedek bir yazı tipi kullanıyor.</value>
+  </data>
+  <data name="FontFileNotFoundFormat" xml:space="preserve">
+    <value>{0}, {1} içinde bulunamadı. Örnek, yedek bir yazı tipi kullanıyor.</value>
+  </data>
+  <data name="SampleText" xml:space="preserve">
+    <value>Örnek</value>
+  </data>
+  <data name="SampleNormal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="SampleDisabled" xml:space="preserve">
+    <value>Devre dışı</value>
+  </data>
+  <data name="NoLiveSampleFormat" xml:space="preserve">
+    <value>Canlı örnek yok: {0}</value>
+  </data>
+  <data name="TemplateMoreElementsFormat" xml:space="preserve">
+    <value>… {0} öğe daha</value>
+  </data>
+  <data name="TemplateEmpty" xml:space="preserve">
+    <value>Boş şablon</value>
+  </data>
+  <data name="NoLiveSampleOwnTypeFormat" xml:space="preserve">
+    <value>Canlı örnek yok: {0} bir WPF türü değil, bu yüzden Visual Studio onu yükleyemiyor.</value>
+  </data>
+  <data name="NoPreviewOwnTypeFormat" xml:space="preserve">
+    <value>Önizleme yok: {0} bir WPF türü değil, bu yüzden Visual Studio onu yükleyemiyor.</value>
+  </data>
+  <data name="OptionsLiveSampleName" xml:space="preserve">
+    <value>Canlı örneği göster</value>
+  </data>
+  <data name="OptionsLiveSampleDescription" xml:space="preserve">
+    <value>Stilin veya ControlTemplate'in uygulandığı gerçek bir denetim gösterir. Stil IsEnabled'a tepki veriyorsa ikinci, devre dışı bir örnek görünür.</value>
+  </data>
+</root>

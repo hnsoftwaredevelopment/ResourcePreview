@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="LocationFormat" xml:space="preserve">
+    <value>{0}, {1}줄</value>
+  </data>
+  <data name="AlsoDefinedIn" xml:space="preserve">
+    <value>다른 정의 위치:</value>
+  </data>
+  <data name="AndMoreFormat" xml:space="preserve">
+    <value>외 {0}개</value>
+  </data>
+  <data name="NotFoundUnderFormat" xml:space="preserve">
+    <value>{0}에서 찾을 수 없음</value>
+  </data>
+  <data name="CannotLoadFormat" xml:space="preserve">
+    <value>{0} '{1}'을(를) 로드할 수 없습니다: {2}</value>
+  </data>
+  <data name="MissingInSolutionFormat" xml:space="preserve">
+    <value>솔루션에서 찾을 수 없음: {0}</value>
+  </data>
+  <data name="NoPreviewForFormat" xml:space="preserve">
+    <value>{0}에 대한 미리 보기가 없습니다.</value>
+  </data>
+  <data name="CannotOpenFileFormat" xml:space="preserve">
+    <value>{0}을(를) 열 수 없습니다.</value>
+  </data>
+  <data name="OptionsCategoryGeneral" xml:space="preserve">
+    <value>일반</value>
+  </data>
+  <data name="OptionsLanguageName" xml:space="preserve">
+    <value>언어</value>
+  </data>
+  <data name="OptionsLanguageDescription" xml:space="preserve">
+    <value>미리 보기 텍스트의 언어입니다. 자동은 Visual Studio 언어를 사용합니다.</value>
+  </data>
+  <data name="LanguageAutomatic" xml:space="preserve">
+    <value>자동(Visual Studio 언어)</value>
+  </data>
+  <data name="100" xml:space="preserve">
+    <value>XAML Resource Preview</value>
+  </data>
+  <data name="101" xml:space="preserve">
+    <value>일반</value>
+  </data>
+  <data name="OptionsRootDescription" xml:space="preserve">
+    <value>StaticResource 또는 DynamicResource 위에 마우스를 올리면 XAML 리소스의 미리 보기를 표시합니다.</value>
+  </data>
+  <data name="OptionsCategoryAppearance" xml:space="preserve">
+    <value>모양</value>
+  </data>
+  <data name="OptionsMaxDefinitionsName" xml:space="preserve">
+    <value>다른 정의의 최대 개수</value>
+  </data>
+  <data name="OptionsMaxDefinitionsDescription" xml:space="preserve">
+    <value>미리 보기 아래에 표시할 같은 키의 다른 정의 개수입니다. 0이면 목록을 숨깁니다.</value>
+  </data>
+  <data name="OptionsTileSizeName" xml:space="preserve">
+    <value>타일 크기(픽셀)</value>
+  </data>
+  <data name="OptionsTileSizeDescription" xml:space="preserve">
+    <value>미리 보기 타일의 너비와 높이(16~256).</value>
+  </data>
+  <data name="OptionsTilesName" xml:space="preserve">
+    <value>타일</value>
+  </data>
+  <data name="OptionsTilesDescription" xml:space="preserve">
+    <value>표시할 미리 보기 타일입니다.</value>
+  </data>
+  <data name="TilesBoth" xml:space="preserve">
+    <value>밝게 및 어둡게</value>
+  </data>
+  <data name="TilesLight" xml:space="preserve">
+    <value>밝게만</value>
+  </data>
+  <data name="TilesDark" xml:space="preserve">
+    <value>어둡게만</value>
+  </data>
+  <data name="OptionsLightForegroundName" xml:space="preserve">
+    <value>밝은 타일: 전경색</value>
+  </data>
+  <data name="OptionsLightBackgroundName" xml:space="preserve">
+    <value>밝은 타일: 배경색</value>
+  </data>
+  <data name="OptionsDarkForegroundName" xml:space="preserve">
+    <value>어두운 타일: 전경색</value>
+  </data>
+  <data name="OptionsDarkBackgroundName" xml:space="preserve">
+    <value>어두운 타일: 배경색</value>
+  </data>
+  <data name="OptionsForegroundDescription" xml:space="preserve">
+    <value>자체 색이 없는 Geometry에 사용할 색입니다. 색 이름 또는 #RRGGBB.</value>
+  </data>
+  <data name="OptionsBackgroundDescription" xml:space="preserve">
+    <value>타일의 배경색입니다. 색 이름 또는 #RRGGBB.</value>
+  </data>
+  <data name="StyleInheritedFromFormat" xml:space="preserve">
+    <value>{0}에서 상속됨</value>
+  </data>
+  <data name="StyleTriggersFormat" xml:space="preserve">
+    <value>트리거({0}): {1}</value>
+  </data>
+  <data name="StyleNoSetters" xml:space="preserve">
+    <value>Setter 없음</value>
+  </data>
+  <data name="ThicknessFormat" xml:space="preserve">
+    <value>왼쪽 {0} · 위쪽 {1} · 오른쪽 {2} · 아래쪽 {3}</value>
+  </data>
+  <data name="CornerRadiusFormat" xml:space="preserve">
+    <value>왼쪽 위 {0} · 오른쪽 위 {1} · 오른쪽 아래 {2} · 왼쪽 아래 {3}</value>
+  </data>
+  <data name="FontNotInstalledFormat" xml:space="preserve">
+    <value>{0}이(가) 이 컴퓨터에 설치되어 있지 않습니다. 샘플은 대체 글꼴을 사용합니다.</value>
+  </data>
+  <data name="FontFileNotFoundFormat" xml:space="preserve">
+    <value>{1}에서 {0}을(를) 찾을 수 없습니다. 샘플은 대체 글꼴을 사용합니다.</value>
+  </data>
+  <data name="SampleText" xml:space="preserve">
+    <value>샘플</value>
+  </data>
+  <data name="SampleNormal" xml:space="preserve">
+    <value>보통</value>
+  </data>
+  <data name="SampleDisabled" xml:space="preserve">
+    <value>사용 안 함</value>
+  </data>
+  <data name="NoLiveSampleFormat" xml:space="preserve">
+    <value>라이브 샘플 없음: {0}</value>
+  </data>
+  <data name="TemplateMoreElementsFormat" xml:space="preserve">
+    <value>… 요소 {0}개 더</value>
+  </data>
+  <data name="TemplateEmpty" xml:space="preserve">
+    <value>빈 템플릿</value>
+  </data>
+  <data name="NoLiveSampleOwnTypeFormat" xml:space="preserve">
+    <value>라이브 샘플 없음: {0}은(는) WPF 형식이 아니므로 Visual Studio에서 로드할 수 없습니다.</value>
+  </data>
+  <data name="NoPreviewOwnTypeFormat" xml:space="preserve">
+    <value>미리 보기 없음: {0}은(는) WPF 형식이 아니므로 Visual Studio에서 로드할 수 없습니다.</value>
+  </data>
+  <data name="OptionsLiveSampleName" xml:space="preserve">
+    <value>라이브 샘플 표시</value>
+  </data>
+  <data name="OptionsLiveSampleDescription" xml:space="preserve">
+    <value>스타일 또는 ControlTemplate이 적용된 실제 컨트롤을 표시합니다. 스타일이 IsEnabled에 반응하면 사용 안 함 상태의 두 번째 샘플이 표시됩니다.</value>
+  </data>
+</root>

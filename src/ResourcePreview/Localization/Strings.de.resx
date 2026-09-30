@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="LocationFormat" xml:space="preserve">
+    <value>{0}, Zeile {1}</value>
+  </data>
+  <data name="AlsoDefinedIn" xml:space="preserve">
+    <value>Ebenfalls definiert in:</value>
+  </data>
+  <data name="AndMoreFormat" xml:space="preserve">
+    <value>und {0} weitere</value>
+  </data>
+  <data name="NotFoundUnderFormat" xml:space="preserve">
+    <value>nicht gefunden unter {0}</value>
+  </data>
+  <data name="CannotLoadFormat" xml:space="preserve">
+    <value>{0} '{1}' kann nicht geladen werden: {2}</value>
+  </data>
+  <data name="MissingInSolutionFormat" xml:space="preserve">
+    <value>In der Projektmappe nicht gefunden: {0}</value>
+  </data>
+  <data name="NoPreviewForFormat" xml:space="preserve">
+    <value>Keine Vorschau verfügbar für {0}.</value>
+  </data>
+  <data name="CannotOpenFileFormat" xml:space="preserve">
+    <value>{0} kann nicht geöffnet werden.</value>
+  </data>
+  <data name="OptionsCategoryGeneral" xml:space="preserve">
+    <value>Allgemein</value>
+  </data>
+  <data name="OptionsLanguageName" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="OptionsLanguageDescription" xml:space="preserve">
+    <value>Sprache der Texte in der Vorschau. Automatisch verwendet die Sprache von Visual Studio.</value>
+  </data>
+  <data name="LanguageAutomatic" xml:space="preserve">
+    <value>Automatisch (Sprache von Visual Studio)</value>
+  </data>
+  <data name="100" xml:space="preserve">
+    <value>XAML Resource Preview</value>
+  </data>
+  <data name="101" xml:space="preserve">
+    <value>Allgemein</value>
+  </data>
+  <data name="OptionsRootDescription" xml:space="preserve">
+    <value>Zeigt eine Vorschau von XAML-Ressourcen, wenn Sie auf StaticResource oder DynamicResource zeigen.</value>
+  </data>
+  <data name="OptionsCategoryAppearance" xml:space="preserve">
+    <value>Darstellung</value>
+  </data>
+  <data name="OptionsMaxDefinitionsName" xml:space="preserve">
+    <value>Maximale Anzahl weiterer Definitionen</value>
+  </data>
+  <data name="OptionsMaxDefinitionsDescription" xml:space="preserve">
+    <value>Wie viele weitere Definitionen desselben Schlüssels unter der Vorschau aufgeführt werden. 0 blendet die Liste aus.</value>
+  </data>
+  <data name="OptionsTileSizeName" xml:space="preserve">
+    <value>Kachelgröße (Pixel)</value>
+  </data>
+  <data name="OptionsTileSizeDescription" xml:space="preserve">
+    <value>Breite und Höhe einer Vorschaukachel, zwischen 16 und 256.</value>
+  </data>
+  <data name="OptionsTilesName" xml:space="preserve">
+    <value>Kacheln</value>
+  </data>
+  <data name="OptionsTilesDescription" xml:space="preserve">
+    <value>Welche Vorschaukacheln angezeigt werden.</value>
+  </data>
+  <data name="TilesBoth" xml:space="preserve">
+    <value>Hell und dunkel</value>
+  </data>
+  <data name="TilesLight" xml:space="preserve">
+    <value>Nur hell</value>
+  </data>
+  <data name="TilesDark" xml:space="preserve">
+    <value>Nur dunkel</value>
+  </data>
+  <data name="OptionsLightForegroundName" xml:space="preserve">
+    <value>Helle Kachel: Vordergrundfarbe</value>
+  </data>
+  <data name="OptionsLightBackgroundName" xml:space="preserve">
+    <value>Helle Kachel: Hintergrundfarbe</value>
+  </data>
+  <data name="OptionsDarkForegroundName" xml:space="preserve">
+    <value>Dunkle Kachel: Vordergrundfarbe</value>
+  </data>
+  <data name="OptionsDarkBackgroundName" xml:space="preserve">
+    <value>Dunkle Kachel: Hintergrundfarbe</value>
+  </data>
+  <data name="OptionsForegroundDescription" xml:space="preserve">
+    <value>Farbe für eine Geometry, die keine eigene Farbe hat. Ein Farbname oder #RRGGBB.</value>
+  </data>
+  <data name="OptionsBackgroundDescription" xml:space="preserve">
+    <value>Hintergrundfarbe der Kachel. Ein Farbname oder #RRGGBB.</value>
+  </data>
+  <data name="StyleInheritedFromFormat" xml:space="preserve">
+    <value>geerbt von {0}</value>
+  </data>
+  <data name="StyleTriggersFormat" xml:space="preserve">
+    <value>Trigger ({0}): {1}</value>
+  </data>
+  <data name="StyleNoSetters" xml:space="preserve">
+    <value>Keine Setter</value>
+  </data>
+  <data name="ThicknessFormat" xml:space="preserve">
+    <value>Links {0} · Oben {1} · Rechts {2} · Unten {3}</value>
+  </data>
+  <data name="CornerRadiusFormat" xml:space="preserve">
+    <value>Oben links {0} · Oben rechts {1} · Unten rechts {2} · Unten links {3}</value>
+  </data>
+  <data name="FontNotInstalledFormat" xml:space="preserve">
+    <value>{0} ist auf diesem Computer nicht installiert. Das Beispiel verwendet eine Ersatzschriftart.</value>
+  </data>
+  <data name="FontFileNotFoundFormat" xml:space="preserve">
+    <value>{0} wurde in {1} nicht gefunden. Das Beispiel verwendet eine Ersatzschriftart.</value>
+  </data>
+  <data name="SampleText" xml:space="preserve">
+    <value>Beispiel</value>
+  </data>
+  <data name="SampleNormal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="SampleDisabled" xml:space="preserve">
+    <value>Deaktiviert</value>
+  </data>
+  <data name="NoLiveSampleFormat" xml:space="preserve">
+    <value>Kein Livebeispiel: {0}</value>
+  </data>
+  <data name="TemplateMoreElementsFormat" xml:space="preserve">
+    <value>… {0} weitere Elemente</value>
+  </data>
+  <data name="TemplateEmpty" xml:space="preserve">
+    <value>Leere Vorlage</value>
+  </data>
+  <data name="NoLiveSampleOwnTypeFormat" xml:space="preserve">
+    <value>Kein Livebeispiel: {0} ist kein WPF-Typ, daher kann Visual Studio ihn nicht laden.</value>
+  </data>
+  <data name="NoPreviewOwnTypeFormat" xml:space="preserve">
+    <value>Keine Vorschau: {0} ist kein WPF-Typ, daher kann Visual Studio ihn nicht laden.</value>
+  </data>
+  <data name="OptionsLiveSampleName" xml:space="preserve">
+    <value>Livebeispiel anzeigen</value>
+  </data>
+  <data name="OptionsLiveSampleDescription" xml:space="preserve">
+    <value>Zeigt ein echtes Steuerelement mit dem Stil oder der ControlTemplate. Ein zweites, deaktiviertes Beispiel erscheint, wenn der Stil auf IsEnabled reagiert.</value>
+  </data>
+</root>

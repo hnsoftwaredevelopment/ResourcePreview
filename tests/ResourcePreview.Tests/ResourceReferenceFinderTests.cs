@@ -1,0 +1,126 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ResourcePreview.QuickInfo;
+
+namespace ResourcePreview.Tests
+{
+    /// <summary>Finds the key under the mouse. The position is an index in the line (0 = first character).</summary>
+    [TestClass]
+    public class ResourceReferenceFinderTests
+    {
+        private static ResourceReference FindAt(string line, string hoverText, int offsetInHoverText = 1)
+        {
+            int position = line.IndexOf(hoverText) + offsetInHoverText;
+            Assert.IsTrue(ResourceReferenceFinder.TryFind(line, position, out ResourceReference reference), $"Nothing found at position {position} in: {line}");
+            return reference;
+        }
+
+        [TestMethod]
+        public void StaticResource_KeyIsFound()
+        {
+            var reference = FindAt("<Path Data=\"{StaticResource BuildInstaller}\" />", "BuildInstaller");
+            Assert.AreEqual("BuildInstaller", reference.Key);
+        }
+
+        [TestMethod]
+        public void DynamicResource_KeyIsFound()
+        {
+            var reference = FindAt("<Path Fill=\"{DynamicResource AccentBrush}\" />", "AccentBrush");
+            Assert.AreEqual("AccentBrush", reference.Key);
+        }
+
+        [TestMethod]
+        public void ResourceKeySyntax_KeyIsFound()
+        {
+            var reference = FindAt("<Image Source=\"{StaticResource ResourceKey=Report}\" />", "Report");
+            Assert.AreEqual("Report", reference.Key);
+        }
+
+        [TestMethod]
+        public void ExtraSpaces_KeyIsFound()
+        {
+            var reference = FindAt("<Path Data=\"{ StaticResource   Renew }\" />", "Renew");
+            Assert.AreEqual("Renew", reference.Key);
+        }
+
+        [TestMethod]
+        public void HoverOnMarkupExtensionName_AlsoCounts()
+        {
+            // The whole {StaticResource X} is the hover area, not just the key.
+            var reference = FindAt("<Path Data=\"{StaticResource Renew}\" />", "StaticResource");
+            Assert.AreEqual("Renew", reference.Key);
+        }
+
+        [TestMethod]
+        public void ApplicableSpan_CoversWholeMarkupExtension()
+        {
+            const string line = "<Path Data=\"{StaticResource Renew}\" />";
+            var reference = FindAt(line, "Renew");
+            Assert.AreEqual("{StaticResource Renew}", line.Substring(reference.Start, reference.Length));
+        }
+
+        [TestMethod]
+        public void ElementSyntax_KeyIsFound()
+        {
+            var reference = FindAt("<StaticResource ResourceKey=\"Folder\" />", "Folder");
+            Assert.AreEqual("Folder", reference.Key);
+        }
+
+        [TestMethod]
+        public void KeyDefinition_KeyIsFound()
+        {
+            var reference = FindAt("<GeometryGroup x:Key=\"Check\">", "Check");
+            Assert.AreEqual("Check", reference.Key);
+        }
+
+        [TestMethod]
+        public void NestedInBinding_InnerReferenceIsFound()
+        {
+            var reference = FindAt("<TextBlock Text=\"{Binding Source={StaticResource Model}, Path=Name}\" />", "Model");
+            Assert.AreEqual("Model", reference.Key);
+        }
+
+        [TestMethod]
+        public void TwoReferencesOnOneLine_TheOneUnderTheMouseWins()
+        {
+            const string line = "<Path Data=\"{StaticResource Renew}\" Fill=\"{StaticResource AccentBrush}\" />";
+            Assert.AreEqual("Renew", FindAt(line, "Renew").Key);
+            Assert.AreEqual("AccentBrush", FindAt(line, "AccentBrush").Key);
+        }
+
+        [TestMethod]
+        public void LastCharacterOfReference_StillCounts()
+        {
+            const string line = "<Path Data=\"{StaticResource Renew}\" />";
+            int closingBrace = line.IndexOf('}');
+            Assert.IsTrue(ResourceReferenceFinder.TryFind(line, closingBrace + 1, out _));
+        }
+
+        [TestMethod]
+        public void OutsideReference_NothingFound()
+        {
+            const string line = "<Path Data=\"{StaticResource Renew}\" Width=\"16\" />";
+            Assert.IsFalse(ResourceReferenceFinder.TryFind(line, line.IndexOf("Width"), out _));
+        }
+
+        [TestMethod]
+        public void OtherMarkupExtension_NothingFound()
+        {
+            const string line = "<TextBlock Text=\"{Binding Title}\" />";
+            Assert.IsFalse(ResourceReferenceFinder.TryFind(line, line.IndexOf("Title"), out _));
+        }
+
+        [TestMethod]
+        public void TypedKey_IsIgnored()
+        {
+            // x:Key="{x:Type Button}" is not a name that can be looked up.
+            const string line = "<Style x:Key=\"{x:Type Button}\">";
+            Assert.IsFalse(ResourceReferenceFinder.TryFind(line, line.IndexOf("Button"), out _));
+        }
+
+        [TestMethod]
+        public void EmptyLine_NothingFound()
+        {
+            Assert.IsFalse(ResourceReferenceFinder.TryFind(string.Empty, 0, out _));
+        }
+    }
+}

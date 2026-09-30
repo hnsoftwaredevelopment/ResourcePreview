@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="LocationFormat" xml:space="preserve">
+    <value>{0}, línea {1}</value>
+  </data>
+  <data name="AlsoDefinedIn" xml:space="preserve">
+    <value>También definido en:</value>
+  </data>
+  <data name="AndMoreFormat" xml:space="preserve">
+    <value>y {0} más</value>
+  </data>
+  <data name="NotFoundUnderFormat" xml:space="preserve">
+    <value>no se encontró en {0}</value>
+  </data>
+  <data name="CannotLoadFormat" xml:space="preserve">
+    <value>No se puede cargar {0} '{1}': {2}</value>
+  </data>
+  <data name="MissingInSolutionFormat" xml:space="preserve">
+    <value>No se encontró en la solución: {0}</value>
+  </data>
+  <data name="NoPreviewForFormat" xml:space="preserve">
+    <value>No hay vista previa disponible para {0}.</value>
+  </data>
+  <data name="CannotOpenFileFormat" xml:space="preserve">
+    <value>No se puede abrir {0}.</value>
+  </data>
+  <data name="OptionsCategoryGeneral" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="OptionsLanguageName" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="OptionsLanguageDescription" xml:space="preserve">
+    <value>Idioma de los textos de la vista previa. Automático usa el idioma de Visual Studio.</value>
+  </data>
+  <data name="LanguageAutomatic" xml:space="preserve">
+    <value>Automático (idioma de Visual Studio)</value>
+  </data>
+  <data name="100" xml:space="preserve">
+    <value>XAML Resource Preview</value>
+  </data>
+  <data name="101" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="OptionsRootDescription" xml:space="preserve">
+    <value>Muestra una vista previa de los recursos XAML al pasar el puntero sobre StaticResource o DynamicResource.</value>
+  </data>
+  <data name="OptionsCategoryAppearance" xml:space="preserve">
+    <value>Apariencia</value>
+  </data>
+  <data name="OptionsMaxDefinitionsName" xml:space="preserve">
+    <value>Número máximo de otras definiciones</value>
+  </data>
+  <data name="OptionsMaxDefinitionsDescription" xml:space="preserve">
+    <value>Cuántas otras definiciones de la misma clave se muestran debajo de la vista previa. 0 oculta la lista.</value>
+  </data>
+  <data name="OptionsTileSizeName" xml:space="preserve">
+    <value>Tamaño del mosaico (píxeles)</value>
+  </data>
+  <data name="OptionsTileSizeDescription" xml:space="preserve">
+    <value>Ancho y alto de un mosaico de vista previa, entre 16 y 256.</value>
+  </data>
+  <data name="OptionsTilesName" xml:space="preserve">
+    <value>Mosaicos</value>
+  </data>
+  <data name="OptionsTilesDescription" xml:space="preserve">
+    <value>Qué mosaicos de vista previa se muestran.</value>
+  </data>
+  <data name="TilesBoth" xml:space="preserve">
+    <value>Claro y oscuro</value>
+  </data>
+  <data name="TilesLight" xml:space="preserve">
+    <value>Solo claro</value>
+  </data>
+  <data name="TilesDark" xml:space="preserve">
+    <value>Solo oscuro</value>
+  </data>
+  <data name="OptionsLightForegroundName" xml:space="preserve">
+    <value>Mosaico claro: color de primer plano</value>
+  </data>
+  <data name="OptionsLightBackgroundName" xml:space="preserve">
+    <value>Mosaico claro: color de fondo</value>
+  </data>
+  <data name="OptionsDarkForegroundName" xml:space="preserve">
+    <value>Mosaico oscuro: color de primer plano</value>
+  </data>
+  <data name="OptionsDarkBackgroundName" xml:space="preserve">
+    <value>Mosaico oscuro: color de fondo</value>
+  </data>
+  <data name="OptionsForegroundDescription" xml:space="preserve">
+    <value>Color para una Geometry, que no tiene color propio. Un nombre de color o #RRGGBB.</value>
+  </data>
+  <data name="OptionsBackgroundDescription" xml:space="preserve">
+    <value>Color de fondo del mosaico. Un nombre de color o #RRGGBB.</value>
+  </data>
+  <data name="StyleInheritedFromFormat" xml:space="preserve">
+    <value>heredado de {0}</value>
+  </data>
+  <data name="StyleTriggersFormat" xml:space="preserve">
+    <value>Desencadenadores ({0}): {1}</value>
+  </data>
+  <data name="StyleNoSetters" xml:space="preserve">
+    <value>Sin setters</value>
+  </data>
+  <data name="ThicknessFormat" xml:space="preserve">
+    <value>Izquierda {0} · Arriba {1} · Derecha {2} · Abajo {3}</value>
+  </data>
+  <data name="CornerRadiusFormat" xml:space="preserve">
+    <value>Superior izquierda {0} · Superior derecha {1} · Inferior derecha {2} · Inferior izquierda {3}</value>
+  </data>
+  <data name="FontNotInstalledFormat" xml:space="preserve">
+    <value>{0} no está instalada en este equipo. El ejemplo usa una fuente de reserva.</value>
+  </data>
+  <data name="FontFileNotFoundFormat" xml:space="preserve">
+    <value>No se encontró {0} en {1}. El ejemplo usa una fuente de reserva.</value>
+  </data>
+  <data name="SampleText" xml:space="preserve">
+    <value>Ejemplo</value>
+  </data>
+  <data name="SampleNormal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="SampleDisabled" xml:space="preserve">
+    <value>Deshabilitado</value>
+  </data>
+  <data name="NoLiveSampleFormat" xml:space="preserve">
+    <value>Sin vista previa en vivo: {0}</value>
+  </data>
+  <data name="TemplateMoreElementsFormat" xml:space="preserve">
+    <value>… {0} elementos más</value>
+  </data>
+  <data name="TemplateEmpty" xml:space="preserve">
+    <value>Plantilla vacía</value>
+  </data>
+  <data name="NoLiveSampleOwnTypeFormat" xml:space="preserve">
+    <value>Sin vista previa en vivo: {0} no es un tipo de WPF, por lo que Visual Studio no puede cargarlo.</value>
+  </data>
+  <data name="NoPreviewOwnTypeFormat" xml:space="preserve">
+    <value>Sin vista previa: {0} no es un tipo de WPF, por lo que Visual Studio no puede cargarlo.</value>
+  </data>
+  <data name="OptionsLiveSampleName" xml:space="preserve">
+    <value>Mostrar vista previa en vivo</value>
+  </data>
+  <data name="OptionsLiveSampleDescription" xml:space="preserve">
+    <value>Muestra un control real con el estilo o la ControlTemplate aplicados. Aparece un segundo ejemplo deshabilitado si el estilo reacciona a IsEnabled.</value>
+  </data>
+</root>

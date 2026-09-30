@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="LocationFormat" xml:space="preserve">
+    <value>{0}，第 {1} 行</value>
+  </data>
+  <data name="AlsoDefinedIn" xml:space="preserve">
+    <value>也定義於:</value>
+  </data>
+  <data name="AndMoreFormat" xml:space="preserve">
+    <value>以及其他 {0} 個</value>
+  </data>
+  <data name="NotFoundUnderFormat" xml:space="preserve">
+    <value>在 {0} 下找不到</value>
+  </data>
+  <data name="CannotLoadFormat" xml:space="preserve">
+    <value>無法載入 {0} '{1}': {2}</value>
+  </data>
+  <data name="MissingInSolutionFormat" xml:space="preserve">
+    <value>在方案中找不到: {0}</value>
+  </data>
+  <data name="NoPreviewForFormat" xml:space="preserve">
+    <value>{0} 沒有可用的預覽。</value>
+  </data>
+  <data name="CannotOpenFileFormat" xml:space="preserve">
+    <value>無法開啟 {0}。</value>
+  </data>
+  <data name="OptionsCategoryGeneral" xml:space="preserve">
+    <value>一般</value>
+  </data>
+  <data name="OptionsLanguageName" xml:space="preserve">
+    <value>語言</value>
+  </data>
+  <data name="OptionsLanguageDescription" xml:space="preserve">
+    <value>預覽中文字的語言。「自動」會使用 Visual Studio 的語言。</value>
+  </data>
+  <data name="LanguageAutomatic" xml:space="preserve">
+    <value>自動 (Visual Studio 語言)</value>
+  </data>
+  <data name="100" xml:space="preserve">
+    <value>XAML Resource Preview</value>
+  </data>
+  <data name="101" xml:space="preserve">
+    <value>一般</value>
+  </data>
+  <data name="OptionsRootDescription" xml:space="preserve">
+    <value>將滑鼠停留在 StaticResource 或 DynamicResource 上時顯示 XAML 資源的預覽。</value>
+  </data>
+  <data name="OptionsCategoryAppearance" xml:space="preserve">
+    <value>外觀</value>
+  </data>
+  <data name="OptionsMaxDefinitionsName" xml:space="preserve">
+    <value>其他定義的最大數量</value>
+  </data>
+  <data name="OptionsMaxDefinitionsDescription" xml:space="preserve">
+    <value>在預覽下方列出同一索引鍵的其他定義數量。0 表示隱藏清單。</value>
+  </data>
+  <data name="OptionsTileSizeName" xml:space="preserve">
+    <value>圖格大小 (像素)</value>
+  </data>
+  <data name="OptionsTileSizeDescription" xml:space="preserve">
+    <value>預覽圖格的寬度和高度，介於 16 到 256 之間。</value>
+  </data>
+  <data name="OptionsTilesName" xml:space="preserve">
+    <value>圖格</value>
+  </data>
+  <data name="OptionsTilesDescription" xml:space="preserve">
+    <value>要顯示的預覽圖格。</value>
+  </data>
+  <data name="TilesBoth" xml:space="preserve">
+    <value>淺色和深色</value>
+  </data>
+  <data name="TilesLight" xml:space="preserve">
+    <value>僅淺色</value>
+  </data>
+  <data name="TilesDark" xml:space="preserve">
+    <value>僅深色</value>
+  </data>
+  <data name="OptionsLightForegroundName" xml:space="preserve">
+    <value>淺色圖格: 前景色彩</value>
+  </data>
+  <data name="OptionsLightBackgroundName" xml:space="preserve">
+    <value>淺色圖格: 背景色彩</value>
+  </data>
+  <data name="OptionsDarkForegroundName" xml:space="preserve">
+    <value>深色圖格: 前景色彩</value>
+  </data>
+  <data name="OptionsDarkBackgroundName" xml:space="preserve">
+    <value>深色圖格: 背景色彩</value>
+  </data>
+  <data name="OptionsForegroundDescription" xml:space="preserve">
+    <value>用於沒有自身色彩之 Geometry 的色彩。色彩名稱或 #RRGGBB。</value>
+  </data>
+  <data name="OptionsBackgroundDescription" xml:space="preserve">
+    <value>圖格的背景色彩。色彩名稱或 #RRGGBB。</value>
+  </data>
+  <data name="StyleInheritedFromFormat" xml:space="preserve">
+    <value>繼承自 {0}</value>
+  </data>
+  <data name="StyleTriggersFormat" xml:space="preserve">
+    <value>觸發程序 ({0}): {1}</value>
+  </data>
+  <data name="StyleNoSetters" xml:space="preserve">
+    <value>沒有 Setter</value>
+  </data>
+  <data name="ThicknessFormat" xml:space="preserve">
+    <value>左 {0} · 上 {1} · 右 {2} · 下 {3}</value>
+  </data>
+  <data name="CornerRadiusFormat" xml:space="preserve">
+    <value>左上 {0} · 右上 {1} · 右下 {2} · 左下 {3}</value>
+  </data>
+  <data name="FontNotInstalledFormat" xml:space="preserve">
+    <value>此電腦未安裝 {0}。範例使用替代字型。</value>
+  </data>
+  <data name="FontFileNotFoundFormat" xml:space="preserve">
+    <value>在 {1} 中找不到 {0}。範例使用替代字型。</value>
+  </data>
+  <data name="SampleText" xml:space="preserve">
+    <value>範例</value>
+  </data>
+  <data name="SampleNormal" xml:space="preserve">
+    <value>正常</value>
+  </data>
+  <data name="SampleDisabled" xml:space="preserve">
+    <value>已停用</value>
+  </data>
+  <data name="NoLiveSampleFormat" xml:space="preserve">
+    <value>沒有即時範例: {0}</value>
+  </data>
+  <data name="TemplateMoreElementsFormat" xml:space="preserve">
+    <value>… 另有 {0} 個元素</value>
+  </data>
+  <data name="TemplateEmpty" xml:space="preserve">
+    <value>空白範本</value>
+  </data>
+  <data name="NoLiveSampleOwnTypeFormat" xml:space="preserve">
+    <value>沒有即時範例: {0} 不是 WPF 型別，因此 Visual Studio 無法載入。</value>
+  </data>
+  <data name="NoPreviewOwnTypeFormat" xml:space="preserve">
+    <value>沒有預覽: {0} 不是 WPF 型別，因此 Visual Studio 無法載入。</value>
+  </data>
+  <data name="OptionsLiveSampleName" xml:space="preserve">
+    <value>顯示即時範例</value>
+  </data>
+  <data name="OptionsLiveSampleDescription" xml:space="preserve">
+    <value>顯示套用該樣式或 ControlTemplate 的真實控制項。如果樣式會回應 IsEnabled，也會顯示第二個已停用的範例。</value>
+  </data>
+</root>

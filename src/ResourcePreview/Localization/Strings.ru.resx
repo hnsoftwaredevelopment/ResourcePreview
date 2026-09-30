@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="LocationFormat" xml:space="preserve">
+    <value>{0}, строка {1}</value>
+  </data>
+  <data name="AlsoDefinedIn" xml:space="preserve">
+    <value>Также определено в:</value>
+  </data>
+  <data name="AndMoreFormat" xml:space="preserve">
+    <value>и ещё {0}</value>
+  </data>
+  <data name="NotFoundUnderFormat" xml:space="preserve">
+    <value>не найдено в {0}</value>
+  </data>
+  <data name="CannotLoadFormat" xml:space="preserve">
+    <value>Не удалось загрузить {0} '{1}': {2}</value>
+  </data>
+  <data name="MissingInSolutionFormat" xml:space="preserve">
+    <value>Не найдено в решении: {0}</value>
+  </data>
+  <data name="NoPreviewForFormat" xml:space="preserve">
+    <value>Предварительный просмотр для {0} недоступен.</value>
+  </data>
+  <data name="CannotOpenFileFormat" xml:space="preserve">
+    <value>Не удалось открыть {0}.</value>
+  </data>
+  <data name="OptionsCategoryGeneral" xml:space="preserve">
+    <value>Общие</value>
+  </data>
+  <data name="OptionsLanguageName" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="OptionsLanguageDescription" xml:space="preserve">
+    <value>Язык текстов в предварительном просмотре. «Автоматически» использует язык Visual Studio.</value>
+  </data>
+  <data name="LanguageAutomatic" xml:space="preserve">
+    <value>Автоматически (язык Visual Studio)</value>
+  </data>
+  <data name="100" xml:space="preserve">
+    <value>XAML Resource Preview</value>
+  </data>
+  <data name="101" xml:space="preserve">
+    <value>Общие</value>
+  </data>
+  <data name="OptionsRootDescription" xml:space="preserve">
+    <value>Показывает предварительный просмотр ресурсов XAML при наведении на StaticResource или DynamicResource.</value>
+  </data>
+  <data name="OptionsCategoryAppearance" xml:space="preserve">
+    <value>Внешний вид</value>
+  </data>
+  <data name="OptionsMaxDefinitionsName" xml:space="preserve">
+    <value>Максимальное число других определений</value>
+  </data>
+  <data name="OptionsMaxDefinitionsDescription" xml:space="preserve">
+    <value>Сколько других определений того же ключа показывается под предварительным просмотром. 0 скрывает список.</value>
+  </data>
+  <data name="OptionsTileSizeName" xml:space="preserve">
+    <value>Размер плитки (пиксели)</value>
+  </data>
+  <data name="OptionsTileSizeDescription" xml:space="preserve">
+    <value>Ширина и высота плитки предварительного просмотра, от 16 до 256.</value>
+  </data>
+  <data name="OptionsTilesName" xml:space="preserve">
+    <value>Плитки</value>
+  </data>
+  <data name="OptionsTilesDescription" xml:space="preserve">
+    <value>Какие плитки предварительного просмотра показываются.</value>
+  </data>
+  <data name="TilesBoth" xml:space="preserve">
+    <value>Светлая и тёмная</value>
+  </data>
+  <data name="TilesLight" xml:space="preserve">
+    <value>Только светлая</value>
+  </data>
+  <data name="TilesDark" xml:space="preserve">
+    <value>Только тёмная</value>
+  </data>
+  <data name="OptionsLightForegroundName" xml:space="preserve">
+    <value>Светлая плитка: цвет переднего плана</value>
+  </data>
+  <data name="OptionsLightBackgroundName" xml:space="preserve">
+    <value>Светлая плитка: цвет фона</value>
+  </data>
+  <data name="OptionsDarkForegroundName" xml:space="preserve">
+    <value>Тёмная плитка: цвет переднего плана</value>
+  </data>
+  <data name="OptionsDarkBackgroundName" xml:space="preserve">
+    <value>Тёмная плитка: цвет фона</value>
+  </data>
+  <data name="OptionsForegroundDescription" xml:space="preserve">
+    <value>Цвет для Geometry, у которой нет собственного цвета. Имя цвета или #RRGGBB.</value>
+  </data>
+  <data name="OptionsBackgroundDescription" xml:space="preserve">
+    <value>Цвет фона плитки. Имя цвета или #RRGGBB.</value>
+  </data>
+  <data name="StyleInheritedFromFormat" xml:space="preserve">
+    <value>унаследовано от {0}</value>
+  </data>
+  <data name="StyleTriggersFormat" xml:space="preserve">
+    <value>Триггеры ({0}): {1}</value>
+  </data>
+  <data name="StyleNoSetters" xml:space="preserve">
+    <value>Нет сеттеров</value>
+  </data>
+  <data name="ThicknessFormat" xml:space="preserve">
+    <value>Слева {0} · Сверху {1} · Справа {2} · Снизу {3}</value>
+  </data>
+  <data name="CornerRadiusFormat" xml:space="preserve">
+    <value>Левый верхний {0} · Правый верхний {1} · Правый нижний {2} · Левый нижний {3}</value>
+  </data>
+  <data name="FontNotInstalledFormat" xml:space="preserve">
+    <value>Шрифт {0} не установлен на этом компьютере. В примере используется резервный шрифт.</value>
+  </data>
+  <data name="FontFileNotFoundFormat" xml:space="preserve">
+    <value>Шрифт {0} не найден в {1}. В примере используется резервный шрифт.</value>
+  </data>
+  <data name="SampleText" xml:space="preserve">
+    <value>Пример</value>
+  </data>
+  <data name="SampleNormal" xml:space="preserve">
+    <value>Обычный</value>
+  </data>
+  <data name="SampleDisabled" xml:space="preserve">
+    <value>Отключен</value>
+  </data>
+  <data name="NoLiveSampleFormat" xml:space="preserve">
+    <value>Нет живого примера: {0}</value>
+  </data>
+  <data name="TemplateMoreElementsFormat" xml:space="preserve">
+    <value>… еще элементов: {0}</value>
+  </data>
+  <data name="TemplateEmpty" xml:space="preserve">
+    <value>Пустой шаблон</value>
+  </data>
+  <data name="NoLiveSampleOwnTypeFormat" xml:space="preserve">
+    <value>Нет живого примера: {0} не является типом WPF, поэтому Visual Studio не может его загрузить.</value>
+  </data>
+  <data name="NoPreviewOwnTypeFormat" xml:space="preserve">
+    <value>Нет предварительного просмотра: {0} не является типом WPF, поэтому Visual Studio не может его загрузить.</value>
+  </data>
+  <data name="OptionsLiveSampleName" xml:space="preserve">
+    <value>Показывать живой пример</value>
+  </data>
+  <data name="OptionsLiveSampleDescription" xml:space="preserve">
+    <value>Показывает настоящий элемент управления с примененным стилем или ControlTemplate. Второй, отключенный пример появляется, если стиль реагирует на IsEnabled.</value>
+  </data>
+</root>

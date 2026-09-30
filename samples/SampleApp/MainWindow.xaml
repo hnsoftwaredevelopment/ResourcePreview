@@ -1,0 +1,70 @@
+<Window x:Class="SampleApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SampleApp"
+        Title="ResourcePreview test" Height="700" Width="420" Background="#FF2D2D30">
+    <!-- In the Experimental Instance, hover over the names after StaticResource / DynamicResource. -->
+    <StackPanel Margin="16">
+        <StackPanel Orientation="Horizontal" Margin="0,4">
+            <Path Data="{StaticResource Renew}" Fill="White" Stretch="Uniform" Width="16" Height="16" Margin="0,0,8,0" />
+            <TextBlock Text="Renew (GeometryGroup)" Foreground="White" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,4">
+            <Path Data="{StaticResource Search}" Fill="White" Stretch="Uniform" Width="16" Height="16" Margin="0,0,8,0" />
+            <TextBlock Text="Search (large coordinates)" Foreground="White" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,4">
+            <Path Data="{DynamicResource SwapTitleAuthorIconGeometry}" Fill="White" Stretch="Uniform" Width="16" Height="16" Margin="0,0,8,0" />
+            <TextBlock Text="SwapTitleAuthor (Geometry, DynamicResource)" Foreground="White" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,4">
+            <Image Source="{StaticResource Report}" Width="16" Height="16" Margin="0,0,8,0" />
+            <TextBlock Text="Report (DrawingImage, 2 levels deep)" Foreground="White" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,4">
+            <Image Source="{StaticResource Warning}" Width="16" Height="16" Margin="0,0,8,0" />
+            <TextBlock Text="Warning (brush from another file)" Foreground="{StaticResource AccentBrush}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,4">
+            <Path Data="{StaticResource Check}" Fill="White" Stretch="Uniform" Width="16" Height="16" Margin="0,0,8,0" />
+            <TextBlock Text="Check (2 definitions)" Foreground="White" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,4">
+            <Path Data="{StaticResource DoesNotExist}" Fill="White" Width="16" Height="16" Margin="0,0,8,0" />
+            <TextBlock Text="Does not exist (tests the message)" Foreground="White" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+            <Button Content="Primary" Style="{StaticResource PrimaryButton}" Margin="0,0,8,0" />
+            <Button Content="Danger" Style="{StaticResource DangerButton}" />
+        </StackPanel>
+
+        <!-- Values: fonts, margins, corners, sys: values and effects -->
+        <Border Margin="0,12,0,0" Padding="{StaticResource CardPadding}" CornerRadius="{StaticResource CardCorners}"
+                Background="#FF3E3E42" Effect="{StaticResource CardShadow}">
+            <StackPanel>
+                <TextBlock Text="{StaticResource AppTitle}" Foreground="White"
+                           FontFamily="{StaticResource HeaderFont}" FontSize="{StaticResource HeaderFontSize}" FontWeight="{StaticResource HeaderWeight}" />
+                <TextBlock Text="Cascadia Code with fallback" Foreground="White" FontFamily="{DynamicResource CodeFont}" />
+                <TextBlock Text="Missing font" Foreground="White" FontFamily="{StaticResource MissingFont}" />
+                <TextBlock Text="Debug info" Foreground="White" Visibility="{StaticResource DebugVisibility}" />
+            </StackPanel>
+        </Border>
+        <Border Margin="{StaticResource WideMargin}" CornerRadius="{StaticResource TabCorners}" Background="#FF007ACC" Height="8" />
+        <TextBlock Text="Blurred" Foreground="White" Effect="{StaticResource SoftBlur}" Tag="{StaticResource MaxItems}"
+                   ToolTip="{StaticResource ShowDebugInfo}" />
+
+        <!-- Live samples and templates -->
+        <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+            <TextBox Text="Search" Style="{StaticResource SearchBox}" Margin="0,0,8,0" />
+            <Button Content="Round" Template="{StaticResource RoundButtonTemplate}" Background="#FF3E3E42" Foreground="White" />
+        </StackPanel>
+        <local:FancyControl Template="{StaticResource FancyTemplate}" Style="{StaticResource FancyStyle}" Margin="0,8,0,0" />
+        <ContentControl Margin="0,8,0,0" ContentTemplate="{StaticResource BookTemplate}">
+            <local:Book Title="Moby-Dick" Author="Herman Melville" />
+        </ContentControl>
+        <ItemsControl ItemsPanel="{StaticResource WrapPanelTemplate}" Foreground="White" Margin="0,8,0,0">
+            <sys:String xmlns:sys="clr-namespace:System;assembly=System.Runtime">One</sys:String>
+            <sys:String xmlns:sys="clr-namespace:System;assembly=System.Runtime">Two</sys:String>
+        </ItemsControl>
+    </StackPanel>
+</Window>

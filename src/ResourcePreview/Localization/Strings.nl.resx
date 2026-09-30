@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="LocationFormat" xml:space="preserve">
+    <value>{0}, regel {1}</value>
+  </data>
+  <data name="AlsoDefinedIn" xml:space="preserve">
+    <value>Ook gedefinieerd in:</value>
+  </data>
+  <data name="AndMoreFormat" xml:space="preserve">
+    <value>en nog {0} andere</value>
+  </data>
+  <data name="NotFoundUnderFormat" xml:space="preserve">
+    <value>niet gevonden onder {0}</value>
+  </data>
+  <data name="CannotLoadFormat" xml:space="preserve">
+    <value>Kan {0} '{1}' niet laden: {2}</value>
+  </data>
+  <data name="MissingInSolutionFormat" xml:space="preserve">
+    <value>Niet gevonden in de solution: {0}</value>
+  </data>
+  <data name="NoPreviewForFormat" xml:space="preserve">
+    <value>Geen preview beschikbaar voor {0}.</value>
+  </data>
+  <data name="CannotOpenFileFormat" xml:space="preserve">
+    <value>Kan {0} niet openen.</value>
+  </data>
+  <data name="OptionsCategoryGeneral" xml:space="preserve">
+    <value>Algemeen</value>
+  </data>
+  <data name="OptionsLanguageName" xml:space="preserve">
+    <value>Taal</value>
+  </data>
+  <data name="OptionsLanguageDescription" xml:space="preserve">
+    <value>Taal van de teksten in de preview. Automatisch gebruikt de taal van Visual Studio.</value>
+  </data>
+  <data name="LanguageAutomatic" xml:space="preserve">
+    <value>Automatisch (taal van Visual Studio)</value>
+  </data>
+  <data name="100" xml:space="preserve">
+    <value>XAML Resource Preview</value>
+  </data>
+  <data name="101" xml:space="preserve">
+    <value>Algemeen</value>
+  </data>
+  <data name="OptionsRootDescription" xml:space="preserve">
+    <value>Toont een preview van XAML-resources als je over StaticResource of DynamicResource hovert.</value>
+  </data>
+  <data name="OptionsCategoryAppearance" xml:space="preserve">
+    <value>Weergave</value>
+  </data>
+  <data name="OptionsMaxDefinitionsName" xml:space="preserve">
+    <value>Maximum aantal andere definities</value>
+  </data>
+  <data name="OptionsMaxDefinitionsDescription" xml:space="preserve">
+    <value>Hoeveel andere definities van dezelfde key onder de preview staan. 0 verbergt de lijst.</value>
+  </data>
+  <data name="OptionsTileSizeName" xml:space="preserve">
+    <value>Tegelgrootte (pixels)</value>
+  </data>
+  <data name="OptionsTileSizeDescription" xml:space="preserve">
+    <value>Breedte en hoogte van een previewtegel, tussen 16 en 256.</value>
+  </data>
+  <data name="OptionsTilesName" xml:space="preserve">
+    <value>Tegels</value>
+  </data>
+  <data name="OptionsTilesDescription" xml:space="preserve">
+    <value>Welke previewtegels getoond worden.</value>
+  </data>
+  <data name="TilesBoth" xml:space="preserve">
+    <value>Licht en donker</value>
+  </data>
+  <data name="TilesLight" xml:space="preserve">
+    <value>Alleen licht</value>
+  </data>
+  <data name="TilesDark" xml:space="preserve">
+    <value>Alleen donker</value>
+  </data>
+  <data name="OptionsLightForegroundName" xml:space="preserve">
+    <value>Lichte tegel: voorgrondkleur</value>
+  </data>
+  <data name="OptionsLightBackgroundName" xml:space="preserve">
+    <value>Lichte tegel: achtergrondkleur</value>
+  </data>
+  <data name="OptionsDarkForegroundName" xml:space="preserve">
+    <value>Donkere tegel: voorgrondkleur</value>
+  </data>
+  <data name="OptionsDarkBackgroundName" xml:space="preserve">
+    <value>Donkere tegel: achtergrondkleur</value>
+  </data>
+  <data name="OptionsForegroundDescription" xml:space="preserve">
+    <value>Kleur voor een Geometry, die zelf geen kleur heeft. Een kleurnaam of #RRGGBB.</value>
+  </data>
+  <data name="OptionsBackgroundDescription" xml:space="preserve">
+    <value>Achtergrondkleur van de tegel. Een kleurnaam of #RRGGBB.</value>
+  </data>
+  <data name="StyleInheritedFromFormat" xml:space="preserve">
+    <value>geërfd van {0}</value>
+  </data>
+  <data name="StyleTriggersFormat" xml:space="preserve">
+    <value>Triggers ({0}): {1}</value>
+  </data>
+  <data name="StyleNoSetters" xml:space="preserve">
+    <value>Geen setters</value>
+  </data>
+  <data name="ThicknessFormat" xml:space="preserve">
+    <value>Links {0} · Boven {1} · Rechts {2} · Onder {3}</value>
+  </data>
+  <data name="CornerRadiusFormat" xml:space="preserve">
+    <value>Linksboven {0} · Rechtsboven {1} · Rechtsonder {2} · Linksonder {3}</value>
+  </data>
+  <data name="FontNotInstalledFormat" xml:space="preserve">
+    <value>{0} is niet geïnstalleerd op deze computer. Het voorbeeld gebruikt een vervangend lettertype.</value>
+  </data>
+  <data name="FontFileNotFoundFormat" xml:space="preserve">
+    <value>{0} is niet gevonden in {1}. Het voorbeeld gebruikt een vervangend lettertype.</value>
+  </data>
+  <data name="SampleText" xml:space="preserve">
+    <value>Voorbeeld</value>
+  </data>
+  <data name="SampleNormal" xml:space="preserve">
+    <value>Normaal</value>
+  </data>
+  <data name="SampleDisabled" xml:space="preserve">
+    <value>Uitgeschakeld</value>
+  </data>
+  <data name="NoLiveSampleFormat" xml:space="preserve">
+    <value>Geen live voorbeeld: {0}</value>
+  </data>
+  <data name="TemplateMoreElementsFormat" xml:space="preserve">
+    <value>… nog {0} elementen</value>
+  </data>
+  <data name="TemplateEmpty" xml:space="preserve">
+    <value>Lege template</value>
+  </data>
+  <data name="NoLiveSampleOwnTypeFormat" xml:space="preserve">
+    <value>Geen live voorbeeld: {0} is geen WPF-type, dus Visual Studio kan het niet laden.</value>
+  </data>
+  <data name="NoPreviewOwnTypeFormat" xml:space="preserve">
+    <value>Geen preview: {0} is geen WPF-type, dus Visual Studio kan het niet laden.</value>
+  </data>
+  <data name="OptionsLiveSampleName" xml:space="preserve">
+    <value>Live voorbeeld tonen</value>
+  </data>
+  <data name="OptionsLiveSampleDescription" xml:space="preserve">
+    <value>Toont een echt control met de stijl of ControlTemplate erop. Een tweede, uitgeschakeld voorbeeld verschijnt als de stijl op IsEnabled reageert.</value>
+  </data>
+</root>

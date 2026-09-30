@@ -1,0 +1,8 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Used from Icons.xaml: tests a dependency in another file. -->
+    <SolidColorBrush x:Key="AccentBrush" Color="#FF002BBD" />
+    <SolidColorBrush x:Key="WarningBrush" Color="#FFE8A317" />
+
+</ResourceDictionary>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+  <Metadata>
+    <!-- Never change the Id: Visual Studio uses it to recognize updates. -->
+    <Identity Id="ResourcePreview.AF4A88FA-261D-43BF-8243-982B85C621CC" Version="1.0.0" Language="en-US" Publisher="Herbert Nijkamp" />
+    <DisplayName>XAML Resource Preview</DisplayName>
+    <Description xml:space="preserve">Hover over a StaticResource or DynamicResource in XAML and see the resource: icons, brushes and images as a picture, styles as a table of setters with a live sample, templates as an element tree, and fonts, margins, corner radii, effects and plain values in a readable form. Click the preview to jump to the definition.</Description>
+    <Icon>Assets\icon.png</Icon>
+    <PreviewImage>Assets\preview.png</PreviewImage>
+    <Tags>xaml, wpf, resource, resourcedictionary, staticresource, dynamicresource, preview, quick info, style, icon, geometry</Tags>
+  </Metadata>
+  <Installation>
+    <!-- 17.14 is the first version with the Unified Settings API used by the options page. -->
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.14,19.0)">
+      <ProductArchitecture>amd64</ProductArchitecture>
+    </InstallationTarget>
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.14,19.0)">
+      <ProductArchitecture>arm64</ProductArchitecture>
+    </InstallationTarget>
+  </Installation>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.14,)" DisplayName="Visual Studio core editor" />
+  </Prerequisites>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+  </Assets>
+</PackageManifest>

@@ -1,0 +1,111 @@
+/*
+ * Settings for the Unified Settings options dialog, registered by [ProvideSettingsManifest]
+ * on ResourcePreviewPackage. "@Name;{guid}" values are resource strings from the package.
+ * Monikers and defaults must match Options\ExtensionSettings.cs.
+ */
+{
+  "properties": {
+    "resourcePreview.general.language": {
+      "type": "string",
+      "title": "@OptionsLanguageName;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "description": "@OptionsLanguageDescription;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "default": "automatic",
+      "enum": [ "automatic", "en", "zh-Hans", "zh-Hant", "cs", "nl", "fr", "de", "it", "ja", "ko", "pl", "pt-BR", "ru", "es", "tr" ],
+      "enumItemLabels": [
+        "@LanguageAutomatic;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+        "English", "中文(简体)", "中文(繁體)", "Čeština", "Nederlands", "Français", "Deutsch", "Italiano",
+        "日本語", "한국어", "Polski", "Português (Brasil)", "Русский", "Español", "Türkçe"
+      ],
+      "order": 0
+    },
+    "resourcePreview.general.maxListedDefinitions": {
+      "type": "integer",
+      "title": "@OptionsMaxDefinitionsName;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "description": "@OptionsMaxDefinitionsDescription;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "default": 5,
+      "minimum": 0,
+      "maximum": 50,
+      "order": 1
+    },
+    "resourcePreview.appearance.tileSize": {
+      "type": "integer",
+      "title": "@OptionsTileSizeName;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "description": "@OptionsTileSizeDescription;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "default": 64,
+      "minimum": 16,
+      "maximum": 256,
+      "order": 0
+    },
+    "resourcePreview.appearance.tiles": {
+      "type": "string",
+      "title": "@OptionsTilesName;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "description": "@OptionsTilesDescription;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "default": "both",
+      "enum": [ "both", "light", "dark" ],
+      "enumItemLabels": [
+        "@TilesBoth;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+        "@TilesLight;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+        "@TilesDark;{69e55270-ef51-4488-9e95-cfd1a6852056}"
+      ],
+      "order": 1
+    },
+    "resourcePreview.appearance.lightTileForeground": {
+      "type": "string",
+      "title": "@OptionsLightForegroundName;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "description": "@OptionsForegroundDescription;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "default": "#000000",
+      "pattern": "^(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{8}|[A-Za-z]+)$",
+      "enableWhen": "${config:resourcePreview.appearance.tiles} != 'dark'",
+      "order": 2
+    },
+    "resourcePreview.appearance.lightTileBackground": {
+      "type": "string",
+      "title": "@OptionsLightBackgroundName;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "description": "@OptionsBackgroundDescription;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "default": "#FFFFFF",
+      "pattern": "^(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{8}|[A-Za-z]+)$",
+      "enableWhen": "${config:resourcePreview.appearance.tiles} != 'dark'",
+      "order": 3
+    },
+    "resourcePreview.appearance.darkTileForeground": {
+      "type": "string",
+      "title": "@OptionsDarkForegroundName;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "description": "@OptionsForegroundDescription;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "default": "#FFFFFF",
+      "pattern": "^(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{8}|[A-Za-z]+)$",
+      "enableWhen": "${config:resourcePreview.appearance.tiles} != 'light'",
+      "order": 4
+    },
+    "resourcePreview.appearance.darkTileBackground": {
+      "type": "string",
+      "title": "@OptionsDarkBackgroundName;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "description": "@OptionsBackgroundDescription;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "default": "#1E1E1E",
+      "pattern": "^(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{8}|[A-Za-z]+)$",
+      "enableWhen": "${config:resourcePreview.appearance.tiles} != 'light'",
+      "order": 5
+    },
+    "resourcePreview.appearance.showLiveSample": {
+      "type": "boolean",
+      "title": "@OptionsLiveSampleName;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "description": "@OptionsLiveSampleDescription;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "default": true,
+      "order": 6
+    }
+  },
+  "categories": {
+    "resourcePreview": {
+      "title": "XAML Resource Preview",
+      "description": "@OptionsRootDescription;{69e55270-ef51-4488-9e95-cfd1a6852056}"
+    },
+    "resourcePreview.general": {
+      "title": "@OptionsCategoryGeneral;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "legacyOptionPageId": "7C3B1D52-6E2A-4B9F-9C41-2F7B0E5A8D13",
+      "order": 0
+    },
+    "resourcePreview.appearance": {
+      "title": "@OptionsCategoryAppearance;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "order": 1
+    }
+  }
+}

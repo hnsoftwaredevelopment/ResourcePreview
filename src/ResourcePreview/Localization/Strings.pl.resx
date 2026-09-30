@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="LocationFormat" xml:space="preserve">
+    <value>{0}, wiersz {1}</value>
+  </data>
+  <data name="AlsoDefinedIn" xml:space="preserve">
+    <value>Zdefiniowano również w:</value>
+  </data>
+  <data name="AndMoreFormat" xml:space="preserve">
+    <value>i {0} więcej</value>
+  </data>
+  <data name="NotFoundUnderFormat" xml:space="preserve">
+    <value>nie znaleziono w {0}</value>
+  </data>
+  <data name="CannotLoadFormat" xml:space="preserve">
+    <value>Nie można załadować {0} '{1}': {2}</value>
+  </data>
+  <data name="MissingInSolutionFormat" xml:space="preserve">
+    <value>Nie znaleziono w rozwiązaniu: {0}</value>
+  </data>
+  <data name="NoPreviewForFormat" xml:space="preserve">
+    <value>Brak podglądu dla {0}.</value>
+  </data>
+  <data name="CannotOpenFileFormat" xml:space="preserve">
+    <value>Nie można otworzyć {0}.</value>
+  </data>
+  <data name="OptionsCategoryGeneral" xml:space="preserve">
+    <value>Ogólne</value>
+  </data>
+  <data name="OptionsLanguageName" xml:space="preserve">
+    <value>Język</value>
+  </data>
+  <data name="OptionsLanguageDescription" xml:space="preserve">
+    <value>Język tekstów w podglądzie. Automatycznie używa języka programu Visual Studio.</value>
+  </data>
+  <data name="LanguageAutomatic" xml:space="preserve">
+    <value>Automatycznie (język programu Visual Studio)</value>
+  </data>
+  <data name="100" xml:space="preserve">
+    <value>XAML Resource Preview</value>
+  </data>
+  <data name="101" xml:space="preserve">
+    <value>Ogólne</value>
+  </data>
+  <data name="OptionsRootDescription" xml:space="preserve">
+    <value>Pokazuje podgląd zasobów XAML po wskazaniu StaticResource lub DynamicResource.</value>
+  </data>
+  <data name="OptionsCategoryAppearance" xml:space="preserve">
+    <value>Wygląd</value>
+  </data>
+  <data name="OptionsMaxDefinitionsName" xml:space="preserve">
+    <value>Maksymalna liczba innych definicji</value>
+  </data>
+  <data name="OptionsMaxDefinitionsDescription" xml:space="preserve">
+    <value>Ile innych definicji tego samego klucza jest wyświetlanych pod podglądem. 0 ukrywa listę.</value>
+  </data>
+  <data name="OptionsTileSizeName" xml:space="preserve">
+    <value>Rozmiar kafelka (piksele)</value>
+  </data>
+  <data name="OptionsTileSizeDescription" xml:space="preserve">
+    <value>Szerokość i wysokość kafelka podglądu, od 16 do 256.</value>
+  </data>
+  <data name="OptionsTilesName" xml:space="preserve">
+    <value>Kafelki</value>
+  </data>
+  <data name="OptionsTilesDescription" xml:space="preserve">
+    <value>Które kafelki podglądu są wyświetlane.</value>
+  </data>
+  <data name="TilesBoth" xml:space="preserve">
+    <value>Jasny i ciemny</value>
+  </data>
+  <data name="TilesLight" xml:space="preserve">
+    <value>Tylko jasny</value>
+  </data>
+  <data name="TilesDark" xml:space="preserve">
+    <value>Tylko ciemny</value>
+  </data>
+  <data name="OptionsLightForegroundName" xml:space="preserve">
+    <value>Jasny kafelek: kolor pierwszego planu</value>
+  </data>
+  <data name="OptionsLightBackgroundName" xml:space="preserve">
+    <value>Jasny kafelek: kolor tła</value>
+  </data>
+  <data name="OptionsDarkForegroundName" xml:space="preserve">
+    <value>Ciemny kafelek: kolor pierwszego planu</value>
+  </data>
+  <data name="OptionsDarkBackgroundName" xml:space="preserve">
+    <value>Ciemny kafelek: kolor tła</value>
+  </data>
+  <data name="OptionsForegroundDescription" xml:space="preserve">
+    <value>Kolor dla Geometry, która nie ma własnego koloru. Nazwa koloru lub #RRGGBB.</value>
+  </data>
+  <data name="OptionsBackgroundDescription" xml:space="preserve">
+    <value>Kolor tła kafelka. Nazwa koloru lub #RRGGBB.</value>
+  </data>
+  <data name="StyleInheritedFromFormat" xml:space="preserve">
+    <value>dziedziczone z {0}</value>
+  </data>
+  <data name="StyleTriggersFormat" xml:space="preserve">
+    <value>Wyzwalacze ({0}): {1}</value>
+  </data>
+  <data name="StyleNoSetters" xml:space="preserve">
+    <value>Brak setterów</value>
+  </data>
+  <data name="ThicknessFormat" xml:space="preserve">
+    <value>Lewo {0} · Góra {1} · Prawo {2} · Dół {3}</value>
+  </data>
+  <data name="CornerRadiusFormat" xml:space="preserve">
+    <value>Lewy górny {0} · Prawy górny {1} · Prawy dolny {2} · Lewy dolny {3}</value>
+  </data>
+  <data name="FontNotInstalledFormat" xml:space="preserve">
+    <value>Czcionka {0} nie jest zainstalowana na tym komputerze. Przykład używa czcionki zastępczej.</value>
+  </data>
+  <data name="FontFileNotFoundFormat" xml:space="preserve">
+    <value>Nie znaleziono czcionki {0} w {1}. Przykład używa czcionki zastępczej.</value>
+  </data>
+  <data name="SampleText" xml:space="preserve">
+    <value>Przykład</value>
+  </data>
+  <data name="SampleNormal" xml:space="preserve">
+    <value>Normalny</value>
+  </data>
+  <data name="SampleDisabled" xml:space="preserve">
+    <value>Wyłączony</value>
+  </data>
+  <data name="NoLiveSampleFormat" xml:space="preserve">
+    <value>Brak podglądu na żywo: {0}</value>
+  </data>
+  <data name="TemplateMoreElementsFormat" xml:space="preserve">
+    <value>… jeszcze {0} elementów</value>
+  </data>
+  <data name="TemplateEmpty" xml:space="preserve">
+    <value>Pusty szablon</value>
+  </data>
+  <data name="NoLiveSampleOwnTypeFormat" xml:space="preserve">
+    <value>Brak podglądu na żywo: {0} nie jest typem WPF, więc program Visual Studio nie może go załadować.</value>
+  </data>
+  <data name="NoPreviewOwnTypeFormat" xml:space="preserve">
+    <value>Brak podglądu: {0} nie jest typem WPF, więc program Visual Studio nie może go załadować.</value>
+  </data>
+  <data name="OptionsLiveSampleName" xml:space="preserve">
+    <value>Pokaż podgląd na żywo</value>
+  </data>
+  <data name="OptionsLiveSampleDescription" xml:space="preserve">
+    <value>Pokazuje prawdziwą kontrolkę z zastosowanym stylem lub szablonem ControlTemplate. Drugi, wyłączony przykład pojawia się, gdy styl reaguje na IsEnabled.</value>
+  </data>
+</root>
