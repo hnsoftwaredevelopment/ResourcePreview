@@ -1,20 +1,32 @@
 {
   "$schema": "http://json.schemastore.org/vsix-publish",
-  "categories": [ "coding" ],
+  "categories": ["coding"],
   "identity": {
     "internalName": "XamlResourcePreview"
   },
   "overview": "README.md",
   "priceCategory": "free",
-  "publisher": "YOUR-PUBLISHER-ID",
+  "publisher": "hnsoftwaredevelopment",
   "private": false,
   "qna": true,
-  "repo": "https://github.com/herbie68/ResourcePreview",
+  "repo": "https://github.com/hnsoftwaredevelopment/ResourcePreview",
   "assetFiles": [
     { "pathOnDisk": "art/icon-128.png", "targetPath": "art/icon-128.png" },
-    { "pathOnDisk": "docs/images/icons.png", "targetPath": "docs/images/icons.png" },
-    { "pathOnDisk": "docs/images/styles.png", "targetPath": "docs/images/styles.png" },
-    { "pathOnDisk": "docs/images/templates.png", "targetPath": "docs/images/templates.png" },
-    { "pathOnDisk": "docs/images/values.png", "targetPath": "docs/images/values.png" }
+    {
+      "pathOnDisk": "docs/images/icons.png",
+      "targetPath": "docs/images/icons.png"
+    },
+    {
+      "pathOnDisk": "docs/images/styles.png",
+      "targetPath": "docs/images/styles.png"
+    },
+    {
+      "pathOnDisk": "docs/images/templates.png",
+      "targetPath": "docs/images/templates.png"
+    },
+    {
+      "pathOnDisk": "docs/images/values.png",
+      "targetPath": "docs/images/values.png"
+    }
   ]
 }
