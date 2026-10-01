@@ -1,0 +1,6 @@
+<Project>
+  <!-- All build output goes to Builds\<project name>\ in the repository root instead of bin\ next to each project. -->
+  <PropertyGroup>
+    <BaseOutputPath>$(MSBuildThisFileDirectory)Builds\$(MSBuildProjectName)\</BaseOutputPath>
+  </PropertyGroup>
+</Project>

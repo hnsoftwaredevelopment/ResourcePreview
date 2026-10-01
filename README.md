@@ -81,6 +81,7 @@ Requirements: Visual Studio 2022 17.14 or later, or Visual Studio 2026, with the
 | `tests/ResourcePreview.Tests` | Unit tests (MSTest), run from Test Explorer |
 | `samples/SampleApp` | A WPF app with a resource of every supported kind |
 | `tools` | `build-and-test.ps1` builds and runs all tests from the command line. `render-previews.ps1` renders the images in this README. |
+| `Builds` | Build output of every project (not in Git). The VSIX is in `Builds/ResourcePreview/Release/`. |
 | `art` | Icon sources |
 | `docs/images` | The images in this README |
 

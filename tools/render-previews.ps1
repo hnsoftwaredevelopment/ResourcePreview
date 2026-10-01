@@ -21,7 +21,7 @@ Add-Type -AssemblyName PresentationFramework, PresentationCore, WindowsBase
 [Threading.Thread]::CurrentThread.CurrentCulture = [Globalization.CultureInfo]::GetCultureInfo($Culture)
 
 $root = Split-Path $PSScriptRoot -Parent
-$bin = Join-Path $root 'tests\ResourcePreview.Tests\bin\Debug\net48'
+$bin = Join-Path $root 'Builds\ResourcePreview.Tests\Debug\net48'
 [AppDomain]::CurrentDomain.add_AssemblyResolve({
     param($s, $e)
     $file = Join-Path $bin ((New-Object Reflection.AssemblyName $e.Name).Name + '.dll')

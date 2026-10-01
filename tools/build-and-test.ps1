@@ -19,7 +19,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Build failed.' }
 
 # vstest wants to create a TestResults folder in the working directory, so run it from the test output folder.
 $vstest = Join-Path $vs 'Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe'
-$testDll = Join-Path $root "tests\ResourcePreview.Tests\bin\$Configuration\net48\ResourcePreview.Tests.dll"
+$testDll = Join-Path $root "Builds\ResourcePreview.Tests\$Configuration\net48\ResourcePreview.Tests.dll"
 Push-Location (Split-Path $testDll)
 try { & $vstest $testDll }
 finally { Pop-Location }

@@ -6,3 +6,4 @@ obj/
 *.vsix
 packages/
 TestResults/
+Builds/
