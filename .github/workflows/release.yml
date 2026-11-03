@@ -1,0 +1,139 @@
+name: Release
+
+# Builds a release VSIX, runs the unit tests and attaches the VSIX to a GitHub Release.
+# Start it in two ways:
+#   - Actions > Release > Run workflow, with a version such as 1.1.0. The workflow creates the tag v1.1.0.
+#   - Push a tag yourself: git tag v1.1.0 && git push origin v1.1.0
+# The version goes into the VSIX manifest of the build only; the file in the repository is not changed.
+# Publishing to the Visual Studio Marketplace is optional (input "publish") and uses publishManifest.json and the
+# repository secret VS_MARKETPLACE_TOKEN (an Azure DevOps personal access token with the scope Marketplace > Manage).
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version, three numbers (for example 1.1.0)"
+        required: true
+      prerelease:
+        description: "Mark the GitHub Release as pre-release"
+        type: boolean
+        default: false
+      publish:
+        description: "Also publish to the Visual Studio Marketplace"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+env:
+  CONFIGURATION: Release
+  NAME: ResourcePreview
+  MANIFEST: src/ResourcePreview/source.extension.vsixmanifest
+  VSIX: Builds/ResourcePreview/Release/ResourcePreview.vsix
+  TESTS: Builds/ResourcePreview.Tests/Release/net48/ResourcePreview.Tests.dll
+  PUBLISH_MANIFEST: publishManifest.json
+
+jobs:
+  release:
+    # The VSIX project is a classic VSSDK project: it needs the MSBuild of Visual Studio, not `dotnet build`.
+    runs-on: windows-2025
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v7
+
+      - name: Determine the version
+        id: version
+        shell: pwsh
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          $version = if ($env:GITHUB_REF_TYPE -eq 'tag') { $env:GITHUB_REF_NAME -replace '^v', '' } else { $env:INPUT_VERSION.Trim() -replace '^v', '' }
+          # A VSIX version is numeric: 1.2.3 or 1.2.3.4. Pre-release suffixes such as -beta are not allowed.
+          if ($version -notmatch '^\d+\.\d+\.\d+(\.\d+)?$') {
+            throw "Version '$version' is not valid. Use three numbers, for example 1.1.0."
+          }
+          if ($env:GITHUB_REF_TYPE -ne 'tag' -and (git ls-remote --tags origin "refs/tags/v$version")) {
+            throw "Tag v$version already exists. Choose a new version."
+          }
+          "version=$version" >> $env:GITHUB_OUTPUT
+          Write-Host "Releasing version $version"
+
+      - name: Set the version in the VSIX manifest
+        shell: pwsh
+        run: |
+          $path = Resolve-Path $env:MANIFEST
+          [xml]$xml = Get-Content $path -Raw
+          $xml.PackageManifest.Metadata.Identity.Version = '${{ steps.version.outputs.version }}'
+          $xml.Save($path)
+          Select-String -Path $path -Pattern '<Identity '
+
+      - name: Set up Visual Studio MSBuild
+        uses: microsoft/setup-msbuild@v3
+        with:
+          vs-version: "[17.14,)"
+
+      - name: Restore and build
+        run: msbuild ResourcePreview.sln -restore -m -nologo -p:Configuration=${{ env.CONFIGURATION }} -p:DeployExtension=false
+
+      # vstest wants to create a TestResults folder in the working directory, so it runs from the test output folder.
+      - name: Run unit tests
+        shell: pwsh
+        run: |
+          $vs = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -prerelease -products * -property installationPath
+          $vstest = Join-Path $vs 'Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe'
+          $tests = Resolve-Path $env:TESTS
+          Push-Location (Split-Path $tests)
+          try { & $vstest $tests } finally { Pop-Location }
+          if ($LASTEXITCODE -ne 0) { throw 'Unit tests failed.' }
+
+      - name: Name the VSIX after the version
+        id: vsix
+        shell: pwsh
+        run: |
+          $target = "$env:NAME-${{ steps.version.outputs.version }}.vsix"
+          Copy-Item $env:VSIX $target
+          "path=$target" >> $env:GITHUB_OUTPUT
+
+      - name: Upload the VSIX as build artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ env.NAME }}-${{ steps.version.outputs.version }}
+          path: ${{ steps.vsix.outputs.path }}
+          if-no-files-found: error
+
+      - name: Create the GitHub Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $version = '${{ steps.version.outputs.version }}'
+          $arguments = @("v$version", '${{ steps.vsix.outputs.path }}', '--title', "XAML Resource Preview $version", '--generate-notes')
+          if ($env:GITHUB_REF_TYPE -ne 'tag') { $arguments += @('--target', $env:GITHUB_SHA) }
+          if ('${{ inputs.prerelease }}' -eq 'true') { $arguments += '--prerelease' }
+          gh release create @arguments
+          if ($LASTEXITCODE -ne 0) { throw 'Creating the release failed.' }
+
+      - name: Publish to the Visual Studio Marketplace
+        if: ${{ inputs.publish }}
+        shell: pwsh
+        env:
+          VS_MARKETPLACE_TOKEN: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+        run: |
+          if (-not $env:VS_MARKETPLACE_TOKEN) { throw 'The secret VS_MARKETPLACE_TOKEN is not set.' }
+          $vs = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -prerelease -products * -property installationPath
+          $publisher = Join-Path $vs 'VSSDK\VisualStudioIntegration\Tools\Bin\VsixPublisher.exe'
+          if (-not (Test-Path $publisher)) {
+            # Fallback: the copy in the Microsoft.VSSDK.BuildTools package of the restore.
+            $publisher = Get-ChildItem "$env:USERPROFILE\.nuget\packages\microsoft.vssdk.buildtools" -Recurse -Filter VsixPublisher.exe -ErrorAction SilentlyContinue | Select-Object -Last 1 -ExpandProperty FullName
+          }
+          if (-not $publisher) { throw "VsixPublisher.exe not found." }
+          & $publisher publish -payload '${{ steps.vsix.outputs.path }}' -publishManifest $env:PUBLISH_MANIFEST -personalAccessToken $env:VS_MARKETPLACE_TOKEN
+          if ($LASTEXITCODE -ne 0) { throw 'Publishing to the Marketplace failed.' }
