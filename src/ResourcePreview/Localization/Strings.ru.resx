@@ -175,4 +175,10 @@
   <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
     <value>Показывает предупреждение в списке ошибок для каждого ресурса, который WPF никогда не использует, потому что словарь, объединённый позже, определяет тот же ключ.</value>
   </data>
+  <data name="SampleMouseOver" xml:space="preserve">
+    <value>Наведение</value>
+  </data>
+  <data name="SamplePressed" xml:space="preserve">
+    <value>Нажато</value>
+  </data>
 </root>

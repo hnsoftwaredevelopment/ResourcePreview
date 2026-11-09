@@ -175,4 +175,10 @@
   <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
     <value>나중에 병합된 사전이 같은 키를 정의하기 때문에 WPF가 사용하지 않는 각 리소스에 대해 오류 목록에 경고를 표시합니다.</value>
   </data>
+  <data name="SampleMouseOver" xml:space="preserve">
+    <value>마우스 오버</value>
+  </data>
+  <data name="SamplePressed" xml:space="preserve">
+    <value>누름</value>
+  </data>
 </root>

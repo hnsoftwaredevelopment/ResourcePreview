@@ -175,4 +175,10 @@
   <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
     <value>Toont een waarschuwing in de Foutenlijst voor elke resource die WPF nooit gebruikt, omdat een dictionary die later gemerged wordt dezelfde key definieert.</value>
   </data>
+  <data name="SampleMouseOver" xml:space="preserve">
+    <value>Muis erover</value>
+  </data>
+  <data name="SamplePressed" xml:space="preserve">
+    <value>Ingedrukt</value>
+  </data>
 </root>

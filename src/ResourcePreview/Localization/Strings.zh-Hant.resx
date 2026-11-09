@@ -175,4 +175,10 @@
   <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
     <value>針對 WPF 從不使用的每個資源，在錯誤清單中顯示警告，因為較晚合併的字典定義了相同的索引鍵。</value>
   </data>
+  <data name="SampleMouseOver" xml:space="preserve">
+    <value>滑鼠暫留</value>
+  </data>
+  <data name="SamplePressed" xml:space="preserve">
+    <value>按下</value>
+  </data>
 </root>

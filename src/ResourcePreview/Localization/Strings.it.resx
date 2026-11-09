@@ -175,4 +175,10 @@
   <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
     <value>Mostra un avviso nell'Elenco errori per ogni risorsa che WPF non usa mai, perché un dizionario unito successivamente definisce la stessa chiave.</value>
   </data>
+  <data name="SampleMouseOver" xml:space="preserve">
+    <value>Mouse sopra</value>
+  </data>
+  <data name="SamplePressed" xml:space="preserve">
+    <value>Premuto</value>
+  </data>
 </root>

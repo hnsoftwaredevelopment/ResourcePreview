@@ -1,23 +1,24 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
-    <!-- Values without an image. The preview shows a sketch or just the value. -->
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+    <!--  Values without an image. The preview shows a sketch or just the value.  -->
 
-    <!-- Fonts: one installed, one with a fallback, and one that does not exist (shows a warning). -->
+    <!--  Fonts: one installed, one with a fallback, and one that does not exist (shows a warning).  -->
     <FontFamily x:Key="HeaderFont">Segoe UI Semibold</FontFamily>
     <FontFamily x:Key="CodeFont">Cascadia Code, Consolas</FontFamily>
     <FontFamily x:Key="MissingFont">Missing Font Sans</FontFamily>
 
-    <!-- Overrides InfoBrush in Brushes.xaml, because App.xaml merges this file later. WPF uses this one (green). -->
+    <!--  Overrides InfoBrush in Brushes.xaml, because App.xaml merges this file later. WPF uses this one (green).  -->
     <SolidColorBrush x:Key="InfoBrush" Color="#FF43A047" />
 
-    <!-- Thickness and CornerRadius -->
+    <!--  Thickness and CornerRadius  -->
     <Thickness x:Key="CardPadding">12,8,12,8</Thickness>
     <Thickness x:Key="WideMargin">40,0,40,16</Thickness>
     <CornerRadius x:Key="CardCorners">6</CornerRadius>
     <CornerRadius x:Key="TabCorners">8,8,0,0</CornerRadius>
 
-    <!-- Simple values. sys points to System.Runtime (.NET 8); the preview maps it to mscorlib. -->
+    <!--  Simple values. sys points to System.Runtime (.NET 8); the preview maps it to mscorlib.  -->
     <sys:Double x:Key="HeaderFontSize">18</sys:Double>
     <sys:String x:Key="AppTitle">ResourcePreview test</sys:String>
     <sys:Boolean x:Key="ShowDebugInfo">True</sys:Boolean>
@@ -25,7 +26,13 @@
     <FontWeight x:Key="HeaderWeight">SemiBold</FontWeight>
     <Visibility x:Key="DebugVisibility">Collapsed</Visibility>
 
-    <!-- Effects: shown on the light and dark tiles -->
-    <DropShadowEffect x:Key="CardShadow" Color="Black" BlurRadius="8" ShadowDepth="3" Direction="315" Opacity="0.5" />
+    <!--  Effects: shown on the light and dark tiles  -->
+    <DropShadowEffect
+        x:Key="CardShadow"
+        BlurRadius="8"
+        Direction="315"
+        Opacity="0.5"
+        ShadowDepth="3"
+        Color="Black" />
     <BlurEffect x:Key="SoftBlur" Radius="4" />
 </ResourceDictionary>

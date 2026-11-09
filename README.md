@@ -20,7 +20,7 @@ Resources that depend on other resources work too. `Report` is a `DrawingImage` 
 
 A style is shown as a table of its setters, including the setters it inherits through `BasedOn`. Colors get a swatch, icons a small picture, and the triggers are listed by name.
 
-Above the table you see a real control with the style applied. When the style reacts to `IsEnabled`, a disabled sample appears next to it.
+Above the table you see a real control with the style applied. When the style has triggers on `IsMouseOver`, `IsPressed` or `IsEnabled`, a sample for each of those states appears next to it, so you see the hover and pressed look without moving the mouse. Templates that use the `VisualStateManager` (`MouseOver`, `Pressed`, `Disabled` states) work too.
 
 ![Style previews](https://raw.githubusercontent.com/hnsoftwaredevelopment/ResourcePreview/main/docs/images/styles.png)
 

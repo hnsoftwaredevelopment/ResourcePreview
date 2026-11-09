@@ -175,4 +175,10 @@
   <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
     <value>Zobrazí v seznamu chyb upozornění pro každý prostředek, který WPF nikdy nepoužije, protože později sloučený slovník definuje stejný klíč.</value>
   </data>
+  <data name="SampleMouseOver" xml:space="preserve">
+    <value>Myš nad</value>
+  </data>
+  <data name="SamplePressed" xml:space="preserve">
+    <value>Stisknuto</value>
+  </data>
 </root>

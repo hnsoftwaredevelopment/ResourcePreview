@@ -175,4 +175,10 @@
   <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
     <value>Zeigt in der Fehlerliste eine Warnung für jede Ressource, die WPF nie verwendet, weil ein später zusammengeführtes Wörterbuch denselben Schlüssel definiert.</value>
   </data>
+  <data name="SampleMouseOver" xml:space="preserve">
+    <value>Maus darüber</value>
+  </data>
+  <data name="SamplePressed" xml:space="preserve">
+    <value>Gedrückt</value>
+  </data>
 </root>

@@ -175,4 +175,10 @@
   <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
     <value>Pokazuje ostrzeżenie na liście błędów dla każdego zasobu, którego WPF nigdy nie używa, ponieważ później scalony słownik definiuje ten sam klucz.</value>
   </data>
+  <data name="SampleMouseOver" xml:space="preserve">
+    <value>Kursor nad</value>
+  </data>
+  <data name="SamplePressed" xml:space="preserve">
+    <value>Naciśnięty</value>
+  </data>
 </root>

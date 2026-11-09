@@ -53,6 +53,8 @@ namespace ResourcePreview.Localization
         public const string SampleText = nameof(SampleText);
         public const string SampleNormal = nameof(SampleNormal);
         public const string SampleDisabled = nameof(SampleDisabled);
+        public const string SampleMouseOver = nameof(SampleMouseOver);
+        public const string SamplePressed = nameof(SamplePressed);
         public const string NoLiveSampleFormat = nameof(NoLiveSampleFormat);
         public const string TemplateMoreElementsFormat = nameof(TemplateMoreElementsFormat);
         public const string TemplateEmpty = nameof(TemplateEmpty);

@@ -204,4 +204,10 @@
   <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
     <value>Shows a warning in the Error List for each resource that WPF never uses, because a dictionary that is merged later defines the same key.</value>
   </data>
+  <data name="SampleMouseOver" xml:space="preserve">
+    <value>Mouse over</value>
+  </data>
+  <data name="SamplePressed" xml:space="preserve">
+    <value>Pressed</value>
+  </data>
 </root>

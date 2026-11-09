@@ -332,15 +332,18 @@ namespace ResourcePreview.Tests
         }
 
         [TestMethod]
-        public void Style_WithoutIsEnabledTrigger_OneSampleWithoutLabel()
+        public void Style_WithMouseTriggers_ShowsMouseOverAndPressed()
         {
             // DangerButton → PrimaryButton → BaseButton: triggers on IsMouseOver, IsPressed and IsBusy, not on IsEnabled.
             Sta.Run(() =>
             {
                 UIElement root = PreviewRenderer.Render(SampleData("DangerButton"));
-                Assert.AreEqual(1, All(root).OfType<Button>().Count());
+                Button[] buttons = All(root).OfType<Button>().ToArray();
+                Assert.AreEqual(3, buttons.Length);
+                CollectionAssert.AreEqual(new[] { 1.0, 0.8, 0.6 }, buttons.Select(b => b.Opacity).ToArray());
+
                 string[] texts = Texts(root);
-                CollectionAssert.DoesNotContain(texts, "Normal");
+                CollectionAssert.IsSubsetOf(new[] { "Normal", "Mouse over", "Pressed" }, texts);
                 CollectionAssert.DoesNotContain(texts, "Disabled");
             });
         }

@@ -175,4 +175,10 @@
   <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
     <value>後でマージされたディクショナリが同じキーを定義しているため WPF が使用しないリソースごとに、エラー一覧に警告を表示します。</value>
   </data>
+  <data name="SampleMouseOver" xml:space="preserve">
+    <value>マウスオーバー</value>
+  </data>
+  <data name="SamplePressed" xml:space="preserve">
+    <value>押下</value>
+  </data>
 </root>

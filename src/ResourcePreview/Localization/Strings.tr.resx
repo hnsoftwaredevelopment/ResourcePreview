@@ -175,4 +175,10 @@
   <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
     <value>WPF'nin hiç kullanmadığı her kaynak için Hata Listesi'nde bir uyarı gösterir, çünkü daha sonra birleştirilen bir sözlük aynı anahtarı tanımlar.</value>
   </data>
+  <data name="SampleMouseOver" xml:space="preserve">
+    <value>Fare üzerinde</value>
+  </data>
+  <data name="SamplePressed" xml:space="preserve">
+    <value>Basılı</value>
+  </data>
 </root>

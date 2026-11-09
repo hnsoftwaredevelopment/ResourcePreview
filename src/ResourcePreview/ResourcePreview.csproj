@@ -76,6 +76,7 @@
     <Compile Include="Preview\StylePreviewRenderer.cs" />
     <Compile Include="Preview\ValuePreviewRenderer.cs" />
     <Compile Include="Preview\LiveSampleRenderer.cs" />
+    <Compile Include="Preview\StateSimulator.cs" />
     <Compile Include="Preview\TemplateTreeRenderer.cs" />
     <Compile Include="Navigation\DefinitionNavigator.cs" />
     <Compile Include="Navigation\GoToResourceDefinitionCommand.cs" />

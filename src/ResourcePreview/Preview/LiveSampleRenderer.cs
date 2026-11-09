@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,12 +10,14 @@ using ResourcePreview.Localization;
 namespace ResourcePreview.Preview
 {
     /// <summary>
-    /// Renders a real control with the Style or ControlTemplate applied, normal and disabled:
+    /// Renders a real control with the Style or ControlTemplate applied, once per state the style reacts to:
     ///
-    ///   [ Sample ]   [ Sample ]
-    ///     Normal      Disabled
+    ///   [ Sample ]   [ Sample ]   [ Sample ]   [ Sample ]
+    ///     Normal     Mouse over     Pressed     Disabled
     ///
-    /// IsMouseOver and IsPressed cannot be simulated, WPF sets them from the actual mouse.
+    /// Disabled is real: the sample gets IsEnabled="False" and WPF runs the triggers. IsMouseOver and
+    /// IsPressed are read-only and WPF sets them from the actual mouse, so <see cref="StateSimulator"/>
+    /// applies the setters of those triggers itself.
     /// Only works for types Visual Studio can load, not for controls from the user's assembly.
     /// Call on the UI thread only.
     /// </summary>
@@ -22,6 +25,9 @@ namespace ResourcePreview.Preview
     {
         private const double MaxSampleWidth = 220;
         private const double MaxSampleHeight = 120;
+
+        // With three or four samples next to each other, each gets less room.
+        private const double NarrowSampleWidth = 150;
 
         /// <summary>The rendered sample, or the reason there is none.</summary>
         internal sealed class Result
@@ -40,7 +46,7 @@ namespace ResourcePreview.Preview
 
         public static Result ForStyle(Style style)
         {
-            return Create(style.TargetType, element => element.Style = style, HasIsEnabledTrigger(style));
+            return Create(style.TargetType, element => element.Style = style, HasIsEnabledTrigger(style), StateSimulator.TriggersOf(style));
         }
 
         public static Result ForTemplate(ControlTemplate template)
@@ -52,7 +58,7 @@ namespace ResourcePreview.Preview
                 return new Result(null, null);
             }
 
-            return Create(type, element => ((Control)element).Template = template, HasIsEnabledTrigger(template.Triggers));
+            return Create(type, element => ((Control)element).Template = template, HasIsEnabledTrigger(template.Triggers), StateSimulator.TriggersOf(template));
         }
 
         /// <summary>
@@ -103,7 +109,7 @@ namespace ResourcePreview.Preview
         private static bool IsEnabledBinding(BindingBase binding) =>
             binding is Binding b && b.Path != null && (b.Path.Path == "IsEnabled" || b.Path.Path.EndsWith(".IsEnabled", StringComparison.Ordinal));
 
-        private static Result Create(Type type, Action<FrameworkElement> apply, bool showDisabled)
+        private static Result Create(Type type, Action<FrameworkElement> apply, bool hasIsEnabledTrigger, IReadOnlyList<TriggerBase> triggers)
         {
             if (!CanCreate(type))
             {
@@ -113,10 +119,35 @@ namespace ResourcePreview.Preview
             var panel = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 6, 0, 2) };
             try
             {
-                panel.Children.Add(CreateColumn(type, apply, enabled: true, showDisabled ? Localizer.Get(Strings.SampleNormal) : null));
-                if (showDisabled)
+                // The normal sample comes first: only with its template applied can we see its visual states.
+                Border normal = CreateFrame(type, apply, enabled: true);
+                var states = new List<SampleState>();
+                foreach (SampleState state in new[] { SampleState.MouseOver, SampleState.Pressed })
                 {
-                    panel.Children.Add(CreateColumn(type, apply, enabled: false, Localizer.Get(Strings.SampleDisabled)));
+                    if (StateSimulator.HasState(triggers, state) || StateSimulator.HasVisualState(normal.Child, state))
+                    {
+                        states.Add(state);
+                    }
+                }
+
+                if (hasIsEnabledTrigger || StateSimulator.HasVisualState(normal.Child, SampleState.Disabled))
+                {
+                    states.Add(SampleState.Disabled);
+                }
+
+                // One sample needs no label. With several, the labels tell them apart.
+                double width = states.Count >= 2 ? NarrowSampleWidth : MaxSampleWidth;
+                panel.Children.Add(CreateColumn(normal, width, states.Count > 0 ? Localizer.Get(Strings.SampleNormal) : null));
+
+                foreach (SampleState state in states)
+                {
+                    Border frame = CreateFrame(type, apply, enabled: state != SampleState.Disabled);
+                    if (state != SampleState.Disabled)
+                    {
+                        StateSimulator.Apply((FrameworkElement)frame.Child, triggers, state);
+                    }
+
+                    panel.Children.Add(CreateColumn(frame, width, Label(state)));
                 }
             }
             catch (Exception ex)
@@ -127,6 +158,17 @@ namespace ResourcePreview.Preview
             }
 
             return new Result(panel, null);
+        }
+
+        private static string Label(SampleState state)
+        {
+            switch (state)
+            {
+                case SampleState.MouseOver: return Localizer.Get(Strings.SampleMouseOver);
+                case SampleState.Pressed: return Localizer.Get(Strings.SamplePressed);
+                case SampleState.Disabled: return Localizer.Get(Strings.SampleDisabled);
+                default: return Localizer.Get(Strings.SampleNormal);
+            }
         }
 
         /// <summary>True if the type can be instantiated and hosted in a StackPanel.</summary>
@@ -148,7 +190,8 @@ namespace ResourcePreview.Preview
                 && !typeof(ContextMenu).IsAssignableFrom(type);
         }
 
-        private static UIElement CreateColumn(Type type, Action<FrameworkElement> apply, bool enabled, string label)
+        /// <summary>A new control with the style or template, in a clipping frame. The template is applied.</summary>
+        private static Border CreateFrame(Type type, Action<FrameworkElement> apply, bool enabled)
         {
             var element = (FrameworkElement)Activator.CreateInstance(type);
             FillContent(element);
@@ -173,6 +216,13 @@ namespace ResourcePreview.Preview
 
             // Measure applies the template, so template errors are thrown inside the caller's try/catch.
             frame.Measure(new Size(MaxSampleWidth, MaxSampleHeight));
+            return frame;
+        }
+
+        private static UIElement CreateColumn(Border frame, double width, string label)
+        {
+            frame.MaxWidth = width;
+            frame.Measure(new Size(width, MaxSampleHeight));
 
             var column = new StackPanel { Margin = new Thickness(0, 0, 16, 0) };
             column.Children.Add(frame);
