@@ -187,4 +187,25 @@
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
     <value>Zobrazí ikonu obrázků, geometrií a štětců v seznamu IntelliSense za {StaticResource nebo {DynamicResource a náhled v popisku vybrané položky.</value>
   </data>
+  <data name="MissingStaticKeyFormat" xml:space="preserve">
+    <value>'{0}' není v tomto řešení nikde definován. WPF při načítání tohoto StaticResource vyvolá výjimku.</value>
+  </data>
+  <data name="MissingDynamicKeyFormat" xml:space="preserve">
+    <value>'{0}' není v tomto řešení nikde definován. Tento DynamicResource zůstane prázdný, pokud klíč nepřidá kód.</value>
+  </data>
+  <data name="DidYouMeanFormat" xml:space="preserve">
+    <value>Klíče rozlišují velká a malá písmena. Měli jste na mysli '{0}'?</value>
+  </data>
+  <data name="DefinedLaterFormat" xml:space="preserve">
+    <value>'{0}' je definován až níže v tomto souboru (řádek {1}). StaticResource musí být definován nad místem použití, jinak WPF při načítání vyvolá výjimku.</value>
+  </data>
+  <data name="NotLoadedFormat" xml:space="preserve">
+    <value>'{0}' je definován v {1}, ale WPF odsud tento soubor neprohledává. Načtení tohoto StaticResource vyvolá výjimku.</value>
+  </data>
+  <data name="OptionsCheckReferencesName" xml:space="preserve">
+    <value>Kontrolovat odkazy na prostředky</value>
+  </data>
+  <data name="OptionsCheckReferencesDescription" xml:space="preserve">
+    <value>Zobrazí v seznamu chyb upozornění pro odkazy na klíče, které neexistují, jsou definovány až níže ve stejném souboru nebo jsou v souboru, který se tam nenačítá.</value>
+  </data>
 </root>

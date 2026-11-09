@@ -187,4 +187,25 @@
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
     <value>Toont een icoon voor afbeeldingen, geometrieën en brushes in de IntelliSense-lijst na {StaticResource of {DynamicResource, en de preview in de tooltip van het geselecteerde item.</value>
   </data>
+  <data name="MissingStaticKeyFormat" xml:space="preserve">
+    <value>'{0}' is nergens in deze solution gedefinieerd. WPF geeft een exceptie bij het laden van deze StaticResource.</value>
+  </data>
+  <data name="MissingDynamicKeyFormat" xml:space="preserve">
+    <value>'{0}' is nergens in deze solution gedefinieerd. Deze DynamicResource blijft leeg, tenzij code de key toevoegt.</value>
+  </data>
+  <data name="DidYouMeanFormat" xml:space="preserve">
+    <value>Keys zijn hoofdlettergevoelig. Bedoel je '{0}'?</value>
+  </data>
+  <data name="DefinedLaterFormat" xml:space="preserve">
+    <value>'{0}' wordt pas verderop in dit bestand gedefinieerd (regel {1}). Een StaticResource moet boven de plek staan waar hij gebruikt wordt, anders geeft WPF een exceptie bij het laden.</value>
+  </data>
+  <data name="NotLoadedFormat" xml:space="preserve">
+    <value>'{0}' staat in {1}, maar WPF doorzoekt dat bestand hier niet. Het laden van deze StaticResource geeft een exceptie.</value>
+  </data>
+  <data name="OptionsCheckReferencesName" xml:space="preserve">
+    <value>Resource-verwijzingen controleren</value>
+  </data>
+  <data name="OptionsCheckReferencesDescription" xml:space="preserve">
+    <value>Toont een waarschuwing in de Foutenlijst voor verwijzingen naar keys die niet bestaan, pas verderop in hetzelfde bestand staan, of in een bestand staan dat daar niet geladen wordt.</value>
+  </data>
 </root>

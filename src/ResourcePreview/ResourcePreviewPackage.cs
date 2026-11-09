@@ -48,7 +48,7 @@ namespace ResourcePreview
             // SettingsService switches to the UI thread itself where needed.
             await SettingsService.InitializeAsync(this, cancellationToken);
             await GoToResourceDefinitionCommand.InitializeAsync(this);
-            await OverriddenKeyErrorList.InitializeAsync(this);
+            await ResourceErrorList.InitializeAsync(this);
 
             _instance = this;
         }

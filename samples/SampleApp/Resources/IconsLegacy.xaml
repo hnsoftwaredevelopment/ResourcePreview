@@ -6,4 +6,7 @@
         <Geometry>M2,12 L9,19 22,4 20,2 9,15 4,10 Z</Geometry>
     </GeometryGroup>
 
+    <!-- Only defined here. Broken\ReferenceProblems.xaml uses it, but nothing merges this file. -->
+    <Geometry x:Key="LegacyArrow">M0,0 L8,8 0,16 Z</Geometry>
+
 </ResourceDictionary>

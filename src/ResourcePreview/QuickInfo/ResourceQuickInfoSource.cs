@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.Language.StandardClassification;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Adornments;
 using Microsoft.VisualStudio.Threading;
+using ResourcePreview.Diagnostics;
 using ResourcePreview.Localization;
 using ResourcePreview.Navigation;
 using ResourcePreview.Preview;
@@ -93,13 +94,19 @@ namespace ResourcePreview.QuickInfo
             ResourceIndex index = ResourceIndex.ForFile(filePath);
             UpdateLiveText(index, filePath, snapshot);
 
+            // Will WPF find this key at runtime? Null for an x:Key definition or when all is well.
+            string problem = DescribeProblem(index, filePath, line, reference, cancellationToken);
+
             // Sorted in WPF lookup order: the first one is the definition WPF uses here.
             IReadOnlyList<ResourceDefinition> definitions = index.Resolve(reference.Key, filePath, cancellationToken);
             if (definitions.Count == 0)
             {
-                return new QuickInfoItem(applicableSpan, new ClassifiedTextElement(
+                var notFound = new ClassifiedTextElement(
                     new ClassifiedTextRun(PredefinedClassificationTypeNames.Identifier, reference.Key),
-                    new ClassifiedTextRun(PredefinedClassificationTypeNames.Comment, "  " + Localizer.Format(Strings.NotFoundUnderFormat, index.RootDirectory))));
+                    new ClassifiedTextRun(PredefinedClassificationTypeNames.Comment, "  " + Localizer.Format(Strings.NotFoundUnderFormat, index.RootDirectory)));
+                return new QuickInfoItem(applicableSpan, problem == null
+                    ? (object)notFound
+                    : new ContainerElement(ContainerElementStyle.Stacked, notFound, CreateComment(problem)));
             }
 
             ResourceEntry target = definitions[0].Entry;
@@ -112,7 +119,14 @@ namespace ResourcePreview.QuickInfo
             ResourcePreviewData preview = ResourcePreviewData.Create(index, target, CreateNavigateAction(session, target), cancellationToken);
 #pragma warning restore VSTHRD010
 
-            var parts = new List<object> { header, preview, CreateLocationLink(session, index, definitions[0]) };
+            var parts = new List<object> { header };
+            if (problem != null)
+            {
+                parts.Add(CreateComment(problem));
+            }
+
+            parts.Add(preview);
+            parts.Add(CreateLocationLink(session, index, definitions[0]));
 
             // Say which definition wins when it matters: another one is overridden, or this file is never loaded.
             if (definitions[0].IsInUnmergedFile)
@@ -142,6 +156,24 @@ namespace ResourcePreview.QuickInfo
             }
 
             return new QuickInfoItem(applicableSpan, new ContainerElement(ContainerElementStyle.Stacked, parts));
+        }
+
+        /// <summary>
+        /// The Error List text for this reference if WPF will not resolve it, otherwise null.
+        /// Only for {StaticResource X} and {DynamicResource X}, not for an x:Key.
+        /// </summary>
+        private static string DescribeProblem(ResourceIndex index, string filePath, ITextSnapshotLine line, ResourceReference reference, CancellationToken cancellationToken)
+        {
+            string text = line.GetText().Substring(reference.Start, reference.Length);
+            bool isStatic = text.Contains("StaticResource");
+            if (!Options.SettingsService.Current.CheckReferences || !isStatic && !text.Contains("DynamicResource"))
+            {
+                return null;
+            }
+
+            var use = new ResourceUse(reference.Key, line.LineNumber + 1, reference.Start + 1, isStatic);
+            ReferenceProblem problem = ReferenceChecker.CheckOne(index, filePath, use, cancellationToken);
+            return problem == null ? null : ProblemText.Describe(index, problem);
         }
 
         /// <summary>

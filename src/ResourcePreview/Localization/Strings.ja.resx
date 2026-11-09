@@ -187,4 +187,25 @@
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
     <value>{StaticResource または {DynamicResource の後の IntelliSense 一覧で、画像、ジオメトリ、ブラシのアイコンを表示し、選択した項目のツールヒントにプレビューを表示します。</value>
   </data>
+  <data name="MissingStaticKeyFormat" xml:space="preserve">
+    <value>'{0}' はこのソリューションのどこにも定義されていません。WPF はこの StaticResource を読み込むときに例外をスローします。</value>
+  </data>
+  <data name="MissingDynamicKeyFormat" xml:space="preserve">
+    <value>'{0}' はこのソリューションのどこにも定義されていません。コードでキーを追加しない限り、この DynamicResource は空のままです。</value>
+  </data>
+  <data name="DidYouMeanFormat" xml:space="preserve">
+    <value>キーは大文字と小文字を区別します。'{0}' のことですか?</value>
+  </data>
+  <data name="DefinedLaterFormat" xml:space="preserve">
+    <value>'{0}' はこのファイルのさらに下 (行 {1}) でのみ定義されています。StaticResource は使用する場所より上で定義する必要があります。そうしないと、WPF は読み込み時に例外をスローします。</value>
+  </data>
+  <data name="NotLoadedFormat" xml:space="preserve">
+    <value>'{0}' は {1} で定義されていますが、WPF はここからそのファイルを検索しません。この StaticResource を読み込むと例外がスローされます。</value>
+  </data>
+  <data name="OptionsCheckReferencesName" xml:space="preserve">
+    <value>リソース参照をチェックする</value>
+  </data>
+  <data name="OptionsCheckReferencesDescription" xml:space="preserve">
+    <value>存在しないキー、同じファイル内でさらに下でのみ定義されているキー、またはそこで読み込まれないファイルにあるキーへの参照について、エラー一覧に警告を表示します。</value>
+  </data>
 </root>

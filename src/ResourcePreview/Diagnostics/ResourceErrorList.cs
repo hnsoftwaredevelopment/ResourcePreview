@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Shell;
@@ -18,14 +19,15 @@ using Task = System.Threading.Tasks.Task;
 namespace ResourcePreview.Diagnostics
 {
     /// <summary>
-    /// Shows a warning in the Error List for each resource definition WPF never uses, because a
-    /// dictionary merged later (or App.xaml itself) defines the same key. See <see cref="OverriddenKeyScanner"/>.
+    /// The Error List entries of the extension:
+    /// - definitions WPF never uses, because a dictionary merged later defines the same key (<see cref="OverriddenKeyScanner"/>);
+    /// - references WPF will not resolve: missing keys, keys defined further down, keys in a file not loaded there (<see cref="ReferenceChecker"/>).
     ///
     /// Scans when the package loads, when a solution opens, a short moment after a .xaml file is saved,
     /// and when the setting changes. The scan runs on a background thread; the Error List is updated
     /// on the UI thread.
     /// </summary>
-    internal sealed class OverriddenKeyErrorList
+    internal sealed class ResourceErrorList
     {
         // Saving several files at once (Save All, git checkout) should give one scan, not ten.
         private static readonly TimeSpan Delay = TimeSpan.FromMilliseconds(1500);
@@ -36,7 +38,7 @@ namespace ResourcePreview.Diagnostics
         private CancellationTokenSource _pending;
         private ResourceIndex _watchedIndex;
 
-        private OverriddenKeyErrorList(AsyncPackage package, DefinitionNavigator navigator)
+        private ResourceErrorList(AsyncPackage package, DefinitionNavigator navigator)
         {
             _package = package;
             _navigator = navigator;
@@ -58,7 +60,7 @@ namespace ResourcePreview.Diagnostics
             await package.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             var navigator = new DefinitionNavigator(package, componentModel.GetService<IVsEditorAdaptersFactoryService>(), package.JoinableTaskFactory.Context);
-            var instance = new OverriddenKeyErrorList(package, navigator);
+            var instance = new ResourceErrorList(package, navigator);
 
             // All three are raised on the UI thread.
             SolutionEvents.OnAfterOpenSolution += (s, e) =>
@@ -87,7 +89,7 @@ namespace ResourcePreview.Diagnostics
             ThreadHelper.ThrowIfNotOnUIThread();
 
             _pending?.Cancel();
-            if (!SettingsService.Current.WarnOverriddenKeys)
+            if (!SettingsService.Current.WarnOverriddenKeys && !SettingsService.Current.CheckReferences)
             {
                 Clear();
                 return;
@@ -116,10 +118,16 @@ namespace ResourcePreview.Diagnostics
 
                 ResourceIndex index = ResourceIndex.ForFile(solutionFile);
                 Watch(index);
-                IReadOnlyList<OverriddenKey> found = OverriddenKeyScanner.Scan(index, cancellationToken);
+                ExtensionSettings settings = SettingsService.Current;
+                IReadOnlyList<OverriddenKey> overridden = settings.WarnOverriddenKeys
+                    ? OverriddenKeyScanner.Scan(index, cancellationToken)
+                    : new OverriddenKey[0];
+                IReadOnlyList<ReferenceProblem> problems = settings.CheckReferences
+                    ? ReferenceChecker.CheckAll(index, cancellationToken)
+                    : new ReferenceProblem[0];
 
                 await _package.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-                Show(index, found);
+                Show(index, overridden, problems);
             }
             catch (OperationCanceledException)
             {
@@ -154,7 +162,7 @@ namespace ResourcePreview.Diagnostics
             }).FileAndForget("ResourcePreview/OverriddenKeyFilesChanged");
         }
 
-        private void Show(ResourceIndex index, IReadOnlyList<OverriddenKey> found)
+        private void Show(ResourceIndex index, IReadOnlyList<OverriddenKey> overridden, IReadOnlyList<ReferenceProblem> problems)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -162,29 +170,39 @@ namespace ResourcePreview.Diagnostics
             try
             {
                 _errorList.Tasks.Clear();
-                foreach (OverriddenKey item in found)
+                foreach (OverriddenKey item in overridden)
                 {
                     ResourceEntry definition = item.Definition;
-                    var task = new ErrorTask
-                    {
-                        Category = TaskCategory.BuildCompile,
-                        ErrorCategory = TaskErrorCategory.Warning,
-                        Text = Localizer.Format(
+                    ErrorTask task = CreateTask(
+                        TaskErrorCategory.Warning,
+                        Localizer.Format(
                             Strings.OverriddenKeyWarningFormat,
                             definition.Key,
-                            Relative(index, item.UsedInstead.FilePath),
+                            ReferenceChecker.Relative(index, item.UsedInstead.FilePath),
                             item.UsedInstead.LineNumber,
                             Path.GetFileName(item.LoadedThrough)),
-                        Document = definition.FilePath,
-
-                        // The Error List counts from 0, the editor shows lines from 1.
-                        Line = Math.Max(0, definition.LineNumber - 1),
-                        Column = Math.Max(0, definition.Column - 1),
-                    };
+                        definition.FilePath,
+                        definition.LineNumber,
+                        definition.Column);
                     task.Navigate += (s, e) =>
                     {
                         ThreadHelper.ThrowIfNotOnUIThread();
                         _navigator.NavigateTo(definition);
+                    };
+                    _errorList.Tasks.Add(task);
+                }
+
+                foreach (ReferenceProblem problem in problems)
+                {
+                    // A missing DynamicResource does not crash: code may still add the key. So only a message.
+                    TaskErrorCategory category = problem.Kind == ReferenceProblemKind.Missing && !problem.Use.IsStatic
+                        ? TaskErrorCategory.Message
+                        : TaskErrorCategory.Warning;
+                    ErrorTask task = CreateTask(category, ProblemText.Describe(index, problem), problem.FilePath, problem.Use.Line, problem.Use.Column);
+                    task.Navigate += (s, e) =>
+                    {
+                        ThreadHelper.ThrowIfNotOnUIThread();
+                        _errorList.Navigate((ErrorTask)s, VSConstants.LOGVIEWID.TextView_guid);
                     };
                     _errorList.Tasks.Add(task);
                 }
@@ -193,6 +211,21 @@ namespace ResourcePreview.Diagnostics
             {
                 _errorList.ResumeRefresh();
             }
+        }
+
+        private static ErrorTask CreateTask(TaskErrorCategory category, string text, string file, int line, int column)
+        {
+            return new ErrorTask
+            {
+                Category = TaskCategory.BuildCompile,
+                ErrorCategory = category,
+                Text = text,
+                Document = file,
+
+                // The Error List counts from 0, the editor shows lines from 1.
+                Line = Math.Max(0, line - 1),
+                Column = Math.Max(0, column - 1),
+            };
         }
 
         private void Clear()
@@ -218,12 +251,6 @@ namespace ResourcePreview.Diagnostics
 
             // Open Folder has no .sln. Any path in the folder lets the index find its root.
             return string.IsNullOrEmpty(directory) ? null : Path.Combine(directory, "_");
-        }
-
-        private static string Relative(ResourceIndex index, string path)
-        {
-            string root = index.RootDirectory.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
-            return path.StartsWith(root, StringComparison.OrdinalIgnoreCase) ? path.Substring(root.Length) : path;
         }
     }
 }

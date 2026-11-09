@@ -187,4 +187,25 @@
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
     <value>在 {StaticResource 或 {DynamicResource 之後的 IntelliSense 清單中顯示影像、幾何圖形和筆刷的圖示，並在所選項目的工具提示中顯示預覽。</value>
   </data>
+  <data name="MissingStaticKeyFormat" xml:space="preserve">
+    <value>「{0}」在此方案中的任何位置都未定義。WPF 在載入此 StaticResource 時會擲回例外狀況。</value>
+  </data>
+  <data name="MissingDynamicKeyFormat" xml:space="preserve">
+    <value>「{0}」在此方案中的任何位置都未定義。除非程式碼加入該索引鍵，否則此 DynamicResource 會保持空白。</value>
+  </data>
+  <data name="DidYouMeanFormat" xml:space="preserve">
+    <value>索引鍵區分大小寫。您是指「{0}」嗎?</value>
+  </data>
+  <data name="DefinedLaterFormat" xml:space="preserve">
+    <value>「{0}」只在此檔案的更下方定義(第 {1} 行)。StaticResource 必須在使用位置之上定義，否則 WPF 在載入時會擲回例外狀況。</value>
+  </data>
+  <data name="NotLoadedFormat" xml:space="preserve">
+    <value>「{0}」定義於 {1}，但 WPF 不會從這裡搜尋該檔案。載入此 StaticResource 時會擲回例外狀況。</value>
+  </data>
+  <data name="OptionsCheckReferencesName" xml:space="preserve">
+    <value>檢查資源參考</value>
+  </data>
+  <data name="OptionsCheckReferencesDescription" xml:space="preserve">
+    <value>對於不存在的索引鍵、僅在同一檔案更下方定義的索引鍵，或位於該處未載入之檔案中的索引鍵的參考，在錯誤清單中顯示警告。</value>
+  </data>
 </root>

@@ -15,14 +15,39 @@ namespace ResourcePreview.Resources
         Other,
     }
 
-    /// <summary>The parts of one .xaml file that the index needs: its keys and what it merges.</summary>
+    /// <summary>A {StaticResource X} or {DynamicResource X} in a file. Line and column are 1-based and point at the key.</summary>
+    internal sealed class ResourceUse
+    {
+        public ResourceUse(string key, int line, int column, bool isStatic)
+        {
+            Key = key;
+            Line = line;
+            Column = column;
+            IsStatic = isStatic;
+        }
+
+        public string Key { get; }
+
+        public int Line { get; }
+
+        public int Column { get; }
+
+        /// <summary>StaticResource (resolved once, while loading) or DynamicResource (looked up again at runtime).</summary>
+        public bool IsStatic { get; }
+    }
+
+    /// <summary>The parts of one .xaml file that the index needs: its keys, what it merges and which keys it uses.</summary>
     internal sealed class XamlFileModel
     {
-        public XamlFileModel(IReadOnlyList<ResourceEntry> entries, IReadOnlyList<string> mergedSources, XamlRootKind rootKind)
+        private static readonly IReadOnlyList<ResourceUse> NoUses = new ResourceUse[0];
+
+        public XamlFileModel(IReadOnlyList<ResourceEntry> entries, IReadOnlyList<string> mergedSources, XamlRootKind rootKind, string rootName = null, IReadOnlyList<ResourceUse> uses = null)
         {
             Entries = entries;
             MergedSources = mergedSources;
             RootKind = rootKind;
+            RootName = rootName ?? string.Empty;
+            Uses = uses ?? NoUses;
         }
 
         public IReadOnlyList<ResourceEntry> Entries { get; }
@@ -34,5 +59,11 @@ namespace ResourcePreview.Resources
         public IReadOnlyList<string> MergedSources { get; }
 
         public XamlRootKind RootKind { get; }
+
+        /// <summary>Local name of the root element: "Window", "UserControl", "ResourceDictionary" ...</summary>
+        public string RootName { get; }
+
+        /// <summary>Every resource reference in the file, in file order.</summary>
+        public IReadOnlyList<ResourceUse> Uses { get; }
     }
 }

@@ -187,4 +187,25 @@
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
     <value>{StaticResource veya {DynamicResource sonrasındaki IntelliSense listesinde resimler, geometriler ve fırçalar için bir simge, seçili öğenin araç ipucunda ise önizlemeyi gösterir.</value>
   </data>
+  <data name="MissingStaticKeyFormat" xml:space="preserve">
+    <value>'{0}' bu çözümün hiçbir yerinde tanımlı değil. WPF bu StaticResource'u yüklerken bir özel durum oluşturur.</value>
+  </data>
+  <data name="MissingDynamicKeyFormat" xml:space="preserve">
+    <value>'{0}' bu çözümün hiçbir yerinde tanımlı değil. Kod anahtarı eklemedikçe bu DynamicResource boş kalır.</value>
+  </data>
+  <data name="DidYouMeanFormat" xml:space="preserve">
+    <value>Anahtarlar büyük/küçük harfe duyarlıdır. '{0}' mı demek istediniz?</value>
+  </data>
+  <data name="DefinedLaterFormat" xml:space="preserve">
+    <value>'{0}' yalnızca bu dosyanın daha aşağısında tanımlı (satır {1}). Bir StaticResource kullanıldığı yerin üstünde tanımlanmalıdır, aksi halde WPF yükleme sırasında bir özel durum oluşturur.</value>
+  </data>
+  <data name="NotLoadedFormat" xml:space="preserve">
+    <value>'{0}' {1} içinde tanımlı, ancak WPF bu dosyayı buradan aramaz. Bu StaticResource yüklenirken bir özel durum oluşur.</value>
+  </data>
+  <data name="OptionsCheckReferencesName" xml:space="preserve">
+    <value>Kaynak başvurularını denetle</value>
+  </data>
+  <data name="OptionsCheckReferencesDescription" xml:space="preserve">
+    <value>Var olmayan, aynı dosyada yalnızca daha aşağıda tanımlanan veya orada yüklenmeyen bir dosyada bulunan anahtarlara yapılan başvurular için Hata Listesi'nde bir uyarı gösterir.</value>
+  </data>
 </root>

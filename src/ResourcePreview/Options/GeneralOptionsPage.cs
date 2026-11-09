@@ -41,6 +41,12 @@ namespace ResourcePreview.Options
         public bool WarnOverriddenKeys { get; set; }
 
         [LocalizedCategory(Strings.OptionsCategoryGeneral)]
+        [LocalizedDisplayName(Strings.OptionsCheckReferencesName)]
+        [LocalizedDescription(Strings.OptionsCheckReferencesDescription)]
+        [DefaultValue(true)]
+        public bool CheckReferences { get; set; }
+
+        [LocalizedCategory(Strings.OptionsCategoryGeneral)]
         [LocalizedDisplayName(Strings.OptionsShowInCompletionName)]
         [LocalizedDescription(Strings.OptionsShowInCompletionDescription)]
         [DefaultValue(true)]
@@ -92,7 +98,8 @@ namespace ResourcePreview.Options
                 ToMedia(DarkTileForeground), ToMedia(DarkTileBackground),
                 ShowLiveSample,
                 WarnOverriddenKeys,
-                ShowInCompletion);
+                ShowInCompletion,
+                CheckReferences);
         }
 
         private void FromSettings(ExtensionSettings settings)
@@ -108,6 +115,7 @@ namespace ResourcePreview.Options
             ShowLiveSample = settings.ShowLiveSample;
             WarnOverriddenKeys = settings.WarnOverriddenKeys;
             ShowInCompletion = settings.ShowInCompletion;
+            CheckReferences = settings.CheckReferences;
         }
 
         /// <summary>Refreshes the values from Unified Settings when the page opens.</summary>

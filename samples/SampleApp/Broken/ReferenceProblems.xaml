@@ -1,0 +1,31 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--
+        Mistakes that only show up when the app runs. Each one gives an entry in the Error List
+        and a note in the tooltip. Nothing merges this file, so the sample app itself still starts.
+    -->
+
+    <!-- Defined further down: a StaticResource does not look ahead. -->
+    <Style x:Key="EarlyStyle" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource LateBrush}" />
+    </Style>
+    <SolidColorBrush x:Key="LateBrush" Color="Orange" />
+
+    <!-- Wrong case: keys are case-sensitive. -->
+    <Style x:Key="CaseStyle" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource accentBrush}" />
+    </Style>
+
+    <!-- Not defined anywhere. A DynamicResource only gives a message: code may still add the key. -->
+    <Style x:Key="ThemeStyle" TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource ThemeBackgroundFromCode}" />
+    </Style>
+
+    <!-- Only in IconsLegacy.xaml, which nothing merges. -->
+    <DrawingImage x:Key="UsesLegacyArrow">
+        <DrawingImage.Drawing>
+            <GeometryDrawing Brush="Black" Geometry="{StaticResource LegacyArrow}" />
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>

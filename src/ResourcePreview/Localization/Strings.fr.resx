@@ -187,4 +187,25 @@
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
     <value>Affiche une icône pour les images, géométries et pinceaux dans la liste IntelliSense après {StaticResource ou {DynamicResource, et l'aperçu dans l'info-bulle de l'élément sélectionné.</value>
   </data>
+  <data name="MissingStaticKeyFormat" xml:space="preserve">
+    <value>'{0}' n'est défini nulle part dans cette solution. WPF lève une exception lors du chargement de cette StaticResource.</value>
+  </data>
+  <data name="MissingDynamicKeyFormat" xml:space="preserve">
+    <value>'{0}' n'est défini nulle part dans cette solution. Cette DynamicResource reste vide, sauf si du code ajoute la clé.</value>
+  </data>
+  <data name="DidYouMeanFormat" xml:space="preserve">
+    <value>Les clés respectent la casse. Vouliez-vous dire '{0}' ?</value>
+  </data>
+  <data name="DefinedLaterFormat" xml:space="preserve">
+    <value>'{0}' n'est défini que plus bas dans ce fichier (ligne {1}). Une StaticResource doit être définie au-dessus de l'endroit où elle est utilisée, sinon WPF lève une exception lors du chargement.</value>
+  </data>
+  <data name="NotLoadedFormat" xml:space="preserve">
+    <value>'{0}' est défini dans {1}, mais WPF ne recherche pas ce fichier ici. Le chargement de cette StaticResource lève une exception.</value>
+  </data>
+  <data name="OptionsCheckReferencesName" xml:space="preserve">
+    <value>Vérifier les références de ressources</value>
+  </data>
+  <data name="OptionsCheckReferencesDescription" xml:space="preserve">
+    <value>Affiche un avertissement dans la Liste d'erreurs pour les références à des clés qui n'existent pas, qui ne sont définies que plus bas dans le même fichier ou qui se trouvent dans un fichier qui n'y est pas chargé.</value>
+  </data>
 </root>

@@ -187,4 +187,25 @@
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
     <value>Mostra un'icona per immagini, geometrie e pennelli nell'elenco IntelliSense dopo {StaticResource o {DynamicResource, e l'anteprima nella descrizione comando dell'elemento selezionato.</value>
   </data>
+  <data name="MissingStaticKeyFormat" xml:space="preserve">
+    <value>'{0}' non è definito in nessuna parte di questa soluzione. WPF genera un'eccezione quando carica questa StaticResource.</value>
+  </data>
+  <data name="MissingDynamicKeyFormat" xml:space="preserve">
+    <value>'{0}' non è definito in nessuna parte di questa soluzione. Questa DynamicResource resta vuota a meno che il codice non aggiunga la chiave.</value>
+  </data>
+  <data name="DidYouMeanFormat" xml:space="preserve">
+    <value>Le chiavi fanno distinzione tra maiuscole e minuscole. Intendevi '{0}'?</value>
+  </data>
+  <data name="DefinedLaterFormat" xml:space="preserve">
+    <value>'{0}' è definito solo più in basso in questo file (riga {1}). Una StaticResource deve essere definita sopra il punto in cui viene usata, altrimenti WPF genera un'eccezione durante il caricamento.</value>
+  </data>
+  <data name="NotLoadedFormat" xml:space="preserve">
+    <value>'{0}' è definito in {1}, ma WPF non cerca in quel file da qui. Il caricamento di questa StaticResource genera un'eccezione.</value>
+  </data>
+  <data name="OptionsCheckReferencesName" xml:space="preserve">
+    <value>Controlla i riferimenti alle risorse</value>
+  </data>
+  <data name="OptionsCheckReferencesDescription" xml:space="preserve">
+    <value>Mostra un avviso nell'Elenco errori per i riferimenti a chiavi che non esistono, che sono definite solo più in basso nello stesso file o che si trovano in un file non caricato lì.</value>
+  </data>
 </root>

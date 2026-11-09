@@ -57,6 +57,13 @@ namespace ResourcePreview.Localization
         public const string SamplePressed = nameof(SamplePressed);
         public const string OptionsShowInCompletionName = nameof(OptionsShowInCompletionName);
         public const string OptionsShowInCompletionDescription = nameof(OptionsShowInCompletionDescription);
+        public const string MissingStaticKeyFormat = nameof(MissingStaticKeyFormat);
+        public const string MissingDynamicKeyFormat = nameof(MissingDynamicKeyFormat);
+        public const string DidYouMeanFormat = nameof(DidYouMeanFormat);
+        public const string DefinedLaterFormat = nameof(DefinedLaterFormat);
+        public const string NotLoadedFormat = nameof(NotLoadedFormat);
+        public const string OptionsCheckReferencesName = nameof(OptionsCheckReferencesName);
+        public const string OptionsCheckReferencesDescription = nameof(OptionsCheckReferencesDescription);
         public const string NoLiveSampleFormat = nameof(NoLiveSampleFormat);
         public const string TemplateMoreElementsFormat = nameof(TemplateMoreElementsFormat);
         public const string TemplateEmpty = nameof(TemplateEmpty);

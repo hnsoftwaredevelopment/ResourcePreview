@@ -187,4 +187,25 @@
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
     <value>{StaticResource 또는 {DynamicResource 다음의 IntelliSense 목록에 이미지, 지오메트리, 브러시 아이콘을 표시하고 선택한 항목의 도구 설명에 미리 보기를 표시합니다.</value>
   </data>
+  <data name="MissingStaticKeyFormat" xml:space="preserve">
+    <value>'{0}'은(는) 이 솔루션 어디에도 정의되어 있지 않습니다. WPF는 이 StaticResource를 로드할 때 예외를 발생시킵니다.</value>
+  </data>
+  <data name="MissingDynamicKeyFormat" xml:space="preserve">
+    <value>'{0}'은(는) 이 솔루션 어디에도 정의되어 있지 않습니다. 코드에서 키를 추가하지 않으면 이 DynamicResource는 비어 있습니다.</value>
+  </data>
+  <data name="DidYouMeanFormat" xml:space="preserve">
+    <value>키는 대/소문자를 구분합니다. '{0}'을(를) 의미했나요?</value>
+  </data>
+  <data name="DefinedLaterFormat" xml:space="preserve">
+    <value>'{0}'은(는) 이 파일의 아래쪽(줄 {1})에서만 정의됩니다. StaticResource는 사용되는 위치보다 위에 정의되어야 하며, 그렇지 않으면 WPF가 로드할 때 예외를 발생시킵니다.</value>
+  </data>
+  <data name="NotLoadedFormat" xml:space="preserve">
+    <value>'{0}'은(는) {1}에 정의되어 있지만 WPF는 여기에서 해당 파일을 검색하지 않습니다. 이 StaticResource를 로드하면 예외가 발생합니다.</value>
+  </data>
+  <data name="OptionsCheckReferencesName" xml:space="preserve">
+    <value>리소스 참조 확인</value>
+  </data>
+  <data name="OptionsCheckReferencesDescription" xml:space="preserve">
+    <value>존재하지 않거나, 같은 파일의 아래쪽에서만 정의되거나, 그곳에서 로드되지 않는 파일에 있는 키에 대한 참조에 대해 오류 목록에 경고를 표시합니다.</value>
+  </data>
 </root>

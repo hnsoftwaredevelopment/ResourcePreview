@@ -83,7 +83,9 @@
     <Compile Include="Preview\TemplateTreeRenderer.cs" />
     <Compile Include="Navigation\DefinitionNavigator.cs" />
     <Compile Include="Navigation\GoToResourceDefinitionCommand.cs" />
-    <Compile Include="Diagnostics\OverriddenKeyErrorList.cs" />
+    <Compile Include="Diagnostics\ResourceErrorList.cs" />
+    <Compile Include="Diagnostics\ProblemText.cs" />
+    <Compile Include="Resources\ReferenceChecker.cs" />
     <Compile Include="Resources\MergeGraph.cs" />
     <Compile Include="Resources\OverriddenKeyScanner.cs" />
     <Compile Include="Resources\XamlFileModel.cs" />

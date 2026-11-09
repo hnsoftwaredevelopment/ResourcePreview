@@ -76,6 +76,20 @@ when loaded through App.xaml. WPF does not use this definition.
 
 Double-click the warning to open the definition. The list is updated after you save a `.xaml` file. It is not reported when a window overrides a key from `App.xaml` on purpose, or when the same dictionary is merged twice. You can turn the warnings off in the settings.
 
+## References WPF will not find
+
+A `{StaticResource}` that WPF cannot resolve compiles fine and only fails when the app loads the XAML. The extension reports these in the Error List, and the tooltip on the reference says what is wrong:
+
+| Problem | Example |
+|---|---|
+| The key does not exist | `{StaticResource AccentBrsh}`. If only the case differs, the message suggests the right key. |
+| The key is only defined further down in the same file | A style that uses `LateBrush` above `<SolidColorBrush x:Key="LateBrush">`. A StaticResource does not look ahead. |
+| The key is in a file that is not loaded there | The key is only in a dictionary that nothing merges, or in the resources of another window. |
+
+A `{DynamicResource}` is looked up again at runtime and code can still add the key, so only a missing key is reported, as a message instead of a warning.
+
+To avoid false alarms, a missing key is not reported when `App.xaml` merges a dictionary from outside the solution (such as a NuGet theme) or when there is no `App.xaml` (a class library). "Not loaded" is not reported for a `UserControl`, because at runtime it also sees the resources of the window it is placed in.
+
 ## IntelliSense
 
 After `{StaticResource ` or `{DynamicResource ` the IntelliSense list shows a small icon for images, geometries, drawings, brushes and colors. Select an item and its tooltip shows the same preview as on hover, also for styles and templates.
@@ -95,6 +109,7 @@ When the key is defined more than once, the command opens the definition WPF use
 | Language | Automatic | Follows the Visual Studio language. English, Chinese (Simplified and Traditional), Czech, Dutch, French, German, Italian, Japanese, Korean, Polish, Portuguese (Brazil), Russian, Spanish and Turkish are available. |
 | Maximum number of other definitions | 5 | How many other definitions are listed as links. 0 hides the list. |
 | Warn about overridden keys | On | Warnings in the Error List for definitions WPF never uses. |
+| Check resource references | On | Error List entries for references WPF will not resolve. |
 | Show previews in IntelliSense | On | Icons and the preview tooltip in the IntelliSense list. |
 | Tile size | 64 | Size of a preview tile in pixels, 16 to 256. |
 | Tiles | Light and dark | Both tiles, or only one of them. |

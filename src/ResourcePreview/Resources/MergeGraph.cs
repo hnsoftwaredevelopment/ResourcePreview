@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -65,6 +66,8 @@ namespace ResourcePreview.Resources
 
         private readonly Dictionary<string, List<string>> _merges = new Dictionary<string, List<string>>(PathComparer);
         private readonly HashSet<string> _mergedSomewhere = new HashSet<string>(PathComparer);
+        private readonly HashSet<string> _mergesUnknownFile = new HashSet<string>(PathComparer);
+        private readonly ConcurrentDictionary<string, List<string>> _lookupChains = new ConcurrentDictionary<string, List<string>>(PathComparer);
         private readonly Func<string, string> _projectDirectory;
 
         public MergeGraph(IReadOnlyDictionary<string, XamlFileModel> files, Func<string, string, string> resolveSource, Func<string, string> projectDirectory)
@@ -81,8 +84,15 @@ namespace ResourcePreview.Resources
 
                 List<string> resolved = file.Value.MergedSources
                     .Select(source => resolveSource(source, file.Key))
-                    .Where(path => path != null)
                     .ToList();
+
+                // A Source we cannot read (a NuGet package, a missing file) may define any key.
+                if (resolved.Any(path => path == null || !files.ContainsKey(path) && !File.Exists(path)))
+                {
+                    _mergesUnknownFile.Add(file.Key);
+                }
+
+                resolved.RemoveAll(path => path == null);
                 _merges[file.Key] = resolved;
                 _mergedSomewhere.UnionWith(resolved);
             }
@@ -153,8 +163,21 @@ namespace ResourcePreview.Resources
             return Applications.Count == 1 ? Applications[0] : null;
         }
 
-        /// <summary>The order in which WPF searches files for a key used in <paramref name="file"/>.</summary>
-        public List<string> GetLookupChain(string file)
+        /// <summary>The order in which WPF searches files for a key used in <paramref name="file"/>. Do not change the list.</summary>
+        public List<string> GetLookupChain(string file) => _lookupChains.GetOrAdd(file, BuildLookupChain);
+
+        /// <summary>
+        /// True when we know every file WPF searches for a key used in <paramref name="file"/>: there is an
+        /// App.xaml for it, and nothing on the way merges a dictionary from outside the solution. Only then
+        /// can we say a key does not exist there.
+        /// </summary>
+        public bool IsLookupComplete(string file)
+        {
+            bool isApplication = Files.TryGetValue(file, out XamlFileModel model) && model.RootKind == XamlRootKind.Application;
+            return (isApplication || FindApplication(file) != null) && !GetLookupChain(file).Any(_mergesUnknownFile.Contains);
+        }
+
+        private List<string> BuildLookupChain(string file)
         {
             List<string> chain = GetChain(file);
             string application = FindApplication(file);

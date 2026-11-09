@@ -216,4 +216,25 @@
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
     <value>Shows an icon for images, geometries and brushes in the IntelliSense list after {StaticResource or {DynamicResource, and the preview in the tooltip of the selected item.</value>
   </data>
+  <data name="MissingStaticKeyFormat" xml:space="preserve">
+    <value>'{0}' is not defined anywhere in this solution. WPF throws an exception when it loads this StaticResource.</value>
+  </data>
+  <data name="MissingDynamicKeyFormat" xml:space="preserve">
+    <value>'{0}' is not defined anywhere in this solution. This DynamicResource stays empty unless code adds the key.</value>
+  </data>
+  <data name="DidYouMeanFormat" xml:space="preserve">
+    <value>Keys are case-sensitive. Did you mean '{0}'?</value>
+  </data>
+  <data name="DefinedLaterFormat" xml:space="preserve">
+    <value>'{0}' is only defined further down in this file (line {1}). A StaticResource must be defined above the place where it is used, otherwise WPF throws an exception when loading.</value>
+  </data>
+  <data name="NotLoadedFormat" xml:space="preserve">
+    <value>'{0}' is defined in {1}, but WPF does not search that file from here. It throws an exception when it loads this StaticResource.</value>
+  </data>
+  <data name="OptionsCheckReferencesName" xml:space="preserve">
+    <value>Check resource references</value>
+  </data>
+  <data name="OptionsCheckReferencesDescription" xml:space="preserve">
+    <value>Shows a warning in the Error List for references to keys that do not exist, are only defined further down in the same file, or are in a file that is not loaded there.</value>
+  </data>
 </root>

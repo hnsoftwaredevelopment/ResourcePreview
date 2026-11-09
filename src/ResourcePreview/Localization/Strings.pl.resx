@@ -187,4 +187,25 @@
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
     <value>Pokazuje ikonę obrazów, geometrii i pędzli na liście IntelliSense po {StaticResource lub {DynamicResource oraz podgląd w etykietce wybranego elementu.</value>
   </data>
+  <data name="MissingStaticKeyFormat" xml:space="preserve">
+    <value>'{0}' nie jest nigdzie zdefiniowany w tym rozwiązaniu. WPF zgłasza wyjątek podczas wczytywania tego StaticResource.</value>
+  </data>
+  <data name="MissingDynamicKeyFormat" xml:space="preserve">
+    <value>'{0}' nie jest nigdzie zdefiniowany w tym rozwiązaniu. Ten DynamicResource pozostaje pusty, chyba że kod doda klucz.</value>
+  </data>
+  <data name="DidYouMeanFormat" xml:space="preserve">
+    <value>Klucze rozróżniają wielkość liter. Czy chodziło o '{0}'?</value>
+  </data>
+  <data name="DefinedLaterFormat" xml:space="preserve">
+    <value>'{0}' jest zdefiniowany dopiero niżej w tym pliku (wiersz {1}). StaticResource musi być zdefiniowany powyżej miejsca użycia, w przeciwnym razie WPF zgłasza wyjątek podczas wczytywania.</value>
+  </data>
+  <data name="NotLoadedFormat" xml:space="preserve">
+    <value>'{0}' jest zdefiniowany w {1}, ale WPF nie przeszukuje stąd tego pliku. Wczytanie tego StaticResource zgłasza wyjątek.</value>
+  </data>
+  <data name="OptionsCheckReferencesName" xml:space="preserve">
+    <value>Sprawdzaj odwołania do zasobów</value>
+  </data>
+  <data name="OptionsCheckReferencesDescription" xml:space="preserve">
+    <value>Pokazuje ostrzeżenie na liście błędów dla odwołań do kluczy, które nie istnieją, są zdefiniowane dopiero niżej w tym samym pliku lub znajdują się w pliku, który nie jest tam wczytywany.</value>
+  </data>
 </root>

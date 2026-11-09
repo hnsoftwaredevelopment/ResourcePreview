@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
 using System.Xml.Linq;
@@ -200,8 +201,14 @@ namespace ResourcePreview.Resources
             int component = location.IndexOf(";component/", StringComparison.OrdinalIgnoreCase);
             if (location.StartsWith("/", StringComparison.Ordinal) && component > 1)
             {
+                // A dictionary from a NuGet package or another solution: we cannot read it.
                 string assembly = location.Substring(1, component - 1);
-                directory = FindProjectDirectoryByAssemblyName(assembly) ?? GetProjectDirectory(fromFile);
+                directory = FindProjectDirectoryByAssemblyName(assembly);
+                if (directory == null)
+                {
+                    return null;
+                }
+
                 path = location.Substring(component + ";component/".Length);
             }
             else if (location.Contains("://"))
@@ -343,7 +350,7 @@ namespace ResourcePreview.Resources
 
                 // Files without keys still count when they merge something, such as App.xaml.
                 XamlFileModel parsed = ParseFile(file);
-                if (parsed != null && (parsed.Entries.Count > 0 || parsed.MergedSources.Count > 0 || parsed.RootKind == XamlRootKind.Application))
+                if (parsed != null && (parsed.Entries.Count > 0 || parsed.MergedSources.Count > 0 || parsed.Uses.Count > 0 || parsed.RootKind == XamlRootKind.Application))
                 {
                     entries[file] = parsed;
                 }
@@ -508,7 +515,37 @@ namespace ResourcePreview.Resources
                 result.Add(new ResourceEntry(keyAttribute.Value, new XElement(element), filePath, line, column, namespaces, isRootScope));
             }
 
-            return new XamlFileModel(result, FindMergedSources(rootDictionary), kind);
+            return new XamlFileModel(result, FindMergedSources(rootDictionary), kind, root.Name.LocalName, FindUses(text));
+        }
+
+        private static readonly Regex UsePattern = new Regex(
+            @"\{\s*(?<kind>StaticResource|DynamicResource)\s+(?:ResourceKey\s*=\s*)?(?<key>[^\s,}{]+)" +
+            @"|<\s*(?<kind>StaticResource|DynamicResource)\s+ResourceKey\s*=\s*""(?<key>[^""{]+)""",
+            RegexOptions.Compiled);
+
+        private static readonly Regex CommentPattern = new Regex("<!--.*?-->", RegexOptions.Compiled | RegexOptions.Singleline);
+
+        /// <summary>
+        /// All {StaticResource X} and {DynamicResource X} references, line by line. Comments are blanked
+        /// first, keeping their line breaks so line numbers stay right. A reference split over two lines is missed.
+        /// Internal for testing.
+        /// </summary>
+        internal static List<ResourceUse> FindUses(string text)
+        {
+            string withoutComments = CommentPattern.Replace(text, m => new string(m.Value.Select(c => c == '\n' || c == '\r' ? c : ' ').ToArray()));
+            string[] lines = withoutComments.Replace("\r\n", "\n").Split('\n');
+
+            var uses = new List<ResourceUse>();
+            for (int i = 0; i < lines.Length; i++)
+            {
+                foreach (Match match in UsePattern.Matches(lines[i]))
+                {
+                    Group key = match.Groups["key"];
+                    uses.Add(new ResourceUse(key.Value, i + 1, key.Index + 1, match.Groups["kind"].Value == "StaticResource"));
+                }
+            }
+
+            return uses;
         }
 
         /// <summary>
