@@ -154,4 +154,25 @@
   <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
     <value>{0}: еще определений: {1}. Наведите указатель на ссылку, чтобы увидеть их.</value>
   </data>
+  <data name="UsedByWpf" xml:space="preserve">
+    <value>WPF использует здесь это определение.</value>
+  </data>
+  <data name="OverriddenByFormat" xml:space="preserve">
+    <value>переопределено в {0}</value>
+  </data>
+  <data name="NotMerged" xml:space="preserve">
+    <value>нет ни в одном MergedDictionaries</value>
+  </data>
+  <data name="NotMergedFileFormat" xml:space="preserve">
+    <value>{0} нет ни в одном MergedDictionaries. WPF загружает его, только если его добавляет код.</value>
+  </data>
+  <data name="OverriddenKeyWarningFormat" xml:space="preserve">
+    <value>Ресурс '{0}' переопределён определением в {1} (строка {2}) при загрузке через {3}. WPF не использует это определение.</value>
+  </data>
+  <data name="OptionsWarnOverriddenName" xml:space="preserve">
+    <value>Предупреждать о переопределённых ключах</value>
+  </data>
+  <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
+    <value>Показывает предупреждение в списке ошибок для каждого ресурса, который WPF никогда не использует, потому что словарь, объединённый позже, определяет тот же ключ.</value>
+  </data>
 </root>

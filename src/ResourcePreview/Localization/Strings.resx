@@ -180,4 +180,28 @@
     <value>{0}: {1} more definition(s). Hover over the reference to see them.</value>
     <comment>{0} = resource key, {1} = number of other definitions</comment>
   </data>
+  <data name="UsedByWpf" xml:space="preserve">
+    <value>WPF uses this definition here.</value>
+  </data>
+  <data name="OverriddenByFormat" xml:space="preserve">
+    <value>overridden by {0}</value>
+    <comment>{0} = file name of the definition WPF uses</comment>
+  </data>
+  <data name="NotMerged" xml:space="preserve">
+    <value>not in any MergedDictionaries</value>
+  </data>
+  <data name="NotMergedFileFormat" xml:space="preserve">
+    <value>{0} is not in any MergedDictionaries. WPF only loads it if code adds it.</value>
+    <comment>{0} = file name</comment>
+  </data>
+  <data name="OverriddenKeyWarningFormat" xml:space="preserve">
+    <value>Resource '{0}' is overridden by the definition in {1} (line {2}) when loaded through {3}. WPF does not use this definition.</value>
+    <comment>{0} = key, {1} = file that wins, {2} = line, {3} = App.xaml or window file</comment>
+  </data>
+  <data name="OptionsWarnOverriddenName" xml:space="preserve">
+    <value>Warn about overridden keys</value>
+  </data>
+  <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
+    <value>Shows a warning in the Error List for each resource that WPF never uses, because a dictionary that is merged later defines the same key.</value>
+  </data>
 </root>

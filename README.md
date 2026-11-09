@@ -46,13 +46,41 @@ A `ControlTemplate` for a standard control is shown as a real control. A `DataTe
 
 The extension reads every `.xaml` file in the solution folder, so it finds resources in other files and in other projects of the solution. Image paths such as `pack://application:,,,/Images/save.png` and `/MyLib;component/Fonts/#Inter` are resolved to the file on disk. Unsaved changes in the open editor count too.
 
-When a key is defined more than once, the tooltip lists the other definitions as links.
+## Which definition wins
+
+When a key is defined more than once, the tooltip shows the definition WPF actually uses, and lists the others as links:
+
+```
+Resources\Values.xaml, line 12
+WPF uses this definition here.
+Also defined in:
+Resources\Brushes.xaml, line 9  · overridden by Values.xaml
+```
+
+The extension follows the `MergedDictionaries` the way WPF does:
+
+1. The current file comes first. Its own keys win over what it merges.
+2. Then its `MergedDictionaries`, the last one first, each with its own merges.
+3. Then `App.xaml`, in the same way.
+
+A definition in a dictionary that nothing merges is marked "not in any MergedDictionaries". WPF only loads such a file when code adds it. `Themes\Generic.xaml` is not marked, because WPF loads it by itself.
+
+## Overridden keys in the Error List
+
+If `App.xaml` (or a window) merges two dictionaries that define the same key, WPF only uses the one from the dictionary merged last. Changes to the other one never show up. The extension lists each definition like that as a warning in the Error List:
+
+```
+Resource 'InfoBrush' is overridden by the definition in Resources\Values.xaml (line 12)
+when loaded through App.xaml. WPF does not use this definition.
+```
+
+Double-click the warning to open the definition. The list is updated after you save a `.xaml` file. It is not reported when a window overrides a key from `App.xaml` on purpose, or when the same dictionary is merged twice. You can turn the warnings off in the settings.
 
 ## Go To Resource Definition
 
 Right-click a `{StaticResource ...}` or `{DynamicResource ...}` reference and choose **Go To Resource Definition**, or press **Ctrl+Alt+F12**. The file with the definition opens and the key is selected. The menu item only appears when the caret is on a resource reference.
 
-When the key is defined more than once, the command opens the first definition (the current file first, then alphabetical) and the status bar shows how many others there are. Hover over the reference to see them all. You can assign another shortcut under **Tools > Options > Environment > Keyboard**: search for `ResourcePreview.GoToResourceDefinition`.
+When the key is defined more than once, the command opens the definition WPF uses (see below) and the status bar shows how many others there are. Hover over the reference to see them all. You can assign another shortcut under **Tools > Options > Environment > Keyboard**: search for `ResourcePreview.GoToResourceDefinition`.
 
 ## Settings
 
@@ -62,6 +90,7 @@ When the key is defined more than once, the command opens the first definition (
 |---|---|---|
 | Language | Automatic | Follows the Visual Studio language. English, Chinese (Simplified and Traditional), Czech, Dutch, French, German, Italian, Japanese, Korean, Polish, Portuguese (Brazil), Russian, Spanish and Turkish are available. |
 | Maximum number of other definitions | 5 | How many other definitions are listed as links. 0 hides the list. |
+| Warn about overridden keys | On | Warnings in the Error List for definitions WPF never uses. |
 | Tile size | 64 | Size of a preview tile in pixels, 16 to 256. |
 | Tiles | Light and dark | Both tiles, or only one of them. |
 | Tile colors | | Foreground and background of each tile. The foreground is used for geometries, which have no color of their own. |
@@ -71,7 +100,9 @@ When the key is defined more than once, the command opens the first definition (
 
 - **Types from your own project.** Visual Studio runs on .NET Framework and cannot load the assemblies of your project or of NuGet packages. A resource that uses such a type (`local:MyControl`, `{x:Static local:Icons.Save}`) gets no picture. Styles and templates still show their table or tree, with a short note.
 - **Resources outside the solution folder**, such as themes that come only as a compiled DLL, are not found.
-- **Several definitions of one key.** The definition in the current file wins, then the others in alphabetical order. The extension does not follow the order of `MergedDictionaries`.
+- **Scopes inside a file.** The whole current file counts as one scope. A key in `Grid.Resources` therefore wins over `App.xaml`, also for elements outside that grid.
+- **Resources added in code** (`Application.Current.Resources.MergedDictionaries.Add(...)`) are not followed. Such a file is shown as "not in any MergedDictionaries".
+- **A UserControl** sees the resources of the window it is placed in at runtime. The extension does not know that window, and only follows the UserControl itself and `App.xaml`.
 - **References that span several lines** are not recognized.
 
 ## Building from source

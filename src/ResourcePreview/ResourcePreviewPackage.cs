@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Threading;
+using ResourcePreview.Diagnostics;
 using ResourcePreview.Navigation;
 using ResourcePreview.Options;
 using Task = System.Threading.Tasks.Task;
@@ -24,7 +25,8 @@ namespace ResourcePreview
         IsInUnifiedSettings = true,
         UnifiedSettingsCategoryMoniker = "resourcePreview.general")]
     [ProvideSettingsManifest(PackageRelativeManifestFile = @"Options\registration.json")]
-    [ProvideMenuResource("Menus.ctmenu", 1)]
+    // Raise the version after every change to the .vsct, otherwise VS keeps its cached menus and key bindings.
+    [ProvideMenuResource("Menus.ctmenu", 2)]
     // Load in the background as soon as a .xaml file is active, so the context menu command
     // can decide whether to show itself. Without this the hidden menu item never appears.
     [ProvideAutoLoad(XamlFileContextGuidString, PackageAutoLoadFlags.BackgroundLoad)]
@@ -46,6 +48,7 @@ namespace ResourcePreview
             // SettingsService switches to the UI thread itself where needed.
             await SettingsService.InitializeAsync(this, cancellationToken);
             await GoToResourceDefinitionCommand.InitializeAsync(this);
+            await OverriddenKeyErrorList.InitializeAsync(this);
 
             _instance = this;
         }

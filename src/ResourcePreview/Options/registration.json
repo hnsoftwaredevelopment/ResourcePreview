@@ -27,6 +27,13 @@
       "maximum": 50,
       "order": 1
     },
+    "resourcePreview.general.warnOverriddenKeys": {
+      "type": "boolean",
+      "title": "@OptionsWarnOverriddenName;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "description": "@OptionsWarnOverriddenDescription;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "default": true,
+      "order": 2
+    },
     "resourcePreview.appearance.tileSize": {
       "type": "integer",
       "title": "@OptionsTileSizeName;{69e55270-ef51-4488-9e95-cfd1a6852056}",

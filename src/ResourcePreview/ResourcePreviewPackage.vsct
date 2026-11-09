@@ -34,8 +34,9 @@
     </CommandPlacement>
   </CommandPlacements>
 
+  <!-- Text Editor scope, not Global: VS binds Ctrl+Alt+F12 globally to Edit.FindSymbol, and a scoped binding wins inside an editor. -->
   <KeyBindings>
-    <KeyBinding guid="guidResourcePreviewCmdSet" id="cmdidGoToResourceDefinition" editor="guidVSStd97" key1="VK_F12" mod1="Control Alt" />
+    <KeyBinding guid="guidResourcePreviewCmdSet" id="cmdidGoToResourceDefinition" editor="guidTextEditorScope" key1="VK_F12" mod1="Control Alt" />
   </KeyBindings>
 
   <Symbols>
@@ -45,6 +46,9 @@
       <IDSymbol name="EditorContextGroup" value="0x1020" />
       <IDSymbol name="cmdidGoToResourceDefinition" value="0x0100" />
     </GuidSymbol>
+
+    <!-- Key binding scope "Text Editor" in Tools > Options > Keyboard. -->
+    <GuidSymbol name="guidTextEditorScope" value="{8B382828-6202-11d1-8870-0000F87579D2}" />
 
     <!-- Menus of the WPF XAML editor (the same IDs XAML Styler uses). -->
     <GuidSymbol name="guidXamlUiCmds" value="{4c87b692-1202-46aa-b64c-ef01faec53da}">

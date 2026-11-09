@@ -154,4 +154,25 @@
   <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
     <value>{0} : {1} autre(s) définition(s). Survolez la référence pour les voir.</value>
   </data>
+  <data name="UsedByWpf" xml:space="preserve">
+    <value>WPF utilise ici cette définition.</value>
+  </data>
+  <data name="OverriddenByFormat" xml:space="preserve">
+    <value>remplacée par {0}</value>
+  </data>
+  <data name="NotMerged" xml:space="preserve">
+    <value>absent de tout MergedDictionaries</value>
+  </data>
+  <data name="NotMergedFileFormat" xml:space="preserve">
+    <value>{0} n'est dans aucun MergedDictionaries. WPF ne le charge que si du code l'ajoute.</value>
+  </data>
+  <data name="OverriddenKeyWarningFormat" xml:space="preserve">
+    <value>La ressource '{0}' est remplacée par la définition de {1} (ligne {2}) lors du chargement via {3}. WPF n'utilise pas cette définition.</value>
+  </data>
+  <data name="OptionsWarnOverriddenName" xml:space="preserve">
+    <value>Avertir des clés remplacées</value>
+  </data>
+  <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
+    <value>Affiche un avertissement dans la Liste d'erreurs pour chaque ressource que WPF n'utilise jamais, car un dictionnaire fusionné plus tard définit la même clé.</value>
+  </data>
 </root>

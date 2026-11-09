@@ -79,6 +79,10 @@
     <Compile Include="Preview\TemplateTreeRenderer.cs" />
     <Compile Include="Navigation\DefinitionNavigator.cs" />
     <Compile Include="Navigation\GoToResourceDefinitionCommand.cs" />
+    <Compile Include="Diagnostics\OverriddenKeyErrorList.cs" />
+    <Compile Include="Resources\MergeGraph.cs" />
+    <Compile Include="Resources\OverriddenKeyScanner.cs" />
+    <Compile Include="Resources\XamlFileModel.cs" />
     <Compile Include="ResourcePreviewPackage.cs" />
     <Compile Include="Localization\Localizer.cs" />
     <Compile Include="Localization\LocalizedAttributes.cs" />

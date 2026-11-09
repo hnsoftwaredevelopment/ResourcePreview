@@ -10,7 +10,7 @@ namespace ResourcePreview.Resources
     /// </summary>
     internal sealed class ResourceEntry
     {
-        public ResourceEntry(string key, XElement element, string filePath, int lineNumber, int column, IReadOnlyDictionary<string, string> namespaces)
+        public ResourceEntry(string key, XElement element, string filePath, int lineNumber, int column, IReadOnlyDictionary<string, string> namespaces, bool isRootScope = true)
         {
             Key = key;
             Element = element;
@@ -18,6 +18,7 @@ namespace ResourcePreview.Resources
             LineNumber = lineNumber;
             Column = column;
             Namespaces = namespaces;
+            IsRootScope = isRootScope;
         }
 
         public string Key { get; }
@@ -40,5 +41,12 @@ namespace ResourcePreview.Resources
         public IReadOnlyDictionary<string, string> Namespaces { get; }
 
         public string ElementTypeName => Element.Name.LocalName;
+
+        /// <summary>
+        /// True when the entry is in the file's main dictionary: the root ResourceDictionary, or
+        /// Application.Resources / Window.Resources. False for nested scopes such as Grid.Resources
+        /// or Style.Resources, which other files never see.
+        /// </summary>
+        public bool IsRootScope { get; }
     }
 }

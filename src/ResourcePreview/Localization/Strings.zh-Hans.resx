@@ -154,4 +154,25 @@
   <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
     <value>{0}: 还有 {1} 个定义。将鼠标悬停在引用上即可查看。</value>
   </data>
+  <data name="UsedByWpf" xml:space="preserve">
+    <value>WPF 在此处使用此定义。</value>
+  </data>
+  <data name="OverriddenByFormat" xml:space="preserve">
+    <value>被 {0} 覆盖</value>
+  </data>
+  <data name="NotMerged" xml:space="preserve">
+    <value>不在任何 MergedDictionaries 中</value>
+  </data>
+  <data name="NotMergedFileFormat" xml:space="preserve">
+    <value>{0} 不在任何 MergedDictionaries 中。只有代码添加它时 WPF 才会加载。</value>
+  </data>
+  <data name="OverriddenKeyWarningFormat" xml:space="preserve">
+    <value>通过 {3} 加载时，资源“{0}”被 {1} (第 {2} 行) 中的定义覆盖。WPF 不使用此定义。</value>
+  </data>
+  <data name="OptionsWarnOverriddenName" xml:space="preserve">
+    <value>警告被覆盖的键</value>
+  </data>
+  <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
+    <value>对于 WPF 从不使用的每个资源，在错误列表中显示警告，因为后合并的字典定义了相同的键。</value>
+  </data>
 </root>

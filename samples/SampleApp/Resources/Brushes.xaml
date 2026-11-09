@@ -5,4 +5,7 @@
     <SolidColorBrush x:Key="AccentBrush" Color="#FF002BBD" />
     <SolidColorBrush x:Key="WarningBrush" Color="#FFE8A317" />
 
+    <!-- Also in Values.xaml. App.xaml merges Values.xaml later, so WPF never uses this one (blue). -->
+    <SolidColorBrush x:Key="InfoBrush" Color="#FF1E88E5" />
+
 </ResourceDictionary>

@@ -154,4 +154,25 @@
   <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
     <value>{0}: {1} tanım daha. Görmek için başvurunun üzerine gelin.</value>
   </data>
+  <data name="UsedByWpf" xml:space="preserve">
+    <value>WPF burada bu tanımı kullanır.</value>
+  </data>
+  <data name="OverriddenByFormat" xml:space="preserve">
+    <value>{0} tarafından geçersiz kılındı</value>
+  </data>
+  <data name="NotMerged" xml:space="preserve">
+    <value>hiçbir MergedDictionaries içinde değil</value>
+  </data>
+  <data name="NotMergedFileFormat" xml:space="preserve">
+    <value>{0} hiçbir MergedDictionaries içinde değil. WPF onu yalnızca kod eklerse yükler.</value>
+  </data>
+  <data name="OverriddenKeyWarningFormat" xml:space="preserve">
+    <value>'{0}' kaynağı, {3} üzerinden yüklendiğinde {1} içindeki tanım (satır {2}) tarafından geçersiz kılınır. WPF bu tanımı kullanmaz.</value>
+  </data>
+  <data name="OptionsWarnOverriddenName" xml:space="preserve">
+    <value>Geçersiz kılınan anahtarlar için uyar</value>
+  </data>
+  <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
+    <value>WPF'nin hiç kullanmadığı her kaynak için Hata Listesi'nde bir uyarı gösterir, çünkü daha sonra birleştirilen bir sözlük aynı anahtarı tanımlar.</value>
+  </data>
 </root>

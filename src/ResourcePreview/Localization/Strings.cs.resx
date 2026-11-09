@@ -154,4 +154,25 @@
   <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
     <value>{0}: další definice: {1}. Najeďte myší na odkaz a zobrazí se.</value>
   </data>
+  <data name="UsedByWpf" xml:space="preserve">
+    <value>WPF zde používá tuto definici.</value>
+  </data>
+  <data name="OverriddenByFormat" xml:space="preserve">
+    <value>přepsáno souborem {0}</value>
+  </data>
+  <data name="NotMerged" xml:space="preserve">
+    <value>není v žádném MergedDictionaries</value>
+  </data>
+  <data name="NotMergedFileFormat" xml:space="preserve">
+    <value>{0} není v žádném MergedDictionaries. WPF jej načte, jen pokud jej přidá kód.</value>
+  </data>
+  <data name="OverriddenKeyWarningFormat" xml:space="preserve">
+    <value>Prostředek '{0}' je při načtení přes {3} přepsán definicí v {1} (řádek {2}). WPF tuto definici nepoužívá.</value>
+  </data>
+  <data name="OptionsWarnOverriddenName" xml:space="preserve">
+    <value>Upozorňovat na přepsané klíče</value>
+  </data>
+  <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
+    <value>Zobrazí v seznamu chyb upozornění pro každý prostředek, který WPF nikdy nepoužije, protože později sloučený slovník definuje stejný klíč.</value>
+  </data>
 </root>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Language.Intellisense;
@@ -92,15 +93,16 @@ namespace ResourcePreview.QuickInfo
             ResourceIndex index = ResourceIndex.ForFile(filePath);
             UpdateLiveText(index, filePath, snapshot);
 
-            IReadOnlyList<ResourceEntry> entries = index.Find(reference.Key, filePath, cancellationToken);
-            if (entries.Count == 0)
+            // Sorted in WPF lookup order: the first one is the definition WPF uses here.
+            IReadOnlyList<ResourceDefinition> definitions = index.Resolve(reference.Key, filePath, cancellationToken);
+            if (definitions.Count == 0)
             {
                 return new QuickInfoItem(applicableSpan, new ClassifiedTextElement(
                     new ClassifiedTextRun(PredefinedClassificationTypeNames.Identifier, reference.Key),
                     new ClassifiedTextRun(PredefinedClassificationTypeNames.Comment, "  " + Localizer.Format(Strings.NotFoundUnderFormat, index.RootDirectory))));
             }
 
-            ResourceEntry target = entries[0];
+            ResourceEntry target = definitions[0].Entry;
             // Style and template info come from the XML. The XAML is always built for the image or live sample.
             StyleInfo style = StyleInfoBuilder.IsStyle(target) ? StyleInfoBuilder.Build(index, target, cancellationToken) : null;
             TemplateTree templateTree = TemplateTreeBuilder.IsTemplate(target) ? TemplateTreeBuilder.Build(target.Element) : null;
@@ -120,24 +122,32 @@ namespace ResourcePreview.QuickInfo
                 previewXaml.UnloadableType);
 #pragma warning restore VSTHRD010
 
-            var parts = new List<object> { header, preview, CreateLocationLink(session, index, target) };
+            var parts = new List<object> { header, preview, CreateLocationLink(session, index, definitions[0]) };
+
+            // Say which definition wins when it matters: another one is overridden, or this file is never loaded.
+            if (definitions[0].IsInUnmergedFile)
+            {
+                parts.Add(CreateComment(Localizer.Format(Strings.NotMergedFileFormat, Path.GetFileName(target.FilePath))));
+            }
+            else if (definitions[0].Status == DefinitionStatus.Used && definitions.Any(d => d.Status == DefinitionStatus.Overridden))
+            {
+                parts.Add(CreateComment(Localizer.Get(Strings.UsedByWpf)));
+            }
 
             // Number of other definitions listed as links, set in the options page (0 = none).
             int maxListed = Options.SettingsService.Current.MaxListedDefinitions;
-            if (entries.Count > 1 && maxListed > 0)
+            if (definitions.Count > 1 && maxListed > 0)
             {
-                parts.Add(new ClassifiedTextElement(
-                    new ClassifiedTextRun(PredefinedClassificationTypeNames.Comment, Localizer.Get(Strings.AlsoDefinedIn))));
+                parts.Add(CreateComment(Localizer.Get(Strings.AlsoDefinedIn)));
 
-                for (int i = 1; i < entries.Count && i <= maxListed; i++)
+                for (int i = 1; i < definitions.Count && i <= maxListed; i++)
                 {
-                    parts.Add(CreateLocationLink(session, index, entries[i]));
+                    parts.Add(CreateLocationLink(session, index, definitions[i]));
                 }
 
-                if (entries.Count - 1 > maxListed)
+                if (definitions.Count - 1 > maxListed)
                 {
-                    parts.Add(new ClassifiedTextElement(
-                        new ClassifiedTextRun(PredefinedClassificationTypeNames.Comment, Localizer.Format(Strings.AndMoreFormat, entries.Count - 1 - maxListed))));
+                    parts.Add(CreateComment(Localizer.Format(Strings.AndMoreFormat, definitions.Count - 1 - maxListed)));
                 }
             }
 
@@ -156,11 +166,14 @@ namespace ResourcePreview.QuickInfo
 
         /// <summary>
         /// A clickable location line. VS renders a ClassifiedTextRun with a navigation action as a hyperlink.
+        /// For the other definitions a note follows: "overridden by Styles.xaml" or "not in any MergedDictionaries".
         /// </summary>
-        private ClassifiedTextElement CreateLocationLink(IAsyncQuickInfoSession session, ResourceIndex index, ResourceEntry entry)
+        private ClassifiedTextElement CreateLocationLink(IAsyncQuickInfoSession session, ResourceIndex index, ResourceDefinition definition)
         {
+            ResourceEntry entry = definition.Entry;
             string text = Localizer.Format(Strings.LocationFormat, MakeRelative(index.RootDirectory, entry.FilePath), entry.LineNumber);
-            return new ClassifiedTextElement(
+            var runs = new List<ClassifiedTextRun>
+            {
                 new ClassifiedTextRun(
                     PredefinedClassificationTypeNames.Comment,
                     text,
@@ -168,7 +181,25 @@ namespace ResourcePreview.QuickInfo
                     CreateNavigateAction(session, entry),
 #pragma warning restore VSTHRD010
                     tooltip: entry.FilePath,
-                    style: ClassifiedTextRunStyle.Underline));
+                    style: ClassifiedTextRunStyle.Underline),
+            };
+
+            string note = definition.Status == DefinitionStatus.Overridden
+                ? Localizer.Format(Strings.OverriddenByFormat, Path.GetFileName(definition.OverriddenBy.FilePath))
+                : definition.Status != DefinitionStatus.Used && definition.IsInUnmergedFile
+                    ? Localizer.Get(Strings.NotMerged)
+                    : null;
+            if (note != null)
+            {
+                runs.Add(new ClassifiedTextRun(PredefinedClassificationTypeNames.Comment, "  \u00B7 " + note));
+            }
+
+            return new ClassifiedTextElement(runs);
+        }
+
+        private static ClassifiedTextElement CreateComment(string text)
+        {
+            return new ClassifiedTextElement(new ClassifiedTextRun(PredefinedClassificationTypeNames.Comment, text));
         }
 
         /// <summary>

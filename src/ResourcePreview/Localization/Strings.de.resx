@@ -154,4 +154,25 @@
   <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
     <value>{0}: {1} weitere Definition(en). Zeigen Sie auf den Verweis, um sie anzuzeigen.</value>
   </data>
+  <data name="UsedByWpf" xml:space="preserve">
+    <value>WPF verwendet hier diese Definition.</value>
+  </data>
+  <data name="OverriddenByFormat" xml:space="preserve">
+    <value>überschrieben durch {0}</value>
+  </data>
+  <data name="NotMerged" xml:space="preserve">
+    <value>in keinem MergedDictionaries-Eintrag</value>
+  </data>
+  <data name="NotMergedFileFormat" xml:space="preserve">
+    <value>{0} ist in keinem MergedDictionaries-Eintrag. WPF lädt die Datei nur, wenn Code sie hinzufügt.</value>
+  </data>
+  <data name="OverriddenKeyWarningFormat" xml:space="preserve">
+    <value>Die Ressource '{0}' wird beim Laden über {3} durch die Definition in {1} (Zeile {2}) überschrieben. WPF verwendet diese Definition nicht.</value>
+  </data>
+  <data name="OptionsWarnOverriddenName" xml:space="preserve">
+    <value>Vor überschriebenen Schlüsseln warnen</value>
+  </data>
+  <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
+    <value>Zeigt in der Fehlerliste eine Warnung für jede Ressource, die WPF nie verwendet, weil ein später zusammengeführtes Wörterbuch denselben Schlüssel definiert.</value>
+  </data>
 </root>

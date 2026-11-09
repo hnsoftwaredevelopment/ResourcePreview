@@ -154,4 +154,25 @@
   <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
     <value>{0}: mais {1} definição(ões). Passe o mouse sobre a referência para vê-las.</value>
   </data>
+  <data name="UsedByWpf" xml:space="preserve">
+    <value>O WPF usa esta definição aqui.</value>
+  </data>
+  <data name="OverriddenByFormat" xml:space="preserve">
+    <value>substituída por {0}</value>
+  </data>
+  <data name="NotMerged" xml:space="preserve">
+    <value>não está em nenhum MergedDictionaries</value>
+  </data>
+  <data name="NotMergedFileFormat" xml:space="preserve">
+    <value>{0} não está em nenhum MergedDictionaries. O WPF só o carrega se o código o adicionar.</value>
+  </data>
+  <data name="OverriddenKeyWarningFormat" xml:space="preserve">
+    <value>O recurso '{0}' é substituído pela definição em {1} (linha {2}) ao ser carregado por {3}. O WPF não usa esta definição.</value>
+  </data>
+  <data name="OptionsWarnOverriddenName" xml:space="preserve">
+    <value>Avisar sobre chaves substituídas</value>
+  </data>
+  <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
+    <value>Mostra um aviso na Lista de Erros para cada recurso que o WPF nunca usa, porque um dicionário mesclado depois define a mesma chave.</value>
+  </data>
 </root>

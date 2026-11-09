@@ -33,10 +33,11 @@ namespace ResourcePreview.Options
         public const string DarkForeground = "resourcePreview.appearance.darkTileForeground";
         public const string DarkBackground = "resourcePreview.appearance.darkTileBackground";
         public const string ShowLiveSample = "resourcePreview.appearance.showLiveSample";
+        public const string WarnOverriddenKeys = "resourcePreview.general.warnOverriddenKeys";
 
         public static readonly string[] All =
         {
-            Language, MaxListedDefinitions, TileSize, Tiles, LightForeground, LightBackground, DarkForeground, DarkBackground, ShowLiveSample,
+            Language, MaxListedDefinitions, TileSize, Tiles, LightForeground, LightBackground, DarkForeground, DarkBackground, ShowLiveSample, WarnOverriddenKeys,
         };
     }
 
@@ -53,7 +54,7 @@ namespace ResourcePreview.Options
 
         public static readonly ExtensionSettings Default = new ExtensionSettings(
             ExtensionLanguage.Automatic, 5, 64, PreviewTiles.Both,
-            Colors.Black, Colors.White, Colors.White, Color.FromRgb(0x1E, 0x1E, 0x1E), showLiveSample: true);
+            Colors.Black, Colors.White, Colors.White, Color.FromRgb(0x1E, 0x1E, 0x1E), showLiveSample: true, warnOverriddenKeys: true);
 
         public ExtensionSettings(
             ExtensionLanguage language,
@@ -64,7 +65,8 @@ namespace ResourcePreview.Options
             Color lightBackground,
             Color darkForeground,
             Color darkBackground,
-            bool showLiveSample = true)
+            bool showLiveSample = true,
+            bool warnOverriddenKeys = true)
         {
             Language = language;
             MaxListedDefinitions = Clamp(maxListedDefinitions, MinListedDefinitions, MaxListedDefinitionsLimit);
@@ -75,6 +77,7 @@ namespace ResourcePreview.Options
             DarkForeground = darkForeground;
             DarkBackground = darkBackground;
             ShowLiveSample = showLiveSample;
+            WarnOverriddenKeys = warnOverriddenKeys;
         }
 
         public ExtensionLanguage Language { get; }
@@ -88,6 +91,9 @@ namespace ResourcePreview.Options
 
         /// <summary>Shows a live control with the style or template applied, above the setter table or instead of the tree.</summary>
         public bool ShowLiveSample { get; }
+
+        /// <summary>Lists resource definitions that WPF never uses in the Error List.</summary>
+        public bool WarnOverriddenKeys { get; }
 
         private static int Clamp(int value, int min, int max) => Math.Max(min, Math.Min(max, value));
 

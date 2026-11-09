@@ -33,6 +33,9 @@ namespace ResourcePreview.Options
         // Held so the change subscription is not garbage collected.
         private static IDisposable Subscription { get; set; }
 
+        /// <summary>Raised on the UI thread after the settings were read again.</summary>
+        public static event EventHandler Changed;
+
         /// <summary>The current settings. Safe to read from any thread.</summary>
         public static ExtensionSettings Current => _current;
 
@@ -90,6 +93,7 @@ namespace ResourcePreview.Options
 
             _current = settings;
             Localizer.Refresh(_package, settings.Language);
+            Changed?.Invoke(null, EventArgs.Empty);
         }
 
         /// <summary>
@@ -110,6 +114,7 @@ namespace ResourcePreview.Options
             writer.EnqueueChange(SettingMonikers.DarkForeground, ExtensionSettings.ColorToSetting(settings.DarkForeground));
             writer.EnqueueChange(SettingMonikers.DarkBackground, ExtensionSettings.ColorToSetting(settings.DarkBackground));
             writer.EnqueueChange(SettingMonikers.ShowLiveSample, settings.ShowLiveSample);
+            writer.EnqueueChange(SettingMonikers.WarnOverriddenKeys, settings.WarnOverriddenKeys);
 
             // RequestCommit may ask the user for approval first (PendingApproval). Commit() is obsolete.
             writer.RequestCommit("Changed on the legacy options page");
@@ -141,7 +146,8 @@ namespace ResourcePreview.Options
                 ReadColor(reader, SettingMonikers.LightBackground, defaults.LightBackground),
                 ReadColor(reader, SettingMonikers.DarkForeground, defaults.DarkForeground),
                 ReadColor(reader, SettingMonikers.DarkBackground, defaults.DarkBackground),
-                ValueOr(reader.GetValue<bool>(SettingMonikers.ShowLiveSample, SettingReadOptions.NoRequirements), defaults.ShowLiveSample));
+                ValueOr(reader.GetValue<bool>(SettingMonikers.ShowLiveSample, SettingReadOptions.NoRequirements), defaults.ShowLiveSample),
+                ValueOr(reader.GetValue<bool>(SettingMonikers.WarnOverriddenKeys, SettingReadOptions.NoRequirements), defaults.WarnOverriddenKeys));
         }
 
         private static System.Windows.Media.Color ReadColor(ISettingsReader reader, string moniker, System.Windows.Media.Color fallback)

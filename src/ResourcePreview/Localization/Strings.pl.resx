@@ -154,4 +154,25 @@
   <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
     <value>{0}: jeszcze {1} definicji. Wskaż odwołanie, aby je zobaczyć.</value>
   </data>
+  <data name="UsedByWpf" xml:space="preserve">
+    <value>WPF używa tutaj tej definicji.</value>
+  </data>
+  <data name="OverriddenByFormat" xml:space="preserve">
+    <value>zastąpiona przez {0}</value>
+  </data>
+  <data name="NotMerged" xml:space="preserve">
+    <value>brak w MergedDictionaries</value>
+  </data>
+  <data name="NotMergedFileFormat" xml:space="preserve">
+    <value>{0} nie występuje w żadnym MergedDictionaries. WPF wczytuje go tylko wtedy, gdy doda go kod.</value>
+  </data>
+  <data name="OverriddenKeyWarningFormat" xml:space="preserve">
+    <value>Zasób '{0}' jest zastępowany przez definicję w {1} (wiersz {2}) przy wczytywaniu przez {3}. WPF nie używa tej definicji.</value>
+  </data>
+  <data name="OptionsWarnOverriddenName" xml:space="preserve">
+    <value>Ostrzegaj o zastąpionych kluczach</value>
+  </data>
+  <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
+    <value>Pokazuje ostrzeżenie na liście błędów dla każdego zasobu, którego WPF nigdy nie używa, ponieważ później scalony słownik definiuje ten sam klucz.</value>
+  </data>
 </root>

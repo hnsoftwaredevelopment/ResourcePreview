@@ -62,6 +62,13 @@ namespace ResourcePreview.Localization
         public const string OptionsLiveSampleDescription = nameof(OptionsLiveSampleDescription);
         public const string GoToResourceDefinition = nameof(GoToResourceDefinition);
         public const string GoToMoreDefinitionsFormat = nameof(GoToMoreDefinitionsFormat);
+        public const string UsedByWpf = nameof(UsedByWpf);
+        public const string OverriddenByFormat = nameof(OverriddenByFormat);
+        public const string NotMerged = nameof(NotMerged);
+        public const string NotMergedFileFormat = nameof(NotMergedFileFormat);
+        public const string OverriddenKeyWarningFormat = nameof(OverriddenKeyWarningFormat);
+        public const string OptionsWarnOverriddenName = nameof(OptionsWarnOverriddenName);
+        public const string OptionsWarnOverriddenDescription = nameof(OptionsWarnOverriddenDescription);
     }
 
     /// <summary>

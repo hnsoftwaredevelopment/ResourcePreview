@@ -34,6 +34,12 @@ namespace ResourcePreview.Options
         [DefaultValue(5)]
         public int MaxListedDefinitions { get; set; }
 
+        [LocalizedCategory(Strings.OptionsCategoryGeneral)]
+        [LocalizedDisplayName(Strings.OptionsWarnOverriddenName)]
+        [LocalizedDescription(Strings.OptionsWarnOverriddenDescription)]
+        [DefaultValue(true)]
+        public bool WarnOverriddenKeys { get; set; }
+
         [LocalizedCategory(Strings.OptionsCategoryAppearance)]
         [LocalizedDisplayName(Strings.OptionsTileSizeName)]
         [LocalizedDescription(Strings.OptionsTileSizeDescription)]
@@ -78,7 +84,8 @@ namespace ResourcePreview.Options
                 Language, MaxListedDefinitions, TileSize, Tiles,
                 ToMedia(LightTileForeground), ToMedia(LightTileBackground),
                 ToMedia(DarkTileForeground), ToMedia(DarkTileBackground),
-                ShowLiveSample);
+                ShowLiveSample,
+                WarnOverriddenKeys);
         }
 
         private void FromSettings(ExtensionSettings settings)
@@ -92,6 +99,7 @@ namespace ResourcePreview.Options
             DarkTileForeground = ToDrawing(settings.DarkForeground);
             DarkTileBackground = ToDrawing(settings.DarkBackground);
             ShowLiveSample = settings.ShowLiveSample;
+            WarnOverriddenKeys = settings.WarnOverriddenKeys;
         }
 
         /// <summary>Refreshes the values from Unified Settings when the page opens.</summary>

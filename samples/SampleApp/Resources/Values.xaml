@@ -8,6 +8,9 @@
     <FontFamily x:Key="CodeFont">Cascadia Code, Consolas</FontFamily>
     <FontFamily x:Key="MissingFont">Missing Font Sans</FontFamily>
 
+    <!-- Overrides InfoBrush in Brushes.xaml, because App.xaml merges this file later. WPF uses this one (green). -->
+    <SolidColorBrush x:Key="InfoBrush" Color="#FF43A047" />
+
     <!-- Thickness and CornerRadius -->
     <Thickness x:Key="CardPadding">12,8,12,8</Thickness>
     <Thickness x:Key="WideMargin">40,0,40,16</Thickness>

@@ -27,12 +27,16 @@ namespace ResourcePreview.Resources
 
         private readonly object _gate = new object();
         private readonly object _scanGate = new object();
-        private readonly Dictionary<string, List<ResourceEntry>> _entriesByFile = new Dictionary<string, List<ResourceEntry>>(StringComparer.OrdinalIgnoreCase);
-        private readonly Dictionary<string, List<ResourceEntry>> _liveOverrides = new Dictionary<string, List<ResourceEntry>>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, XamlFileModel> _entriesByFile = new Dictionary<string, XamlFileModel>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, XamlFileModel> _liveOverrides = new Dictionary<string, XamlFileModel>(StringComparer.OrdinalIgnoreCase);
+        private readonly ConcurrentDictionary<string, string> _projectDirectories = new ConcurrentDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         private readonly HashSet<string> _dirtyFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         private List<string> _projectFiles = new List<string>();
         private FileSystemWatcher _watcher;
         private volatile bool _initialized;
+        private int _version;
+        private MergeGraph _graph;
+        private int _graphVersion = -1;
 
         private ResourceIndex(string rootDirectory)
         {
@@ -40,6 +44,12 @@ namespace ResourcePreview.Resources
         }
 
         public string RootDirectory { get; }
+
+        /// <summary>
+        /// Raised on a background thread when a .xaml file under the root changes on disk.
+        /// The index itself rereads the file on the next lookup.
+        /// </summary>
+        public event EventHandler FilesChanged;
 
         /// <summary>Returns the index for the solution containing this file. One index per solution folder.</summary>
         public static ResourceIndex ForFile(string filePath)
@@ -54,15 +64,16 @@ namespace ResourcePreview.Resources
         /// </summary>
         public void SetLiveText(string filePath, string text)
         {
-            List<ResourceEntry> entries = ParseXaml(filePath, text);
-            if (entries == null)
+            XamlFileModel model = ParseModel(filePath, text);
+            if (model == null)
             {
                 return;
             }
 
             lock (_gate)
             {
-                _liveOverrides[filePath] = entries;
+                _liveOverrides[filePath] = model;
+                _version++;
             }
         }
 
@@ -70,38 +81,153 @@ namespace ResourcePreview.Resources
         {
             lock (_gate)
             {
-                _liveOverrides.Remove(filePath);
+                if (_liveOverrides.Remove(filePath))
+                {
+                    _version++;
+                }
             }
         }
 
         /// <summary>
-        /// All definitions of a key. Definitions from <paramref name="preferredFile"/> come first,
-        /// matching WPF lookup order.
+        /// All definitions of a key, in the order WPF would look them up from <paramref name="preferredFile"/>:
+        /// see <see cref="Resolve"/>. The first one is the definition WPF uses there.
         /// </summary>
         public IReadOnlyList<ResourceEntry> Find(string key, string preferredFile, CancellationToken cancellationToken)
         {
+            return Resolve(key, preferredFile, cancellationToken).Select(d => d.Entry).ToList();
+        }
+
+        /// <summary>
+        /// All definitions of a key with their status as seen from <paramref name="fromFile"/>. Order:
+        /// <list type="number">
+        /// <item>the file itself (its own keys win over what it merges)</item>
+        /// <item>its MergedDictionaries, the last one first, each with its own merges</item>
+        /// <item>App.xaml and its MergedDictionaries, in the same way</item>
+        /// <item>definitions this lookup does not reach, alphabetically; files that nothing merges last</item>
+        /// </list>
+        /// </summary>
+        public IReadOnlyList<ResourceDefinition> Resolve(string key, string fromFile, CancellationToken cancellationToken)
+        {
             EnsureUpToDate(cancellationToken);
 
-            var result = new List<ResourceEntry>();
+            var matches = new List<ResourceEntry>();
             lock (_gate)
             {
-                foreach (KeyValuePair<string, List<ResourceEntry>> file in EnumerateFiles())
+                foreach (KeyValuePair<string, XamlFileModel> file in EnumerateFiles())
                 {
-                    foreach (ResourceEntry entry in file.Value)
+                    foreach (ResourceEntry entry in file.Value.Entries)
                     {
                         if (string.Equals(entry.Key, key, StringComparison.Ordinal))
                         {
-                            result.Add(entry);
+                            matches.Add(entry);
                         }
                     }
                 }
             }
 
-            return result
-                .OrderBy(e => string.Equals(e.FilePath, preferredFile, StringComparison.OrdinalIgnoreCase) ? 0 : 1)
-                .ThenBy(e => e.FilePath, StringComparer.OrdinalIgnoreCase)
-                .ThenBy(e => e.LineNumber)
-                .ToList();
+            if (matches.Count == 0)
+            {
+                return Array.Empty<ResourceDefinition>();
+            }
+
+            return CurrentGraph().Resolve(matches, fromFile);
+        }
+
+        /// <summary>Which files merge which, for the whole solution. Rebuilt only after a change.</summary>
+        internal MergeGraph GetMergeGraph(CancellationToken cancellationToken)
+        {
+            EnsureUpToDate(cancellationToken);
+            return CurrentGraph();
+        }
+
+        private MergeGraph CurrentGraph()
+        {
+            Dictionary<string, XamlFileModel> files;
+            int version;
+            lock (_gate)
+            {
+                if (_graph != null && _graphVersion == _version)
+                {
+                    return _graph;
+                }
+
+                files = EnumerateFiles().ToDictionary(p => p.Key, p => p.Value, StringComparer.OrdinalIgnoreCase);
+                version = _version;
+            }
+
+            // Resolving Source paths touches the disk, so it happens outside the lock.
+            var graph = new MergeGraph(files, ResolveSource, GetProjectDirectory);
+            lock (_gate)
+            {
+                _graph = graph;
+                _graphVersion = version;
+            }
+
+            return graph;
+        }
+
+        /// <summary>
+        /// Turns a MergedDictionaries Source into a file path, the way WPF resolves it in compiled XAML:
+        /// <list type="bullet">
+        /// <item>"Brushes.xaml" or "../Themes/Dark.xaml": relative to the folder of the file that merges it</item>
+        /// <item>"/Themes/Dark.xaml": relative to the project folder</item>
+        /// <item>"/MyApp.Styles;component/Dark.xaml", with or without "pack://application:,,,": in that project</item>
+        /// </list>
+        /// Returns null for sources outside the solution, such as pack://siteoforigin: or an http address.
+        /// </summary>
+        internal string ResolveSource(string source, string fromFile)
+        {
+            if (string.IsNullOrWhiteSpace(source))
+            {
+                return null;
+            }
+
+            string location = source.Trim();
+            const string PackPrefix = "pack://application:,,,";
+            if (location.StartsWith(PackPrefix, StringComparison.OrdinalIgnoreCase))
+            {
+                location = location.Substring(PackPrefix.Length);
+            }
+
+            string directory;
+            string path;
+            int component = location.IndexOf(";component/", StringComparison.OrdinalIgnoreCase);
+            if (location.StartsWith("/", StringComparison.Ordinal) && component > 1)
+            {
+                string assembly = location.Substring(1, component - 1);
+                directory = FindProjectDirectoryByAssemblyName(assembly) ?? GetProjectDirectory(fromFile);
+                path = location.Substring(component + ";component/".Length);
+            }
+            else if (location.Contains("://"))
+            {
+                return null;
+            }
+            else if (location.StartsWith("/", StringComparison.Ordinal))
+            {
+                directory = GetProjectDirectory(fromFile);
+                path = location.TrimStart('/');
+            }
+            else
+            {
+                directory = Path.GetDirectoryName(fromFile);
+                path = location;
+            }
+
+            try
+            {
+                return Path.GetFullPath(Path.Combine(directory, Uri.UnescapeDataString(path).Replace('/', Path.DirectorySeparatorChar)));
+            }
+            catch (Exception)
+            {
+                return null; // invalid characters in the path
+            }
+        }
+
+        /// <summary><see cref="FindProjectDirectory"/>, remembered per folder because it reads the disk.</summary>
+        internal string GetProjectDirectory(string filePath)
+        {
+            string folder = Path.GetDirectoryName(filePath) ?? string.Empty;
+            return _projectDirectories.GetOrAdd(folder, _ => FindProjectDirectory(filePath));
         }
 
         /// <summary>
@@ -140,14 +266,14 @@ namespace ResourcePreview.Resources
         }
 
         // Live buffers take precedence over files on disk.
-        private IEnumerable<KeyValuePair<string, List<ResourceEntry>>> EnumerateFiles()
+        private IEnumerable<KeyValuePair<string, XamlFileModel>> EnumerateFiles()
         {
-            foreach (KeyValuePair<string, List<ResourceEntry>> live in _liveOverrides)
+            foreach (KeyValuePair<string, XamlFileModel> live in _liveOverrides)
             {
                 yield return live;
             }
 
-            foreach (KeyValuePair<string, List<ResourceEntry>> file in _entriesByFile)
+            foreach (KeyValuePair<string, XamlFileModel> file in _entriesByFile)
             {
                 if (!_liveOverrides.ContainsKey(file.Key))
                 {
@@ -195,7 +321,7 @@ namespace ResourcePreview.Resources
 
         private void FullScan(CancellationToken cancellationToken)
         {
-            var entries = new Dictionary<string, List<ResourceEntry>>(StringComparer.OrdinalIgnoreCase);
+            var entries = new Dictionary<string, XamlFileModel>(StringComparer.OrdinalIgnoreCase);
             var projects = new List<string>();
 
             foreach (string file in EnumerateSourceFiles(RootDirectory))
@@ -209,8 +335,9 @@ namespace ResourcePreview.Resources
                     continue;
                 }
 
-                List<ResourceEntry> parsed = ParseFile(file);
-                if (parsed != null && parsed.Count > 0)
+                // Files without keys still count when they merge something, such as App.xaml.
+                XamlFileModel parsed = ParseFile(file);
+                if (parsed != null && (parsed.Entries.Count > 0 || parsed.MergedSources.Count > 0 || parsed.RootKind == XamlRootKind.Application))
                 {
                     entries[file] = parsed;
                 }
@@ -219,13 +346,14 @@ namespace ResourcePreview.Resources
             lock (_gate)
             {
                 _entriesByFile.Clear();
-                foreach (KeyValuePair<string, List<ResourceEntry>> pair in entries)
+                foreach (KeyValuePair<string, XamlFileModel> pair in entries)
                 {
                     _entriesByFile[pair.Key] = pair.Value;
                 }
 
                 _projectFiles = projects;
                 _dirtyFiles.Clear();
+                _version++;
             }
         }
 
@@ -236,12 +364,13 @@ namespace ResourcePreview.Resources
                 lock (_gate)
                 {
                     _entriesByFile.Remove(file);
+                    _version++;
                 }
 
                 return;
             }
 
-            List<ResourceEntry> parsed = ParseFile(file);
+            XamlFileModel parsed = ParseFile(file);
             if (parsed == null)
             {
                 return; // invalid XML or file locked: keep the previous version
@@ -250,6 +379,7 @@ namespace ResourcePreview.Resources
             lock (_gate)
             {
                 _entriesByFile[file] = parsed;
+                _version++;
             }
         }
 
@@ -289,19 +419,21 @@ namespace ResourcePreview.Resources
             {
                 _dirtyFiles.Add(file);
             }
+
+            FilesChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        private static List<ResourceEntry> ParseFile(string file)
+        private static XamlFileModel ParseFile(string file)
         {
             try
             {
                 var info = new FileInfo(file);
                 if (info.Length > MaxFileSize)
                 {
-                    return new List<ResourceEntry>();
+                    return new XamlFileModel(new List<ResourceEntry>(), new List<string>(), XamlRootKind.Other);
                 }
 
-                return ParseXaml(file, File.ReadAllText(file));
+                return ParseModel(file, File.ReadAllText(file));
             }
             catch (IOException)
             {
@@ -319,6 +451,12 @@ namespace ResourcePreview.Resources
         /// </summary>
         internal static List<ResourceEntry> ParseXaml(string filePath, string text)
         {
+            return ParseModel(filePath, text)?.Entries.ToList();
+        }
+
+        /// <summary>Keys, merged dictionaries and root kind of XAML text. Returns null for invalid XML.</summary>
+        internal static XamlFileModel ParseModel(string filePath, string text)
+        {
             XDocument document;
             try
             {
@@ -329,20 +467,26 @@ namespace ResourcePreview.Resources
                 return null;
             }
 
-            if (document.Root == null)
+            XElement root = document.Root;
+            if (root == null)
             {
-                return new List<ResourceEntry>();
+                return new XamlFileModel(new List<ResourceEntry>(), new List<string>(), XamlRootKind.Other);
             }
 
             var namespaces = new Dictionary<string, string>();
-            foreach (XAttribute attribute in document.Root.Attributes().Where(a => a.IsNamespaceDeclaration))
+            foreach (XAttribute attribute in root.Attributes().Where(a => a.IsNamespaceDeclaration))
             {
                 string prefix = attribute.Name.Namespace == XNamespace.Xmlns ? attribute.Name.LocalName : string.Empty;
                 namespaces[prefix] = attribute.Value;
             }
 
+            XamlRootKind kind = root.Name.LocalName == "ResourceDictionary" ? XamlRootKind.ResourceDictionary
+                : root.Name.LocalName == "Application" ? XamlRootKind.Application
+                : XamlRootKind.Other;
+            XElement rootDictionary = FindRootDictionary(root, kind);
+
             var result = new List<ResourceEntry>();
-            foreach (XElement element in document.Root.Descendants())
+            foreach (XElement element in root.Descendants())
             {
                 XAttribute keyAttribute = element.Attribute(XamlNamespace + "Key");
                 if (keyAttribute == null || keyAttribute.Value.StartsWith("{", StringComparison.Ordinal))
@@ -354,10 +498,65 @@ namespace ResourcePreview.Resources
                 var lineInfo = (IXmlLineInfo)keyAttribute;
                 int line = lineInfo.HasLineInfo() ? lineInfo.LineNumber : 0;
                 int column = lineInfo.HasLineInfo() ? lineInfo.LinePosition : 0;
-                result.Add(new ResourceEntry(keyAttribute.Value, new XElement(element), filePath, line, column, namespaces));
+                bool isRootScope = rootDictionary != null && element.Parent == rootDictionary;
+                result.Add(new ResourceEntry(keyAttribute.Value, new XElement(element), filePath, line, column, namespaces, isRootScope));
             }
 
-            return result;
+            return new XamlFileModel(result, FindMergedSources(rootDictionary), kind);
+        }
+
+        /// <summary>
+        /// The element whose children are the file's main resources: the root ResourceDictionary, or
+        /// the ResourceDictionary in Application.Resources / Window.Resources, or that property element itself.
+        /// </summary>
+        private static XElement FindRootDictionary(XElement root, XamlRootKind kind)
+        {
+            if (kind == XamlRootKind.ResourceDictionary)
+            {
+                return root;
+            }
+
+            XElement resources = root.Elements().FirstOrDefault(e => e.Name.LocalName.EndsWith(".Resources", StringComparison.Ordinal));
+            if (resources == null)
+            {
+                return null;
+            }
+
+            XElement dictionary = resources.Elements().FirstOrDefault(e =>
+                e.Name.LocalName == "ResourceDictionary" && e.Attribute(XamlNamespace + "Key") == null);
+            return dictionary ?? resources;
+        }
+
+        /// <summary>
+        /// Source values in ResourceDictionary.MergedDictionaries, in file order. A Source on the root
+        /// dictionary itself (&lt;ResourceDictionary Source="..."/&gt; in Window.Resources) counts as the first one.
+        /// </summary>
+        private static List<string> FindMergedSources(XElement rootDictionary)
+        {
+            var sources = new List<string>();
+            if (rootDictionary == null)
+            {
+                return sources;
+            }
+
+            AddSource(sources, rootDictionary.Attribute("Source"));
+            foreach (XElement merged in rootDictionary.Elements().Where(e => e.Name.LocalName == "ResourceDictionary.MergedDictionaries"))
+            {
+                foreach (XElement dictionary in merged.Elements().Where(e => e.Name.LocalName == "ResourceDictionary"))
+                {
+                    AddSource(sources, dictionary.Attribute("Source"));
+                }
+            }
+
+            return sources;
+        }
+
+        private static void AddSource(List<string> sources, XAttribute source)
+        {
+            if (source != null && source.Value.Length > 0 && !source.Value.StartsWith("{", StringComparison.Ordinal))
+            {
+                sources.Add(source.Value);
+            }
         }
 
         private static IEnumerable<string> EnumerateSourceFiles(string root)

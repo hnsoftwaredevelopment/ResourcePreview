@@ -30,6 +30,9 @@
             <TextBlock Text="Check (2 definitions)" Foreground="White" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Margin="0,4">
+            <TextBlock Text="InfoBrush (overridden: Values.xaml is merged after Brushes.xaml)" Foreground="{StaticResource InfoBrush}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,4">
             <Path Data="{StaticResource DoesNotExist}" Fill="White" Width="16" Height="16" Margin="0,0,8,0" />
             <TextBlock Text="Does not exist (tests the message)" Foreground="White" />
         </StackPanel>

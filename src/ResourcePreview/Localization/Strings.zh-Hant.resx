@@ -154,4 +154,25 @@
   <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
     <value>{0}: 還有 {1} 個定義。將滑鼠停留在參考上即可查看。</value>
   </data>
+  <data name="UsedByWpf" xml:space="preserve">
+    <value>WPF 在此處使用此定義。</value>
+  </data>
+  <data name="OverriddenByFormat" xml:space="preserve">
+    <value>被 {0} 覆寫</value>
+  </data>
+  <data name="NotMerged" xml:space="preserve">
+    <value>不在任何 MergedDictionaries 中</value>
+  </data>
+  <data name="NotMergedFileFormat" xml:space="preserve">
+    <value>{0} 不在任何 MergedDictionaries 中。只有程式碼加入它時 WPF 才會載入。</value>
+  </data>
+  <data name="OverriddenKeyWarningFormat" xml:space="preserve">
+    <value>透過 {3} 載入時，資源「{0}」會被 {1} (第 {2} 行) 中的定義覆寫。WPF 不會使用此定義。</value>
+  </data>
+  <data name="OptionsWarnOverriddenName" xml:space="preserve">
+    <value>警告被覆寫的索引鍵</value>
+  </data>
+  <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
+    <value>針對 WPF 從不使用的每個資源，在錯誤清單中顯示警告，因為較晚合併的字典定義了相同的索引鍵。</value>
+  </data>
 </root>

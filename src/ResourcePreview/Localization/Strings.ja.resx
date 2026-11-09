@@ -154,4 +154,25 @@
   <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
     <value>{0}: ほかに {1} 個の定義があります。参照にカーソルを合わせると表示されます。</value>
   </data>
+  <data name="UsedByWpf" xml:space="preserve">
+    <value>WPF はここでこの定義を使用します。</value>
+  </data>
+  <data name="OverriddenByFormat" xml:space="preserve">
+    <value>{0} によって上書き</value>
+  </data>
+  <data name="NotMerged" xml:space="preserve">
+    <value>どの MergedDictionaries にも含まれていません</value>
+  </data>
+  <data name="NotMergedFileFormat" xml:space="preserve">
+    <value>{0} はどの MergedDictionaries にも含まれていません。コードで追加しない限り WPF は読み込みません。</value>
+  </data>
+  <data name="OverriddenKeyWarningFormat" xml:space="preserve">
+    <value>リソース '{0}' は {3} 経由で読み込まれると、{1} (行 {2}) の定義によって上書きされます。WPF はこの定義を使用しません。</value>
+  </data>
+  <data name="OptionsWarnOverriddenName" xml:space="preserve">
+    <value>上書きされたキーを警告する</value>
+  </data>
+  <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
+    <value>後でマージされたディクショナリが同じキーを定義しているため WPF が使用しないリソースごとに、エラー一覧に警告を表示します。</value>
+  </data>
 </root>

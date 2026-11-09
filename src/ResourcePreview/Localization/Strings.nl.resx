@@ -154,4 +154,25 @@
   <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
     <value>{0}: nog {1} definitie(s). Hover over de verwijzing om ze te zien.</value>
   </data>
+  <data name="UsedByWpf" xml:space="preserve">
+    <value>WPF gebruikt hier deze definitie.</value>
+  </data>
+  <data name="OverriddenByFormat" xml:space="preserve">
+    <value>overschreven door {0}</value>
+  </data>
+  <data name="NotMerged" xml:space="preserve">
+    <value>in geen enkele MergedDictionaries</value>
+  </data>
+  <data name="NotMergedFileFormat" xml:space="preserve">
+    <value>{0} staat in geen enkele MergedDictionaries. WPF laadt het alleen als code het toevoegt.</value>
+  </data>
+  <data name="OverriddenKeyWarningFormat" xml:space="preserve">
+    <value>Resource '{0}' wordt overschreven door de definitie in {1} (regel {2}) bij laden via {3}. WPF gebruikt deze definitie niet.</value>
+  </data>
+  <data name="OptionsWarnOverriddenName" xml:space="preserve">
+    <value>Waarschuwen bij overschreven keys</value>
+  </data>
+  <data name="OptionsWarnOverriddenDescription" xml:space="preserve">
+    <value>Toont een waarschuwing in de Foutenlijst voor elke resource die WPF nooit gebruikt, omdat een dictionary die later gemerged wordt dezelfde key definieert.</value>
+  </data>
 </root>
