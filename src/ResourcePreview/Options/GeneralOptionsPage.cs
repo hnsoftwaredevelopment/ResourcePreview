@@ -47,6 +47,12 @@ namespace ResourcePreview.Options
         public bool CheckReferences { get; set; }
 
         [LocalizedCategory(Strings.OptionsCategoryGeneral)]
+        [LocalizedDisplayName(Strings.OptionsReportUnusedName)]
+        [LocalizedDescription(Strings.OptionsReportUnusedDescription)]
+        [DefaultValue(true)]
+        public bool ReportUnused { get; set; }
+
+        [LocalizedCategory(Strings.OptionsCategoryGeneral)]
         [LocalizedDisplayName(Strings.OptionsShowInCompletionName)]
         [LocalizedDescription(Strings.OptionsShowInCompletionDescription)]
         [DefaultValue(true)]
@@ -99,7 +105,8 @@ namespace ResourcePreview.Options
                 ShowLiveSample,
                 WarnOverriddenKeys,
                 ShowInCompletion,
-                CheckReferences);
+                CheckReferences,
+                ReportUnused);
         }
 
         private void FromSettings(ExtensionSettings settings)
@@ -116,6 +123,7 @@ namespace ResourcePreview.Options
             WarnOverriddenKeys = settings.WarnOverriddenKeys;
             ShowInCompletion = settings.ShowInCompletion;
             CheckReferences = settings.CheckReferences;
+            ReportUnused = settings.ReportUnused;
         }
 
         /// <summary>Refreshes the values from Unified Settings when the page opens.</summary>

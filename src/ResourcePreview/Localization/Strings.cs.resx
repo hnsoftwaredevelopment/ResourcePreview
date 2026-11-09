@@ -229,4 +229,13 @@
   <data name="ReferencesNotFoundHere" xml:space="preserve">
     <value>WPF zde klíč nenajde</value>
   </data>
+  <data name="UnusedResourceFormat" xml:space="preserve">
+    <value>Prostředek '{0}' se v tomto řešení nikde nepoužívá, ani v XAML, ani v kódu.</value>
+  </data>
+  <data name="OptionsReportUnusedName" xml:space="preserve">
+    <value>Hlásit nepoužívané prostředky</value>
+  </data>
+  <data name="OptionsReportUnusedDescription" xml:space="preserve">
+    <value>Zobrazí v seznamu chyb zprávu pro každý prostředek, který nepoužívá žádný soubor XAML ani soubor kódu v řešení. Pouze pro soubory, které aplikace načítá.</value>
+  </data>
 </root>

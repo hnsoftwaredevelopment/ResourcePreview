@@ -229,4 +229,13 @@
   <data name="ReferencesNotFoundHere" xml:space="preserve">
     <value>WPF ne trouve pas la clé ici</value>
   </data>
+  <data name="UnusedResourceFormat" xml:space="preserve">
+    <value>La ressource '{0}' n'est utilisée nulle part dans cette solution, ni en XAML ni dans le code.</value>
+  </data>
+  <data name="OptionsReportUnusedName" xml:space="preserve">
+    <value>Signaler les ressources inutilisées</value>
+  </data>
+  <data name="OptionsReportUnusedDescription" xml:space="preserve">
+    <value>Affiche un message dans la Liste d'erreurs pour chaque ressource qu'aucun fichier XAML ni fichier de code de la solution n'utilise. Uniquement pour les fichiers chargés par l'application.</value>
+  </data>
 </root>

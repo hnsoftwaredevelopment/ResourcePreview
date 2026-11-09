@@ -602,7 +602,12 @@ namespace ResourcePreview.Resources
             }
         }
 
-        private static IEnumerable<string> EnumerateSourceFiles(string root)
+        private static readonly string[] SourceExtensions = { ".xaml", ".csproj", ".vbproj" };
+
+        private static IEnumerable<string> EnumerateSourceFiles(string root) => EnumerateFiles(root, SourceExtensions);
+
+        /// <summary>Files with one of these extensions under the root, skipping bin, obj, .git and so on.</summary>
+        internal static IEnumerable<string> EnumerateFiles(string root, string[] extensions)
         {
             var pending = new Stack<string>();
             pending.Push(root);
@@ -625,9 +630,7 @@ namespace ResourcePreview.Resources
                 foreach (string file in files)
                 {
                     string extension = Path.GetExtension(file);
-                    if (extension.Equals(".xaml", StringComparison.OrdinalIgnoreCase)
-                        || extension.Equals(".csproj", StringComparison.OrdinalIgnoreCase)
-                        || extension.Equals(".vbproj", StringComparison.OrdinalIgnoreCase))
+                    if (extensions.Any(e => extension.Equals(e, StringComparison.OrdinalIgnoreCase)))
                     {
                         yield return file;
                     }

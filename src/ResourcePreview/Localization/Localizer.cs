@@ -71,6 +71,9 @@ namespace ResourcePreview.Localization
         public const string ReferencesDefinitions = nameof(ReferencesDefinitions);
         public const string ReferencesUsesOtherFormat = nameof(ReferencesUsesOtherFormat);
         public const string ReferencesNotFoundHere = nameof(ReferencesNotFoundHere);
+        public const string UnusedResourceFormat = nameof(UnusedResourceFormat);
+        public const string OptionsReportUnusedName = nameof(OptionsReportUnusedName);
+        public const string OptionsReportUnusedDescription = nameof(OptionsReportUnusedDescription);
         public const string NoLiveSampleFormat = nameof(NoLiveSampleFormat);
         public const string TemplateMoreElementsFormat = nameof(TemplateMoreElementsFormat);
         public const string TemplateEmpty = nameof(TemplateEmpty);

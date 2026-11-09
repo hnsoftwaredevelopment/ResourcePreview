@@ -8,4 +8,10 @@
     <!-- Also in Values.xaml. App.xaml merges Values.xaml later, so WPF never uses this one (blue). -->
     <SolidColorBrush x:Key="InfoBrush" Color="#FF1E88E5" />
 
+    <!-- Nothing uses this one: the Error List shows it as unused. -->
+    <SolidColorBrush x:Key="UnusedBrush" Color="#FF9E9E9E" />
+
+    <!-- Only used from code (MainWindow.xaml.cs), so it does not count as unused. -->
+    <SolidColorBrush x:Key="CodeOnlyBrush" Color="#FF6A1B9A" />
+
 </ResourceDictionary>

@@ -229,4 +229,13 @@
   <data name="ReferencesNotFoundHere" xml:space="preserve">
     <value>WPF 在這裡找不到該索引鍵</value>
   </data>
+  <data name="UnusedResourceFormat" xml:space="preserve">
+    <value>資源「{0}」在此方案中的任何位置都未使用，XAML 和程式碼中都沒有。</value>
+  </data>
+  <data name="OptionsReportUnusedName" xml:space="preserve">
+    <value>回報未使用的資源</value>
+  </data>
+  <data name="OptionsReportUnusedDescription" xml:space="preserve">
+    <value>針對方案中沒有任何 XAML 檔案或程式碼檔案使用的每個資源，在錯誤清單中顯示訊息。僅適用於應用程式載入的檔案。</value>
+  </data>
 </root>

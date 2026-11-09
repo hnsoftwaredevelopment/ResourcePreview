@@ -87,6 +87,8 @@
     <Compile Include="Navigation\FindResourceReferencesCommand.cs" />
     <Compile Include="Navigation\ResourceReferencesWindow.cs" />
     <Compile Include="Resources\UsageFinder.cs" />
+    <Compile Include="Resources\CodeStrings.cs" />
+    <Compile Include="Resources\UnusedResourceScanner.cs" />
     <Compile Include="Diagnostics\ResourceErrorList.cs" />
     <Compile Include="Diagnostics\ProblemText.cs" />
     <Compile Include="Resources\ReferenceChecker.cs" />

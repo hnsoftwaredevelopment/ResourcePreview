@@ -89,7 +89,8 @@ namespace ResourcePreview.Diagnostics
             ThreadHelper.ThrowIfNotOnUIThread();
 
             _pending?.Cancel();
-            if (!SettingsService.Current.WarnOverriddenKeys && !SettingsService.Current.CheckReferences)
+            ExtensionSettings current = SettingsService.Current;
+            if (!current.WarnOverriddenKeys && !current.CheckReferences && !current.ReportUnused)
             {
                 Clear();
                 return;
@@ -125,9 +126,12 @@ namespace ResourcePreview.Diagnostics
                 IReadOnlyList<ReferenceProblem> problems = settings.CheckReferences
                     ? ReferenceChecker.CheckAll(index, cancellationToken)
                     : new ReferenceProblem[0];
+                IReadOnlyList<ResourceEntry> unused = settings.ReportUnused
+                    ? UnusedResourceScanner.Scan(index, cancellationToken)
+                    : new ResourceEntry[0];
 
                 await _package.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-                Show(index, overridden, problems);
+                Show(index, overridden, problems, unused);
             }
             catch (OperationCanceledException)
             {
@@ -162,7 +166,7 @@ namespace ResourcePreview.Diagnostics
             }).FileAndForget("ResourcePreview/OverriddenKeyFilesChanged");
         }
 
-        private void Show(ResourceIndex index, IReadOnlyList<OverriddenKey> overridden, IReadOnlyList<ReferenceProblem> problems)
+        private void Show(ResourceIndex index, IReadOnlyList<OverriddenKey> overridden, IReadOnlyList<ReferenceProblem> problems, IReadOnlyList<ResourceEntry> unused)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -203,6 +207,23 @@ namespace ResourcePreview.Diagnostics
                     {
                         ThreadHelper.ThrowIfNotOnUIThread();
                         _errorList.Navigate((ErrorTask)s, VSConstants.LOGVIEWID.TextView_guid);
+                    };
+                    _errorList.Tasks.Add(task);
+                }
+
+                // Only a message: a key can also be used in ways we cannot see, such as a key built in code.
+                foreach (ResourceEntry definition in unused)
+                {
+                    ErrorTask task = CreateTask(
+                        TaskErrorCategory.Message,
+                        Localizer.Format(Strings.UnusedResourceFormat, definition.Key),
+                        definition.FilePath,
+                        definition.LineNumber,
+                        definition.Column);
+                    task.Navigate += (s, e) =>
+                    {
+                        ThreadHelper.ThrowIfNotOnUIThread();
+                        _navigator.NavigateTo(definition);
                     };
                     _errorList.Tasks.Add(task);
                 }

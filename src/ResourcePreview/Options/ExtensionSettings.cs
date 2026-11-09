@@ -36,10 +36,11 @@ namespace ResourcePreview.Options
         public const string WarnOverriddenKeys = "resourcePreview.general.warnOverriddenKeys";
         public const string ShowInCompletion = "resourcePreview.general.showInCompletion";
         public const string CheckReferences = "resourcePreview.general.checkReferences";
+        public const string ReportUnused = "resourcePreview.general.reportUnused";
 
         public static readonly string[] All =
         {
-            Language, MaxListedDefinitions, TileSize, Tiles, LightForeground, LightBackground, DarkForeground, DarkBackground, ShowLiveSample, WarnOverriddenKeys, ShowInCompletion, CheckReferences,
+            Language, MaxListedDefinitions, TileSize, Tiles, LightForeground, LightBackground, DarkForeground, DarkBackground, ShowLiveSample, WarnOverriddenKeys, ShowInCompletion, CheckReferences, ReportUnused,
         };
     }
 
@@ -56,7 +57,7 @@ namespace ResourcePreview.Options
 
         public static readonly ExtensionSettings Default = new ExtensionSettings(
             ExtensionLanguage.Automatic, 5, 64, PreviewTiles.Both,
-            Colors.Black, Colors.White, Colors.White, Color.FromRgb(0x1E, 0x1E, 0x1E), showLiveSample: true, warnOverriddenKeys: true, showInCompletion: true, checkReferences: true);
+            Colors.Black, Colors.White, Colors.White, Color.FromRgb(0x1E, 0x1E, 0x1E), showLiveSample: true, warnOverriddenKeys: true, showInCompletion: true, checkReferences: true, reportUnused: true);
 
         public ExtensionSettings(
             ExtensionLanguage language,
@@ -70,7 +71,8 @@ namespace ResourcePreview.Options
             bool showLiveSample = true,
             bool warnOverriddenKeys = true,
             bool showInCompletion = true,
-            bool checkReferences = true)
+            bool checkReferences = true,
+            bool reportUnused = true)
         {
             Language = language;
             MaxListedDefinitions = Clamp(maxListedDefinitions, MinListedDefinitions, MaxListedDefinitionsLimit);
@@ -84,6 +86,7 @@ namespace ResourcePreview.Options
             WarnOverriddenKeys = warnOverriddenKeys;
             ShowInCompletion = showInCompletion;
             CheckReferences = checkReferences;
+            ReportUnused = reportUnused;
         }
 
         public ExtensionLanguage Language { get; }
@@ -106,6 +109,9 @@ namespace ResourcePreview.Options
 
         /// <summary>Error List entries for references WPF will not resolve.</summary>
         public bool CheckReferences { get; }
+
+        /// <summary>Error List messages for definitions nothing uses.</summary>
+        public bool ReportUnused { get; }
 
         private static int Clamp(int value, int min, int max) => Math.Max(min, Math.Min(max, value));
 

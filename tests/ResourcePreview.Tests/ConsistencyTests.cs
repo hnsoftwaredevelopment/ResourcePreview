@@ -168,6 +168,7 @@ namespace ResourcePreview.Tests
             Assert.AreEqual(d.WarnOverriddenKeys, RegistrationProperty(SettingMonikers.WarnOverriddenKeys)["default"]);
             Assert.AreEqual(d.ShowInCompletion, RegistrationProperty(SettingMonikers.ShowInCompletion)["default"]);
             Assert.AreEqual(d.CheckReferences, RegistrationProperty(SettingMonikers.CheckReferences)["default"]);
+            Assert.AreEqual(d.ReportUnused, RegistrationProperty(SettingMonikers.ReportUnused)["default"]);
         }
 
         [TestMethod]

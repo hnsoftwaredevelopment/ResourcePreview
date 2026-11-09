@@ -229,4 +229,13 @@
   <data name="ReferencesNotFoundHere" xml:space="preserve">
     <value>WPF 在此处找不到该键</value>
   </data>
+  <data name="UnusedResourceFormat" xml:space="preserve">
+    <value>资源“{0}”在此解决方案中的任何位置都未使用，XAML 和代码中均未使用。</value>
+  </data>
+  <data name="OptionsReportUnusedName" xml:space="preserve">
+    <value>报告未使用的资源</value>
+  </data>
+  <data name="OptionsReportUnusedDescription" xml:space="preserve">
+    <value>对于解决方案中没有任何 XAML 文件或代码文件使用的每个资源，在错误列表中显示一条消息。仅适用于应用加载的文件。</value>
+  </data>
 </root>

@@ -229,4 +229,13 @@
   <data name="ReferencesNotFoundHere" xml:space="preserve">
     <value>WPF anahtarı burada bulamıyor</value>
   </data>
+  <data name="UnusedResourceFormat" xml:space="preserve">
+    <value>'{0}' kaynağı bu çözümde hiçbir yerde kullanılmıyor, ne XAML'de ne de kodda.</value>
+  </data>
+  <data name="OptionsReportUnusedName" xml:space="preserve">
+    <value>Kullanılmayan kaynakları bildir</value>
+  </data>
+  <data name="OptionsReportUnusedDescription" xml:space="preserve">
+    <value>Çözümdeki hiçbir XAML veya kod dosyasının kullanmadığı her kaynak için Hata Listesi'nde bir ileti gösterir. Yalnızca uygulamanın yüklediği dosyalar için.</value>
+  </data>
 </root>

@@ -39,6 +39,13 @@
       "title": "@OptionsShowInCompletionName;{69e55270-ef51-4488-9e95-cfd1a6852056}",
       "description": "@OptionsShowInCompletionDescription;{69e55270-ef51-4488-9e95-cfd1a6852056}",
       "default": true,
+      "order": 5
+    },
+    "resourcePreview.general.reportUnused": {
+      "type": "boolean",
+      "title": "@OptionsReportUnusedName;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "description": "@OptionsReportUnusedDescription;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "default": true,
       "order": 4
     },
     "resourcePreview.general.checkReferences": {

@@ -90,6 +90,12 @@ A `{DynamicResource}` is looked up again at runtime and code can still add the k
 
 To avoid false alarms, a missing key is not reported when `App.xaml` merges a dictionary from outside the solution (such as a NuGet theme) or when there is no `App.xaml` (a class library). "Not loaded" is not reported for a `UserControl`, because at runtime it also sees the resources of the window it is placed in.
 
+## Unused resources
+
+Resources that nothing uses show up as messages in the Error List (turn on **Messages** in its toolbar). A resource counts as used when a `{StaticResource}` or `{DynamicResource}` in any `.xaml` file refers to it, or when its key appears as a string in a `.cs` or `.vb` file, such as `FindResource("AccentBrush")`.
+
+Only files the app loads are checked: `App.xaml`, windows and controls, and dictionaries that something merges. Dictionaries nothing merges, theme files such as `Themes\Generic.xaml`, and solutions without `App.xaml` are skipped, because the resources there may be used outside the solution.
+
 ## IntelliSense
 
 After `{StaticResource ` or `{DynamicResource ` the IntelliSense list shows a small icon for images, geometries, drawings, brushes and colors. Select an item and its tooltip shows the same preview as on hover, also for styles and templates.
@@ -116,6 +122,7 @@ When a key has several definitions, the list shows where a use gets another defi
 | Maximum number of other definitions | 5 | How many other definitions are listed as links. 0 hides the list. |
 | Warn about overridden keys | On | Warnings in the Error List for definitions WPF never uses. |
 | Check resource references | On | Error List entries for references WPF will not resolve. |
+| Report unused resources | On | Error List messages for resources nothing uses. |
 | Show previews in IntelliSense | On | Icons and the preview tooltip in the IntelliSense list. |
 | Tile size | 64 | Size of a preview tile in pixels, 16 to 256. |
 | Tiles | Light and dark | Both tiles, or only one of them. |
