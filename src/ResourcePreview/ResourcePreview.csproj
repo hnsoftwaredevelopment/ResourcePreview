@@ -83,6 +83,10 @@
     <Compile Include="Preview\TemplateTreeRenderer.cs" />
     <Compile Include="Navigation\DefinitionNavigator.cs" />
     <Compile Include="Navigation\GoToResourceDefinitionCommand.cs" />
+    <Compile Include="Navigation\CaretResource.cs" />
+    <Compile Include="Navigation\FindResourceReferencesCommand.cs" />
+    <Compile Include="Navigation\ResourceReferencesWindow.cs" />
+    <Compile Include="Resources\UsageFinder.cs" />
     <Compile Include="Diagnostics\ResourceErrorList.cs" />
     <Compile Include="Diagnostics\ProblemText.cs" />
     <Compile Include="Resources\ReferenceChecker.cs" />

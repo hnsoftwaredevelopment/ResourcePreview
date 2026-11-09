@@ -69,7 +69,7 @@ namespace ResourcePreview.Navigation
             ThreadHelper.ThrowIfNotOnUIThread();
 
             var command = (OleMenuCommand)sender;
-            bool available = TryGetReferenceAtCaret(out _, out _, out _);
+            bool available = CaretResource.TryGet(_package, _editorAdapters, _documents, includeDefinitions: false) != null;
             command.Visible = available;
             command.Enabled = available;
 
@@ -81,15 +81,16 @@ namespace ResourcePreview.Navigation
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            if (!TryGetReferenceAtCaret(out IWpfTextView view, out string filePath, out ResourceReference reference))
+            CaretResource caret = CaretResource.TryGet(_package, _editorAdapters, _documents, includeDefinitions: false);
+            if (caret == null)
             {
                 return;
             }
 
             // Unsaved changes in the current file count, like in the Quick Info preview.
-            string text = view.TextSnapshot.GetText();
+            string text = caret.View.TextSnapshot.GetText();
             _package.JoinableTaskFactory
-                .RunAsync(() => GoToAsync(view, filePath, text, reference.Key))
+                .RunAsync(() => GoToAsync(caret.View, caret.FilePath, text, caret.Reference.Key))
                 .FileAndForget("ResourcePreview/GoToResourceDefinition");
         }
 
@@ -130,35 +131,6 @@ namespace ResourcePreview.Navigation
             {
                 ResourceIndex.ForFile(document.FilePath).ClearLiveText(document.FilePath);
             }
-        }
-
-        private bool TryGetReferenceAtCaret(out IWpfTextView view, out string filePath, out ResourceReference reference)
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
-            view = null;
-            filePath = null;
-            reference = default;
-
-            if (!(((IServiceProvider)_package).GetService(typeof(SVsTextManager)) is IVsTextManager textManager)
-                || textManager.GetActiveView(1, null, out IVsTextView vsView) != 0
-                || vsView == null)
-            {
-                return false;
-            }
-
-            view = _editorAdapters.GetWpfTextView(vsView);
-            if (view == null
-                || !_documents.TryGetTextDocument(view.TextBuffer, out ITextDocument document)
-                || !document.FilePath.EndsWith(".xaml", StringComparison.OrdinalIgnoreCase))
-            {
-                return false;
-            }
-
-            filePath = document.FilePath;
-            SnapshotPoint caret = view.Caret.Position.BufferPosition;
-            ITextSnapshotLine line = caret.GetContainingLine();
-            return ResourceReferenceFinder.TryFindReference(line.GetText(), caret.Position - line.Start.Position, out reference);
         }
 
         private void ShowStatus(string message)

@@ -541,7 +541,7 @@ namespace ResourcePreview.Resources
                 foreach (Match match in UsePattern.Matches(lines[i]))
                 {
                     Group key = match.Groups["key"];
-                    uses.Add(new ResourceUse(key.Value, i + 1, key.Index + 1, match.Groups["kind"].Value == "StaticResource"));
+                    uses.Add(new ResourceUse(key.Value, i + 1, key.Index + 1, match.Groups["kind"].Value == "StaticResource", lines[i].Trim()));
                 }
             }
 

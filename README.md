@@ -100,6 +100,12 @@ Right-click a `{StaticResource ...}` or `{DynamicResource ...}` reference and ch
 
 When the key is defined more than once, the command opens the definition WPF uses (see below) and the status bar shows how many others there are. Hover over the reference to see them all. You can assign another shortcut under **Tools > Options > Environment > Keyboard**: search for `ResourcePreview.GoToResourceDefinition`.
 
+## Find Resource References
+
+Right-click a reference or an `x:Key` and choose **Find Resource References**, or press **Shift+Alt+F12**. The **Resource References** window lists the definitions of the key and every `{StaticResource}` and `{DynamicResource}` that uses it, grouped by file. Double-click a line (or press Enter) to open it.
+
+When a key has several definitions, the list shows where a use gets another definition than the one you started from ("uses the definition in Values.xaml"), or where WPF does not find the key at all.
+
 ## Settings
 
 **Tools > Options > XAML Resource Preview**, in both the new and the legacy Options dialog.

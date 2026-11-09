@@ -208,4 +208,25 @@
   <data name="OptionsCheckReferencesDescription" xml:space="preserve">
     <value>对于不存在的键、仅在同一文件更下方定义的键，或位于该处未加载的文件中的键的引用，在错误列表中显示警告。</value>
   </data>
+  <data name="FindResourceReferences" xml:space="preserve">
+    <value>查找资源引用</value>
+  </data>
+  <data name="ReferencesWindowTitle" xml:space="preserve">
+    <value>资源引用</value>
+  </data>
+  <data name="ReferencesSummaryFormat" xml:space="preserve">
+    <value>{0}: {2} 个文件中有 {1} 个引用</value>
+  </data>
+  <data name="ReferencesNoneFormat" xml:space="preserve">
+    <value>未找到对“{0}”的引用。</value>
+  </data>
+  <data name="ReferencesDefinitions" xml:space="preserve">
+    <value>定义</value>
+  </data>
+  <data name="ReferencesUsesOtherFormat" xml:space="preserve">
+    <value>使用 {0} 中的定义</value>
+  </data>
+  <data name="ReferencesNotFoundHere" xml:space="preserve">
+    <value>WPF 在此处找不到该键</value>
+  </data>
 </root>

@@ -208,4 +208,25 @@
   <data name="OptionsCheckReferencesDescription" xml:space="preserve">
     <value>존재하지 않거나, 같은 파일의 아래쪽에서만 정의되거나, 그곳에서 로드되지 않는 파일에 있는 키에 대한 참조에 대해 오류 목록에 경고를 표시합니다.</value>
   </data>
+  <data name="FindResourceReferences" xml:space="preserve">
+    <value>리소스 참조 찾기</value>
+  </data>
+  <data name="ReferencesWindowTitle" xml:space="preserve">
+    <value>리소스 참조</value>
+  </data>
+  <data name="ReferencesSummaryFormat" xml:space="preserve">
+    <value>{0}: 파일 {2}개에서 참조 {1}개</value>
+  </data>
+  <data name="ReferencesNoneFormat" xml:space="preserve">
+    <value>'{0}'에 대한 참조를 찾을 수 없습니다.</value>
+  </data>
+  <data name="ReferencesDefinitions" xml:space="preserve">
+    <value>정의</value>
+  </data>
+  <data name="ReferencesUsesOtherFormat" xml:space="preserve">
+    <value>{0}의 정의를 사용함</value>
+  </data>
+  <data name="ReferencesNotFoundHere" xml:space="preserve">
+    <value>WPF가 여기에서 키를 찾지 못합니다</value>
+  </data>
 </root>

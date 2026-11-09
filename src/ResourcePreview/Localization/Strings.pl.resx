@@ -208,4 +208,25 @@
   <data name="OptionsCheckReferencesDescription" xml:space="preserve">
     <value>Pokazuje ostrzeżenie na liście błędów dla odwołań do kluczy, które nie istnieją, są zdefiniowane dopiero niżej w tym samym pliku lub znajdują się w pliku, który nie jest tam wczytywany.</value>
   </data>
+  <data name="FindResourceReferences" xml:space="preserve">
+    <value>Znajdź odwołania do zasobu</value>
+  </data>
+  <data name="ReferencesWindowTitle" xml:space="preserve">
+    <value>Odwołania do zasobu</value>
+  </data>
+  <data name="ReferencesSummaryFormat" xml:space="preserve">
+    <value>{0}: odwołania: {1} w plikach: {2}</value>
+  </data>
+  <data name="ReferencesNoneFormat" xml:space="preserve">
+    <value>Nie znaleziono odwołań do '{0}'.</value>
+  </data>
+  <data name="ReferencesDefinitions" xml:space="preserve">
+    <value>Definicje</value>
+  </data>
+  <data name="ReferencesUsesOtherFormat" xml:space="preserve">
+    <value>używa definicji z {0}</value>
+  </data>
+  <data name="ReferencesNotFoundHere" xml:space="preserve">
+    <value>WPF nie znajduje tutaj klucza</value>
+  </data>
 </root>

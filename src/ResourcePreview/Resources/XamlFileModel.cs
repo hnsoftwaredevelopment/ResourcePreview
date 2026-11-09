@@ -18,12 +18,13 @@ namespace ResourcePreview.Resources
     /// <summary>A {StaticResource X} or {DynamicResource X} in a file. Line and column are 1-based and point at the key.</summary>
     internal sealed class ResourceUse
     {
-        public ResourceUse(string key, int line, int column, bool isStatic)
+        public ResourceUse(string key, int line, int column, bool isStatic, string lineText = null)
         {
             Key = key;
             Line = line;
             Column = column;
             IsStatic = isStatic;
+            LineText = lineText ?? string.Empty;
         }
 
         public string Key { get; }
@@ -34,6 +35,9 @@ namespace ResourcePreview.Resources
 
         /// <summary>StaticResource (resolved once, while loading) or DynamicResource (looked up again at runtime).</summary>
         public bool IsStatic { get; }
+
+        /// <summary>The whole line, trimmed, for the list of references.</summary>
+        public string LineText { get; }
     }
 
     /// <summary>The parts of one .xaml file that the index needs: its keys, what it merges and which keys it uses.</summary>

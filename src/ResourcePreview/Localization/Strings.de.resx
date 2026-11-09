@@ -208,4 +208,25 @@
   <data name="OptionsCheckReferencesDescription" xml:space="preserve">
     <value>Zeigt in der Fehlerliste eine Warnung für Verweise auf Schlüssel, die nicht existieren, erst weiter unten in derselben Datei stehen oder in einer Datei stehen, die dort nicht geladen wird.</value>
   </data>
+  <data name="FindResourceReferences" xml:space="preserve">
+    <value>Ressourcenverweise suchen</value>
+  </data>
+  <data name="ReferencesWindowTitle" xml:space="preserve">
+    <value>Ressourcenverweise</value>
+  </data>
+  <data name="ReferencesSummaryFormat" xml:space="preserve">
+    <value>{0}: {1} Verweis(e) in {2} Datei(en)</value>
+  </data>
+  <data name="ReferencesNoneFormat" xml:space="preserve">
+    <value>Keine Verweise auf '{0}' gefunden.</value>
+  </data>
+  <data name="ReferencesDefinitions" xml:space="preserve">
+    <value>Definitionen</value>
+  </data>
+  <data name="ReferencesUsesOtherFormat" xml:space="preserve">
+    <value>verwendet die Definition in {0}</value>
+  </data>
+  <data name="ReferencesNotFoundHere" xml:space="preserve">
+    <value>WPF findet den Schlüssel hier nicht</value>
+  </data>
 </root>

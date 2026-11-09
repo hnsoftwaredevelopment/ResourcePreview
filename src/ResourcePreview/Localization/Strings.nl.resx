@@ -208,4 +208,25 @@
   <data name="OptionsCheckReferencesDescription" xml:space="preserve">
     <value>Toont een waarschuwing in de Foutenlijst voor verwijzingen naar keys die niet bestaan, pas verderop in hetzelfde bestand staan, of in een bestand staan dat daar niet geladen wordt.</value>
   </data>
+  <data name="FindResourceReferences" xml:space="preserve">
+    <value>Resourceverwijzingen zoeken</value>
+  </data>
+  <data name="ReferencesWindowTitle" xml:space="preserve">
+    <value>Resourceverwijzingen</value>
+  </data>
+  <data name="ReferencesSummaryFormat" xml:space="preserve">
+    <value>{0}: {1} verwijzing(en) in {2} bestand(en)</value>
+  </data>
+  <data name="ReferencesNoneFormat" xml:space="preserve">
+    <value>Geen verwijzingen naar '{0}' gevonden.</value>
+  </data>
+  <data name="ReferencesDefinitions" xml:space="preserve">
+    <value>Definities</value>
+  </data>
+  <data name="ReferencesUsesOtherFormat" xml:space="preserve">
+    <value>gebruikt de definitie in {0}</value>
+  </data>
+  <data name="ReferencesNotFoundHere" xml:space="preserve">
+    <value>WPF vindt de key hier niet</value>
+  </data>
 </root>

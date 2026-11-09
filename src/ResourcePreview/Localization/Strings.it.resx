@@ -208,4 +208,25 @@
   <data name="OptionsCheckReferencesDescription" xml:space="preserve">
     <value>Mostra un avviso nell'Elenco errori per i riferimenti a chiavi che non esistono, che sono definite solo più in basso nello stesso file o che si trovano in un file non caricato lì.</value>
   </data>
+  <data name="FindResourceReferences" xml:space="preserve">
+    <value>Trova riferimenti alla risorsa</value>
+  </data>
+  <data name="ReferencesWindowTitle" xml:space="preserve">
+    <value>Riferimenti alla risorsa</value>
+  </data>
+  <data name="ReferencesSummaryFormat" xml:space="preserve">
+    <value>{0}: {1} riferimento/i in {2} file</value>
+  </data>
+  <data name="ReferencesNoneFormat" xml:space="preserve">
+    <value>Nessun riferimento a '{0}' trovato.</value>
+  </data>
+  <data name="ReferencesDefinitions" xml:space="preserve">
+    <value>Definizioni</value>
+  </data>
+  <data name="ReferencesUsesOtherFormat" xml:space="preserve">
+    <value>usa la definizione in {0}</value>
+  </data>
+  <data name="ReferencesNotFoundHere" xml:space="preserve">
+    <value>WPF non trova la chiave qui</value>
+  </data>
 </root>

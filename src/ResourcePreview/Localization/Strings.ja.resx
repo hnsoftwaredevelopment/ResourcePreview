@@ -208,4 +208,25 @@
   <data name="OptionsCheckReferencesDescription" xml:space="preserve">
     <value>存在しないキー、同じファイル内でさらに下でのみ定義されているキー、またはそこで読み込まれないファイルにあるキーへの参照について、エラー一覧に警告を表示します。</value>
   </data>
+  <data name="FindResourceReferences" xml:space="preserve">
+    <value>リソース参照の検索</value>
+  </data>
+  <data name="ReferencesWindowTitle" xml:space="preserve">
+    <value>リソース参照</value>
+  </data>
+  <data name="ReferencesSummaryFormat" xml:space="preserve">
+    <value>{0}: {2} 個のファイルに {1} 個の参照</value>
+  </data>
+  <data name="ReferencesNoneFormat" xml:space="preserve">
+    <value>'{0}' への参照は見つかりませんでした。</value>
+  </data>
+  <data name="ReferencesDefinitions" xml:space="preserve">
+    <value>定義</value>
+  </data>
+  <data name="ReferencesUsesOtherFormat" xml:space="preserve">
+    <value>{0} の定義を使用</value>
+  </data>
+  <data name="ReferencesNotFoundHere" xml:space="preserve">
+    <value>WPF はここでキーを見つけられません</value>
+  </data>
 </root>

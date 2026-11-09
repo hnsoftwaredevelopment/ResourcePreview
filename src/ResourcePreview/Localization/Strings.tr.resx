@@ -208,4 +208,25 @@
   <data name="OptionsCheckReferencesDescription" xml:space="preserve">
     <value>Var olmayan, aynı dosyada yalnızca daha aşağıda tanımlanan veya orada yüklenmeyen bir dosyada bulunan anahtarlara yapılan başvurular için Hata Listesi'nde bir uyarı gösterir.</value>
   </data>
+  <data name="FindResourceReferences" xml:space="preserve">
+    <value>Kaynak başvurularını bul</value>
+  </data>
+  <data name="ReferencesWindowTitle" xml:space="preserve">
+    <value>Kaynak başvuruları</value>
+  </data>
+  <data name="ReferencesSummaryFormat" xml:space="preserve">
+    <value>{0}: {2} dosyada {1} başvuru</value>
+  </data>
+  <data name="ReferencesNoneFormat" xml:space="preserve">
+    <value>'{0}' için başvuru bulunamadı.</value>
+  </data>
+  <data name="ReferencesDefinitions" xml:space="preserve">
+    <value>Tanımlar</value>
+  </data>
+  <data name="ReferencesUsesOtherFormat" xml:space="preserve">
+    <value>{0} içindeki tanımı kullanır</value>
+  </data>
+  <data name="ReferencesNotFoundHere" xml:space="preserve">
+    <value>WPF anahtarı burada bulamıyor</value>
+  </data>
 </root>

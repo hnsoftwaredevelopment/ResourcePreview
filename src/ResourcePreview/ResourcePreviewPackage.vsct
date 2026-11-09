@@ -24,6 +24,19 @@
           <LocCanonicalName>.ResourcePreview.GoToResourceDefinition</LocCanonicalName>
         </Strings>
       </Button>
+
+      <!-- Also hidden until the package shows it: on a reference or on an x:Key. -->
+      <Button guid="guidResourcePreviewCmdSet" id="cmdidFindResourceReferences" priority="0x0101" type="Button">
+        <Parent guid="guidResourcePreviewCmdSet" id="EditorContextGroup" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Find Resource References</ButtonText>
+          <CanonicalName>.ResourcePreview.FindResourceReferences</CanonicalName>
+          <LocCanonicalName>.ResourcePreview.FindResourceReferences</LocCanonicalName>
+        </Strings>
+      </Button>
     </Buttons>
   </Commands>
 
@@ -37,6 +50,7 @@
   <!-- Text Editor scope, not Global: VS binds Ctrl+Alt+F12 globally to Edit.FindSymbol, and a scoped binding wins inside an editor. -->
   <KeyBindings>
     <KeyBinding guid="guidResourcePreviewCmdSet" id="cmdidGoToResourceDefinition" editor="guidTextEditorScope" key1="VK_F12" mod1="Control Alt" />
+    <KeyBinding guid="guidResourcePreviewCmdSet" id="cmdidFindResourceReferences" editor="guidTextEditorScope" key1="VK_F12" mod1="Shift Alt" />
   </KeyBindings>
 
   <Symbols>
@@ -45,6 +59,7 @@
     <GuidSymbol name="guidResourcePreviewCmdSet" value="{49b12957-db89-4dfc-b79d-a9d1c46f0a5f}">
       <IDSymbol name="EditorContextGroup" value="0x1020" />
       <IDSymbol name="cmdidGoToResourceDefinition" value="0x0100" />
+      <IDSymbol name="cmdidFindResourceReferences" value="0x0101" />
     </GuidSymbol>
 
     <!-- Key binding scope "Text Editor" in Tools > Options > Keyboard. -->

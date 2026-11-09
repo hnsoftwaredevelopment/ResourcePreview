@@ -55,13 +55,26 @@ namespace ResourcePreview.Navigation
         public void NavigateTo(ResourceEntry entry)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+            Open(entry.FilePath, textView => SelectKey(textView, entry));
+        }
+
+        /// <summary>Opens the file of a {StaticResource X} and selects X. Used by the list of references.</summary>
+        public void NavigateToUse(string filePath, ResourceUse use)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            Open(filePath, textView => SelectUse(textView, use));
+        }
+
+        private void Open(string filePath, Action<IWpfTextView> select)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
 
             try
             {
                 // TextView_guid requests the text editor instead of a designer.
                 VsShellUtilities.OpenDocument(
                     _serviceProvider,
-                    entry.FilePath,
+                    filePath,
                     VSConstants.LOGVIEWID.TextView_guid,
                     out IVsUIHierarchy _,
                     out uint _,
@@ -69,7 +82,7 @@ namespace ResourcePreview.Navigation
 
                 if (frame == null)
                 {
-                    ShowStatus("ResourcePreview: " + Localizer.Format(Strings.CannotOpenFileFormat, entry.FilePath));
+                    ShowStatus("ResourcePreview: " + Localizer.Format(Strings.CannotOpenFileFormat, filePath));
                     return;
                 }
 
@@ -82,7 +95,7 @@ namespace ResourcePreview.Navigation
                     return; // File is open, but not in a text editor (for example designer only).
                 }
 
-                SelectKey(textView, entry);
+                select(textView);
             }
             catch (Exception ex)
             {
@@ -96,9 +109,7 @@ namespace ResourcePreview.Navigation
         /// </summary>
         private static void SelectKey(IWpfTextView textView, ResourceEntry entry)
         {
-            ITextSnapshot snapshot = textView.TextSnapshot;
-            int lineIndex = Math.Min(Math.Max(entry.LineNumber - 1, 0), snapshot.LineCount - 1);
-            ITextSnapshotLine line = snapshot.GetLineFromLineNumber(lineIndex);
+            ITextSnapshotLine line = GetLine(textView.TextSnapshot, entry.LineNumber);
             string text = line.GetText();
 
             int searchFrom = Math.Min(Math.Max(entry.Column - 1, 0), text.Length);
@@ -108,8 +119,34 @@ namespace ResourcePreview.Navigation
                 keyStart = FindQuotedKey(text, entry.Key, 0);
             }
 
-            SnapshotSpan span = keyStart >= 0
-                ? new SnapshotSpan(line.Start + keyStart, entry.Key.Length)
+            Select(textView, line, keyStart, entry.Key.Length);
+        }
+
+        private static void SelectUse(IWpfTextView textView, ResourceUse use)
+        {
+            ITextSnapshotLine line = GetLine(textView.TextSnapshot, use.Line);
+            string text = line.GetText();
+
+            int searchFrom = Math.Min(Math.Max(use.Column - 1, 0), text.Length);
+            int keyStart = text.IndexOf(use.Key, searchFrom, StringComparison.Ordinal);
+            if (keyStart < 0)
+            {
+                keyStart = text.IndexOf(use.Key, StringComparison.Ordinal);
+            }
+
+            Select(textView, line, keyStart, use.Key.Length);
+        }
+
+        private static ITextSnapshotLine GetLine(ITextSnapshot snapshot, int lineNumber)
+        {
+            int lineIndex = Math.Min(Math.Max(lineNumber - 1, 0), snapshot.LineCount - 1);
+            return snapshot.GetLineFromLineNumber(lineIndex);
+        }
+
+        private static void Select(IWpfTextView textView, ITextSnapshotLine line, int start, int length)
+        {
+            SnapshotSpan span = start >= 0
+                ? new SnapshotSpan(line.Start + start, length)
                 : new SnapshotSpan(line.Start, 0);
 
             textView.Selection.Select(span, isReversed: false);

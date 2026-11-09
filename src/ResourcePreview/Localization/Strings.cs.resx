@@ -208,4 +208,25 @@
   <data name="OptionsCheckReferencesDescription" xml:space="preserve">
     <value>Zobrazí v seznamu chyb upozornění pro odkazy na klíče, které neexistují, jsou definovány až níže ve stejném souboru nebo jsou v souboru, který se tam nenačítá.</value>
   </data>
+  <data name="FindResourceReferences" xml:space="preserve">
+    <value>Najít odkazy na prostředek</value>
+  </data>
+  <data name="ReferencesWindowTitle" xml:space="preserve">
+    <value>Odkazy na prostředek</value>
+  </data>
+  <data name="ReferencesSummaryFormat" xml:space="preserve">
+    <value>{0}: odkazy: {1} v souborech: {2}</value>
+  </data>
+  <data name="ReferencesNoneFormat" xml:space="preserve">
+    <value>Nenalezeny žádné odkazy na '{0}'.</value>
+  </data>
+  <data name="ReferencesDefinitions" xml:space="preserve">
+    <value>Definice</value>
+  </data>
+  <data name="ReferencesUsesOtherFormat" xml:space="preserve">
+    <value>používá definici v {0}</value>
+  </data>
+  <data name="ReferencesNotFoundHere" xml:space="preserve">
+    <value>WPF zde klíč nenajde</value>
+  </data>
 </root>

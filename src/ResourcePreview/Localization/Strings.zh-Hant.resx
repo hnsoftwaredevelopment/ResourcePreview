@@ -208,4 +208,25 @@
   <data name="OptionsCheckReferencesDescription" xml:space="preserve">
     <value>對於不存在的索引鍵、僅在同一檔案更下方定義的索引鍵，或位於該處未載入之檔案中的索引鍵的參考，在錯誤清單中顯示警告。</value>
   </data>
+  <data name="FindResourceReferences" xml:space="preserve">
+    <value>尋找資源參考</value>
+  </data>
+  <data name="ReferencesWindowTitle" xml:space="preserve">
+    <value>資源參考</value>
+  </data>
+  <data name="ReferencesSummaryFormat" xml:space="preserve">
+    <value>{0}: {2} 個檔案中有 {1} 個參考</value>
+  </data>
+  <data name="ReferencesNoneFormat" xml:space="preserve">
+    <value>找不到「{0}」的參考。</value>
+  </data>
+  <data name="ReferencesDefinitions" xml:space="preserve">
+    <value>定義</value>
+  </data>
+  <data name="ReferencesUsesOtherFormat" xml:space="preserve">
+    <value>使用 {0} 中的定義</value>
+  </data>
+  <data name="ReferencesNotFoundHere" xml:space="preserve">
+    <value>WPF 在這裡找不到該索引鍵</value>
+  </data>
 </root>
