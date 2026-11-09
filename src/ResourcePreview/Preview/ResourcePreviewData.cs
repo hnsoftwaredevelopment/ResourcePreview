@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using ResourcePreview.Resources;
 
 namespace ResourcePreview.Preview
@@ -20,6 +21,20 @@ namespace ResourcePreview.Preview
             Style = style;
             TemplateTree = templateTree;
             UnloadableType = unloadableType;
+        }
+
+        /// <summary>
+        /// Collects everything the preview needs for one definition: the XAML with its dependencies,
+        /// and for a style or template the table or tree from the XML. Runs on any thread.
+        /// </summary>
+        public static ResourcePreviewData Create(ResourceIndex index, ResourceEntry target, Action navigate, CancellationToken cancellationToken)
+        {
+            StyleInfo style = StyleInfoBuilder.IsStyle(target) ? StyleInfoBuilder.Build(index, target, cancellationToken) : null;
+            TemplateTree templateTree = TemplateTreeBuilder.IsTemplate(target) ? TemplateTreeBuilder.Build(target.Element) : null;
+            PreviewXaml previewXaml = PreviewXamlBuilder.Build(index, target, cancellationToken);
+            return new ResourcePreviewData(
+                target.Key, target.ElementTypeName, previewXaml.Xaml, previewXaml.MissingKeys,
+                navigate, style, templateTree, previewXaml.UnloadableType);
         }
 
         public string Key { get; }

@@ -40,6 +40,12 @@ namespace ResourcePreview.Options
         [DefaultValue(true)]
         public bool WarnOverriddenKeys { get; set; }
 
+        [LocalizedCategory(Strings.OptionsCategoryGeneral)]
+        [LocalizedDisplayName(Strings.OptionsShowInCompletionName)]
+        [LocalizedDescription(Strings.OptionsShowInCompletionDescription)]
+        [DefaultValue(true)]
+        public bool ShowInCompletion { get; set; }
+
         [LocalizedCategory(Strings.OptionsCategoryAppearance)]
         [LocalizedDisplayName(Strings.OptionsTileSizeName)]
         [LocalizedDescription(Strings.OptionsTileSizeDescription)]
@@ -85,7 +91,8 @@ namespace ResourcePreview.Options
                 ToMedia(LightTileForeground), ToMedia(LightTileBackground),
                 ToMedia(DarkTileForeground), ToMedia(DarkTileBackground),
                 ShowLiveSample,
-                WarnOverriddenKeys);
+                WarnOverriddenKeys,
+                ShowInCompletion);
         }
 
         private void FromSettings(ExtensionSettings settings)
@@ -100,6 +107,7 @@ namespace ResourcePreview.Options
             DarkTileBackground = ToDrawing(settings.DarkBackground);
             ShowLiveSample = settings.ShowLiveSample;
             WarnOverriddenKeys = settings.WarnOverriddenKeys;
+            ShowInCompletion = settings.ShowInCompletion;
         }
 
         /// <summary>Refreshes the values from Unified Settings when the page opens.</summary>

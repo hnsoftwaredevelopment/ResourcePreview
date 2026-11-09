@@ -181,4 +181,10 @@
   <data name="SamplePressed" xml:space="preserve">
     <value>Presionado</value>
   </data>
+  <data name="OptionsShowInCompletionName" xml:space="preserve">
+    <value>Mostrar vistas previas en IntelliSense</value>
+  </data>
+  <data name="OptionsShowInCompletionDescription" xml:space="preserve">
+    <value>Muestra un icono para imágenes, geometrías y pinceles en la lista de IntelliSense después de {StaticResource o {DynamicResource, y la vista previa en la información sobre herramientas del elemento seleccionado.</value>
+  </data>
 </root>

@@ -55,6 +55,8 @@ namespace ResourcePreview.Localization
         public const string SampleDisabled = nameof(SampleDisabled);
         public const string SampleMouseOver = nameof(SampleMouseOver);
         public const string SamplePressed = nameof(SamplePressed);
+        public const string OptionsShowInCompletionName = nameof(OptionsShowInCompletionName);
+        public const string OptionsShowInCompletionDescription = nameof(OptionsShowInCompletionDescription);
         public const string NoLiveSampleFormat = nameof(NoLiveSampleFormat);
         public const string TemplateMoreElementsFormat = nameof(TemplateMoreElementsFormat);
         public const string TemplateEmpty = nameof(TemplateEmpty);

@@ -34,10 +34,11 @@ namespace ResourcePreview.Options
         public const string DarkBackground = "resourcePreview.appearance.darkTileBackground";
         public const string ShowLiveSample = "resourcePreview.appearance.showLiveSample";
         public const string WarnOverriddenKeys = "resourcePreview.general.warnOverriddenKeys";
+        public const string ShowInCompletion = "resourcePreview.general.showInCompletion";
 
         public static readonly string[] All =
         {
-            Language, MaxListedDefinitions, TileSize, Tiles, LightForeground, LightBackground, DarkForeground, DarkBackground, ShowLiveSample, WarnOverriddenKeys,
+            Language, MaxListedDefinitions, TileSize, Tiles, LightForeground, LightBackground, DarkForeground, DarkBackground, ShowLiveSample, WarnOverriddenKeys, ShowInCompletion,
         };
     }
 
@@ -54,7 +55,7 @@ namespace ResourcePreview.Options
 
         public static readonly ExtensionSettings Default = new ExtensionSettings(
             ExtensionLanguage.Automatic, 5, 64, PreviewTiles.Both,
-            Colors.Black, Colors.White, Colors.White, Color.FromRgb(0x1E, 0x1E, 0x1E), showLiveSample: true, warnOverriddenKeys: true);
+            Colors.Black, Colors.White, Colors.White, Color.FromRgb(0x1E, 0x1E, 0x1E), showLiveSample: true, warnOverriddenKeys: true, showInCompletion: true);
 
         public ExtensionSettings(
             ExtensionLanguage language,
@@ -66,7 +67,8 @@ namespace ResourcePreview.Options
             Color darkForeground,
             Color darkBackground,
             bool showLiveSample = true,
-            bool warnOverriddenKeys = true)
+            bool warnOverriddenKeys = true,
+            bool showInCompletion = true)
         {
             Language = language;
             MaxListedDefinitions = Clamp(maxListedDefinitions, MinListedDefinitions, MaxListedDefinitionsLimit);
@@ -78,6 +80,7 @@ namespace ResourcePreview.Options
             DarkBackground = darkBackground;
             ShowLiveSample = showLiveSample;
             WarnOverriddenKeys = warnOverriddenKeys;
+            ShowInCompletion = showInCompletion;
         }
 
         public ExtensionLanguage Language { get; }
@@ -94,6 +97,9 @@ namespace ResourcePreview.Options
 
         /// <summary>Lists resource definitions that WPF never uses in the Error List.</summary>
         public bool WarnOverriddenKeys { get; }
+
+        /// <summary>Icons and the preview tooltip in the IntelliSense list after {StaticResource.</summary>
+        public bool ShowInCompletion { get; }
 
         private static int Clamp(int value, int min, int max) => Math.Max(min, Math.Min(max, value));
 

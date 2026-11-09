@@ -181,4 +181,10 @@
   <data name="SamplePressed" xml:space="preserve">
     <value>按下</value>
   </data>
+  <data name="OptionsShowInCompletionName" xml:space="preserve">
+    <value>在 IntelliSense 中显示预览</value>
+  </data>
+  <data name="OptionsShowInCompletionDescription" xml:space="preserve">
+    <value>在 {StaticResource 或 {DynamicResource 之后的 IntelliSense 列表中显示图像、几何图形和画笔的图标，并在所选项的工具提示中显示预览。</value>
+  </data>
 </root>

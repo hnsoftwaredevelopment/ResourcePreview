@@ -181,4 +181,10 @@
   <data name="SamplePressed" xml:space="preserve">
     <value>누름</value>
   </data>
+  <data name="OptionsShowInCompletionName" xml:space="preserve">
+    <value>IntelliSense에 미리 보기 표시</value>
+  </data>
+  <data name="OptionsShowInCompletionDescription" xml:space="preserve">
+    <value>{StaticResource 또는 {DynamicResource 다음의 IntelliSense 목록에 이미지, 지오메트리, 브러시 아이콘을 표시하고 선택한 항목의 도구 설명에 미리 보기를 표시합니다.</value>
+  </data>
 </root>

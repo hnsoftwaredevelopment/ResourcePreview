@@ -181,4 +181,10 @@
   <data name="SamplePressed" xml:space="preserve">
     <value>Ingedrukt</value>
   </data>
+  <data name="OptionsShowInCompletionName" xml:space="preserve">
+    <value>Previews tonen in IntelliSense</value>
+  </data>
+  <data name="OptionsShowInCompletionDescription" xml:space="preserve">
+    <value>Toont een icoon voor afbeeldingen, geometrieën en brushes in de IntelliSense-lijst na {StaticResource of {DynamicResource, en de preview in de tooltip van het geselecteerde item.</value>
+  </data>
 </root>

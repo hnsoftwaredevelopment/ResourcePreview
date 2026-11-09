@@ -181,4 +181,10 @@
   <data name="SamplePressed" xml:space="preserve">
     <value>Naciśnięty</value>
   </data>
+  <data name="OptionsShowInCompletionName" xml:space="preserve">
+    <value>Pokazuj podglądy w IntelliSense</value>
+  </data>
+  <data name="OptionsShowInCompletionDescription" xml:space="preserve">
+    <value>Pokazuje ikonę obrazów, geometrii i pędzli na liście IntelliSense po {StaticResource lub {DynamicResource oraz podgląd w etykietce wybranego elementu.</value>
+  </data>
 </root>

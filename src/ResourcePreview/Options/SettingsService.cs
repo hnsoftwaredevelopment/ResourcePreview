@@ -115,6 +115,7 @@ namespace ResourcePreview.Options
             writer.EnqueueChange(SettingMonikers.DarkBackground, ExtensionSettings.ColorToSetting(settings.DarkBackground));
             writer.EnqueueChange(SettingMonikers.ShowLiveSample, settings.ShowLiveSample);
             writer.EnqueueChange(SettingMonikers.WarnOverriddenKeys, settings.WarnOverriddenKeys);
+            writer.EnqueueChange(SettingMonikers.ShowInCompletion, settings.ShowInCompletion);
 
             // RequestCommit may ask the user for approval first (PendingApproval). Commit() is obsolete.
             writer.RequestCommit("Changed on the legacy options page");
@@ -147,7 +148,8 @@ namespace ResourcePreview.Options
                 ReadColor(reader, SettingMonikers.DarkForeground, defaults.DarkForeground),
                 ReadColor(reader, SettingMonikers.DarkBackground, defaults.DarkBackground),
                 ValueOr(reader.GetValue<bool>(SettingMonikers.ShowLiveSample, SettingReadOptions.NoRequirements), defaults.ShowLiveSample),
-                ValueOr(reader.GetValue<bool>(SettingMonikers.WarnOverriddenKeys, SettingReadOptions.NoRequirements), defaults.WarnOverriddenKeys));
+                ValueOr(reader.GetValue<bool>(SettingMonikers.WarnOverriddenKeys, SettingReadOptions.NoRequirements), defaults.WarnOverriddenKeys),
+                ValueOr(reader.GetValue<bool>(SettingMonikers.ShowInCompletion, SettingReadOptions.NoRequirements), defaults.ShowInCompletion));
         }
 
         private static System.Windows.Media.Color ReadColor(ISettingsReader reader, string moniker, System.Windows.Media.Color fallback)

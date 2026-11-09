@@ -46,6 +46,12 @@ namespace ResourcePreview.Resources
         public string RootDirectory { get; }
 
         /// <summary>
+        /// True after the first scan. Code on the UI thread checks this first, because the first scan
+        /// reads every .xaml file in the solution and must run in the background.
+        /// </summary>
+        public bool IsReady => _initialized;
+
+        /// <summary>
         /// Raised on a background thread when a .xaml file under the root changes on disk.
         /// The index itself rereads the file on the next lookup.
         /// </summary>

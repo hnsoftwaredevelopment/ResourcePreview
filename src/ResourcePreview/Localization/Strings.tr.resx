@@ -181,4 +181,10 @@
   <data name="SamplePressed" xml:space="preserve">
     <value>Basılı</value>
   </data>
+  <data name="OptionsShowInCompletionName" xml:space="preserve">
+    <value>IntelliSense'te önizleme göster</value>
+  </data>
+  <data name="OptionsShowInCompletionDescription" xml:space="preserve">
+    <value>{StaticResource veya {DynamicResource sonrasındaki IntelliSense listesinde resimler, geometriler ve fırçalar için bir simge, seçili öğenin araç ipucunda ise önizlemeyi gösterir.</value>
+  </data>
 </root>

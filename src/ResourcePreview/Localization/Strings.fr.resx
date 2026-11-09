@@ -181,4 +181,10 @@
   <data name="SamplePressed" xml:space="preserve">
     <value>Enfoncé</value>
   </data>
+  <data name="OptionsShowInCompletionName" xml:space="preserve">
+    <value>Afficher les aperçus dans IntelliSense</value>
+  </data>
+  <data name="OptionsShowInCompletionDescription" xml:space="preserve">
+    <value>Affiche une icône pour les images, géométries et pinceaux dans la liste IntelliSense après {StaticResource ou {DynamicResource, et l'aperçu dans l'info-bulle de l'élément sélectionné.</value>
+  </data>
 </root>

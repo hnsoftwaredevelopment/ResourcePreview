@@ -181,4 +181,10 @@
   <data name="SamplePressed" xml:space="preserve">
     <value>押下</value>
   </data>
+  <data name="OptionsShowInCompletionName" xml:space="preserve">
+    <value>IntelliSense にプレビューを表示する</value>
+  </data>
+  <data name="OptionsShowInCompletionDescription" xml:space="preserve">
+    <value>{StaticResource または {DynamicResource の後の IntelliSense 一覧で、画像、ジオメトリ、ブラシのアイコンを表示し、選択した項目のツールヒントにプレビューを表示します。</value>
+  </data>
 </root>

@@ -210,4 +210,10 @@
   <data name="SamplePressed" xml:space="preserve">
     <value>Pressed</value>
   </data>
+  <data name="OptionsShowInCompletionName" xml:space="preserve">
+    <value>Show previews in IntelliSense</value>
+  </data>
+  <data name="OptionsShowInCompletionDescription" xml:space="preserve">
+    <value>Shows an icon for images, geometries and brushes in the IntelliSense list after {StaticResource or {DynamicResource, and the preview in the tooltip of the selected item.</value>
+  </data>
 </root>

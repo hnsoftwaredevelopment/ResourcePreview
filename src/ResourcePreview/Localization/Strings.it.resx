@@ -181,4 +181,10 @@
   <data name="SamplePressed" xml:space="preserve">
     <value>Premuto</value>
   </data>
+  <data name="OptionsShowInCompletionName" xml:space="preserve">
+    <value>Mostra anteprime in IntelliSense</value>
+  </data>
+  <data name="OptionsShowInCompletionDescription" xml:space="preserve">
+    <value>Mostra un'icona per immagini, geometrie e pennelli nell'elenco IntelliSense dopo {StaticResource o {DynamicResource, e l'anteprima nella descrizione comando dell'elemento selezionato.</value>
+  </data>
 </root>

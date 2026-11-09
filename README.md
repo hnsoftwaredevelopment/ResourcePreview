@@ -76,6 +76,10 @@ when loaded through App.xaml. WPF does not use this definition.
 
 Double-click the warning to open the definition. The list is updated after you save a `.xaml` file. It is not reported when a window overrides a key from `App.xaml` on purpose, or when the same dictionary is merged twice. You can turn the warnings off in the settings.
 
+## IntelliSense
+
+After `{StaticResource ` or `{DynamicResource ` the IntelliSense list shows a small icon for images, geometries, drawings, brushes and colors. Select an item and its tooltip shows the same preview as on hover, also for styles and templates.
+
 ## Go To Resource Definition
 
 Right-click a `{StaticResource ...}` or `{DynamicResource ...}` reference and choose **Go To Resource Definition**, or press **Ctrl+Alt+F12**. The file with the definition opens and the key is selected. The menu item only appears when the caret is on a resource reference.
@@ -91,6 +95,7 @@ When the key is defined more than once, the command opens the definition WPF use
 | Language | Automatic | Follows the Visual Studio language. English, Chinese (Simplified and Traditional), Czech, Dutch, French, German, Italian, Japanese, Korean, Polish, Portuguese (Brazil), Russian, Spanish and Turkish are available. |
 | Maximum number of other definitions | 5 | How many other definitions are listed as links. 0 hides the list. |
 | Warn about overridden keys | On | Warnings in the Error List for definitions WPF never uses. |
+| Show previews in IntelliSense | On | Icons and the preview tooltip in the IntelliSense list. |
 | Tile size | 64 | Size of a preview tile in pixels, 16 to 256. |
 | Tiles | Light and dark | Both tiles, or only one of them. |
 | Tile colors | | Foreground and background of each tile. The foreground is used for geometries, which have no color of their own. |

@@ -77,6 +77,9 @@
     <Compile Include="Preview\ValuePreviewRenderer.cs" />
     <Compile Include="Preview\LiveSampleRenderer.cs" />
     <Compile Include="Preview\StateSimulator.cs" />
+    <Compile Include="Preview\CompletionIconFactory.cs" />
+    <Compile Include="IntelliSense\ResourceCompletionSource.cs" />
+    <Compile Include="IntelliSense\ResourceCompletionToolTipProvider.cs" />
     <Compile Include="Preview\TemplateTreeRenderer.cs" />
     <Compile Include="Navigation\DefinitionNavigator.cs" />
     <Compile Include="Navigation\GoToResourceDefinitionCommand.cs" />

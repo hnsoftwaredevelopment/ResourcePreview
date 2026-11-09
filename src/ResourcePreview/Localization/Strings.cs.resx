@@ -181,4 +181,10 @@
   <data name="SamplePressed" xml:space="preserve">
     <value>Stisknuto</value>
   </data>
+  <data name="OptionsShowInCompletionName" xml:space="preserve">
+    <value>Zobrazovat náhledy v IntelliSense</value>
+  </data>
+  <data name="OptionsShowInCompletionDescription" xml:space="preserve">
+    <value>Zobrazí ikonu obrázků, geometrií a štětců v seznamu IntelliSense za {StaticResource nebo {DynamicResource a náhled v popisku vybrané položky.</value>
+  </data>
 </root>

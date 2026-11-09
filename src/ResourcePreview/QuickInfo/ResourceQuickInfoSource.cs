@@ -103,23 +103,13 @@ namespace ResourcePreview.QuickInfo
             }
 
             ResourceEntry target = definitions[0].Entry;
-            // Style and template info come from the XML. The XAML is always built for the image or live sample.
-            StyleInfo style = StyleInfoBuilder.IsStyle(target) ? StyleInfoBuilder.Build(index, target, cancellationToken) : null;
-            TemplateTree templateTree = TemplateTreeBuilder.IsTemplate(target) ? TemplateTreeBuilder.Build(target.Element) : null;
-            PreviewXaml previewXaml = PreviewXamlBuilder.Build(index, target, cancellationToken);
-
             var header = new ClassifiedTextElement(
                 new ClassifiedTextRun(PredefinedClassificationTypeNames.Keyword, target.ElementTypeName + " "),
                 new ClassifiedTextRun(PredefinedClassificationTypeNames.Identifier, target.Key));
 
             // The navigate action is created here on the background thread and runs on the UI thread when clicked.
-            var preview = new ResourcePreviewData(
-                target.Key, target.ElementTypeName, previewXaml.Xaml, previewXaml.MissingKeys,
 #pragma warning disable VSTHRD010 // See CreateNavigateAction.
-                CreateNavigateAction(session, target),
-                style,
-                templateTree,
-                previewXaml.UnloadableType);
+            ResourcePreviewData preview = ResourcePreviewData.Create(index, target, CreateNavigateAction(session, target), cancellationToken);
 #pragma warning restore VSTHRD010
 
             var parts = new List<object> { header, preview, CreateLocationLink(session, index, definitions[0]) };

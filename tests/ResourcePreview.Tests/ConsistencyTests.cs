@@ -166,6 +166,7 @@ namespace ResourcePreview.Tests
             Assert.AreEqual(ExtensionSettings.ColorToSetting(d.DarkBackground), RegistrationProperty(SettingMonikers.DarkBackground)["default"]);
             Assert.AreEqual(d.ShowLiveSample, RegistrationProperty(SettingMonikers.ShowLiveSample)["default"]);
             Assert.AreEqual(d.WarnOverriddenKeys, RegistrationProperty(SettingMonikers.WarnOverriddenKeys)["default"]);
+            Assert.AreEqual(d.ShowInCompletion, RegistrationProperty(SettingMonikers.ShowInCompletion)["default"]);
         }
 
         [TestMethod]
