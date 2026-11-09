@@ -148,4 +148,10 @@
   <data name="OptionsLiveSampleDescription" xml:space="preserve">
     <value>Zeigt ein echtes Steuerelement mit dem Stil oder der ControlTemplate. Ein zweites, deaktiviertes Beispiel erscheint, wenn der Stil auf IsEnabled reagiert.</value>
   </data>
+  <data name="GoToResourceDefinition" xml:space="preserve">
+    <value>Gehe zu Ressourcendefinition</value>
+  </data>
+  <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
+    <value>{0}: {1} weitere Definition(en). Zeigen Sie auf den Verweis, um sie anzuzeigen.</value>
+  </data>
 </root>

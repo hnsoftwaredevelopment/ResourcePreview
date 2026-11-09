@@ -48,6 +48,12 @@ The extension reads every `.xaml` file in the solution folder, so it finds resou
 
 When a key is defined more than once, the tooltip lists the other definitions as links.
 
+## Go To Resource Definition
+
+Right-click a `{StaticResource ...}` or `{DynamicResource ...}` reference and choose **Go To Resource Definition**, or press **Ctrl+Alt+F12**. The file with the definition opens and the key is selected. The menu item only appears when the caret is on a resource reference.
+
+When the key is defined more than once, the command opens the first definition (the current file first, then alphabetical) and the status bar shows how many others there are. Hover over the reference to see them all. You can assign another shortcut under **Tools > Options > Environment > Keyboard**: search for `ResourcePreview.GoToResourceDefinition`.
+
 ## Settings
 
 **Tools > Options > XAML Resource Preview**, in both the new and the legacy Options dialog.

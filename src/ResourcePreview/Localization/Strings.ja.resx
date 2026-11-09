@@ -148,4 +148,10 @@
   <data name="OptionsLiveSampleDescription" xml:space="preserve">
     <value>スタイルまたは ControlTemplate を適用した実際のコントロールを表示します。スタイルが IsEnabled に反応する場合は、無効状態のサンプルも表示されます。</value>
   </data>
+  <data name="GoToResourceDefinition" xml:space="preserve">
+    <value>リソースの定義へ移動</value>
+  </data>
+  <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
+    <value>{0}: ほかに {1} 個の定義があります。参照にカーソルを合わせると表示されます。</value>
+  </data>
 </root>

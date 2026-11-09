@@ -148,4 +148,10 @@
   <data name="OptionsLiveSampleDescription" xml:space="preserve">
     <value>显示应用了该样式或 ControlTemplate 的真实控件。如果样式响应 IsEnabled，还会显示第二个已禁用的示例。</value>
   </data>
+  <data name="GoToResourceDefinition" xml:space="preserve">
+    <value>转到资源定义</value>
+  </data>
+  <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
+    <value>{0}: 还有 {1} 个定义。将鼠标悬停在引用上即可查看。</value>
+  </data>
 </root>

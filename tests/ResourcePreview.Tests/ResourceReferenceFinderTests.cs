@@ -122,5 +122,36 @@ namespace ResourcePreview.Tests
         {
             Assert.IsFalse(ResourceReferenceFinder.TryFind(string.Empty, 0, out _));
         }
+
+        // ---------- TryFindReference (Go To Resource Definition) ----------
+
+        [TestMethod]
+        [DataRow("<Path Data=\"{StaticResource Renew}\" />", "Renew")]
+        [DataRow("<Path Fill=\"{DynamicResource AccentBrush}\" />", "AccentBrush")]
+        [DataRow("<Image Source=\"{StaticResource ResourceKey=Report}\" />", "Report")]
+        [DataRow("<StaticResource ResourceKey=\"Check\" />", "Check")]
+        public void TryFindReference_FindsReferences(string line, string key)
+        {
+            Assert.IsTrue(ResourceReferenceFinder.TryFindReference(line, line.IndexOf(key) + 1, out ResourceReference reference));
+            Assert.AreEqual(key, reference.Key);
+        }
+
+        [TestMethod]
+        public void TryFindReference_IgnoresDefinitions()
+        {
+            // On x:Key the caret is already at the definition, so the command has nothing to do.
+            const string line = "<Geometry x:Key=\"Renew\">M0,0 L1,1</Geometry>";
+            Assert.IsTrue(ResourceReferenceFinder.TryFind(line, line.IndexOf("Renew") + 1, out _), "the preview does show the definition");
+            Assert.IsFalse(ResourceReferenceFinder.TryFindReference(line, line.IndexOf("Renew") + 1, out _));
+        }
+
+        [TestMethod]
+        public void TryFindReference_DefinitionAndReferenceOnOneLine()
+        {
+            const string line = "<Style x:Key=\"Danger\" BasedOn=\"{StaticResource Primary}\">";
+            Assert.IsFalse(ResourceReferenceFinder.TryFindReference(line, line.IndexOf("Danger") + 1, out _));
+            Assert.IsTrue(ResourceReferenceFinder.TryFindReference(line, line.IndexOf("Primary") + 1, out ResourceReference reference));
+            Assert.AreEqual("Primary", reference.Key);
+        }
     }
 }

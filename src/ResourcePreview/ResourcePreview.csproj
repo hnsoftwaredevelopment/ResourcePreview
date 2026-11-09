@@ -78,6 +78,7 @@
     <Compile Include="Preview\LiveSampleRenderer.cs" />
     <Compile Include="Preview\TemplateTreeRenderer.cs" />
     <Compile Include="Navigation\DefinitionNavigator.cs" />
+    <Compile Include="Navigation\GoToResourceDefinitionCommand.cs" />
     <Compile Include="ResourcePreviewPackage.cs" />
     <Compile Include="Localization\Localizer.cs" />
     <Compile Include="Localization\LocalizedAttributes.cs" />
@@ -151,6 +152,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <VSCTCompile Include="ResourcePreviewPackage.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+    </VSCTCompile>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Options\registration.json">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -171,6 +177,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />

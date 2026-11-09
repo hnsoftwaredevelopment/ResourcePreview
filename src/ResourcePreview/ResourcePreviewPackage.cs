@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Threading;
+using ResourcePreview.Navigation;
 using ResourcePreview.Options;
 using Task = System.Threading.Tasks.Task;
 
@@ -23,9 +24,20 @@ namespace ResourcePreview
         IsInUnifiedSettings = true,
         UnifiedSettingsCategoryMoniker = "resourcePreview.general")]
     [ProvideSettingsManifest(PackageRelativeManifestFile = @"Options\registration.json")]
+    [ProvideMenuResource("Menus.ctmenu", 1)]
+    // Load in the background as soon as a .xaml file is active, so the context menu command
+    // can decide whether to show itself. Without this the hidden menu item never appears.
+    [ProvideAutoLoad(XamlFileContextGuidString, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideUIContextRule(
+        XamlFileContextGuidString,
+        name: "XAML file active",
+        expression: "XamlEditor | XamlFile",
+        termNames: new[] { "XamlEditor", "XamlFile" },
+        termValues: new[] { "ActiveEditorContentType:XAML", "HierSingleSelectionName:.xaml$" })]
     public sealed class ResourcePreviewPackage : AsyncPackage
     {
         public const string PackageGuidString = "69e55270-ef51-4488-9e95-cfd1a6852056";
+        public const string XamlFileContextGuidString = "7215ba6b-8c21-48f9-bf17-536b03594ba2";
 
         private static volatile ResourcePreviewPackage _instance;
 
@@ -33,6 +45,7 @@ namespace ResourcePreview
         {
             // SettingsService switches to the UI thread itself where needed.
             await SettingsService.InitializeAsync(this, cancellationToken);
+            await GoToResourceDefinitionCommand.InitializeAsync(this);
 
             _instance = this;
         }

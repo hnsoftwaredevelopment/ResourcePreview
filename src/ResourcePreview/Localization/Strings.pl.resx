@@ -148,4 +148,10 @@
   <data name="OptionsLiveSampleDescription" xml:space="preserve">
     <value>Pokazuje prawdziwą kontrolkę z zastosowanym stylem lub szablonem ControlTemplate. Drugi, wyłączony przykład pojawia się, gdy styl reaguje na IsEnabled.</value>
   </data>
+  <data name="GoToResourceDefinition" xml:space="preserve">
+    <value>Przejdź do definicji zasobu</value>
+  </data>
+  <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
+    <value>{0}: jeszcze {1} definicji. Wskaż odwołanie, aby je zobaczyć.</value>
+  </data>
 </root>

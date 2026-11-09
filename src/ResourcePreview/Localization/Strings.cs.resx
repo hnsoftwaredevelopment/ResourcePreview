@@ -148,4 +148,10 @@
   <data name="OptionsLiveSampleDescription" xml:space="preserve">
     <value>Zobrazí skutečný ovládací prvek s použitým stylem nebo šablonou ControlTemplate. Druhá, zakázaná ukázka se zobrazí, pokud styl reaguje na IsEnabled.</value>
   </data>
+  <data name="GoToResourceDefinition" xml:space="preserve">
+    <value>Přejít na definici prostředku</value>
+  </data>
+  <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
+    <value>{0}: další definice: {1}. Najeďte myší na odkaz a zobrazí se.</value>
+  </data>
 </root>

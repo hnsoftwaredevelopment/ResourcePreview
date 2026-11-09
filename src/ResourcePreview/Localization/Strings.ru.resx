@@ -148,4 +148,10 @@
   <data name="OptionsLiveSampleDescription" xml:space="preserve">
     <value>Показывает настоящий элемент управления с примененным стилем или ControlTemplate. Второй, отключенный пример появляется, если стиль реагирует на IsEnabled.</value>
   </data>
+  <data name="GoToResourceDefinition" xml:space="preserve">
+    <value>Перейти к определению ресурса</value>
+  </data>
+  <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
+    <value>{0}: еще определений: {1}. Наведите указатель на ссылку, чтобы увидеть их.</value>
+  </data>
 </root>

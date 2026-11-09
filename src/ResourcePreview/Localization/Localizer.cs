@@ -60,6 +60,8 @@ namespace ResourcePreview.Localization
         public const string NoPreviewOwnTypeFormat = nameof(NoPreviewOwnTypeFormat);
         public const string OptionsLiveSampleName = nameof(OptionsLiveSampleName);
         public const string OptionsLiveSampleDescription = nameof(OptionsLiveSampleDescription);
+        public const string GoToResourceDefinition = nameof(GoToResourceDefinition);
+        public const string GoToMoreDefinitionsFormat = nameof(GoToMoreDefinitionsFormat);
     }
 
     /// <summary>

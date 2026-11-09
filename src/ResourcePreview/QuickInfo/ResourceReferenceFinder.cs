@@ -38,10 +38,21 @@ namespace ResourcePreview.QuickInfo
             new Regex(@"\bx:Key\s*=\s*""(?<key>[^""{]+)""", RegexOptions.Compiled),
         };
 
-        public static bool TryFind(string lineText, int positionInLine, out ResourceReference reference)
+        public static bool TryFind(string lineText, int positionInLine, out ResourceReference reference) =>
+            TryFind(lineText, positionInLine, Patterns.Length, out reference);
+
+        /// <summary>
+        /// Like <see cref="TryFind(string, int, out ResourceReference)"/>, but only references, not x:Key definitions.
+        /// Used by Go To Resource Definition: on a definition there is nothing to go to.
+        /// </summary>
+        public static bool TryFindReference(string lineText, int positionInLine, out ResourceReference reference) =>
+            TryFind(lineText, positionInLine, Patterns.Length - 1, out reference);
+
+        private static bool TryFind(string lineText, int positionInLine, int patternCount, out ResourceReference reference)
         {
-            foreach (Regex pattern in Patterns)
+            for (int i = 0; i < patternCount; i++)
             {
+                Regex pattern = Patterns[i];
                 foreach (Match match in pattern.Matches(lineText))
                 {
                     // Inclusive end so hovering the last character still counts.

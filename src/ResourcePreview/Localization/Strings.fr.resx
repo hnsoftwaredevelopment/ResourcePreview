@@ -148,4 +148,10 @@
   <data name="OptionsLiveSampleDescription" xml:space="preserve">
     <value>Affiche un vrai contrôle avec le style ou le ControlTemplate appliqué. Un second exemple désactivé apparaît si le style réagit à IsEnabled.</value>
   </data>
+  <data name="GoToResourceDefinition" xml:space="preserve">
+    <value>Atteindre la définition de la ressource</value>
+  </data>
+  <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
+    <value>{0} : {1} autre(s) définition(s). Survolez la référence pour les voir.</value>
+  </data>
 </root>

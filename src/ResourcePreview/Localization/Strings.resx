@@ -172,4 +172,12 @@
   <data name="OptionsLiveSampleDescription" xml:space="preserve">
     <value>Shows a real control with the style or ControlTemplate applied. A second, disabled sample appears when the style reacts to IsEnabled.</value>
   </data>
+  <data name="GoToResourceDefinition" xml:space="preserve">
+    <value>Go To Resource Definition</value>
+    <comment>Context menu command</comment>
+  </data>
+  <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
+    <value>{0}: {1} more definition(s). Hover over the reference to see them.</value>
+    <comment>{0} = resource key, {1} = number of other definitions</comment>
+  </data>
 </root>

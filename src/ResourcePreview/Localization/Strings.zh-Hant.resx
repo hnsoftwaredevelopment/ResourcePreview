@@ -148,4 +148,10 @@
   <data name="OptionsLiveSampleDescription" xml:space="preserve">
     <value>顯示套用該樣式或 ControlTemplate 的真實控制項。如果樣式會回應 IsEnabled，也會顯示第二個已停用的範例。</value>
   </data>
+  <data name="GoToResourceDefinition" xml:space="preserve">
+    <value>移至資源定義</value>
+  </data>
+  <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
+    <value>{0}: 還有 {1} 個定義。將滑鼠停留在參考上即可查看。</value>
+  </data>
 </root>

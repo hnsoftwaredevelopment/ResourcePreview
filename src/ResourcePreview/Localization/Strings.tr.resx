@@ -148,4 +148,10 @@
   <data name="OptionsLiveSampleDescription" xml:space="preserve">
     <value>Stilin veya ControlTemplate'in uygulandığı gerçek bir denetim gösterir. Stil IsEnabled'a tepki veriyorsa ikinci, devre dışı bir örnek görünür.</value>
   </data>
+  <data name="GoToResourceDefinition" xml:space="preserve">
+    <value>Kaynak tanımına git</value>
+  </data>
+  <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
+    <value>{0}: {1} tanım daha. Görmek için başvurunun üzerine gelin.</value>
+  </data>
 </root>

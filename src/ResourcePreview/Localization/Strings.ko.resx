@@ -148,4 +148,10 @@
   <data name="OptionsLiveSampleDescription" xml:space="preserve">
     <value>스타일 또는 ControlTemplate이 적용된 실제 컨트롤을 표시합니다. 스타일이 IsEnabled에 반응하면 사용 안 함 상태의 두 번째 샘플이 표시됩니다.</value>
   </data>
+  <data name="GoToResourceDefinition" xml:space="preserve">
+    <value>리소스 정의로 이동</value>
+  </data>
+  <data name="GoToMoreDefinitionsFormat" xml:space="preserve">
+    <value>{0}: 정의가 {1}개 더 있습니다. 참조 위에 마우스를 올리면 표시됩니다.</value>
+  </data>
 </root>
