@@ -50,6 +50,41 @@
           <LocCanonicalName>.ResourcePreview.RenameResourceKey</LocCanonicalName>
         </Strings>
       </Button>
+
+      <!-- The light bulb actions (Ctrl+.) also in the menu. Each shows only when it applies. -->
+      <Button guid="guidResourcePreviewCmdSet" id="cmdidExtractToResource" priority="0x0103" type="Button">
+        <Parent guid="guidResourcePreviewCmdSet" id="EditorContextGroup" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Extract to Resource...</ButtonText>
+          <CanonicalName>.ResourcePreview.ExtractToResource</CanonicalName>
+          <LocCanonicalName>.ResourcePreview.ExtractToResource</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidResourcePreviewCmdSet" id="cmdidExtractToStyle" priority="0x0104" type="Button">
+        <Parent guid="guidResourcePreviewCmdSet" id="EditorContextGroup" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Extract to Style...</ButtonText>
+          <CanonicalName>.ResourcePreview.ExtractToStyle</CanonicalName>
+          <LocCanonicalName>.ResourcePreview.ExtractToStyle</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidResourcePreviewCmdSet" id="cmdidAddToStyle" priority="0x0105" type="Button">
+        <Parent guid="guidResourcePreviewCmdSet" id="EditorContextGroup" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Add to Existing Style</ButtonText>
+          <CanonicalName>.ResourcePreview.AddToStyle</CanonicalName>
+          <LocCanonicalName>.ResourcePreview.AddToStyle</LocCanonicalName>
+        </Strings>
+      </Button>
     </Buttons>
   </Commands>
 
@@ -74,6 +109,9 @@
       <IDSymbol name="cmdidGoToResourceDefinition" value="0x0100" />
       <IDSymbol name="cmdidFindResourceReferences" value="0x0101" />
       <IDSymbol name="cmdidRenameResourceKey" value="0x0102" />
+      <IDSymbol name="cmdidExtractToResource" value="0x0103" />
+      <IDSymbol name="cmdidExtractToStyle" value="0x0104" />
+      <IDSymbol name="cmdidAddToStyle" value="0x0105" />
     </GuidSymbol>
 
     <!-- Key binding scope "Text Editor" in Tools > Options > Keyboard. -->

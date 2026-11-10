@@ -292,4 +292,22 @@
   <data name="ExtractDoneFormat" xml:space="preserve">
     <value>Hodnota přesunuta do prostředku '{0}' v {1}.</value>
   </data>
+  <data name="ExtractToStyle" xml:space="preserve">
+    <value>Extrahovat do stylu...</value>
+  </data>
+  <data name="ExtractStyleDialogTitle" xml:space="preserve">
+    <value>Extrahovat do stylu</value>
+  </data>
+  <data name="ExtractStyleDoneFormat" xml:space="preserve">
+    <value>Settery ({0}) přesunuty do stylu '{1}' v {2}.</value>
+  </data>
+  <data name="AddToStyleFormat" xml:space="preserve">
+    <value>Přidat do stylu '{0}'</value>
+  </data>
+  <data name="AddToStyleDoneFormat" xml:space="preserve">
+    <value>Settery ({0}) přesunuty do stylu '{1}' v {2}; nahrazeno existujících: {3}.</value>
+  </data>
+  <data name="AddToStyleNotFoundFormat" xml:space="preserve">
+    <value>Styl '{0}' nebyl v řešení nalezen.</value>
+  </data>
 </root>

@@ -321,4 +321,22 @@
   <data name="ExtractDoneFormat" xml:space="preserve">
     <value>Moved the value to resource '{0}' in {1}.</value>
   </data>
+  <data name="ExtractToStyle" xml:space="preserve">
+    <value>Extract to style...</value>
+  </data>
+  <data name="ExtractStyleDialogTitle" xml:space="preserve">
+    <value>Extract to Style</value>
+  </data>
+  <data name="ExtractStyleDoneFormat" xml:space="preserve">
+    <value>Moved {0} setter(s) to style '{1}' in {2}.</value>
+  </data>
+  <data name="AddToStyleFormat" xml:space="preserve">
+    <value>Add to style '{0}'</value>
+  </data>
+  <data name="AddToStyleDoneFormat" xml:space="preserve">
+    <value>Moved {0} setter(s) to style '{1}' in {2}; {3} replaced an existing setter.</value>
+  </data>
+  <data name="AddToStyleNotFoundFormat" xml:space="preserve">
+    <value>Style '{0}' was not found in the solution.</value>
+  </data>
 </root>

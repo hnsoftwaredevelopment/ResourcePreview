@@ -292,4 +292,22 @@
   <data name="ExtractDoneFormat" xml:space="preserve">
     <value>Значение перенесено в ресурс '{0}' в {1}.</value>
   </data>
+  <data name="ExtractToStyle" xml:space="preserve">
+    <value>Извлечь в стиль...</value>
+  </data>
+  <data name="ExtractStyleDialogTitle" xml:space="preserve">
+    <value>Извлечение в стиль</value>
+  </data>
+  <data name="ExtractStyleDoneFormat" xml:space="preserve">
+    <value>Перенесено сеттеров: {0} в стиль '{1}' в {2}.</value>
+  </data>
+  <data name="AddToStyleFormat" xml:space="preserve">
+    <value>Добавить в стиль '{0}'</value>
+  </data>
+  <data name="AddToStyleDoneFormat" xml:space="preserve">
+    <value>Перенесено сеттеров: {0} в стиль '{1}' в {2}; заменено существующих: {3}.</value>
+  </data>
+  <data name="AddToStyleNotFoundFormat" xml:space="preserve">
+    <value>Стиль '{0}' не найден в решении.</value>
+  </data>
 </root>

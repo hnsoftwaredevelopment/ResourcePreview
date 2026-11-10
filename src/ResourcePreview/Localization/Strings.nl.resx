@@ -292,4 +292,22 @@
   <data name="ExtractDoneFormat" xml:space="preserve">
     <value>Waarde verplaatst naar resource '{0}' in {1}.</value>
   </data>
+  <data name="ExtractToStyle" xml:space="preserve">
+    <value>Naar stijl verplaatsen...</value>
+  </data>
+  <data name="ExtractStyleDialogTitle" xml:space="preserve">
+    <value>Naar stijl verplaatsen</value>
+  </data>
+  <data name="ExtractStyleDoneFormat" xml:space="preserve">
+    <value>{0} setter(s) verplaatst naar stijl '{1}' in {2}.</value>
+  </data>
+  <data name="AddToStyleFormat" xml:space="preserve">
+    <value>Toevoegen aan stijl '{0}'</value>
+  </data>
+  <data name="AddToStyleDoneFormat" xml:space="preserve">
+    <value>{0} setter(s) verplaatst naar stijl '{1}' in {2}; {3} verving een bestaande setter.</value>
+  </data>
+  <data name="AddToStyleNotFoundFormat" xml:space="preserve">
+    <value>Stijl '{0}' is niet gevonden in de solution.</value>
+  </data>
 </root>

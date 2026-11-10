@@ -292,4 +292,22 @@
   <data name="ExtractDoneFormat" xml:space="preserve">
     <value>Przeniesiono wartość do zasobu '{0}' w {1}.</value>
   </data>
+  <data name="ExtractToStyle" xml:space="preserve">
+    <value>Wyodrębnij do stylu...</value>
+  </data>
+  <data name="ExtractStyleDialogTitle" xml:space="preserve">
+    <value>Wyodrębnij do stylu</value>
+  </data>
+  <data name="ExtractStyleDoneFormat" xml:space="preserve">
+    <value>Przeniesiono settery ({0}) do stylu '{1}' w {2}.</value>
+  </data>
+  <data name="AddToStyleFormat" xml:space="preserve">
+    <value>Dodaj do stylu '{0}'</value>
+  </data>
+  <data name="AddToStyleDoneFormat" xml:space="preserve">
+    <value>Przeniesiono settery ({0}) do stylu '{1}' w {2}; zastąpiono istniejące: {3}.</value>
+  </data>
+  <data name="AddToStyleNotFoundFormat" xml:space="preserve">
+    <value>Nie znaleziono stylu '{0}' w rozwiązaniu.</value>
+  </data>
 </root>

@@ -292,4 +292,22 @@
   <data name="ExtractDoneFormat" xml:space="preserve">
     <value>Valore spostato nella risorsa '{0}' in {1}.</value>
   </data>
+  <data name="ExtractToStyle" xml:space="preserve">
+    <value>Estrai in stile...</value>
+  </data>
+  <data name="ExtractStyleDialogTitle" xml:space="preserve">
+    <value>Estrai in stile</value>
+  </data>
+  <data name="ExtractStyleDoneFormat" xml:space="preserve">
+    <value>{0} setter spostati nello stile '{1}' in {2}.</value>
+  </data>
+  <data name="AddToStyleFormat" xml:space="preserve">
+    <value>Aggiungi allo stile '{0}'</value>
+  </data>
+  <data name="AddToStyleDoneFormat" xml:space="preserve">
+    <value>{0} setter spostati nello stile '{1}' in {2}; {3} ha/hanno sostituito un setter esistente.</value>
+  </data>
+  <data name="AddToStyleNotFoundFormat" xml:space="preserve">
+    <value>Lo stile '{0}' non è stato trovato nella soluzione.</value>
+  </data>
 </root>

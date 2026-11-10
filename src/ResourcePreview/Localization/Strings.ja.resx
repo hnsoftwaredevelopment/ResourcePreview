@@ -292,4 +292,22 @@
   <data name="ExtractDoneFormat" xml:space="preserve">
     <value>値を {1} のリソース '{0}' に移動しました。</value>
   </data>
+  <data name="ExtractToStyle" xml:space="preserve">
+    <value>スタイルに抽出...</value>
+  </data>
+  <data name="ExtractStyleDialogTitle" xml:space="preserve">
+    <value>スタイルに抽出</value>
+  </data>
+  <data name="ExtractStyleDoneFormat" xml:space="preserve">
+    <value>{0} 個の Setter を {2} のスタイル '{1}' に移動しました。</value>
+  </data>
+  <data name="AddToStyleFormat" xml:space="preserve">
+    <value>スタイル '{0}' に追加</value>
+  </data>
+  <data name="AddToStyleDoneFormat" xml:space="preserve">
+    <value>{0} 個の Setter を {2} のスタイル '{1}' に移動しました。{3} 個は既存の Setter を置き換えました。</value>
+  </data>
+  <data name="AddToStyleNotFoundFormat" xml:space="preserve">
+    <value>スタイル '{0}' がソリューションに見つかりませんでした。</value>
+  </data>
 </root>

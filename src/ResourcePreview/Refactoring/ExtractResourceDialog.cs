@@ -24,12 +24,12 @@ namespace ResourcePreview.Refactoring
         /// <param name="targets">Shown as relative paths; the full paths come back from <see cref="Target"/>.</param>
         /// <param name="validate">Error text for a key, or null when it can be used.</param>
         /// <param name="createPreview">The XAML that will be added for a key.</param>
-        public ExtractResourceDialog(string suggestedKey, IReadOnlyList<KeyValuePair<string, string>> targets, string selectedTarget, Func<string, string> validate, Func<string, string> createPreview)
+        public ExtractResourceDialog(string title, string suggestedKey, IReadOnlyList<KeyValuePair<string, string>> targets, string selectedTarget, Func<string, string> validate, Func<string, string> createPreview)
         {
             _validate = validate;
             _createPreview = createPreview;
 
-            Title = Localizer.Get(Strings.ExtractDialogTitle);
+            Title = title;
             SizeToContent = SizeToContent.WidthAndHeight;
             ResizeMode = ResizeMode.NoResize;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;

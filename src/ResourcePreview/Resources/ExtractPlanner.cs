@@ -221,7 +221,14 @@ namespace ResourcePreview.Resources
         /// <paramref name="beforeOffset"/> is set when the value is in the same file: the resource then goes
         /// above the element that uses it, because a StaticResource does not look ahead.
         /// </summary>
-        public static IReadOnlyList<TextChange> AddResource(string targetText, ExtractCandidate candidate, string key, int? beforeOffset)
+        public static IReadOnlyList<TextChange> AddResource(string targetText, ExtractCandidate candidate, string key, int? beforeOffset) =>
+            AddResource(targetText, prefix => new[] { ResourceText(candidate, key, prefix) }, candidate.NeedsSystemNamespace, beforeOffset);
+
+        /// <summary>
+        /// Adds a resource of one or more lines, such as a Style with setters. <paramref name="createLines"/> gets
+        /// the prefix for the System namespace. Each line is indented to its place in the target file.
+        /// </summary>
+        public static IReadOnlyList<TextChange> AddResource(string targetText, Func<string, IReadOnlyList<string>> createLines, bool needsSystemNamespace, int? beforeOffset)
         {
             XDocument document;
             try
@@ -235,7 +242,7 @@ namespace ResourcePreview.Resources
 
             var changes = new List<TextChange>();
             string prefix = "sys";
-            if (candidate.NeedsSystemNamespace)
+            if (needsSystemNamespace)
             {
                 prefix = FindSystemPrefix(document.Root);
                 if (prefix == null)
@@ -252,7 +259,8 @@ namespace ResourcePreview.Resources
             }
 
             string newline = targetText.Contains("\r\n") ? "\r\n" : "\n";
-            string element = ResourceText(candidate, key, prefix);
+            IReadOnlyList<string> lines = createLines(prefix);
+            string Indent(string indentation) => string.Join(newline, lines.Select(line => indentation + line));
 
             int? position = beforeOffset.HasValue
                 ? FindPositionAbove(targetText, beforeOffset.Value)
@@ -266,17 +274,17 @@ namespace ResourcePreview.Resources
             string indentation = LeadingWhitespace(targetText, lineStart);
             if (beforeOffset.HasValue)
             {
-                changes.Add(new TextChange(lineStart, 0, indentation + element + newline));
+                changes.Add(new TextChange(lineStart, 0, Indent(indentation) + newline));
             }
             else if (string.IsNullOrWhiteSpace(targetText.Substring(lineStart, position.Value - lineStart)))
             {
                 // The closing tag is on its own line: a new line above it, one level deeper.
-                changes.Add(new TextChange(lineStart, 0, indentation + "    " + element + newline));
+                changes.Add(new TextChange(lineStart, 0, Indent(indentation + "    ") + newline));
             }
             else
             {
                 // Something else on the same line, such as <ResourceDictionary ...></ResourceDictionary>.
-                changes.Add(new TextChange(position.Value, 0, newline + indentation + "    " + element + newline + indentation));
+                changes.Add(new TextChange(position.Value, 0, newline + Indent(indentation + "    ") + newline + indentation));
             }
 
             return changes;
@@ -355,7 +363,7 @@ namespace ResourcePreview.Resources
             return LineStart(text, ((IXmlLineInfo)container).LineNumber);
         }
 
-        private static int LineStart(string text, int lineNumber)
+        internal static int LineStart(string text, int lineNumber)
         {
             int position = 0;
             for (int i = 1; i < lineNumber; i++)
@@ -366,7 +374,7 @@ namespace ResourcePreview.Resources
             return position;
         }
 
-        private static string LeadingWhitespace(string text, int lineStart)
+        internal static string LeadingWhitespace(string text, int lineStart)
         {
             int end = lineStart;
             while (end < text.Length && (text[end] == ' ' || text[end] == '\t'))

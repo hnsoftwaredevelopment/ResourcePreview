@@ -292,4 +292,22 @@
   <data name="ExtractDoneFormat" xml:space="preserve">
     <value>Değer, {1} içindeki '{0}' kaynağına taşındı.</value>
   </data>
+  <data name="ExtractToStyle" xml:space="preserve">
+    <value>Stile ayıkla...</value>
+  </data>
+  <data name="ExtractStyleDialogTitle" xml:space="preserve">
+    <value>Stile ayıkla</value>
+  </data>
+  <data name="ExtractStyleDoneFormat" xml:space="preserve">
+    <value>{0} ayarlayıcı, {2} içindeki '{1}' stiline taşındı.</value>
+  </data>
+  <data name="AddToStyleFormat" xml:space="preserve">
+    <value>'{0}' stiline ekle</value>
+  </data>
+  <data name="AddToStyleDoneFormat" xml:space="preserve">
+    <value>{0} ayarlayıcı, {2} içindeki '{1}' stiline taşındı; {3} tanesi mevcut bir ayarlayıcının yerini aldı.</value>
+  </data>
+  <data name="AddToStyleNotFoundFormat" xml:space="preserve">
+    <value>'{0}' stili çözümde bulunamadı.</value>
+  </data>
 </root>

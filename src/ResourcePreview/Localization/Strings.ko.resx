@@ -292,4 +292,22 @@
   <data name="ExtractDoneFormat" xml:space="preserve">
     <value>값을 {1}의 리소스 '{0}'(으)로 이동했습니다.</value>
   </data>
+  <data name="ExtractToStyle" xml:space="preserve">
+    <value>스타일로 추출...</value>
+  </data>
+  <data name="ExtractStyleDialogTitle" xml:space="preserve">
+    <value>스타일로 추출</value>
+  </data>
+  <data name="ExtractStyleDoneFormat" xml:space="preserve">
+    <value>Setter {0}개를 {2}의 스타일 '{1}'(으)로 이동했습니다.</value>
+  </data>
+  <data name="AddToStyleFormat" xml:space="preserve">
+    <value>스타일 '{0}'에 추가</value>
+  </data>
+  <data name="AddToStyleDoneFormat" xml:space="preserve">
+    <value>Setter {0}개를 {2}의 스타일 '{1}'(으)로 이동했습니다. {3}개는 기존 Setter를 대체했습니다.</value>
+  </data>
+  <data name="AddToStyleNotFoundFormat" xml:space="preserve">
+    <value>솔루션에서 스타일 '{0}'을(를) 찾을 수 없습니다.</value>
+  </data>
 </root>

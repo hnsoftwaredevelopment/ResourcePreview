@@ -36,17 +36,15 @@ namespace ResourcePreview.Navigation
         /// <summary>True for x:Key="X", false for {StaticResource X} and {DynamicResource X}.</summary>
         public bool IsDefinition { get; }
 
-        /// <summary>
-        /// Only reads the current line, because menu commands call this every time the context menu opens.
-        /// Returns null when the caret is not on a resource key.
-        /// </summary>
-        public static CaretResource TryGet(
+        /// <summary>The active editor when it shows a .xaml file, with the file path. Null otherwise.</summary>
+        public static IWpfTextView TryGetActiveXamlView(
             IServiceProvider serviceProvider,
             IVsEditorAdaptersFactoryService editorAdapters,
             ITextDocumentFactoryService documents,
-            bool includeDefinitions)
+            out string filePath)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+            filePath = null;
 
             if (!(serviceProvider.GetService(typeof(SVsTextManager)) is IVsTextManager textManager)
                 || textManager.GetActiveView(1, null, out IVsTextView vsView) != 0
@@ -63,6 +61,28 @@ namespace ResourcePreview.Navigation
                 return null;
             }
 
+            filePath = document.FilePath;
+            return view;
+        }
+
+        /// <summary>
+        /// Only reads the current line, because menu commands call this every time the context menu opens.
+        /// Returns null when the caret is not on a resource key.
+        /// </summary>
+        public static CaretResource TryGet(
+            IServiceProvider serviceProvider,
+            IVsEditorAdaptersFactoryService editorAdapters,
+            ITextDocumentFactoryService documents,
+            bool includeDefinitions)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            IWpfTextView view = TryGetActiveXamlView(serviceProvider, editorAdapters, documents, out string filePath);
+            if (view == null)
+            {
+                return null;
+            }
+
             SnapshotPoint caret = view.Caret.Position.BufferPosition;
             ITextSnapshotLine line = caret.GetContainingLine();
             string text = line.GetText();
@@ -70,12 +90,12 @@ namespace ResourcePreview.Navigation
 
             if (ResourceReferenceFinder.TryFindReference(text, position, out ResourceReference reference))
             {
-                return new CaretResource(view, document.FilePath, reference, line.LineNumber + 1, isDefinition: false);
+                return new CaretResource(view, filePath, reference, line.LineNumber + 1, isDefinition: false);
             }
 
             if (includeDefinitions && ResourceReferenceFinder.TryFind(text, position, out reference))
             {
-                return new CaretResource(view, document.FilePath, reference, line.LineNumber + 1, isDefinition: true);
+                return new CaretResource(view, filePath, reference, line.LineNumber + 1, isDefinition: true);
             }
 
             return null;

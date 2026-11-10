@@ -92,6 +92,12 @@ namespace ResourcePreview.Localization
         public const string ExtractButton = nameof(ExtractButton);
         public const string ExtractNoTarget = nameof(ExtractNoTarget);
         public const string ExtractDoneFormat = nameof(ExtractDoneFormat);
+        public const string ExtractToStyle = nameof(ExtractToStyle);
+        public const string ExtractStyleDialogTitle = nameof(ExtractStyleDialogTitle);
+        public const string ExtractStyleDoneFormat = nameof(ExtractStyleDoneFormat);
+        public const string AddToStyleFormat = nameof(AddToStyleFormat);
+        public const string AddToStyleDoneFormat = nameof(AddToStyleDoneFormat);
+        public const string AddToStyleNotFoundFormat = nameof(AddToStyleNotFoundFormat);
         public const string NoLiveSampleFormat = nameof(NoLiveSampleFormat);
         public const string TemplateMoreElementsFormat = nameof(TemplateMoreElementsFormat);
         public const string TemplateEmpty = nameof(TemplateEmpty);

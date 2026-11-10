@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,21 +8,20 @@ using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Threading;
 using Microsoft.VisualStudio.Utilities;
 using ResourcePreview.Localization;
-using ResourcePreview.Navigation;
 using ResourcePreview.Resources;
-using Task = System.Threading.Tasks.Task;
 
 namespace ResourcePreview.Refactoring
 {
     /// <summary>
-    /// The light bulb (Ctrl+.) on a literal value such as Background="#FF2D7D9A": "Extract to resource...".
-    /// VS asks every ISuggestedActionsSourceProvider for the content type when the caret moves.
+    /// The light bulb (Ctrl+.) in a .xaml file:
+    /// - on a value such as Background="#FF2D7D9A": "Extract to resource...";
+    /// - on a selection of attributes: "Extract to style...", and "Add to style 'X'" when the element has a Style.
+    /// VS asks every ISuggestedActionsSourceProvider for the content type when the caret or selection changes.
     /// </summary>
     [Export(typeof(ISuggestedActionsSourceProvider))]
     [Name("XAML Resource Preview Extract to Resource")]
@@ -39,6 +37,7 @@ namespace ResourcePreview.Refactoring
         [Import]
         internal IVsEditorAdaptersFactoryService EditorAdapters { get; set; }
 
+        /// <summary>Imported instead of ThreadHelper.JoinableTaskFactory, which the VSSDK007 analyzer flags here.</summary>
         [Import]
         internal JoinableTaskContext JoinableTaskContext { get; set; }
 
@@ -51,7 +50,8 @@ namespace ResourcePreview.Refactoring
                 return null;
             }
 
-            return new ExtractResourceSuggestedActionsSource(textView, textBuffer, document, ServiceProvider, EditorAdapters, JoinableTaskContext.Factory);
+            var refactorings = new ResourceRefactorings(ServiceProvider, EditorAdapters, JoinableTaskContext.Factory);
+            return new ExtractResourceSuggestedActionsSource(textView, textBuffer, document, refactorings);
         }
     }
 
@@ -60,18 +60,14 @@ namespace ResourcePreview.Refactoring
         private readonly ITextView _textView;
         private readonly ITextBuffer _textBuffer;
         private readonly ITextDocument _document;
-        private readonly IServiceProvider _serviceProvider;
-        private readonly IVsEditorAdaptersFactoryService _editorAdapters;
-        private readonly JoinableTaskFactory _joinableTaskFactory;
+        private readonly ResourceRefactorings _refactorings;
 
-        public ExtractResourceSuggestedActionsSource(ITextView textView, ITextBuffer textBuffer, ITextDocument document, IServiceProvider serviceProvider, IVsEditorAdaptersFactoryService editorAdapters, JoinableTaskFactory joinableTaskFactory)
+        public ExtractResourceSuggestedActionsSource(ITextView textView, ITextBuffer textBuffer, ITextDocument document, ResourceRefactorings refactorings)
         {
             _textView = textView;
             _textBuffer = textBuffer;
             _document = document;
-            _serviceProvider = serviceProvider;
-            _editorAdapters = editorAdapters;
-            _joinableTaskFactory = joinableTaskFactory;
+            _refactorings = refactorings;
         }
 
         // Never raised: VS asks again when the caret moves, which is all we need.
@@ -83,36 +79,57 @@ namespace ResourcePreview.Refactoring
 
         public Task<bool> HasSuggestedActionsAsync(ISuggestedActionCategorySet requestedActionCategories, SnapshotSpan range, CancellationToken cancellationToken)
         {
-            return Task.FromResult(FindCandidate(range) != null);
+            return Task.FromResult(CreateActions(range).Any());
         }
 
         public IEnumerable<SuggestedActionSet> GetSuggestedActions(ISuggestedActionCategorySet requestedActionCategories, SnapshotSpan range, CancellationToken cancellationToken)
         {
-            ExtractCandidate candidate = FindCandidate(range);
-            if (candidate == null)
-            {
-                return Enumerable.Empty<SuggestedActionSet>();
-            }
-
-            var action = new ExtractResourceAction(candidate, range.Snapshot, _document.FilePath, _serviceProvider, _editorAdapters, _joinableTaskFactory);
-            return new[] { new SuggestedActionSet(PredefinedSuggestedActionCategoryNames.Refactoring, new[] { action }, applicableToSpan: new Span(candidate.ValueStart, candidate.ValueLength)) };
+            List<ISuggestedAction> actions = CreateActions(range).ToList();
+            return actions.Count == 0
+                ? Enumerable.Empty<SuggestedActionSet>()
+                : new[] { new SuggestedActionSet(PredefinedSuggestedActionCategoryNames.Refactoring, actions) };
         }
 
-        /// <summary>The value at the caret, only reading the text. Runs often, so no index work here.</summary>
-        private ExtractCandidate FindCandidate(SnapshotSpan range)
+        /// <summary>Only reads the text: VS calls this often, so no index work here.</summary>
+        private IEnumerable<ISuggestedAction> CreateActions(SnapshotSpan range)
         {
             if (range.Snapshot.TextBuffer != _textBuffer)
             {
-                return null;
+                yield break;
+            }
+
+            ITextSnapshot snapshot = range.Snapshot;
+            string filePath = _document.FilePath;
+            SnapshotSpan selection = _textView.Selection.IsEmpty || _textView.Selection.SelectedSpans.Count != 1
+                ? new SnapshotSpan(snapshot, 0, 0)
+                : _textView.Selection.SelectedSpans[0];
+
+            if (selection.Length > 0 && selection.Snapshot == snapshot)
+            {
+                AttributeSelection attributes = StylePlanner.TryFind(snapshot.GetText(), selection.Start, selection.End);
+                if (attributes != null)
+                {
+                    yield return new RefactoringAction(Localizer.Get(Strings.ExtractToStyle), () => _refactorings.ExtractStyle(filePath, snapshot, attributes));
+                    if (attributes.StyleKey != null)
+                    {
+                        yield return new RefactoringAction(
+                            Localizer.Format(Strings.AddToStyleFormat, attributes.StyleKey),
+                            () => _refactorings.AddToStyle(filePath, snapshot, attributes));
+                    }
+
+                    yield break;
+                }
             }
 
             SnapshotPoint caret = _textView.Caret.Position.BufferPosition;
-            if (caret.Snapshot != range.Snapshot)
+            if (caret.Snapshot == snapshot)
             {
-                return null;
+                ExtractCandidate candidate = ExtractPlanner.TryFind(snapshot.GetText(), caret.Position);
+                if (candidate != null)
+                {
+                    yield return new RefactoringAction(Localizer.Get(Strings.ExtractToResource), () => _refactorings.ExtractValue(filePath, snapshot, candidate));
+                }
             }
-
-            return ExtractPlanner.TryFind(range.Snapshot.GetText(), caret.Position);
         }
 
         public bool TryGetTelemetryId(out Guid telemetryId)
@@ -126,29 +143,18 @@ namespace ResourcePreview.Refactoring
         }
     }
 
-    internal sealed class ExtractResourceAction : ISuggestedAction
+    /// <summary>One line in the light bulb menu.</summary>
+    internal sealed class RefactoringAction : ISuggestedAction
     {
-        // The last file a resource went to, so the dialog starts there next time.
-        private static string _lastTarget;
+        private readonly Action _invoke;
 
-        private readonly ExtractCandidate _candidate;
-        private readonly ITextSnapshot _snapshot;
-        private readonly string _filePath;
-        private readonly IServiceProvider _serviceProvider;
-        private readonly IVsEditorAdaptersFactoryService _editorAdapters;
-        private readonly JoinableTaskFactory _joinableTaskFactory;
-
-        public ExtractResourceAction(ExtractCandidate candidate, ITextSnapshot snapshot, string filePath, IServiceProvider serviceProvider, IVsEditorAdaptersFactoryService editorAdapters, JoinableTaskFactory joinableTaskFactory)
+        public RefactoringAction(string displayText, Action invoke)
         {
-            _joinableTaskFactory = joinableTaskFactory;
-            _candidate = candidate;
-            _snapshot = snapshot;
-            _filePath = filePath;
-            _serviceProvider = serviceProvider;
-            _editorAdapters = editorAdapters;
+            DisplayText = displayText;
+            _invoke = invoke;
         }
 
-        public string DisplayText => Localizer.Get(Strings.ExtractToResource);
+        public string DisplayText { get; }
 
         public ImageMoniker IconMoniker => default;
 
@@ -168,95 +174,7 @@ namespace ResourcePreview.Refactoring
         public void Invoke(CancellationToken cancellationToken)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            _joinableTaskFactory.RunAsync(ExtractAsync).FileAndForget("ResourcePreview/ExtractToResource");
-        }
-
-        private async Task ExtractAsync()
-        {
-            // The first lookup in a solution reads every .xaml file. Keep that off the UI thread.
-            await TaskScheduler.Default;
-            string text = _snapshot.GetText();
-            ResourceIndex index = ResourceIndex.ForFile(_filePath);
-            index.SetLiveText(_filePath, text);
-            IReadOnlyList<string> targets = ExtractPlanner.Targets(index, _filePath, CancellationToken.None);
-
-            await _joinableTaskFactory.SwitchToMainThreadAsync();
-
-            if (targets.Count == 0)
-            {
-                ShowStatus(Localizer.Get(Strings.ExtractNoTarget));
-                return;
-            }
-
-            var items = targets.Select(t => new KeyValuePair<string, string>(t, ReferenceChecker.Relative(index, t))).ToList();
-            var dialog = new ExtractResourceDialog(
-                ExtractPlanner.SuggestKey(_candidate),
-                items,
-                _lastTarget,
-                key => Validate(index, key),
-                key => ExtractPlanner.ResourceText(_candidate, key));
-            if (dialog.ShowModal() != true || dialog.Target == null)
-            {
-                return;
-            }
-
-            string target = dialog.Target;
-            string newKey = dialog.Key;
-            _lastTarget = target;
-            bool sameFile = string.Equals(target, _filePath, StringComparison.OrdinalIgnoreCase);
-            var editor = new BufferEditor(_serviceProvider, _editorAdapters);
-
-            // The value positions are from the snapshot the light bulb saw. Stop if the text changed since.
-            if (_snapshot.TextBuffer.CurrentSnapshot.Version.VersionNumber != _snapshot.Version.VersionNumber)
-            {
-                return;
-            }
-
-            int added = editor.Apply(target, targetText =>
-            {
-                List<TextChange> changes = ExtractPlanner.AddResource(targetText, _candidate, newKey, sameFile ? _candidate.ValueStart : (int?)null).ToList();
-                if (sameFile && changes.Count > 0)
-                {
-                    changes.Add(ExtractPlanner.ReplaceValue(_candidate, newKey));
-                }
-
-                return changes;
-            });
-
-            if (added == 0)
-            {
-                ShowStatus(Localizer.Get(Strings.ExtractNoTarget));
-                return;
-            }
-
-            if (!sameFile)
-            {
-                editor.Apply(_filePath, _ => new[] { ExtractPlanner.ReplaceValue(_candidate, newKey) });
-            }
-
-            ShowStatus(Localizer.Format(Strings.ExtractDoneFormat, newKey, Path.GetFileName(target)));
-        }
-
-        private static string Validate(ResourceIndex index, string key)
-        {
-            switch (KeyRenamer.Check(index, string.Empty, key, CancellationToken.None))
-            {
-                case RenameRejection.Invalid:
-                    return Localizer.Get(Strings.RenameInvalid);
-                case RenameRejection.Exists:
-                    return Localizer.Format(Strings.RenameExistsFormat, key);
-                default:
-                    return null;
-            }
-        }
-
-        private void ShowStatus(string message)
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
-            if (_serviceProvider.GetService(typeof(SVsStatusbar)) is IVsStatusbar statusbar)
-            {
-                statusbar.SetText("ResourcePreview: " + message);
-            }
+            _invoke();
         }
 
         public bool TryGetTelemetryId(out Guid telemetryId)

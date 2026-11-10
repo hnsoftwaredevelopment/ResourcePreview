@@ -120,7 +120,7 @@ Files that are open in an editor are changed but not saved, so you can check the
 
 ## Extract to resource
 
-Put the caret in a fixed value, such as `Background="#FF2D7D9A"` or `Margin="4,2"`, and press **Ctrl+.** (the light bulb). Choose **Extract to resource...**, enter a key and pick the dictionary. The value becomes a resource in that dictionary, and the attribute becomes `{StaticResource Key}`.
+Put the caret in a fixed value, such as `Background="#FF2D7D9A"` or `Margin="4,2"`, and press **Ctrl+.** (the light bulb), or right-click and choose **Extract to Resource...**. Enter a key and pick the dictionary. The value becomes a resource in that dictionary, and the attribute becomes `{StaticResource Key}`.
 
 | Property | Resource |
 |---|---|
@@ -133,6 +133,15 @@ Put the caret in a fixed value, such as `Background="#FF2D7D9A"` or `Margin="4,2
 | `Text`, `Content`, `Header`, `ToolTip`, `Title` | `sys:String` |
 
 The list of dictionaries contains the ones this file can see: its own merged dictionaries and those of `App.xaml`, and `App.xaml` itself. When the value is in a dictionary and you add the resource to that same dictionary, it goes above the place where it is used, because a StaticResource does not look ahead.
+
+### Several attributes into one Style
+
+Select some attributes in a start tag, for example `Fill="White" Stretch="Uniform" Width="16" Height="16"`, and press **Ctrl+.** or right-click:
+
+- **Extract to Style...** creates a new `Style` with a `Setter` for each selected attribute and `TargetType` set to the element. The attributes are replaced by `Style="{StaticResource Key}"`. If the element already had a style, the new one is `BasedOn` it.
+- **Add to style 'X'** appears when the element already has `Style="{StaticResource X}"`. The selected attributes become setters of that existing style, wherever it is defined. A setter for a property the style already sets is replaced, because a style may set each property only once.
+
+Event handlers such as `Click="OnClick"`, `x:Name` and `x:Key` stay on the element. Elements with a prefix (`local:MyControl`) are not supported, because the target file may not know that prefix.
 
 ## Settings
 

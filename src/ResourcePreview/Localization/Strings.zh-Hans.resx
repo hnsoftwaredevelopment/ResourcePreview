@@ -292,4 +292,22 @@
   <data name="ExtractDoneFormat" xml:space="preserve">
     <value>已将值移动到 {1} 中的资源“{0}”。</value>
   </data>
+  <data name="ExtractToStyle" xml:space="preserve">
+    <value>提取到样式...</value>
+  </data>
+  <data name="ExtractStyleDialogTitle" xml:space="preserve">
+    <value>提取到样式</value>
+  </data>
+  <data name="ExtractStyleDoneFormat" xml:space="preserve">
+    <value>已将 {0} 个 Setter 移动到 {2} 中的样式“{1}”。</value>
+  </data>
+  <data name="AddToStyleFormat" xml:space="preserve">
+    <value>添加到样式“{0}”</value>
+  </data>
+  <data name="AddToStyleDoneFormat" xml:space="preserve">
+    <value>已将 {0} 个 Setter 移动到 {2} 中的样式“{1}”；其中 {3} 个替换了现有 Setter。</value>
+  </data>
+  <data name="AddToStyleNotFoundFormat" xml:space="preserve">
+    <value>在解决方案中找不到样式“{0}”。</value>
+  </data>
 </root>
