@@ -271,4 +271,25 @@
   <data name="CancelButton" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="ExtractToResource" xml:space="preserve">
+    <value>擷取至資源...</value>
+  </data>
+  <data name="ExtractDialogTitle" xml:space="preserve">
+    <value>擷取至資源</value>
+  </data>
+  <data name="ExtractKeyLabel" xml:space="preserve">
+    <value>索引鍵:</value>
+  </data>
+  <data name="ExtractTargetLabel" xml:space="preserve">
+    <value>新增至:</value>
+  </data>
+  <data name="ExtractButton" xml:space="preserve">
+    <value>擷取</value>
+  </data>
+  <data name="ExtractNoTarget" xml:space="preserve">
+    <value>此檔案沒有可加入資源的資源字典。</value>
+  </data>
+  <data name="ExtractDoneFormat" xml:space="preserve">
+    <value>已將值移至 {1} 中的資源「{0}」。</value>
+  </data>
 </root>

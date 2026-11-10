@@ -271,4 +271,25 @@
   <data name="CancelButton" xml:space="preserve">
     <value>Cancelar</value>
   </data>
+  <data name="ExtractToResource" xml:space="preserve">
+    <value>Extrair para recurso...</value>
+  </data>
+  <data name="ExtractDialogTitle" xml:space="preserve">
+    <value>Extrair para recurso</value>
+  </data>
+  <data name="ExtractKeyLabel" xml:space="preserve">
+    <value>Chave:</value>
+  </data>
+  <data name="ExtractTargetLabel" xml:space="preserve">
+    <value>Adicionar a:</value>
+  </data>
+  <data name="ExtractButton" xml:space="preserve">
+    <value>Extrair</value>
+  </data>
+  <data name="ExtractNoTarget" xml:space="preserve">
+    <value>Não há dicionário de recursos para este arquivo ao qual adicionar o recurso.</value>
+  </data>
+  <data name="ExtractDoneFormat" xml:space="preserve">
+    <value>Valor movido para o recurso '{0}' em {1}.</value>
+  </data>
 </root>

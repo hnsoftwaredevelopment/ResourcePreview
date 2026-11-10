@@ -271,4 +271,25 @@
   <data name="CancelButton" xml:space="preserve">
     <value>Annuleren</value>
   </data>
+  <data name="ExtractToResource" xml:space="preserve">
+    <value>Naar resource verplaatsen...</value>
+  </data>
+  <data name="ExtractDialogTitle" xml:space="preserve">
+    <value>Naar resource verplaatsen</value>
+  </data>
+  <data name="ExtractKeyLabel" xml:space="preserve">
+    <value>Key:</value>
+  </data>
+  <data name="ExtractTargetLabel" xml:space="preserve">
+    <value>Toevoegen aan:</value>
+  </data>
+  <data name="ExtractButton" xml:space="preserve">
+    <value>Verplaatsen</value>
+  </data>
+  <data name="ExtractNoTarget" xml:space="preserve">
+    <value>Er is geen resource dictionary voor dit bestand om de resource aan toe te voegen.</value>
+  </data>
+  <data name="ExtractDoneFormat" xml:space="preserve">
+    <value>Waarde verplaatst naar resource '{0}' in {1}.</value>
+  </data>
 </root>

@@ -118,6 +118,22 @@ Right-click a reference or an `x:Key` and choose **Rename Resource Key...**. Ent
 
 Files that are open in an editor are changed but not saved, so you can check them and undo with Ctrl+Z. Files that are not open are saved right away. Uses in code, such as `FindResource("AccentBrush")`, are not renamed. There is no default shortcut; assign one under **Tools > Options > Environment > Keyboard** (`ResourcePreview.RenameResourceKey`).
 
+## Extract to resource
+
+Put the caret in a fixed value, such as `Background="#FF2D7D9A"` or `Margin="4,2"`, and press **Ctrl+.** (the light bulb). Choose **Extract to resource...**, enter a key and pick the dictionary. The value becomes a resource in that dictionary, and the attribute becomes `{StaticResource Key}`.
+
+| Property | Resource |
+|---|---|
+| `Background`, `Foreground`, `BorderBrush`, `Fill`, `Stroke` with a color | `SolidColorBrush` |
+| `Color` | `Color` |
+| `Margin`, `Padding`, `BorderThickness` | `Thickness` |
+| `CornerRadius` | `CornerRadius` |
+| `FontSize`, `Width`, `Height`, `Opacity` ... | `sys:Double` (adds `xmlns:sys` when needed) |
+| `FontFamily`, `FontWeight` | `FontFamily`, `FontWeight` |
+| `Text`, `Content`, `Header`, `ToolTip`, `Title` | `sys:String` |
+
+The list of dictionaries contains the ones this file can see: its own merged dictionaries and those of `App.xaml`, and `App.xaml` itself. When the value is in a dictionary and you add the resource to that same dictionary, it goes above the place where it is used, because a StaticResource does not look ahead.
+
 ## Settings
 
 **Tools > Options > XAML Resource Preview**, in both the new and the legacy Options dialog.

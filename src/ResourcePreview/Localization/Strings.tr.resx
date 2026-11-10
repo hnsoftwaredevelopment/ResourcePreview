@@ -271,4 +271,25 @@
   <data name="CancelButton" xml:space="preserve">
     <value>İptal</value>
   </data>
+  <data name="ExtractToResource" xml:space="preserve">
+    <value>Kaynağa ayıkla...</value>
+  </data>
+  <data name="ExtractDialogTitle" xml:space="preserve">
+    <value>Kaynağa ayıkla</value>
+  </data>
+  <data name="ExtractKeyLabel" xml:space="preserve">
+    <value>Anahtar:</value>
+  </data>
+  <data name="ExtractTargetLabel" xml:space="preserve">
+    <value>Ekle:</value>
+  </data>
+  <data name="ExtractButton" xml:space="preserve">
+    <value>Ayıkla</value>
+  </data>
+  <data name="ExtractNoTarget" xml:space="preserve">
+    <value>Bu dosya için kaynağın eklenebileceği bir kaynak sözlüğü yok.</value>
+  </data>
+  <data name="ExtractDoneFormat" xml:space="preserve">
+    <value>Değer, {1} içindeki '{0}' kaynağına taşındı.</value>
+  </data>
 </root>

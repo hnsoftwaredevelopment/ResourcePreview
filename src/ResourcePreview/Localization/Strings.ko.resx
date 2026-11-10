@@ -271,4 +271,25 @@
   <data name="CancelButton" xml:space="preserve">
     <value>취소</value>
   </data>
+  <data name="ExtractToResource" xml:space="preserve">
+    <value>리소스로 추출...</value>
+  </data>
+  <data name="ExtractDialogTitle" xml:space="preserve">
+    <value>리소스로 추출</value>
+  </data>
+  <data name="ExtractKeyLabel" xml:space="preserve">
+    <value>키:</value>
+  </data>
+  <data name="ExtractTargetLabel" xml:space="preserve">
+    <value>추가할 위치:</value>
+  </data>
+  <data name="ExtractButton" xml:space="preserve">
+    <value>추출</value>
+  </data>
+  <data name="ExtractNoTarget" xml:space="preserve">
+    <value>이 파일에는 리소스를 추가할 리소스 사전이 없습니다.</value>
+  </data>
+  <data name="ExtractDoneFormat" xml:space="preserve">
+    <value>값을 {1}의 리소스 '{0}'(으)로 이동했습니다.</value>
+  </data>
 </root>

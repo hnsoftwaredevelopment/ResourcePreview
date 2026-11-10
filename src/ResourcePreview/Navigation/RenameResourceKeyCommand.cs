@@ -23,9 +23,7 @@ namespace ResourcePreview.Navigation
     /// "Rename Resource Key" in the XAML editor context menu: renames a key in all its definitions and
     /// references in the solution. Works on a reference and on an x:Key.
     ///
-    /// The changes go through the editor buffers, not straight to disk:
-    /// - a file that is open in an editor gets one undo step and stays unsaved, so you can check it and undo;
-    /// - a file that is not open is opened invisibly (IVsInvisibleEditorManager), changed and saved.
+    /// The changes go through the editor buffers, not straight to disk (<see cref="BufferEditor"/>).
     /// </summary>
     internal sealed class RenameResourceKeyCommand
     {
@@ -149,77 +147,9 @@ namespace ResourcePreview.Navigation
         private int RenameInFile(string filePath, string key, string newKey)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-
-            bool wasOpen = VsShellUtilities.IsDocumentOpen(_package, filePath, Guid.Empty, out _, out _, out _);
-
-            if (!(((IServiceProvider)_package).GetService(typeof(SVsInvisibleEditorManager)) is IVsInvisibleEditorManager manager)
-                || manager.RegisterInvisibleEditor(filePath, null, (uint)_EDITORREGFLAGS.RIEF_ENABLECACHING, null, out IVsInvisibleEditor invisibleEditor) != VSConstants.S_OK)
-            {
-                return 0;
-            }
-
-            try
-            {
-                // The document data of the file: the same buffer an open editor shows.
-                Guid textLinesGuid = typeof(IVsTextLines).GUID;
-                if (invisibleEditor.GetDocData(0, ref textLinesGuid, out IntPtr docData) != VSConstants.S_OK || docData == IntPtr.Zero)
-                {
-                    return 0;
-                }
-
-                IVsTextLines textLines;
-                try
-                {
-                    textLines = (IVsTextLines)Marshal.GetObjectForIUnknown(docData);
-                }
-                finally
-                {
-                    Marshal.Release(docData);
-                }
-
-                ITextBuffer buffer = _editorAdapters.GetDocumentBuffer(textLines);
-                if (buffer == null)
-                {
-                    return 0;
-                }
-
-                ITextSnapshot snapshot = buffer.CurrentSnapshot;
-                IReadOnlyList<KeySpan> spans = KeyRenamer.FindSpans(snapshot.GetText(), key);
-                if (spans.Count == 0)
-                {
-                    return 0;
-                }
-
-                // One ITextEdit is one undo step in that file.
-                using (ITextEdit edit = buffer.CreateEdit())
-                {
-                    foreach (KeySpan span in spans)
-                    {
-                        edit.Replace(new Span(span.Start, span.Length), newKey);
-                    }
-
-                    edit.Apply();
-                }
-
-                if (wasOpen)
-                {
-                    // Unsaved, so the next lookup must use the buffer and not the file on disk.
-                    ResourceIndex.ForFile(filePath).SetLiveText(filePath, buffer.CurrentSnapshot.GetText());
-                }
-                else if (textLines is IVsPersistDocData persist)
-                {
-                    persist.SaveDocData(VSSAVEFLAGS.VSSAVE_SilentSave, out string _, out int _);
-                }
-
-                return spans.Count;
-            }
-            finally
-            {
-                if (Marshal.IsComObject(invisibleEditor))
-                {
-                    Marshal.ReleaseComObject(invisibleEditor);
-                }
-            }
+            return new BufferEditor(_package, _editorAdapters).Apply(
+                filePath,
+                text => KeyRenamer.FindSpans(text, key).Select(span => new TextChange(span.Start, span.Length, newKey)).ToList());
         }
 
         private void ShowStatus(string message)

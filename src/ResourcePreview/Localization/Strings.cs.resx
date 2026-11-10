@@ -271,4 +271,25 @@
   <data name="CancelButton" xml:space="preserve">
     <value>Zrušit</value>
   </data>
+  <data name="ExtractToResource" xml:space="preserve">
+    <value>Extrahovat do prostředku...</value>
+  </data>
+  <data name="ExtractDialogTitle" xml:space="preserve">
+    <value>Extrahovat do prostředku</value>
+  </data>
+  <data name="ExtractKeyLabel" xml:space="preserve">
+    <value>Klíč:</value>
+  </data>
+  <data name="ExtractTargetLabel" xml:space="preserve">
+    <value>Přidat do:</value>
+  </data>
+  <data name="ExtractButton" xml:space="preserve">
+    <value>Extrahovat</value>
+  </data>
+  <data name="ExtractNoTarget" xml:space="preserve">
+    <value>Pro tento soubor neexistuje slovník prostředků, do kterého by šlo prostředek přidat.</value>
+  </data>
+  <data name="ExtractDoneFormat" xml:space="preserve">
+    <value>Hodnota přesunuta do prostředku '{0}' v {1}.</value>
+  </data>
 </root>

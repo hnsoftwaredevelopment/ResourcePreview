@@ -271,4 +271,25 @@
   <data name="CancelButton" xml:space="preserve">
     <value>Anuluj</value>
   </data>
+  <data name="ExtractToResource" xml:space="preserve">
+    <value>Wyodrębnij do zasobu...</value>
+  </data>
+  <data name="ExtractDialogTitle" xml:space="preserve">
+    <value>Wyodrębnij do zasobu</value>
+  </data>
+  <data name="ExtractKeyLabel" xml:space="preserve">
+    <value>Klucz:</value>
+  </data>
+  <data name="ExtractTargetLabel" xml:space="preserve">
+    <value>Dodaj do:</value>
+  </data>
+  <data name="ExtractButton" xml:space="preserve">
+    <value>Wyodrębnij</value>
+  </data>
+  <data name="ExtractNoTarget" xml:space="preserve">
+    <value>Dla tego pliku nie ma słownika zasobów, do którego można dodać zasób.</value>
+  </data>
+  <data name="ExtractDoneFormat" xml:space="preserve">
+    <value>Przeniesiono wartość do zasobu '{0}' w {1}.</value>
+  </data>
 </root>

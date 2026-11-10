@@ -271,4 +271,25 @@
   <data name="CancelButton" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
+  <data name="ExtractToResource" xml:space="preserve">
+    <value>In Ressource extrahieren...</value>
+  </data>
+  <data name="ExtractDialogTitle" xml:space="preserve">
+    <value>In Ressource extrahieren</value>
+  </data>
+  <data name="ExtractKeyLabel" xml:space="preserve">
+    <value>Schlüssel:</value>
+  </data>
+  <data name="ExtractTargetLabel" xml:space="preserve">
+    <value>Hinzufügen zu:</value>
+  </data>
+  <data name="ExtractButton" xml:space="preserve">
+    <value>Extrahieren</value>
+  </data>
+  <data name="ExtractNoTarget" xml:space="preserve">
+    <value>Für diese Datei gibt es kein Ressourcenwörterbuch, dem die Ressource hinzugefügt werden kann.</value>
+  </data>
+  <data name="ExtractDoneFormat" xml:space="preserve">
+    <value>Wert in Ressource '{0}' in {1} verschoben.</value>
+  </data>
 </root>

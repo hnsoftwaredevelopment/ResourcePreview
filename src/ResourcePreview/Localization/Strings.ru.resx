@@ -271,4 +271,25 @@
   <data name="CancelButton" xml:space="preserve">
     <value>Отмена</value>
   </data>
+  <data name="ExtractToResource" xml:space="preserve">
+    <value>Извлечь в ресурс...</value>
+  </data>
+  <data name="ExtractDialogTitle" xml:space="preserve">
+    <value>Извлечение в ресурс</value>
+  </data>
+  <data name="ExtractKeyLabel" xml:space="preserve">
+    <value>Ключ:</value>
+  </data>
+  <data name="ExtractTargetLabel" xml:space="preserve">
+    <value>Добавить в:</value>
+  </data>
+  <data name="ExtractButton" xml:space="preserve">
+    <value>Извлечь</value>
+  </data>
+  <data name="ExtractNoTarget" xml:space="preserve">
+    <value>Для этого файла нет словаря ресурсов, в который можно добавить ресурс.</value>
+  </data>
+  <data name="ExtractDoneFormat" xml:space="preserve">
+    <value>Значение перенесено в ресурс '{0}' в {1}.</value>
+  </data>
 </root>

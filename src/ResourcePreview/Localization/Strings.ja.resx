@@ -271,4 +271,25 @@
   <data name="CancelButton" xml:space="preserve">
     <value>キャンセル</value>
   </data>
+  <data name="ExtractToResource" xml:space="preserve">
+    <value>リソースに抽出...</value>
+  </data>
+  <data name="ExtractDialogTitle" xml:space="preserve">
+    <value>リソースに抽出</value>
+  </data>
+  <data name="ExtractKeyLabel" xml:space="preserve">
+    <value>キー:</value>
+  </data>
+  <data name="ExtractTargetLabel" xml:space="preserve">
+    <value>追加先:</value>
+  </data>
+  <data name="ExtractButton" xml:space="preserve">
+    <value>抽出</value>
+  </data>
+  <data name="ExtractNoTarget" xml:space="preserve">
+    <value>このファイルにはリソースを追加できるリソース ディクショナリがありません。</value>
+  </data>
+  <data name="ExtractDoneFormat" xml:space="preserve">
+    <value>値を {1} のリソース '{0}' に移動しました。</value>
+  </data>
 </root>

@@ -300,4 +300,25 @@
   <data name="CancelButton" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="ExtractToResource" xml:space="preserve">
+    <value>Extract to resource...</value>
+  </data>
+  <data name="ExtractDialogTitle" xml:space="preserve">
+    <value>Extract to Resource</value>
+  </data>
+  <data name="ExtractKeyLabel" xml:space="preserve">
+    <value>Key:</value>
+  </data>
+  <data name="ExtractTargetLabel" xml:space="preserve">
+    <value>Add to:</value>
+  </data>
+  <data name="ExtractButton" xml:space="preserve">
+    <value>Extract</value>
+  </data>
+  <data name="ExtractNoTarget" xml:space="preserve">
+    <value>There is no resource dictionary for this file to add the resource to.</value>
+  </data>
+  <data name="ExtractDoneFormat" xml:space="preserve">
+    <value>Moved the value to resource '{0}' in {1}.</value>
+  </data>
 </root>

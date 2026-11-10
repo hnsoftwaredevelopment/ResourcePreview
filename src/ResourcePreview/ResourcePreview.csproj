@@ -89,6 +89,11 @@
     <Compile Include="Navigation\RenameDialog.cs" />
     <Compile Include="Navigation\RenameResourceKeyCommand.cs" />
     <Compile Include="Resources\KeyRenamer.cs" />
+    <Compile Include="Resources\TextChange.cs" />
+    <Compile Include="Resources\ExtractPlanner.cs" />
+    <Compile Include="Navigation\BufferEditor.cs" />
+    <Compile Include="Refactoring\ExtractResourceDialog.cs" />
+    <Compile Include="Refactoring\ExtractResourceSuggestedActions.cs" />
     <Compile Include="Resources\UsageFinder.cs" />
     <Compile Include="Resources\CodeStrings.cs" />
     <Compile Include="Resources\UnusedResourceScanner.cs" />
