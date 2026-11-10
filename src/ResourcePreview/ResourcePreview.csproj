@@ -86,6 +86,9 @@
     <Compile Include="Navigation\CaretResource.cs" />
     <Compile Include="Navigation\FindResourceReferencesCommand.cs" />
     <Compile Include="Navigation\ResourceReferencesWindow.cs" />
+    <Compile Include="Navigation\RenameDialog.cs" />
+    <Compile Include="Navigation\RenameResourceKeyCommand.cs" />
+    <Compile Include="Resources\KeyRenamer.cs" />
     <Compile Include="Resources\UsageFinder.cs" />
     <Compile Include="Resources\CodeStrings.cs" />
     <Compile Include="Resources\UnusedResourceScanner.cs" />

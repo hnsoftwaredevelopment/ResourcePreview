@@ -238,4 +238,37 @@
   <data name="OptionsReportUnusedDescription" xml:space="preserve">
     <value>Pokazuje komunikat na liście błędów dla każdego zasobu, którego nie używa żaden plik XAML ani plik kodu w rozwiązaniu. Tylko dla plików wczytywanych przez aplikację.</value>
   </data>
+  <data name="RenameResourceKey" xml:space="preserve">
+    <value>Zmień nazwę klucza zasobu...</value>
+  </data>
+  <data name="RenameDialogTitle" xml:space="preserve">
+    <value>Zmień nazwę klucza zasobu</value>
+  </data>
+  <data name="RenamePromptFormat" xml:space="preserve">
+    <value>Nowa nazwa dla '{0}':</value>
+  </data>
+  <data name="RenameSummaryFormat" xml:space="preserve">
+    <value>Zostanie zmieniona nazwa w definicjach: {0} i odwołaniach: {1} w plikach: {2}.</value>
+  </data>
+  <data name="RenameCodeNoteFormat" xml:space="preserve">
+    <value>Użycia w kodzie, np. FindResource("{0}"), nie są zmieniane.</value>
+  </data>
+  <data name="RenameSaveNote" xml:space="preserve">
+    <value>Otwarte pliki pozostają niezapisane, więc możesz tam sprawdzić i cofnąć zmianę. Pliki, które nie są otwarte, są zapisywane od razu.</value>
+  </data>
+  <data name="RenameInvalid" xml:space="preserve">
+    <value>Klucz nie może zawierać spacji, cudzysłowów, nawiasów klamrowych, przecinków ani znaków &lt; &gt; = &amp;.</value>
+  </data>
+  <data name="RenameExistsFormat" xml:space="preserve">
+    <value>Zasób o nazwie '{0}' już istnieje.</value>
+  </data>
+  <data name="RenameDoneFormat" xml:space="preserve">
+    <value>Zmieniono nazwę '{0}' na '{1}': zmiany: {2} w plikach: {3}.</value>
+  </data>
+  <data name="RenameButton" xml:space="preserve">
+    <value>Zmień nazwę</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
 </root>

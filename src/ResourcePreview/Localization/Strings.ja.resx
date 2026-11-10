@@ -238,4 +238,37 @@
   <data name="OptionsReportUnusedDescription" xml:space="preserve">
     <value>ソリューション内のどの XAML ファイルやコード ファイルも使用していないリソースごとに、エラー一覧にメッセージを表示します。アプリが読み込むファイルのみが対象です。</value>
   </data>
+  <data name="RenameResourceKey" xml:space="preserve">
+    <value>リソース キーの名前変更...</value>
+  </data>
+  <data name="RenameDialogTitle" xml:space="preserve">
+    <value>リソース キーの名前変更</value>
+  </data>
+  <data name="RenamePromptFormat" xml:space="preserve">
+    <value>'{0}' の新しい名前:</value>
+  </data>
+  <data name="RenameSummaryFormat" xml:space="preserve">
+    <value>{2} 個のファイル内の {0} 個の定義と {1} 個の参照の名前が変更されます。</value>
+  </data>
+  <data name="RenameCodeNoteFormat" xml:space="preserve">
+    <value>FindResource("{0}") などのコード内の使用箇所は変更されません。</value>
+  </data>
+  <data name="RenameSaveNote" xml:space="preserve">
+    <value>開いているファイルは未保存のままなので、そこで変更を確認して元に戻せます。開いていないファイルはすぐに保存されます。</value>
+  </data>
+  <data name="RenameInvalid" xml:space="preserve">
+    <value>キーには空白、引用符、中かっこ、コンマ、または &lt; &gt; = &amp; の文字を含めることはできません。</value>
+  </data>
+  <data name="RenameExistsFormat" xml:space="preserve">
+    <value>'{0}' という名前のリソースは既に存在します。</value>
+  </data>
+  <data name="RenameDoneFormat" xml:space="preserve">
+    <value>'{0}' を '{1}' に変更しました: {3} 個のファイルで {2} 箇所の変更。</value>
+  </data>
+  <data name="RenameButton" xml:space="preserve">
+    <value>名前の変更</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
 </root>

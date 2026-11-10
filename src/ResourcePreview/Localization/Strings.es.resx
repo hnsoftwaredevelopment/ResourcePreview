@@ -238,4 +238,37 @@
   <data name="OptionsReportUnusedDescription" xml:space="preserve">
     <value>Muestra un mensaje en la Lista de errores para cada recurso que ningún archivo XAML ni de código de la solución usa. Solo para los archivos que carga la aplicación.</value>
   </data>
+  <data name="RenameResourceKey" xml:space="preserve">
+    <value>Cambiar nombre de clave de recurso...</value>
+  </data>
+  <data name="RenameDialogTitle" xml:space="preserve">
+    <value>Cambiar nombre de clave de recurso</value>
+  </data>
+  <data name="RenamePromptFormat" xml:space="preserve">
+    <value>Nuevo nombre para '{0}':</value>
+  </data>
+  <data name="RenameSummaryFormat" xml:space="preserve">
+    <value>Se cambiará el nombre de {0} definición(es) y {1} referencia(s) en {2} archivo(s).</value>
+  </data>
+  <data name="RenameCodeNoteFormat" xml:space="preserve">
+    <value>Los usos en el código, como FindResource("{0}"), no cambian de nombre.</value>
+  </data>
+  <data name="RenameSaveNote" xml:space="preserve">
+    <value>Los archivos abiertos quedan sin guardar, para que pueda revisar y deshacer el cambio allí. Los archivos que no están abiertos se guardan de inmediato.</value>
+  </data>
+  <data name="RenameInvalid" xml:space="preserve">
+    <value>Una clave no puede contener espacios, comillas, llaves, comas ni los caracteres &lt; &gt; = &amp;.</value>
+  </data>
+  <data name="RenameExistsFormat" xml:space="preserve">
+    <value>Ya existe un recurso con el nombre '{0}'.</value>
+  </data>
+  <data name="RenameDoneFormat" xml:space="preserve">
+    <value>'{0}' cambiado a '{1}': {2} cambio(s) en {3} archivo(s).</value>
+  </data>
+  <data name="RenameButton" xml:space="preserve">
+    <value>Cambiar nombre</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
 </root>

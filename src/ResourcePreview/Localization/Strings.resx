@@ -267,4 +267,37 @@
   <data name="OptionsReportUnusedDescription" xml:space="preserve">
     <value>Shows a message in the Error List for each resource that no XAML file and no code file in the solution uses. Only for files the app loads.</value>
   </data>
+  <data name="RenameResourceKey" xml:space="preserve">
+    <value>Rename Resource Key...</value>
+  </data>
+  <data name="RenameDialogTitle" xml:space="preserve">
+    <value>Rename Resource Key</value>
+  </data>
+  <data name="RenamePromptFormat" xml:space="preserve">
+    <value>New name for '{0}':</value>
+  </data>
+  <data name="RenameSummaryFormat" xml:space="preserve">
+    <value>{0} definition(s) and {1} reference(s) in {2} file(s) will be renamed.</value>
+  </data>
+  <data name="RenameCodeNoteFormat" xml:space="preserve">
+    <value>Uses in code, such as FindResource("{0}"), are not renamed.</value>
+  </data>
+  <data name="RenameSaveNote" xml:space="preserve">
+    <value>Open files stay unsaved, so you can check and undo the change there. Files that are not open are saved right away.</value>
+  </data>
+  <data name="RenameInvalid" xml:space="preserve">
+    <value>A key cannot contain spaces, quotes, braces, commas or the characters &lt; &gt; = &amp;.</value>
+  </data>
+  <data name="RenameExistsFormat" xml:space="preserve">
+    <value>A resource named '{0}' already exists.</value>
+  </data>
+  <data name="RenameDoneFormat" xml:space="preserve">
+    <value>Renamed '{0}' to '{1}': {2} change(s) in {3} file(s).</value>
+  </data>
+  <data name="RenameButton" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
 </root>

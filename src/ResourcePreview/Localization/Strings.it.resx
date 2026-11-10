@@ -238,4 +238,37 @@
   <data name="OptionsReportUnusedDescription" xml:space="preserve">
     <value>Mostra un messaggio nell'Elenco errori per ogni risorsa che nessun file XAML o di codice della soluzione usa. Solo per i file caricati dall'app.</value>
   </data>
+  <data name="RenameResourceKey" xml:space="preserve">
+    <value>Rinomina chiave risorsa...</value>
+  </data>
+  <data name="RenameDialogTitle" xml:space="preserve">
+    <value>Rinomina chiave risorsa</value>
+  </data>
+  <data name="RenamePromptFormat" xml:space="preserve">
+    <value>Nuovo nome per '{0}':</value>
+  </data>
+  <data name="RenameSummaryFormat" xml:space="preserve">
+    <value>Verranno rinominati {0} definizione/i e {1} riferimento/i in {2} file.</value>
+  </data>
+  <data name="RenameCodeNoteFormat" xml:space="preserve">
+    <value>Gli usi nel codice, come FindResource("{0}"), non vengono rinominati.</value>
+  </data>
+  <data name="RenameSaveNote" xml:space="preserve">
+    <value>I file aperti restano non salvati, così puoi controllare e annullare la modifica. I file non aperti vengono salvati subito.</value>
+  </data>
+  <data name="RenameInvalid" xml:space="preserve">
+    <value>Una chiave non può contenere spazi, virgolette, parentesi graffe, virgole o i caratteri &lt; &gt; = &amp;.</value>
+  </data>
+  <data name="RenameExistsFormat" xml:space="preserve">
+    <value>Esiste già una risorsa denominata '{0}'.</value>
+  </data>
+  <data name="RenameDoneFormat" xml:space="preserve">
+    <value>'{0}' rinominato in '{1}': {2} modifica/che in {3} file.</value>
+  </data>
+  <data name="RenameButton" xml:space="preserve">
+    <value>Rinomina</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
 </root>

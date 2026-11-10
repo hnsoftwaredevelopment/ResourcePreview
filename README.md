@@ -112,6 +112,12 @@ Right-click a reference or an `x:Key` and choose **Find Resource References**, o
 
 When a key has several definitions, the list shows where a use gets another definition than the one you started from ("uses the definition in Values.xaml"), or where WPF does not find the key at all.
 
+## Rename Resource Key
+
+Right-click a reference or an `x:Key` and choose **Rename Resource Key...**. Enter the new name and the key changes in every definition and every `{StaticResource}`, `{DynamicResource}` and `ResourceKey=` in the solution. The dialog says how many places change, and refuses a name that is already taken or contains characters that break the XAML.
+
+Files that are open in an editor are changed but not saved, so you can check them and undo with Ctrl+Z. Files that are not open are saved right away. Uses in code, such as `FindResource("AccentBrush")`, are not renamed. There is no default shortcut; assign one under **Tools > Options > Environment > Keyboard** (`ResourcePreview.RenameResourceKey`).
+
 ## Settings
 
 **Tools > Options > XAML Resource Preview**, in both the new and the legacy Options dialog.

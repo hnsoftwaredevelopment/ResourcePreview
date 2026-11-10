@@ -238,4 +238,37 @@
   <data name="OptionsReportUnusedDescription" xml:space="preserve">
     <value>Affiche un message dans la Liste d'erreurs pour chaque ressource qu'aucun fichier XAML ni fichier de code de la solution n'utilise. Uniquement pour les fichiers chargés par l'application.</value>
   </data>
+  <data name="RenameResourceKey" xml:space="preserve">
+    <value>Renommer la clé de ressource...</value>
+  </data>
+  <data name="RenameDialogTitle" xml:space="preserve">
+    <value>Renommer la clé de ressource</value>
+  </data>
+  <data name="RenamePromptFormat" xml:space="preserve">
+    <value>Nouveau nom pour '{0}' :</value>
+  </data>
+  <data name="RenameSummaryFormat" xml:space="preserve">
+    <value>{0} définition(s) et {1} référence(s) dans {2} fichier(s) seront renommées.</value>
+  </data>
+  <data name="RenameCodeNoteFormat" xml:space="preserve">
+    <value>Les utilisations dans le code, comme FindResource("{0}"), ne sont pas renommées.</value>
+  </data>
+  <data name="RenameSaveNote" xml:space="preserve">
+    <value>Les fichiers ouverts restent non enregistrés : vous pouvez y vérifier et annuler la modification. Les fichiers non ouverts sont enregistrés immédiatement.</value>
+  </data>
+  <data name="RenameInvalid" xml:space="preserve">
+    <value>Une clé ne peut pas contenir d'espaces, de guillemets, d'accolades, de virgules ni les caractères &lt; &gt; = &amp;.</value>
+  </data>
+  <data name="RenameExistsFormat" xml:space="preserve">
+    <value>Une ressource nommée '{0}' existe déjà.</value>
+  </data>
+  <data name="RenameDoneFormat" xml:space="preserve">
+    <value>'{0}' renommé en '{1}' : {2} modification(s) dans {3} fichier(s).</value>
+  </data>
+  <data name="RenameButton" xml:space="preserve">
+    <value>Renommer</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
 </root>

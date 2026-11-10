@@ -37,6 +37,19 @@
           <LocCanonicalName>.ResourcePreview.FindResourceReferences</LocCanonicalName>
         </Strings>
       </Button>
+
+      <!-- No default shortcut: Ctrl+R, Ctrl+R belongs to the rename of the code editor. Assign one under Tools > Options > Keyboard. -->
+      <Button guid="guidResourcePreviewCmdSet" id="cmdidRenameResourceKey" priority="0x0102" type="Button">
+        <Parent guid="guidResourcePreviewCmdSet" id="EditorContextGroup" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Rename Resource Key...</ButtonText>
+          <CanonicalName>.ResourcePreview.RenameResourceKey</CanonicalName>
+          <LocCanonicalName>.ResourcePreview.RenameResourceKey</LocCanonicalName>
+        </Strings>
+      </Button>
     </Buttons>
   </Commands>
 
@@ -60,6 +73,7 @@
       <IDSymbol name="EditorContextGroup" value="0x1020" />
       <IDSymbol name="cmdidGoToResourceDefinition" value="0x0100" />
       <IDSymbol name="cmdidFindResourceReferences" value="0x0101" />
+      <IDSymbol name="cmdidRenameResourceKey" value="0x0102" />
     </GuidSymbol>
 
     <!-- Key binding scope "Text Editor" in Tools > Options > Keyboard. -->

@@ -238,4 +238,37 @@
   <data name="OptionsReportUnusedDescription" xml:space="preserve">
     <value>Çözümdeki hiçbir XAML veya kod dosyasının kullanmadığı her kaynak için Hata Listesi'nde bir ileti gösterir. Yalnızca uygulamanın yüklediği dosyalar için.</value>
   </data>
+  <data name="RenameResourceKey" xml:space="preserve">
+    <value>Kaynak anahtarını yeniden adlandır...</value>
+  </data>
+  <data name="RenameDialogTitle" xml:space="preserve">
+    <value>Kaynak anahtarını yeniden adlandır</value>
+  </data>
+  <data name="RenamePromptFormat" xml:space="preserve">
+    <value>'{0}' için yeni ad:</value>
+  </data>
+  <data name="RenameSummaryFormat" xml:space="preserve">
+    <value>{2} dosyadaki {0} tanım ve {1} başvuru yeniden adlandırılacak.</value>
+  </data>
+  <data name="RenameCodeNoteFormat" xml:space="preserve">
+    <value>FindResource("{0}") gibi koddaki kullanımlar yeniden adlandırılmaz.</value>
+  </data>
+  <data name="RenameSaveNote" xml:space="preserve">
+    <value>Açık dosyalar kaydedilmeden kalır; böylece değişikliği orada denetleyip geri alabilirsiniz. Açık olmayan dosyalar hemen kaydedilir.</value>
+  </data>
+  <data name="RenameInvalid" xml:space="preserve">
+    <value>Bir anahtar boşluk, tırnak işareti, küme ayracı, virgül veya &lt; &gt; = &amp; karakterlerini içeremez.</value>
+  </data>
+  <data name="RenameExistsFormat" xml:space="preserve">
+    <value>'{0}' adlı bir kaynak zaten var.</value>
+  </data>
+  <data name="RenameDoneFormat" xml:space="preserve">
+    <value>'{0}', '{1}' olarak yeniden adlandırıldı: {3} dosyada {2} değişiklik.</value>
+  </data>
+  <data name="RenameButton" xml:space="preserve">
+    <value>Yeniden adlandır</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>İptal</value>
+  </data>
 </root>

@@ -238,4 +238,37 @@
   <data name="OptionsReportUnusedDescription" xml:space="preserve">
     <value>솔루션의 어떤 XAML 파일이나 코드 파일도 사용하지 않는 각 리소스에 대해 오류 목록에 메시지를 표시합니다. 앱이 로드하는 파일에만 해당합니다.</value>
   </data>
+  <data name="RenameResourceKey" xml:space="preserve">
+    <value>리소스 키 이름 바꾸기...</value>
+  </data>
+  <data name="RenameDialogTitle" xml:space="preserve">
+    <value>리소스 키 이름 바꾸기</value>
+  </data>
+  <data name="RenamePromptFormat" xml:space="preserve">
+    <value>'{0}'의 새 이름:</value>
+  </data>
+  <data name="RenameSummaryFormat" xml:space="preserve">
+    <value>파일 {2}개의 정의 {0}개와 참조 {1}개의 이름이 바뀝니다.</value>
+  </data>
+  <data name="RenameCodeNoteFormat" xml:space="preserve">
+    <value>FindResource("{0}") 같은 코드의 사용 위치는 이름이 바뀌지 않습니다.</value>
+  </data>
+  <data name="RenameSaveNote" xml:space="preserve">
+    <value>열려 있는 파일은 저장되지 않은 상태로 남아 변경 내용을 확인하고 실행 취소할 수 있습니다. 열려 있지 않은 파일은 바로 저장됩니다.</value>
+  </data>
+  <data name="RenameInvalid" xml:space="preserve">
+    <value>키에는 공백, 따옴표, 중괄호, 쉼표 또는 &lt; &gt; = &amp; 문자를 사용할 수 없습니다.</value>
+  </data>
+  <data name="RenameExistsFormat" xml:space="preserve">
+    <value>'{0}' 이름의 리소스가 이미 있습니다.</value>
+  </data>
+  <data name="RenameDoneFormat" xml:space="preserve">
+    <value>'{0}'을(를) '{1}'(으)로 이름을 바꿨습니다: 파일 {3}개에서 {2}개 변경.</value>
+  </data>
+  <data name="RenameButton" xml:space="preserve">
+    <value>이름 바꾸기</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>취소</value>
+  </data>
 </root>

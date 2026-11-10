@@ -74,6 +74,17 @@ namespace ResourcePreview.Localization
         public const string UnusedResourceFormat = nameof(UnusedResourceFormat);
         public const string OptionsReportUnusedName = nameof(OptionsReportUnusedName);
         public const string OptionsReportUnusedDescription = nameof(OptionsReportUnusedDescription);
+        public const string RenameResourceKey = nameof(RenameResourceKey);
+        public const string RenameDialogTitle = nameof(RenameDialogTitle);
+        public const string RenamePromptFormat = nameof(RenamePromptFormat);
+        public const string RenameSummaryFormat = nameof(RenameSummaryFormat);
+        public const string RenameCodeNoteFormat = nameof(RenameCodeNoteFormat);
+        public const string RenameSaveNote = nameof(RenameSaveNote);
+        public const string RenameInvalid = nameof(RenameInvalid);
+        public const string RenameExistsFormat = nameof(RenameExistsFormat);
+        public const string RenameDoneFormat = nameof(RenameDoneFormat);
+        public const string RenameButton = nameof(RenameButton);
+        public const string CancelButton = nameof(CancelButton);
         public const string NoLiveSampleFormat = nameof(NoLiveSampleFormat);
         public const string TemplateMoreElementsFormat = nameof(TemplateMoreElementsFormat);
         public const string TemplateEmpty = nameof(TemplateEmpty);

@@ -238,4 +238,37 @@
   <data name="OptionsReportUnusedDescription" xml:space="preserve">
     <value>針對方案中沒有任何 XAML 檔案或程式碼檔案使用的每個資源，在錯誤清單中顯示訊息。僅適用於應用程式載入的檔案。</value>
   </data>
+  <data name="RenameResourceKey" xml:space="preserve">
+    <value>重新命名資源索引鍵...</value>
+  </data>
+  <data name="RenameDialogTitle" xml:space="preserve">
+    <value>重新命名資源索引鍵</value>
+  </data>
+  <data name="RenamePromptFormat" xml:space="preserve">
+    <value>「{0}」的新名稱:</value>
+  </data>
+  <data name="RenameSummaryFormat" xml:space="preserve">
+    <value>將重新命名 {2} 個檔案中的 {0} 個定義和 {1} 個參考。</value>
+  </data>
+  <data name="RenameCodeNoteFormat" xml:space="preserve">
+    <value>程式碼中的用法(例如 FindResource("{0}"))不會重新命名。</value>
+  </data>
+  <data name="RenameSaveNote" xml:space="preserve">
+    <value>開啟的檔案會保持未儲存狀態，讓您在其中檢查並復原變更。未開啟的檔案會立即儲存。</value>
+  </data>
+  <data name="RenameInvalid" xml:space="preserve">
+    <value>索引鍵不能包含空格、引號、大括號、逗號或字元 &lt; &gt; = &amp;。</value>
+  </data>
+  <data name="RenameExistsFormat" xml:space="preserve">
+    <value>名為「{0}」的資源已存在。</value>
+  </data>
+  <data name="RenameDoneFormat" xml:space="preserve">
+    <value>已將「{0}」重新命名為「{1}」: {3} 個檔案中有 {2} 處變更。</value>
+  </data>
+  <data name="RenameButton" xml:space="preserve">
+    <value>重新命名</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>取消</value>
+  </data>
 </root>
