@@ -150,7 +150,7 @@ namespace ResourcePreview.Tests
 
         [DataTestMethod]
         [DataRow("<SolidColorBrush x:Key=\"V\" Color=\"#FFF\" />", "<Path Fill=\"White\" />", "Fill")]
-        [DataRow("<SolidColorBrush x:Key=\"V\">White</SolidColorBrush>", "<Path Fill=\"#FFFFFFFF\" />", "Fill")]
+        [DataRow("<SolidColorBrush x:Key=\"V\" Color=\"White\" />", "<Path Fill=\"#FFFFFFFF\" />", "Fill")]
         [DataRow("<Color x:Key=\"V\">#FF2D7D9A</Color>", "<GradientStop Color=\"#2D7D9A\" />", "Color")]
         [DataRow("<Thickness x:Key=\"V\">8</Thickness>", "<Border Margin=\"8,8,8,8\" />", "Margin")]
         [DataRow("<Thickness x:Key=\"V\">4,8</Thickness>", "<Border Padding=\"4 8 4 8\" />", "Padding")]
