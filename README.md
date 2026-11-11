@@ -168,6 +168,8 @@ You type `Fill="White"`, but a `WhiteBrush` already exists. Select some attribut
 
 **View > Other Windows > XAML Resources** lists the resources of the solution.
 
+![The XAML Resources window, by file and by type](https://raw.githubusercontent.com/hnsoftwaredevelopment/ResourcePreview/main/docs/images/xamlresourceswindow.png)
+
 - **By file** shows the dictionaries in the order WPF searches them from `App.xaml`, then the other files. **By type** groups them as brushes, colors, images and geometries, styles, templates and values.
 - **Only what the active file can use** follows the active .xaml file: its own resources, its merged dictionaries and those of `App.xaml`, one definition per key, the one WPF picks.
 - Each resource shows a small preview, its type, and the same notes as the Error List: overridden by another file, not in any MergedDictionaries, unused.
