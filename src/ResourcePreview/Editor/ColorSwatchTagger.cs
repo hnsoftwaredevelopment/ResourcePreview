@@ -275,9 +275,8 @@ namespace ResourcePreview.Editor
                 SnapsToDevicePixels = true,
             };
 
-            // The editor scales text with the zoom level; keep the square in proportion.
-            double scale = _view.LineHeight > 0 ? Math.Min(1.6, Math.Max(0.8, _view.LineHeight / 16)) : 1;
-            swatch.Width = swatch.Height = Math.Round(SwatchSize * scale);
+            // No scaling here: the editor zoom transforms the whole view, adornments included.
+            // ITextView.LineHeight would also throw a NullReferenceException before the first layout.
             return swatch;
         }
 
