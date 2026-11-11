@@ -44,6 +44,16 @@ namespace ResourcePreview.Preview
                 return CreateText(Localizer.Format(Strings.NoPreviewOwnTypeFormat, data.UnloadableType));
             }
 
+            // A missing key would make XamlReader throw. Caught or not, a debugger with "break when thrown"
+            // stops there, so say it without parsing.
+            if (data.MissingKeys.Count > 0)
+            {
+                string missing = Localizer.Format(Strings.MissingInSolutionFormat, string.Join(", ", data.MissingKeys));
+                return data.TemplateTree != null
+                    ? CreateTemplatePreview(data, null, data.TemplateTree.TemplateKind == "ControlTemplate" ? Localizer.Format(Strings.NoLiveSampleFormat, missing) : null)
+                    : CreateText(missing);
+            }
+
             object resource;
             try
             {
@@ -131,6 +141,13 @@ namespace ResourcePreview.Preview
             if (data.UnloadableType != null)
             {
                 return new LiveSampleRenderer.Result(null, LiveSampleRenderer.OwnTypeNote(data.UnloadableType));
+            }
+
+            if (data.MissingKeys.Count > 0)
+            {
+                // Loading would throw on the missing key; the setter table shows anyway.
+                string missing = Localizer.Format(Strings.MissingInSolutionFormat, string.Join(", ", data.MissingKeys));
+                return new LiveSampleRenderer.Result(null, Localizer.Format(Strings.NoLiveSampleFormat, missing));
             }
 
             try

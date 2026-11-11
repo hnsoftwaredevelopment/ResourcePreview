@@ -108,7 +108,10 @@ namespace ResourcePreview.Tests
         }
     }
 
-    /// <summary>Renders every SampleApp resource and checks that no exception is thrown, not even a caught one.</summary>
+    /// <summary>
+    /// Renders every SampleApp resource and checks that no exception is thrown, not even a caught one.
+    /// Includes Broken\, whose resources refer to keys that do not exist.
+    /// </summary>
     [TestClass]
     public class NoFirstChanceExceptionTests
     {
@@ -118,6 +121,7 @@ namespace ResourcePreview.Tests
         {
             XNamespace x = Xaml.X;
             return Directory.GetFiles(Path.Combine(RepoPaths.SampleApp, "Resources"), "*.xaml")
+                .Concat(Directory.GetFiles(Path.Combine(RepoPaths.SampleApp, "Broken"), "*.xaml"))
                 .SelectMany(file => XDocument.Load(file).Root.Elements())
                 .Select(e => (string)e.Attribute(x + "Key"))
                 .Where(k => k != null)
