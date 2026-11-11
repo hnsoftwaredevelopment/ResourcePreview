@@ -403,4 +403,10 @@
   <data name="CategoryValues" xml:space="preserve">
     <value>Hodnoty</value>
   </data>
+  <data name="BlockedTypeFormat" xml:space="preserve">
+    <value>Bez náhledu: {0} může při vytvoření spustit kód nebo načíst obsah z internetu, proto ho náhled nenačítá.</value>
+  </data>
+  <data name="BufferSaveFailedFormat" xml:space="preserve">
+    <value>{0} nelze uložit, například protože je jen pro čtení. Změna je otevřená v editoru a zatím není uložená.</value>
+  </data>
 </root>

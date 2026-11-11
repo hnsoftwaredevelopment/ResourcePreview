@@ -16,6 +16,7 @@ using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
+using SolutionEvents = Microsoft.VisualStudio.Shell.Events.SolutionEvents;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Threading;
 using ResourcePreview.Localization;
@@ -148,7 +149,43 @@ namespace ResourcePreview.Navigation
                 }
             }
 
+            SolutionEvents.OnAfterCloseSolution += OnSolutionClosed;
+            SolutionEvents.OnAfterOpenSolution += OnSolutionOpened;
+
             Reload();
+        }
+
+        /// <summary>The list belongs to the solution that was open: empty it, and forget its index and active file.</summary>
+        private void OnSolutionClosed(object sender, EventArgs e)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            _loading?.Cancel();
+            _reloadPause?.Cancel();
+            if (_index != null)
+            {
+                _index.FilesChanged -= OnFilesChanged;
+                _index.LiveTextChanged -= OnFilesChanged;
+                _index = null;
+            }
+
+            _graph = null;
+            _items = Array.Empty<CatalogItem>();
+            _activeFile = null;
+            _tree.Items.Clear();
+            _summary.Text = Localizer.Get(Strings.ResourcesNoFile);
+        }
+
+        private void OnSolutionOpened(object sender, EventArgs e)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            if (_root.IsVisible)
+            {
+                Reload();
+            }
+            else
+            {
+                _dirty = true;
+            }
         }
 
         // --- Loading ---
@@ -544,6 +581,8 @@ namespace ResourcePreview.Navigation
             ThreadHelper.ThrowIfNotOnUIThread();
             if (disposing)
             {
+                SolutionEvents.OnAfterCloseSolution -= OnSolutionClosed;
+                SolutionEvents.OnAfterOpenSolution -= OnSolutionOpened;
                 if (_selection != null && _selectionCookie != 0)
                 {
                     _selection.UnadviseSelectionEvents(_selectionCookie);

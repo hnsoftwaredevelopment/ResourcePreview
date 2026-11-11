@@ -41,7 +41,9 @@ namespace ResourcePreview.Preview
                     return CreateTemplatePreview(data, null, note);
                 }
 
-                return CreateText(Localizer.Format(Strings.NoPreviewOwnTypeFormat, data.UnloadableType));
+                return CreateText(Localizer.Format(
+                    global::ResourcePreview.Resources.PreviewXamlBuilder.IsBlockedType(data.UnloadableType) ? Strings.BlockedTypeFormat : Strings.NoPreviewOwnTypeFormat,
+                    data.UnloadableType));
             }
 
             // A missing key would make XamlReader throw. Caught or not, a debugger with "break when thrown"

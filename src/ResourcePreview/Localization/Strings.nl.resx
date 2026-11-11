@@ -403,4 +403,10 @@
   <data name="CategoryValues" xml:space="preserve">
     <value>Waarden</value>
   </data>
+  <data name="BlockedTypeFormat" xml:space="preserve">
+    <value>Geen preview: {0} kan code uitvoeren of inhoud van internet laden zodra het wordt gemaakt, dus de preview laadt het niet.</value>
+  </data>
+  <data name="BufferSaveFailedFormat" xml:space="preserve">
+    <value>{0} kon niet worden opgeslagen, bijvoorbeeld omdat het alleen-lezen is. De wijziging staat open in een editor en is nog niet opgeslagen.</value>
+  </data>
 </root>

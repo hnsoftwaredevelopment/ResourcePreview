@@ -403,4 +403,10 @@
   <data name="CategoryValues" xml:space="preserve">
     <value>Wartości</value>
   </data>
+  <data name="BlockedTypeFormat" xml:space="preserve">
+    <value>Brak podglądu: {0} może uruchomić kod lub pobrać zawartość z internetu podczas tworzenia, więc podgląd go nie ładuje.</value>
+  </data>
+  <data name="BufferSaveFailedFormat" xml:space="preserve">
+    <value>Nie można zapisać {0}, na przykład dlatego, że jest tylko do odczytu. Zmiana jest otwarta w edytorze i nie została jeszcze zapisana.</value>
+  </data>
 </root>

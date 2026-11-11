@@ -128,10 +128,26 @@ namespace ResourcePreview.Resources
         };
 
         /// <summary>.NET Framework and WPF assemblies that are always loaded in the Visual Studio process.</summary>
-        private static readonly HashSet<string> LoadableAssemblies = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        // sys:Double, sys:String and the like: only the System namespace of these assemblies.
+        private static readonly HashSet<string> CoreAssemblies = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
-            "mscorlib", "System", "System.Core", "System.Xml", "System.Xaml", "System.Drawing",
-            "WindowsBase", "PresentationCore", "PresentationFramework",
+            "mscorlib", "System",
+        };
+
+        // WPF itself: only System.Windows.* namespaces.
+        private static readonly HashSet<string> WpfAssemblies = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "WindowsBase", "PresentationCore", "PresentationFramework", "System.Xaml",
+        };
+
+        /// <summary>
+        /// WPF types that run code or load content when XamlReader creates them: ObjectDataProvider calls any
+        /// method (Process.Start, for one), XmlDataProvider, Frame and WebBrowser load from a URL. A .xaml file
+        /// from a cloned repository must not do that just because you hover over a key or open the resource list.
+        /// </summary>
+        private static readonly HashSet<string> BlockedElements = new HashSet<string>(StringComparer.Ordinal)
+        {
+            "ObjectDataProvider", "XmlDataProvider", "Frame", "WebBrowser",
         };
 
         /// <summary>Matches prefixed names in values: {x:Type local:Book}, {x:Static local:Icons.Save}, Property="local:Attached.Value".</summary>
@@ -171,6 +187,11 @@ namespace ResourcePreview.Resources
 
             foreach (XElement node in element.DescendantsAndSelf())
             {
+                if (BlockedElements.Contains(node.Name.LocalName))
+                {
+                    return DisplayName(node, node.Name);
+                }
+
                 if (!IsLoadableNamespace(node.Name.NamespaceName))
                 {
                     return DisplayName(node, node.Name);
@@ -202,12 +223,19 @@ namespace ResourcePreview.Resources
             return null;
         }
 
+        /// <summary>True for a type in <see cref="BlockedElements"/>, such as "ObjectDataProvider".</summary>
+        internal static bool IsBlockedType(string displayName) =>
+            displayName != null && BlockedElements.Contains(displayName.Substring(displayName.IndexOf(':') + 1));
+
         /// <summary>
-        /// Returns whether Visual Studio can load types from this namespace:
-        ///   clr-namespace:SampleApp                          no, the user's own project
-        ///   clr-namespace:MyLib;assembly=MyLib               only if MyLib is already loaded
-        ///   clr-namespace:System;assembly=System.Runtime     yes, maps to mscorlib
-        ///   http://metro.mahapps.com/winfx/xaml/controls     no, a NuGet package
+        /// Returns whether the preview may load types from this namespace:
+        ///   clr-namespace:SampleApp                               no, the user's own project
+        ///   clr-namespace:MyLib;assembly=MyLib                    no, even when Visual Studio happens to have it loaded
+        ///   clr-namespace:System;assembly=System.Runtime          yes, maps to mscorlib
+        ///   clr-namespace:System.Diagnostics;assembly=System      no: only the System namespace, for sys:Double and such
+        ///   clr-namespace:System.Windows.Media;assembly=PresentationCore   yes, WPF itself
+        ///   http://metro.mahapps.com/winfx/xaml/controls          no, a NuGet package
+        /// Any other type could run code in Visual Studio when XamlReader creates it.
         /// </summary>
         internal static bool IsLoadableNamespace(string ns)
         {
@@ -228,9 +256,15 @@ namespace ResourcePreview.Resources
                 return false; // without assembly= XAML means the project's own assembly
             }
 
+            string clrNamespace = normalized.Substring("clr-namespace:".Length, assemblyIndex - "clr-namespace:".Length).Trim();
             string assembly = normalized.Substring(assemblyIndex + ";assembly=".Length).Trim();
-            return LoadableAssemblies.Contains(assembly)
-                || AppDomain.CurrentDomain.GetAssemblies().Any(a => string.Equals(a.GetName().Name, assembly, StringComparison.OrdinalIgnoreCase));
+            if (CoreAssemblies.Contains(assembly))
+            {
+                return clrNamespace == "System";
+            }
+
+            return WpfAssemblies.Contains(assembly)
+                && (clrNamespace == "System.Windows" || clrNamespace.StartsWith("System.Windows.", StringComparison.Ordinal));
         }
 
 

@@ -403,4 +403,10 @@
   <data name="CategoryValues" xml:space="preserve">
     <value>Werte</value>
   </data>
+  <data name="BlockedTypeFormat" xml:space="preserve">
+    <value>Keine Vorschau: {0} kann beim Erstellen Code ausführen oder Inhalte aus dem Internet laden, daher lädt die Vorschau es nicht.</value>
+  </data>
+  <data name="BufferSaveFailedFormat" xml:space="preserve">
+    <value>{0} konnte nicht gespeichert werden, zum Beispiel weil die Datei schreibgeschützt ist. Die Änderung ist in einem Editor geöffnet und noch nicht gespeichert.</value>
+  </data>
 </root>

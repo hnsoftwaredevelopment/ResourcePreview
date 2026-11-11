@@ -43,6 +43,10 @@ namespace ResourcePreview.Tests
         [DataRow("<Border x:Key=\"A\" local:Help.Text=\"x\" />", "local:Help.Text")]
         [DataRow("<lib:Gauge x:Key=\"A\" />", "lib:Gauge")]
         [DataRow("<mah:MetroWindow x:Key=\"A\" />", "mah:MetroWindow")]
+        [DataRow("<ObjectDataProvider x:Key=\"A\" ObjectType=\"{x:Type sys:Environment}\" MethodName=\"Exit\" />", "ObjectDataProvider")]
+        [DataRow("<XmlDataProvider x:Key=\"A\" Source=\"http://example.com/data.xml\" />", "XmlDataProvider")]
+        [DataRow("<ControlTemplate x:Key=\"A\" TargetType=\"Button\"><Frame Source=\"http://example.com\" /></ControlTemplate>", "Frame")]
+        [DataRow("<Style x:Key=\"A\" TargetType=\"Button\"><Setter Property=\"Tag\"><Setter.Value><ObjectDataProvider /></Setter.Value></Setter></Style>", "ObjectDataProvider")]
         [DataRow("<SolidColorBrush x:Key=\"A\" Color=\"Red\" />", null)]
         [DataRow("<sys:Double x:Key=\"A\">1</sys:Double>", null)]
         [DataRow("<core:Double x:Key=\"A\">1</core:Double>", null)]
@@ -66,7 +70,13 @@ namespace ResourcePreview.Tests
         [DataRow("clr-namespace:System;assembly=mscorlib", true)]
         [DataRow("clr-namespace:System;assembly=System.Runtime", true)]
         [DataRow("clr-namespace:System.Windows.Controls;assembly=PresentationFramework", true)]
-        [DataRow("clr-namespace:Microsoft.VisualStudio.TestTools.UnitTesting;assembly=MSTest.TestFramework", true)] // already loaded
+        [DataRow("clr-namespace:Microsoft.VisualStudio.TestTools.UnitTesting;assembly=MSTest.TestFramework", false)] // loaded, but could run code
+        [DataRow("clr-namespace:System.Diagnostics;assembly=System", false)] // Process
+        [DataRow("clr-namespace:System.IO;assembly=mscorlib", false)]
+        [DataRow("clr-namespace:System;assembly=System", true)]
+        [DataRow("clr-namespace:System.Windows.Media;assembly=PresentationCore", true)]
+        [DataRow("clr-namespace:System.Windows.Markup;assembly=System.Xaml", true)]
+        [DataRow("clr-namespace:MyLib.Windows;assembly=PresentationFramework", false)]
         [DataRow("clr-namespace:MyApp", false)]
         [DataRow("clr-namespace:MyLib;assembly=MyLib", false)]
         [DataRow("http://metro.mahapps.com/winfx/xaml/controls", false)]
@@ -89,6 +99,40 @@ namespace ResourcePreview.Tests
                 PreviewXaml preview = PreviewXamlBuilder.Build(index, index.Find("Box", file, CancellationToken.None).Single(), CancellationToken.None);
                 Assert.AreEqual("local:IconSize", preview.UnloadableType);
             }
+        }
+
+        [TestMethod]
+        public void Dependency_ObjectDataProvider_IsBlocked_AndNeverRuns()
+        {
+            const string Variable = "RESOURCEPREVIEW_TEST_ODP";
+            Environment.SetEnvironmentVariable(Variable, null);
+            using (var solution = new TempSolution())
+            {
+                // An icon that depends on a provider which would call Environment.SetEnvironmentVariable when loaded.
+                string file = solution.Write("Evil.xaml", Xaml.Dictionary(
+                    "<ObjectDataProvider x:Key=\"Evil\" ObjectType=\"{x:Type sys:Environment}\" MethodName=\"SetEnvironmentVariable\">" +
+                    "<ObjectDataProvider.MethodParameters><sys:String>" + Variable + "</sys:String><sys:String>ran</sys:String></ObjectDataProvider.MethodParameters>" +
+                    "</ObjectDataProvider>" +
+                    "<DrawingImage x:Key=\"Icon\"><DrawingImage.Drawing><GeometryDrawing Brush=\"{StaticResource Evil}\" Geometry=\"M0,0 L1,1\" />" +
+                    "</DrawingImage.Drawing></DrawingImage>",
+                    "xmlns:sys=\"clr-namespace:System;assembly=mscorlib\""));
+
+                var index = ResourceIndex.ForFile(file);
+                foreach (string key in new[] { "Evil", "Icon" })
+                {
+                    ResourceEntry entry = index.Find(key, file, CancellationToken.None).Single();
+                    PreviewXaml preview = PreviewXamlBuilder.Build(index, entry, CancellationToken.None);
+                    Assert.AreEqual("ObjectDataProvider", preview.UnloadableType, key);
+                    Assert.IsTrue(PreviewXamlBuilder.IsBlockedType(preview.UnloadableType));
+
+                    // The way the tooltip and the IntelliSense icon load it.
+                    var data = new ResourcePreviewData(entry.Key, entry.ElementTypeName, preview.Xaml, preview.MissingKeys, null, null, null, preview.UnloadableType);
+                    Sta.Run(() => PreviewRenderer.Render(data));
+                    Sta.Run(() => CompletionIconFactory.Get(index, entry, System.Windows.Media.Brushes.Black));
+                }
+            }
+
+            Assert.IsNull(Environment.GetEnvironmentVariable(Variable), "the ObjectDataProvider ran");
         }
 
         [TestMethod]

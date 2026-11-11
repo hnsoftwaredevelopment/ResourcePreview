@@ -40,16 +40,104 @@ namespace ResourcePreview.Resources
             public HashSet<string> Strings { get; }
         }
 
+        // The list of code files per root, so a scan does not walk the whole folder tree each time.
+        // A watcher clears it when a file or folder is added, removed or renamed.
+        private static readonly ConcurrentDictionary<string, FileList> Lists =
+            new ConcurrentDictionary<string, FileList>(StringComparer.OrdinalIgnoreCase);
+
+        private sealed class FileList
+        {
+            public volatile string[] Files;
+
+            /// <summary>Raised on every change, so a list read during a change is not kept.</summary>
+            public int Version;
+
+            public FileSystemWatcher Watcher;
+        }
+
         public static HashSet<string> Collect(string rootDirectory, CancellationToken cancellationToken)
         {
             var result = new HashSet<string>(StringComparer.Ordinal);
-            foreach (string file in ResourceIndex.EnumerateFiles(rootDirectory, Extensions))
+            foreach (string file in GetFiles(rootDirectory))
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 result.UnionWith(Read(file));
             }
 
             return result;
+        }
+
+        /// <summary>The .cs and .vb files under the root, from the cached list when nothing was added or removed.</summary>
+        internal static string[] GetFiles(string rootDirectory)
+        {
+            FileList list = Lists.GetOrAdd(rootDirectory, Watch);
+            string[] files = list.Files;
+            if (files == null)
+            {
+                int version = Volatile.Read(ref list.Version);
+                files = ResourceIndex.EnumerateFiles(rootDirectory, Extensions).ToArray();
+                if (Volatile.Read(ref list.Version) == version)
+                {
+                    list.Files = files;
+                }
+            }
+
+            return files;
+        }
+
+        private static FileList Watch(string rootDirectory)
+        {
+            var list = new FileList();
+            try
+            {
+                var watcher = new FileSystemWatcher(rootDirectory)
+                {
+                    IncludeSubdirectories = true,
+                    NotifyFilter = NotifyFilters.FileName | NotifyFilters.DirectoryName,
+                };
+                FileSystemEventHandler changed = (s, e) => Invalidate(list, e.FullPath);
+                watcher.Created += changed;
+                watcher.Deleted += changed;
+                watcher.Renamed += (s, e) => Invalidate(list, e.FullPath);
+                watcher.Error += (s, e) =>
+                {
+                    Interlocked.Increment(ref list.Version);
+                    list.Files = null;
+                };
+                watcher.EnableRaisingEvents = true;
+                list.Watcher = watcher;
+            }
+            catch (Exception)
+            {
+                // No watcher (network drive, permissions): the list is read once and not refreshed.
+            }
+
+            return list;
+        }
+
+        /// <summary>A code file, or a folder (no extension), was added, removed or renamed.</summary>
+        private static void Invalidate(FileList list, string path)
+        {
+            string extension = Path.GetExtension(path);
+            if (extension.Length == 0 || Extensions.Any(e => extension.Equals(e, StringComparison.OrdinalIgnoreCase)))
+            {
+                Interlocked.Increment(ref list.Version);
+                list.Files = null;
+            }
+        }
+
+        /// <summary>Stops the watchers and forgets the cached files. Called when the solution closes.</summary>
+        public static void ReleaseAll()
+        {
+            foreach (string root in Lists.Keys.ToList())
+            {
+                if (Lists.TryRemove(root, out FileList list))
+                {
+                    list.Watcher?.Dispose();
+                }
+            }
+
+            Cache.Clear();
         }
 
         private static HashSet<string> Read(string file)

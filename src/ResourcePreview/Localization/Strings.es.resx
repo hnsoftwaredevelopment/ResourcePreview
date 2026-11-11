@@ -403,4 +403,10 @@
   <data name="CategoryValues" xml:space="preserve">
     <value>Valores</value>
   </data>
+  <data name="BlockedTypeFormat" xml:space="preserve">
+    <value>Sin vista previa: {0} puede ejecutar código o cargar contenido de Internet al crearse, por lo que la vista previa no lo carga.</value>
+  </data>
+  <data name="BufferSaveFailedFormat" xml:space="preserve">
+    <value>No se pudo guardar {0}, por ejemplo porque es de solo lectura. El cambio está abierto en un editor y aún no se ha guardado.</value>
+  </data>
 </root>

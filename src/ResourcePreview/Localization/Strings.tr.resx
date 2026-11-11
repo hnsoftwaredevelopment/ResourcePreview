@@ -403,4 +403,10 @@
   <data name="CategoryValues" xml:space="preserve">
     <value>Değerler</value>
   </data>
+  <data name="BlockedTypeFormat" xml:space="preserve">
+    <value>Önizleme yok: {0} oluşturulurken kod çalıştırabilir veya internetten içerik yükleyebilir, bu yüzden önizleme onu yüklemez.</value>
+  </data>
+  <data name="BufferSaveFailedFormat" xml:space="preserve">
+    <value>{0} kaydedilemedi, örneğin salt okunur olduğu için. Değişiklik bir düzenleyicide açık ve henüz kaydedilmedi.</value>
+  </data>
 </root>

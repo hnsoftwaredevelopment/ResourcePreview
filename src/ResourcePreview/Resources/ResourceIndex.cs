@@ -73,6 +73,24 @@ namespace ResourcePreview.Resources
         }
 
         /// <summary>
+        /// Drops every index and stops its file watcher. Called when the solution closes; otherwise each
+        /// solution opened in one Visual Studio session would stay in memory, with a watcher on its folder.
+        /// The next lookup starts a new index.
+        /// </summary>
+        public static void ReleaseAll()
+        {
+            foreach (string root in Indexes.Keys.ToList())
+            {
+                if (Indexes.TryRemove(root, out ResourceIndex index))
+                {
+                    index.StopWatching();
+                }
+            }
+
+            CodeStrings.ReleaseAll();
+        }
+
+        /// <summary>
         /// Stores an open editor buffer, which takes precedence over the file on disk.
         /// Keeps the previous version when the text is not valid XML, for example while typing.
         /// </summary>
@@ -425,6 +443,9 @@ namespace ResourcePreview.Resources
 
         private void StartWatching()
         {
+            // After a buffer overflow the index scans again and comes here a second time: stop the old watcher
+            // first, or both keep raising events.
+            StopWatching();
             try
             {
                 _watcher = new FileSystemWatcher(RootDirectory, "*.xaml")
@@ -445,6 +466,16 @@ namespace ResourcePreview.Resources
                 // No watcher (network drive, permissions): the index still works, but misses
                 // changes to other files until Visual Studio restarts.
                 _watcher = null;
+            }
+        }
+
+        private void StopWatching()
+        {
+            FileSystemWatcher watcher = Interlocked.Exchange(ref _watcher, null);
+            if (watcher != null)
+            {
+                watcher.EnableRaisingEvents = false;
+                watcher.Dispose();
             }
         }
 

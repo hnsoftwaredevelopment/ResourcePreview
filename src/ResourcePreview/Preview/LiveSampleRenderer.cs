@@ -285,8 +285,17 @@ namespace ResourcePreview.Preview
         /// <summary>
         /// Message for a type Visual Studio cannot load, as found by PreviewXamlBuilder.FindUnloadableType.
         /// </summary>
-        internal static string OwnTypeNote(string typeName) =>
-            string.IsNullOrEmpty(typeName) ? null : Localizer.Format(Strings.NoLiveSampleOwnTypeFormat, typeName);
+        internal static string OwnTypeNote(string typeName)
+        {
+            if (string.IsNullOrEmpty(typeName))
+            {
+                return null;
+            }
+
+            return Localizer.Format(
+                global::ResourcePreview.Resources.PreviewXamlBuilder.IsBlockedType(typeName) ? Strings.BlockedTypeFormat : Strings.NoLiveSampleOwnTypeFormat,
+                typeName);
+        }
 
         /// <summary>
         /// First line of the exception message, at most 150 characters. Strips the line/position

@@ -93,6 +93,46 @@ namespace ResourcePreview.Tests
         }
 
         [TestMethod]
+        public void CodeStrings_FileList_IsCached_AndSeesNewFiles()
+        {
+            using (var solution = new TempSolution())
+            {
+                solution.Write("A.cs", "var a = \"First\";");
+                Assert.AreEqual(1, CodeStrings.GetFiles(solution.Root).Length);
+                Assert.AreSame(CodeStrings.GetFiles(solution.Root), CodeStrings.GetFiles(solution.Root), "the list is reused");
+
+                solution.Write("Sub/B.cs", "var b = \"Second\";");
+
+                // The watcher reports the new file on its own thread.
+                var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+                while (CodeStrings.GetFiles(solution.Root).Length < 2 && stopwatch.ElapsedMilliseconds < 5000)
+                {
+                    System.Threading.Thread.Sleep(50);
+                }
+
+                CollectionAssert.IsSubsetOf(new[] { "First", "Second" }, CodeStrings.Collect(solution.Root, System.Threading.CancellationToken.None).ToArray());
+                CodeStrings.ReleaseAll();
+            }
+        }
+
+        [TestMethod]
+        public void ResourceIndex_ReleaseAll_StartsANewIndex()
+        {
+            using (var solution = new TempSolution())
+            {
+                string file = solution.Write("A.xaml", Xaml.Dictionary("<SolidColorBrush x:Key=\"K\" Color=\"Red\" />"));
+                ResourceIndex before = ResourceIndex.ForFile(file);
+                Assert.AreEqual(1, before.Find("K", file, System.Threading.CancellationToken.None).Count);
+
+                ResourceIndex.ReleaseAll();
+
+                ResourceIndex after = ResourceIndex.ForFile(file);
+                Assert.AreNotSame(before, after);
+                Assert.AreEqual(1, after.Find("K", file, System.Threading.CancellationToken.None).Count);
+            }
+        }
+
+        [TestMethod]
         public void CodeStrings_ParseLiterals()
         {
             var strings = CodeStrings.Parse("Resources[\"Accent\"] = x; Say(\"with \\\"quote\\\"\"); Dim s = \"VbText\"");
@@ -103,7 +143,8 @@ namespace ResourcePreview.Tests
         public void Sample_OnlyUnusedBrush()
         {
             string main = Path.Combine(RepoPaths.SampleApp, "MainWindow.xaml");
-            CollectionAssert.AreEqual(new[] { "UnusedBrush" }, Unused(main));
+            string[] unused = Unused(main);
+            CollectionAssert.AreEqual(new[] { "UnusedBrush" }, unused, string.Join(", ", unused));
         }
     }
 }

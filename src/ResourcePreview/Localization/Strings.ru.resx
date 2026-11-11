@@ -403,4 +403,10 @@
   <data name="CategoryValues" xml:space="preserve">
     <value>Значения</value>
   </data>
+  <data name="BlockedTypeFormat" xml:space="preserve">
+    <value>Нет предпросмотра: {0} при создании может выполнять код или загружать содержимое из интернета, поэтому предпросмотр его не загружает.</value>
+  </data>
+  <data name="BufferSaveFailedFormat" xml:space="preserve">
+    <value>Не удалось сохранить {0}, например потому что файл доступен только для чтения. Изменение открыто в редакторе и ещё не сохранено.</value>
+  </data>
 </root>

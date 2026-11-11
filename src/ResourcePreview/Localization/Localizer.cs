@@ -134,6 +134,8 @@ namespace ResourcePreview.Localization
         public const string TemplateEmpty = nameof(TemplateEmpty);
         public const string NoLiveSampleOwnTypeFormat = nameof(NoLiveSampleOwnTypeFormat);
         public const string NoPreviewOwnTypeFormat = nameof(NoPreviewOwnTypeFormat);
+        public const string BlockedTypeFormat = nameof(BlockedTypeFormat);
+        public const string BufferSaveFailedFormat = nameof(BufferSaveFailedFormat);
         public const string OptionsLiveSampleName = nameof(OptionsLiveSampleName);
         public const string OptionsLiveSampleDescription = nameof(OptionsLiveSampleDescription);
         public const string GoToResourceDefinition = nameof(GoToResourceDefinition);

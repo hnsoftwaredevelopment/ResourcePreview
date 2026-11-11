@@ -432,4 +432,10 @@
   <data name="CategoryValues" xml:space="preserve">
     <value>Values</value>
   </data>
+  <data name="BlockedTypeFormat" xml:space="preserve">
+    <value>No preview: {0} can run code or load content from the internet when it is created, so the preview does not load it.</value>
+  </data>
+  <data name="BufferSaveFailedFormat" xml:space="preserve">
+    <value>{0} could not be saved, for example because it is read-only. The change is open in an editor and not saved yet.</value>
+  </data>
 </root>

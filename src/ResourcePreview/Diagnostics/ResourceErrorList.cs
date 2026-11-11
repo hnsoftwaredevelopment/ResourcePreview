@@ -73,6 +73,10 @@ namespace ResourcePreview.Diagnostics
                 ThreadHelper.ThrowIfNotOnUIThread();
                 instance._pending?.Cancel();
                 instance.Clear();
+                instance.Watch(null);
+
+                // Free the index of the closed solution, with its file watchers.
+                ResourceIndex.ReleaseAll();
             };
             SettingsService.Changed += (s, e) =>
             {
@@ -139,7 +143,10 @@ namespace ResourcePreview.Diagnostics
             }
         }
 
-        /// <summary>Rescans when a .xaml file under the solution changes on disk, for example after a save.</summary>
+        /// <summary>
+        /// Rescans when a .xaml file changes: on disk after a save, or in an open editor (unsaved), the same as
+        /// the XAML Resources window. Null stops listening.
+        /// </summary>
         private void Watch(ResourceIndex index)
         {
             ResourceIndex previous = Interlocked.Exchange(ref _watchedIndex, index);
@@ -151,14 +158,19 @@ namespace ResourcePreview.Diagnostics
             if (previous != null)
             {
                 previous.FilesChanged -= OnFilesChanged;
+                previous.LiveTextChanged -= OnFilesChanged;
             }
 
-            index.FilesChanged += OnFilesChanged;
+            if (index != null)
+            {
+                index.FilesChanged += OnFilesChanged;
+                index.LiveTextChanged += OnFilesChanged;
+            }
         }
 
         private void OnFilesChanged(object sender, EventArgs e)
         {
-            // Raised on a FileSystemWatcher thread.
+            // Raised on a FileSystemWatcher thread, or on the thread that passed new editor text.
             _package.JoinableTaskFactory.RunAsync(async () =>
             {
                 await _package.JoinableTaskFactory.SwitchToMainThreadAsync(_package.DisposalToken);

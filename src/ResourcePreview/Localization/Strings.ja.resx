@@ -403,4 +403,10 @@
   <data name="CategoryValues" xml:space="preserve">
     <value>値</value>
   </data>
+  <data name="BlockedTypeFormat" xml:space="preserve">
+    <value>プレビューなし: {0} は作成時にコードを実行したりインターネットからコンテンツを読み込んだりできるため、プレビューでは読み込みません。</value>
+  </data>
+  <data name="BufferSaveFailedFormat" xml:space="preserve">
+    <value>{0} を保存できませんでした (読み取り専用など)。変更はエディターで開かれており、まだ保存されていません。</value>
+  </data>
 </root>

@@ -403,4 +403,10 @@
   <data name="CategoryValues" xml:space="preserve">
     <value>值</value>
   </data>
+  <data name="BlockedTypeFormat" xml:space="preserve">
+    <value>無預覽: {0} 在建立時可能執行程式碼或從網際網路載入內容，因此預覽不會載入它。</value>
+  </data>
+  <data name="BufferSaveFailedFormat" xml:space="preserve">
+    <value>無法儲存 {0}，例如因為它是唯讀的。變更已在編輯器中開啟，尚未儲存。</value>
+  </data>
 </root>

@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.TextManager.Interop;
+using ResourcePreview.Localization;
 using ResourcePreview.Resources;
 
 namespace ResourcePreview.Navigation
@@ -95,7 +96,21 @@ namespace ResourcePreview.Navigation
                 }
                 else if (textLines is IVsPersistDocData persist)
                 {
-                    persist.SaveDocData(VSSAVEFLAGS.VSSAVE_SilentSave, out string _, out int _);
+                    int result = persist.SaveDocData(VSSAVEFLAGS.VSSAVE_SilentSave, out string _, out int cancelled);
+                    if (ErrorHandler.Failed(result) || cancelled != 0)
+                    {
+                        // Read-only, locked or not checked out. Releasing the invisible editor would throw the
+                        // change away, so open the file: the editor shows the same buffer, changed and unsaved.
+                        VsShellUtilities.OpenDocument(_serviceProvider, filePath);
+                        ResourceIndex.ForFile(filePath).SetLiveText(filePath, buffer.CurrentSnapshot.GetText());
+                        VsShellUtilities.ShowMessageBox(
+                            _serviceProvider,
+                            Localizer.Format(Strings.BufferSaveFailedFormat, System.IO.Path.GetFileName(filePath)),
+                            "XAML Resource Preview",
+                            OLEMSGICON.OLEMSGICON_WARNING,
+                            OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                            OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+                    }
                 }
 
                 return changes.Count;

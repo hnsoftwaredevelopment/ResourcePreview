@@ -58,7 +58,6 @@ namespace ResourcePreview.IntelliSense
 
         private readonly ITextBuffer _textBuffer;
         private readonly ITextDocument _document;
-        private int _lastIndexedVersion = -1;
 
         public ResourceCompletionSource(ITextBuffer textBuffer, ITextDocument document)
         {
@@ -98,12 +97,8 @@ namespace ResourcePreview.IntelliSense
                 return;
             }
 
-            ITextSnapshot snapshot = caret.Value.Snapshot;
-            if (snapshot.Version.VersionNumber != _lastIndexedVersion)
-            {
-                index.SetLiveText(filePath, snapshot.GetText());
-                _lastIndexedVersion = snapshot.Version.VersionNumber;
-            }
+            // No SetLiveText here: parsing the whole file on the UI thread for every list made typing slow in
+            // large files. LiveTextTracker keeps the index up to date with the open editor in the background.
 
             // VS calls this again after each Recalculate, so items the XAML editor adds later are decorated then.
             Decorate(index, filePath, completionSets);

@@ -403,4 +403,10 @@
   <data name="CategoryValues" xml:space="preserve">
     <value>Valori</value>
   </data>
+  <data name="BlockedTypeFormat" xml:space="preserve">
+    <value>Nessuna anteprima: {0} può eseguire codice o caricare contenuti da Internet quando viene creato, quindi l'anteprima non lo carica.</value>
+  </data>
+  <data name="BufferSaveFailedFormat" xml:space="preserve">
+    <value>Impossibile salvare {0}, ad esempio perché è di sola lettura. La modifica è aperta in un editor e non è ancora salvata.</value>
+  </data>
 </root>
