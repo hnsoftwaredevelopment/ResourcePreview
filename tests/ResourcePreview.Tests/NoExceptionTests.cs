@@ -133,11 +133,32 @@ namespace ResourcePreview.Tests
         [DynamicData(nameof(AllSampleKeys))]
         public void Render_ThrowsNothing(string key)
         {
+            List<string> thrown = Render(ResourceIndex.ForFile(MainWindow), MainWindow, key);
+            Assert.AreEqual(0, thrown.Count, string.Join(Environment.NewLine, thrown));
+        }
+
+        /// <summary>A Style for an element that cannot have one: WPF refuses the TargetType, so we do not try.</summary>
+        [TestMethod]
+        [DataRow("Setter")]
+        [DataRow("GradientStop")]
+        public void Render_StyleForElementWithoutStyle_ThrowsNothing(string targetType)
+        {
+            using (var solution = new TempSolution())
+            {
+                string file = solution.Write("Styles.xaml", Xaml.Dictionary(
+                    $"<Style x:Key=\"Odd\" TargetType=\"{targetType}\"><Setter Property=\"Tag\" Value=\"White\" /></Style>"));
+                List<string> thrown = Render(ResourceIndex.ForFile(file), file, "Odd");
+                Assert.AreEqual(0, thrown.Count, string.Join(Environment.NewLine, thrown));
+            }
+        }
+
+        /// <summary>Renders a resource like the tooltip does, and returns every exception thrown on the way, caught or not.</summary>
+        private static List<string> Render(ResourceIndex index, string fromFile, string key)
+        {
             Localizer.SetCulture(CultureInfo.GetCultureInfo("en"));
 
             // Same steps as ResourceQuickInfoSource, without VS.
-            var index = ResourceIndex.ForFile(MainWindow);
-            ResourceEntry entry = index.Find(key, MainWindow, CancellationToken.None).First();
+            ResourceEntry entry = index.Find(key, fromFile, CancellationToken.None).First();
             StyleInfo style = StyleInfoBuilder.IsStyle(entry) ? StyleInfoBuilder.Build(index, entry, CancellationToken.None) : null;
             TemplateTree tree = TemplateTreeBuilder.IsTemplate(entry) ? TemplateTreeBuilder.Build(entry.Element) : null;
             PreviewXaml xaml = PreviewXamlBuilder.Build(index, entry, CancellationToken.None);
@@ -166,7 +187,7 @@ namespace ResourcePreview.Tests
                 }
             });
 
-            Assert.AreEqual(0, thrown.Count, string.Join(Environment.NewLine, thrown));
+            return thrown;
         }
     }
 

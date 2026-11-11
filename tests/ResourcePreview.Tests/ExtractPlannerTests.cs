@@ -45,6 +45,27 @@ namespace ResourcePreview.Tests
         }
 
         [TestMethod]
+        [DataRow("<Style TargetType=\"Button\">\n  <Setter Property=\"Background\" Value=\"White\" />\n</Style>", "SolidColorBrush", "ButtonBackground")]
+        [DataRow("<Style x:Key=\"S\" TargetType=\"{x:Type local:Fancy}\">\n  <Setter Property=\"Margin\" Value=\"4\" />", "Thickness", "FancyMargin")]
+        [DataRow("<Style TargetType=\"Button\">\n  <Style.Triggers>\n    <Trigger Property=\"IsMouseOver\" Value=\"True\">\n      <Setter Property=\"Foreground\" Value=\"Red\" />", "SolidColorBrush", "ButtonForeground")]
+        [DataRow("<Setter Property=\"FontSize\" Value=\"13\" />", "sys:Double", "FontSize")]
+        public void TryFind_SetterValue_UsesTheSetterProperty(string text, string expectedType, string expectedKey)
+        {
+            int caret = text.LastIndexOf("Value=\"", System.StringComparison.Ordinal) + 8;
+            ExtractCandidate candidate = ExtractPlanner.TryFind(text, caret);
+
+            Assert.AreEqual(expectedType, candidate.ResourceType);
+            Assert.AreEqual(expectedKey, ExtractPlanner.SuggestKey(candidate));
+        }
+
+        [TestMethod]
+        public void TryFind_SetterValue_UnknownProperty_Nothing()
+        {
+            const string text = "<Setter Property=\"Tag\" Value=\"White\" />";
+            Assert.IsNull(ExtractPlanner.TryFind(text, text.IndexOf("White", System.StringComparison.Ordinal) + 1));
+        }
+
+        [TestMethod]
         public void TryFind_PositionsAndNames()
         {
             string text = "<Grid>\n  <Border\n      Background=\"#FF2D7D9A\" />\n</Grid>";

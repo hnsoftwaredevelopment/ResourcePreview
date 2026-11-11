@@ -103,7 +103,7 @@ namespace ResourcePreview.Resources
                 if (type == "Style")
                 {
                     // An element with a Style cannot get a second one: "Add to style" or "Extract to style" do that.
-                    ResourceMatch match = selection.Style == null ? MatchStyle(selection, entry, byKey) : null;
+                    ResourceMatch match = selection.Style == null && selection.CanHaveStyle ? MatchStyle(selection, entry, byKey) : null;
                     if (match != null)
                     {
                         styles.Add(match);
@@ -294,6 +294,16 @@ namespace ResourcePreview.Resources
         /// True when a style for <paramref name="targetType"/> can be used on <paramref name="elementName"/>:
         /// the same type, or a base type (a Style for Shape fits a Path). Types we do not know only fit themselves.
         /// </summary>
+        /// <summary>
+        /// True when an element can have a Style: a FrameworkElement or FrameworkContentElement.
+        /// False for Setter, Trigger, GradientStop and the like, and for types we do not know.
+        /// </summary>
+        internal static bool CanHaveStyle(string elementName)
+        {
+            Type type = FindWpfType(elementName);
+            return type != null && (typeof(FrameworkElement).IsAssignableFrom(type) || typeof(FrameworkContentElement).IsAssignableFrom(type));
+        }
+
         internal static bool Fits(string elementName, string targetType)
         {
             if (string.Equals(elementName, targetType, StringComparison.Ordinal))
@@ -306,7 +316,7 @@ namespace ResourcePreview.Resources
             return element != null && target != null && target.IsAssignableFrom(element);
         }
 
-        private static Type FindWpfType(string name) =>
+        internal static Type FindWpfType(string name) =>
             WpfTypes.GetOrAdd(name, n =>
             {
                 Assembly[] assemblies = { typeof(FrameworkElement).Assembly, typeof(UIElement).Assembly, typeof(DependencyObject).Assembly };

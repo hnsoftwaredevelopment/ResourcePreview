@@ -108,7 +108,7 @@ namespace ResourcePreview.Refactoring
             if (selection.Length > 0 && selection.Snapshot == snapshot)
             {
                 AttributeSelection attributes = StylePlanner.TryFind(snapshot.GetText(), selection.Start, selection.End);
-                if (attributes != null)
+                if (attributes != null && attributes.CanHaveStyle)
                 {
                     yield return new RefactoringAction(Localizer.Get(Strings.ExtractToStyle), () => _refactorings.ExtractStyle(filePath, snapshot, attributes));
                     if (attributes.StyleKey != null)

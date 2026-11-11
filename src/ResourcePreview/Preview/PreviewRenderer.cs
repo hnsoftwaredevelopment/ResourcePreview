@@ -143,6 +143,14 @@ namespace ResourcePreview.Preview
                 return new LiveSampleRenderer.Result(null, LiveSampleRenderer.OwnTypeNote(data.UnloadableType));
             }
 
+            // A Style for a Setter, GradientStop or other element that cannot have a style: WPF refuses the
+            // TargetType. There is nothing to show live, and loading would only throw.
+            string targetType = data.Style?.TargetType;
+            if (targetType != null && !targetType.Contains(":") && global::ResourcePreview.Resources.ResourceMatcher.FindWpfType(targetType) != null && !global::ResourcePreview.Resources.ResourceMatcher.CanHaveStyle(targetType))
+            {
+                return null;
+            }
+
             if (data.MissingKeys.Count > 0)
             {
                 // Loading would throw on the missing key; the setter table shows anyway.

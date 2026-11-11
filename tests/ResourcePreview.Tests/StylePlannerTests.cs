@@ -81,6 +81,17 @@ namespace ResourcePreview.Tests
         }
 
         [TestMethod]
+        [DataRow("<Path Width=\"4\" />", true)]
+        [DataRow("<Run FontSize=\"4\" />", true)]
+        [DataRow("<Setter Property=\"Background\" Value=\"White\" />", false)]
+        [DataRow("<GradientStop Color=\"Red\" Offset=\"1\" />", false)]
+        public void CanHaveStyle_OnlyFrameworkElements(string text, bool expected)
+        {
+            AttributeSelection selection = StylePlanner.TryFind(text, text.IndexOf(' ') + 1, text.Length - 2);
+            Assert.AreEqual(expected, selection.CanHaveStyle);
+        }
+
+        [TestMethod]
         public void TryFind_MultiLineTag_KeepsItTidy()
         {
             string text = "<Path Data=\"{StaticResource Search}\"\n      Fill=\"White\"\n      Width=\"16\" />";

@@ -50,6 +50,14 @@ namespace ResourcePreview.Resources
         private const string SystemNamespace = "clr-namespace:System;assembly=mscorlib";
 
         // Name="value" where the value is plain text, not a markup extension such as {StaticResource X}.
+        private static readonly Regex SetterProperty =
+            new Regex(@"\bProperty\s*=\s*[""'](?<property>[\w.:]+)[""']", RegexOptions.Compiled);
+
+        private static readonly Regex StyleStart = new Regex(@"<(?:\w+:)?Style[\s/>]", RegexOptions.Compiled);
+
+        private static readonly Regex StyleTargetType =
+            new Regex(@"\bTargetType\s*=\s*[""'](?:\{\s*x:Type\s+(?:TypeName\s*=\s*)?)?(?<type>[\w.:]+)", RegexOptions.Compiled);
+
         private static readonly Regex Attribute = new Regex(@"(?<name>[\w.:]+)\s*=\s*""(?<value>[^""{][^""]*)""", RegexOptions.Compiled);
 
         private static readonly string[] BrushProperties = { "Background", "Foreground", "BorderBrush", "Fill", "Stroke", "CaretBrush", "SelectionBrush", "OpacityMask" };
@@ -89,14 +97,28 @@ namespace ResourcePreview.Resources
                 }
 
                 string value = match.Groups["value"].Value;
-                string type = ResourceTypeFor(name, value);
+                string elementName = FindElementName(text, lineStart + match.Index);
+                string property = name;
+                if (name == "Value" && elementName == "Setter")
+                {
+                    // <Setter Property="Background" Value="White" />: the type comes from the property in the setter,
+                    // and the key from the TargetType of the style around it: "ButtonBackground".
+                    if (!TryReadSetter(text, lineStart + match.Index, out property, out string targetType))
+                    {
+                        return null;
+                    }
+
+                    elementName = targetType ?? string.Empty;
+                }
+
+                string type = ResourceTypeFor(property, value);
                 if (type == null)
                 {
                     return null;
                 }
 
                 Group valueGroup = match.Groups["value"];
-                return new ExtractCandidate(FindElementName(text, lineStart + match.Index), name, value, lineStart + valueGroup.Index, valueGroup.Length, type);
+                return new ExtractCandidate(elementName, property, value, lineStart + valueGroup.Index, valueGroup.Length, type);
             }
 
             return null;
@@ -159,6 +181,42 @@ namespace ResourcePreview.Resources
             string[] parts = value.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
             return counts.Contains(parts.Length)
                 && parts.All(p => double.TryParse(p, NumberStyles.Float, CultureInfo.InvariantCulture, out _));
+        }
+
+        /// <summary>The Property of the Setter that holds the attribute, and the TargetType of the Style around it, if any.</summary>
+        private static bool TryReadSetter(string text, int attributeStart, out string property, out string targetType)
+        {
+            property = null;
+            targetType = null;
+            int open = text.LastIndexOf('<', Math.Max(attributeStart - 1, 0));
+            int close = open < 0 ? -1 : text.IndexOf('>', open);
+            if (open < 0 || close < 0)
+            {
+                return false;
+            }
+
+            Match setter = SetterProperty.Match(text.Substring(open, close - open));
+            if (!setter.Success)
+            {
+                return false;
+            }
+
+            property = setter.Groups["property"].Value;
+            // The last <Style before the setter; not <Style.Triggers.
+            Match lastStyle = StyleStart.Matches(text.Substring(0, open)).Cast<Match>().LastOrDefault();
+            int style = lastStyle?.Index ?? -1;
+            int styleEnd = style < 0 ? -1 : text.IndexOf('>', style);
+            if (styleEnd > style)
+            {
+                Match target = StyleTargetType.Match(text.Substring(style, styleEnd - style));
+                if (target.Success)
+                {
+                    string type = target.Groups["type"].Value;
+                    targetType = type.Substring(type.LastIndexOf(':') + 1);
+                }
+            }
+
+            return true;
         }
 
         /// <summary>The local name of the element the attribute belongs to: the last "&lt;Name" before it.</summary>

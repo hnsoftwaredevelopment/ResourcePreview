@@ -68,6 +68,12 @@ namespace ResourcePreview.Resources
 
         /// <summary>The key in Style="{StaticResource Key}", or null.</summary>
         public string StyleKey { get; }
+
+        /// <summary>
+        /// False for elements that cannot have a Style, such as a Setter or a GradientStop. Their attributes
+        /// can still use a resource each, but "Extract to style" would make a Style WPF cannot load.
+        /// </summary>
+        public bool CanHaveStyle => ResourceMatcher.CanHaveStyle(ElementName);
     }
 
     /// <summary>

@@ -89,7 +89,8 @@ namespace ResourcePreview.Refactoring
             }
 
             SnapshotSpan span = view.Selection.SelectedSpans[0];
-            return StylePlanner.TryFind(view.TextSnapshot.GetText(), span.Start.Position, span.End.Position);
+            AttributeSelection selection = StylePlanner.TryFind(view.TextSnapshot.GetText(), span.Start.Position, span.End.Position);
+            return selection != null && selection.CanHaveStyle ? selection : null; // no Style for a Setter or GradientStop
         }
 
         /// <summary>The selected attributes, or without a selection the attribute at the caret.</summary>
