@@ -310,4 +310,34 @@
   <data name="AddToStyleNotFoundFormat" xml:space="preserve">
     <value>Stil '{0}' wurde in der Projektmappe nicht gefunden.</value>
   </data>
+  <data name="FindMatchingResource" xml:space="preserve">
+    <value>Passende Ressource suchen...</value>
+  </data>
+  <data name="MatchDialogTitle" xml:space="preserve">
+    <value>Passende Ressource suchen</value>
+  </data>
+  <data name="MatchListLabel" xml:space="preserve">
+    <value>Vorhandene Ressourcen, die passen. Styles, die mehr als die ausgewählten Attribute setzen, werden nicht angezeigt.</value>
+  </data>
+  <data name="MatchStyleFormat" xml:space="preserve">
+    <value>Style für {0} · übernimmt: {1}</value>
+  </data>
+  <data name="MatchKeepsFormat" xml:space="preserve">
+    <value>Bleibt am Element: {0}</value>
+  </data>
+  <data name="MatchTriggersFormat" xml:space="preserve">
+    <value>Trigger: {0}</value>
+  </data>
+  <data name="MatchValueFormat" xml:space="preserve">
+    <value>{0} · für {1}</value>
+  </data>
+  <data name="MatchApplyButton" xml:space="preserve">
+    <value>Anwenden</value>
+  </data>
+  <data name="MatchNoneFound" xml:space="preserve">
+    <value>Keine vorhandene Ressource passt zur Auswahl.</value>
+  </data>
+  <data name="MatchAppliedFormat" xml:space="preserve">
+    <value>Das Element verwendet jetzt '{0}' aus {1}.</value>
+  </data>
 </root>

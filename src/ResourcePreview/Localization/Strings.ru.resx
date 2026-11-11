@@ -310,4 +310,34 @@
   <data name="AddToStyleNotFoundFormat" xml:space="preserve">
     <value>Стиль '{0}' не найден в решении.</value>
   </data>
+  <data name="FindMatchingResource" xml:space="preserve">
+    <value>Найти подходящий ресурс...</value>
+  </data>
+  <data name="MatchDialogTitle" xml:space="preserve">
+    <value>Найти подходящий ресурс</value>
+  </data>
+  <data name="MatchListLabel" xml:space="preserve">
+    <value>Существующие ресурсы, которые подходят. Стили, задающие больше выбранных атрибутов, не показываются.</value>
+  </data>
+  <data name="MatchStyleFormat" xml:space="preserve">
+    <value>Стиль для {0} · заменяет: {1}</value>
+  </data>
+  <data name="MatchKeepsFormat" xml:space="preserve">
+    <value>Остаётся на элементе: {0}</value>
+  </data>
+  <data name="MatchTriggersFormat" xml:space="preserve">
+    <value>Триггеры: {0}</value>
+  </data>
+  <data name="MatchValueFormat" xml:space="preserve">
+    <value>{0} · для {1}</value>
+  </data>
+  <data name="MatchApplyButton" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="MatchNoneFound" xml:space="preserve">
+    <value>Ни один существующий ресурс не подходит к выделению.</value>
+  </data>
+  <data name="MatchAppliedFormat" xml:space="preserve">
+    <value>Элемент теперь использует '{0}' из {1}.</value>
+  </data>
 </root>

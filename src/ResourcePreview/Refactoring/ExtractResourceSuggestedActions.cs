@@ -20,7 +20,8 @@ namespace ResourcePreview.Refactoring
     /// <summary>
     /// The light bulb (Ctrl+.) in a .xaml file:
     /// - on a value such as Background="#FF2D7D9A": "Extract to resource...";
-    /// - on a selection of attributes: "Extract to style...", and "Add to style 'X'" when the element has a Style.
+    /// - on a selection of attributes: "Extract to style...", and "Add to style 'X'" when the element has a Style;
+    /// - on both: "Find matching resource...".
     /// VS asks every ISuggestedActionsSourceProvider for the content type when the caret or selection changes.
     /// </summary>
     [Export(typeof(ISuggestedActionsSourceProvider))]
@@ -117,6 +118,8 @@ namespace ResourcePreview.Refactoring
                             () => _refactorings.AddToStyle(filePath, snapshot, attributes));
                     }
 
+                    yield return new RefactoringAction(Localizer.Get(Strings.FindMatchingResource), () => _refactorings.FindMatching(filePath, snapshot, attributes));
+
                     yield break;
                 }
             }
@@ -128,6 +131,13 @@ namespace ResourcePreview.Refactoring
                 if (candidate != null)
                 {
                     yield return new RefactoringAction(Localizer.Get(Strings.ExtractToResource), () => _refactorings.ExtractValue(filePath, snapshot, candidate));
+
+                    // Only where the light bulb shows anyway: a value that could also be a resource already.
+                    AttributeSelection single = StylePlanner.TryFindAt(snapshot.GetText(), caret.Position);
+                    if (single != null)
+                    {
+                        yield return new RefactoringAction(Localizer.Get(Strings.FindMatchingResource), () => _refactorings.FindMatching(filePath, snapshot, single));
+                    }
                 }
             }
         }

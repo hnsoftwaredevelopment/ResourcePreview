@@ -143,6 +143,17 @@ Select some attributes in a start tag, for example `Fill="White" Stretch="Unifor
 
 Event handlers such as `Click="OnClick"`, `x:Name` and `x:Key` stay on the element. Elements with a prefix (`local:MyControl`) are not supported, because the target file may not know that prefix.
 
+## Find an existing resource
+
+You type `Fill="White"`, but a `WhiteBrush` already exists. Select some attributes (or put the caret in one) and choose **Find Matching Resource...** from the context menu or the light bulb. A list shows the existing resources that fit; nothing changes until you pick one and click **Apply**.
+
+- **Styles** fit when every setter they have, including those from `BasedOn`, is one of the selected attributes with the same value. Selected attributes the style does not set stay on the element. A style that sets more than you selected is not shown, because it would change the look. Styles with triggers are shown with the number of triggers.
+- **Single values** fit one attribute: a `SolidColorBrush`, `Color`, `Thickness`, `CornerRadius`, `sys:Double`, `FontFamily`, `FontWeight` or `sys:String` with the same value.
+- Values are compared, not text: `White` equals `#FFFFFFFF`, `8` equals `8,8,8,8` for a margin, `16` equals `16.0`. A setter with `{StaticResource AccentBrush}` matches the color of `AccentBrush`.
+- The style's `TargetType` must fit the element: a style for `Shape` fits a `Path`.
+- Only resources the element can use are searched: the lookup order of the file, and in the file itself only resources above the element.
+- An element that already has a `Style` only gets single values.
+
 ## Settings
 
 **Tools > Options > XAML Resource Preview**, in both the new and the legacy Options dialog.

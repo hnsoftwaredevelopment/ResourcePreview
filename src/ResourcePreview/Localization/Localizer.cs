@@ -98,6 +98,16 @@ namespace ResourcePreview.Localization
         public const string AddToStyleFormat = nameof(AddToStyleFormat);
         public const string AddToStyleDoneFormat = nameof(AddToStyleDoneFormat);
         public const string AddToStyleNotFoundFormat = nameof(AddToStyleNotFoundFormat);
+        public const string FindMatchingResource = nameof(FindMatchingResource);
+        public const string MatchDialogTitle = nameof(MatchDialogTitle);
+        public const string MatchListLabel = nameof(MatchListLabel);
+        public const string MatchStyleFormat = nameof(MatchStyleFormat);
+        public const string MatchKeepsFormat = nameof(MatchKeepsFormat);
+        public const string MatchTriggersFormat = nameof(MatchTriggersFormat);
+        public const string MatchValueFormat = nameof(MatchValueFormat);
+        public const string MatchApplyButton = nameof(MatchApplyButton);
+        public const string MatchNoneFound = nameof(MatchNoneFound);
+        public const string MatchAppliedFormat = nameof(MatchAppliedFormat);
         public const string NoLiveSampleFormat = nameof(NoLiveSampleFormat);
         public const string TemplateMoreElementsFormat = nameof(TemplateMoreElementsFormat);
         public const string TemplateEmpty = nameof(TemplateEmpty);

@@ -310,4 +310,34 @@
   <data name="AddToStyleNotFoundFormat" xml:space="preserve">
     <value>在方案中找不到樣式「{0}」。</value>
   </data>
+  <data name="FindMatchingResource" xml:space="preserve">
+    <value>尋找相符的資源...</value>
+  </data>
+  <data name="MatchDialogTitle" xml:space="preserve">
+    <value>尋找相符的資源</value>
+  </data>
+  <data name="MatchListLabel" xml:space="preserve">
+    <value>符合條件的現有資源。設定內容多於所選屬性的樣式不會顯示。</value>
+  </data>
+  <data name="MatchStyleFormat" xml:space="preserve">
+    <value>{0} 的樣式 · 接管: {1}</value>
+  </data>
+  <data name="MatchKeepsFormat" xml:space="preserve">
+    <value>保留在元素上: {0}</value>
+  </data>
+  <data name="MatchTriggersFormat" xml:space="preserve">
+    <value>觸發程序: {0}</value>
+  </data>
+  <data name="MatchValueFormat" xml:space="preserve">
+    <value>{0} · 用於 {1}</value>
+  </data>
+  <data name="MatchApplyButton" xml:space="preserve">
+    <value>套用</value>
+  </data>
+  <data name="MatchNoneFound" xml:space="preserve">
+    <value>沒有與所選內容相符的現有資源。</value>
+  </data>
+  <data name="MatchAppliedFormat" xml:space="preserve">
+    <value>元素現在使用 {1} 中的 '{0}'。</value>
+  </data>
 </root>

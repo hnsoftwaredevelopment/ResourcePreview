@@ -310,4 +310,34 @@
   <data name="AddToStyleNotFoundFormat" xml:space="preserve">
     <value>Nie znaleziono stylu '{0}' w rozwiązaniu.</value>
   </data>
+  <data name="FindMatchingResource" xml:space="preserve">
+    <value>Znajdź pasujący zasób...</value>
+  </data>
+  <data name="MatchDialogTitle" xml:space="preserve">
+    <value>Znajdź pasujący zasób</value>
+  </data>
+  <data name="MatchListLabel" xml:space="preserve">
+    <value>Istniejące zasoby, które pasują. Style ustawiające więcej niż zaznaczone atrybuty nie są pokazywane.</value>
+  </data>
+  <data name="MatchStyleFormat" xml:space="preserve">
+    <value>Styl dla {0} · przejmuje: {1}</value>
+  </data>
+  <data name="MatchKeepsFormat" xml:space="preserve">
+    <value>Pozostaje w elemencie: {0}</value>
+  </data>
+  <data name="MatchTriggersFormat" xml:space="preserve">
+    <value>Wyzwalacze: {0}</value>
+  </data>
+  <data name="MatchValueFormat" xml:space="preserve">
+    <value>{0} · dla {1}</value>
+  </data>
+  <data name="MatchApplyButton" xml:space="preserve">
+    <value>Zastosuj</value>
+  </data>
+  <data name="MatchNoneFound" xml:space="preserve">
+    <value>Żaden istniejący zasób nie pasuje do zaznaczenia.</value>
+  </data>
+  <data name="MatchAppliedFormat" xml:space="preserve">
+    <value>Element używa teraz '{0}' z {1}.</value>
+  </data>
 </root>

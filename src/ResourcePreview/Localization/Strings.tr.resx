@@ -310,4 +310,34 @@
   <data name="AddToStyleNotFoundFormat" xml:space="preserve">
     <value>'{0}' stili çözümde bulunamadı.</value>
   </data>
+  <data name="FindMatchingResource" xml:space="preserve">
+    <value>Eşleşen kaynağı bul...</value>
+  </data>
+  <data name="MatchDialogTitle" xml:space="preserve">
+    <value>Eşleşen kaynağı bul</value>
+  </data>
+  <data name="MatchListLabel" xml:space="preserve">
+    <value>Uyan mevcut kaynaklar. Seçili özniteliklerden fazlasını ayarlayan stiller gösterilmez.</value>
+  </data>
+  <data name="MatchStyleFormat" xml:space="preserve">
+    <value>{0} için stil · devralır: {1}</value>
+  </data>
+  <data name="MatchKeepsFormat" xml:space="preserve">
+    <value>Öğede kalır: {0}</value>
+  </data>
+  <data name="MatchTriggersFormat" xml:space="preserve">
+    <value>Tetikleyiciler: {0}</value>
+  </data>
+  <data name="MatchValueFormat" xml:space="preserve">
+    <value>{0} · {1} için</value>
+  </data>
+  <data name="MatchApplyButton" xml:space="preserve">
+    <value>Uygula</value>
+  </data>
+  <data name="MatchNoneFound" xml:space="preserve">
+    <value>Seçime uyan mevcut kaynak yok.</value>
+  </data>
+  <data name="MatchAppliedFormat" xml:space="preserve">
+    <value>Öğe artık {1} içindeki '{0}' kaynağını kullanıyor.</value>
+  </data>
 </root>

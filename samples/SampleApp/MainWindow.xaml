@@ -73,5 +73,7 @@
             <sys:String xmlns:sys="clr-namespace:System;assembly=System.Runtime">One</sys:String>
             <sys:String xmlns:sys="clr-namespace:System;assembly=System.Runtime">Two</sys:String>
         </ItemsControl>
+        <!-- Find Matching Resource: select Padding to Background (BaseButton fits), or put the caret in Background (AccentBrush) -->
+        <Button Content="Plain" Padding="8 4" FontSize="13" Background="#FF002BBD" Foreground="White" Margin="0,8,0,0" HorizontalAlignment="Left" />
     </StackPanel>
 </Window>

@@ -310,4 +310,34 @@
   <data name="AddToStyleNotFoundFormat" xml:space="preserve">
     <value>Stijl '{0}' is niet gevonden in de solution.</value>
   </data>
+  <data name="FindMatchingResource" xml:space="preserve">
+    <value>Passende resource zoeken...</value>
+  </data>
+  <data name="MatchDialogTitle" xml:space="preserve">
+    <value>Passende resource zoeken</value>
+  </data>
+  <data name="MatchListLabel" xml:space="preserve">
+    <value>Bestaande resources die passen. Stijlen die meer zetten dan de geselecteerde attributen staan er niet tussen.</value>
+  </data>
+  <data name="MatchStyleFormat" xml:space="preserve">
+    <value>Stijl voor {0} · neemt over: {1}</value>
+  </data>
+  <data name="MatchKeepsFormat" xml:space="preserve">
+    <value>Blijft op het element: {0}</value>
+  </data>
+  <data name="MatchTriggersFormat" xml:space="preserve">
+    <value>Triggers: {0}</value>
+  </data>
+  <data name="MatchValueFormat" xml:space="preserve">
+    <value>{0} · voor {1}</value>
+  </data>
+  <data name="MatchApplyButton" xml:space="preserve">
+    <value>Toepassen</value>
+  </data>
+  <data name="MatchNoneFound" xml:space="preserve">
+    <value>Geen bestaande resource past bij de selectie.</value>
+  </data>
+  <data name="MatchAppliedFormat" xml:space="preserve">
+    <value>Het element gebruikt nu '{0}' uit {1}.</value>
+  </data>
 </root>

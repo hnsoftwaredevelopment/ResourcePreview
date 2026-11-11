@@ -310,4 +310,34 @@
   <data name="AddToStyleNotFoundFormat" xml:space="preserve">
     <value>スタイル '{0}' がソリューションに見つかりませんでした。</value>
   </data>
+  <data name="FindMatchingResource" xml:space="preserve">
+    <value>一致するリソースを検索...</value>
+  </data>
+  <data name="MatchDialogTitle" xml:space="preserve">
+    <value>一致するリソースを検索</value>
+  </data>
+  <data name="MatchListLabel" xml:space="preserve">
+    <value>条件に合う既存のリソースです。選択した属性より多くを設定するスタイルは表示されません。</value>
+  </data>
+  <data name="MatchStyleFormat" xml:space="preserve">
+    <value>{0} のスタイル · 置き換え: {1}</value>
+  </data>
+  <data name="MatchKeepsFormat" xml:space="preserve">
+    <value>要素に残る属性: {0}</value>
+  </data>
+  <data name="MatchTriggersFormat" xml:space="preserve">
+    <value>トリガー: {0}</value>
+  </data>
+  <data name="MatchValueFormat" xml:space="preserve">
+    <value>{0} · {1} 用</value>
+  </data>
+  <data name="MatchApplyButton" xml:space="preserve">
+    <value>適用</value>
+  </data>
+  <data name="MatchNoneFound" xml:space="preserve">
+    <value>選択範囲に合う既存のリソースはありません。</value>
+  </data>
+  <data name="MatchAppliedFormat" xml:space="preserve">
+    <value>要素は {1} の '{0}' を使用するようになりました。</value>
+  </data>
 </root>

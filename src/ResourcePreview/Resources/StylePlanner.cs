@@ -159,6 +159,13 @@ namespace ResourcePreview.Resources
             return selected.Count == 0 ? null : new AttributeSelection(name, tagStart, selected, style, styleKey);
         }
 
+        /// <summary>The attribute at the caret as a selection of one, or null. Also works just after the closing quote.</summary>
+        public static AttributeSelection TryFindAt(string text, int caret)
+        {
+            AttributeSelection selection = caret < text.Length ? TryFind(text, caret, caret + 1) : null;
+            return selection ?? (caret > 0 ? TryFind(text, caret - 1, caret) : null);
+        }
+
         internal static bool CanBeSetter(string name) =>
             name != "Style" && name != "Name"
             && !name.StartsWith("x:", StringComparison.Ordinal)

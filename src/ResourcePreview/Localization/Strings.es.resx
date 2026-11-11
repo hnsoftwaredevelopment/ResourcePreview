@@ -310,4 +310,34 @@
   <data name="AddToStyleNotFoundFormat" xml:space="preserve">
     <value>No se encontró el estilo '{0}' en la solución.</value>
   </data>
+  <data name="FindMatchingResource" xml:space="preserve">
+    <value>Buscar recurso coincidente...</value>
+  </data>
+  <data name="MatchDialogTitle" xml:space="preserve">
+    <value>Buscar recurso coincidente</value>
+  </data>
+  <data name="MatchListLabel" xml:space="preserve">
+    <value>Recursos existentes que encajan. No se muestran los estilos que establecen más que los atributos seleccionados.</value>
+  </data>
+  <data name="MatchStyleFormat" xml:space="preserve">
+    <value>Estilo para {0} · asume: {1}</value>
+  </data>
+  <data name="MatchKeepsFormat" xml:space="preserve">
+    <value>Se queda en el elemento: {0}</value>
+  </data>
+  <data name="MatchTriggersFormat" xml:space="preserve">
+    <value>Desencadenadores: {0}</value>
+  </data>
+  <data name="MatchValueFormat" xml:space="preserve">
+    <value>{0} · para {1}</value>
+  </data>
+  <data name="MatchApplyButton" xml:space="preserve">
+    <value>Aplicar</value>
+  </data>
+  <data name="MatchNoneFound" xml:space="preserve">
+    <value>Ningún recurso existente encaja con la selección.</value>
+  </data>
+  <data name="MatchAppliedFormat" xml:space="preserve">
+    <value>El elemento ahora usa '{0}' de {1}.</value>
+  </data>
 </root>

@@ -310,4 +310,34 @@
   <data name="AddToStyleNotFoundFormat" xml:space="preserve">
     <value>Styl '{0}' nebyl v řešení nalezen.</value>
   </data>
+  <data name="FindMatchingResource" xml:space="preserve">
+    <value>Najít odpovídající prostředek...</value>
+  </data>
+  <data name="MatchDialogTitle" xml:space="preserve">
+    <value>Najít odpovídající prostředek</value>
+  </data>
+  <data name="MatchListLabel" xml:space="preserve">
+    <value>Existující prostředky, které odpovídají. Styly, které nastavují víc než vybrané atributy, se nezobrazují.</value>
+  </data>
+  <data name="MatchStyleFormat" xml:space="preserve">
+    <value>Styl pro {0} · přebírá: {1}</value>
+  </data>
+  <data name="MatchKeepsFormat" xml:space="preserve">
+    <value>Zůstává na prvku: {0}</value>
+  </data>
+  <data name="MatchTriggersFormat" xml:space="preserve">
+    <value>Triggery: {0}</value>
+  </data>
+  <data name="MatchValueFormat" xml:space="preserve">
+    <value>{0} · pro {1}</value>
+  </data>
+  <data name="MatchApplyButton" xml:space="preserve">
+    <value>Použít</value>
+  </data>
+  <data name="MatchNoneFound" xml:space="preserve">
+    <value>Výběru neodpovídá žádný existující prostředek.</value>
+  </data>
+  <data name="MatchAppliedFormat" xml:space="preserve">
+    <value>Prvek nyní používá '{0}' z {1}.</value>
+  </data>
 </root>

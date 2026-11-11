@@ -67,6 +67,9 @@ namespace ResourcePreview.Refactoring
         public void AddToStyle(string filePath, ITextSnapshot snapshot, AttributeSelection selection) =>
             Run(() => AddToStyleAsync(filePath, snapshot, selection));
 
+        public void FindMatching(string filePath, ITextSnapshot snapshot, AttributeSelection selection) =>
+            Run(() => FindMatchingAsync(filePath, snapshot, selection));
+
         private void Run(Func<Task> action)
         {
             _joinableTaskFactory.RunAsync(action).FileAndForget("ResourcePreview/Refactoring");
@@ -188,6 +191,67 @@ namespace ResourcePreview.Refactoring
             }
 
             ShowStatus(Localizer.Format(Strings.AddToStyleDoneFormat, selection.Selected.Count, style.Key, Path.GetFileName(style.FilePath), replaced));
+        }
+
+        private async Task FindMatchingAsync(string filePath, ITextSnapshot snapshot, AttributeSelection selection)
+        {
+            await TaskScheduler.Default;
+            string text = snapshot.GetText();
+            ResourceIndex index = ResourceIndex.ForFile(filePath);
+            index.SetLiveText(filePath, text);
+            MergeGraph graph = index.GetMergeGraph(CancellationToken.None);
+            int line = snapshot.GetLineNumberFromPosition(selection.TagStart) + 1;
+            IReadOnlyList<ResourceEntry> visible = ResourceMatcher.VisibleEntries(graph, filePath, line);
+            IReadOnlyList<ResourceMatch> matches = ResourceMatcher.Find(selection, visible, CancellationToken.None);
+            List<MatchRow> rows = matches.Select(m => CreateRow(index, selection, m)).ToList();
+
+            await _joinableTaskFactory.SwitchToMainThreadAsync();
+
+            if (rows.Count == 0)
+            {
+                ShowStatus(Localizer.Get(Strings.MatchNoneFound));
+                return;
+            }
+
+            var dialog = new MatchResourceDialog(rows);
+            if (dialog.ShowModal() != true || !(dialog.Selected is ResourceMatch match) || !IsUnchanged(snapshot))
+            {
+                return;
+            }
+
+            new BufferEditor(_serviceProvider, _editorAdapters).Apply(filePath, _ => ResourceMatcher.Apply(selection, match));
+            ShowStatus(Localizer.Format(Strings.MatchAppliedFormat, match.Key, Path.GetFileName(match.Entry.FilePath)));
+        }
+
+        /// <summary>The text of one row: "Style for Path · takes over: Fill, Width" and the new attribute.</summary>
+        private static MatchRow CreateRow(ResourceIndex index, AttributeSelection selection, ResourceMatch match)
+        {
+            string covered = string.Join(", ", match.Covered.Select(a => a.Name));
+            string description;
+            string change;
+            if (match.Kind == MatchKind.Style)
+            {
+                var parts = new List<string> { Localizer.Format(Strings.MatchStyleFormat, StyleInfoBuilder.ReadTargetType(match.Entry.Element), covered) };
+                if (match.Remaining.Count > 0)
+                {
+                    parts.Add(Localizer.Format(Strings.MatchKeepsFormat, string.Join(", ", match.Remaining.Select(a => a.Name))));
+                }
+
+                if (match.TriggerCount > 0)
+                {
+                    parts.Add(Localizer.Format(Strings.MatchTriggersFormat, match.TriggerCount));
+                }
+
+                description = string.Join(" · ", parts);
+                change = "Style=\"{StaticResource " + match.Key + "}\"";
+            }
+            else
+            {
+                description = Localizer.Format(Strings.MatchValueFormat, match.Entry.ElementTypeName, covered);
+                change = covered + "=\"{StaticResource " + match.Key + "}\"";
+            }
+
+            return new MatchRow(match, match.Key, description, change, ReferenceChecker.Relative(index, match.Entry.FilePath) + ":" + match.Entry.LineNumber);
         }
 
         /// <summary>The positions are from the snapshot the action saw. Stop if the text changed since.</summary>

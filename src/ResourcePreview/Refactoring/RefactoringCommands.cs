@@ -13,14 +13,15 @@ using Task = System.Threading.Tasks.Task;
 namespace ResourcePreview.Refactoring
 {
     /// <summary>
-    /// The light bulb actions also in the context menu: "Extract to Resource...", "Extract to Style..." and
-    /// "Add to Existing Style". Each item only shows when it applies to the caret or selection.
+    /// The light bulb actions also in the context menu: "Extract to Resource...", "Extract to Style...",
+    /// "Add to Existing Style" and "Find Matching Resource...". Each item only shows when it applies to the caret or selection.
     /// </summary>
     internal sealed class RefactoringCommands
     {
         public const int ExtractToResourceId = 0x0103;
         public const int ExtractToStyleId = 0x0104;
         public const int AddToStyleId = 0x0105;
+        public const int FindMatchingResourceId = 0x0106;
 
         private readonly AsyncPackage _package;
         private readonly IVsEditorAdaptersFactoryService _editorAdapters;
@@ -54,6 +55,7 @@ namespace ResourcePreview.Refactoring
             instance.Add(commandService, ExtractToResourceId, instance.ExtractToResourceStatus, instance.ExtractToResource);
             instance.Add(commandService, ExtractToStyleId, instance.ExtractToStyleStatus, instance.ExtractToStyle);
             instance.Add(commandService, AddToStyleId, instance.AddToStyleStatus, instance.AddToStyle);
+            instance.Add(commandService, FindMatchingResourceId, instance.FindMatchingStatus, instance.FindMatching);
         }
 
         private void Add(OleMenuCommandService commandService, int id, Action<OleMenuCommand> status, Action execute)
@@ -88,6 +90,26 @@ namespace ResourcePreview.Refactoring
 
             SnapshotSpan span = view.Selection.SelectedSpans[0];
             return StylePlanner.TryFind(view.TextSnapshot.GetText(), span.Start.Position, span.End.Position);
+        }
+
+        /// <summary>The selected attributes, or without a selection the attribute at the caret.</summary>
+        private AttributeSelection FindSearchInput(out IWpfTextView view, out string filePath)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            view = CaretResource.TryGetActiveXamlView(_package, _editorAdapters, _documents, out filePath);
+            if (view == null)
+            {
+                return null;
+            }
+
+            string text = view.TextSnapshot.GetText();
+            if (HasSelection(view))
+            {
+                SnapshotSpan span = view.Selection.SelectedSpans[0];
+                return StylePlanner.TryFind(text, span.Start.Position, span.End.Position);
+            }
+
+            return StylePlanner.TryFindAt(text, view.Caret.Position.BufferPosition.Position);
         }
 
         private static bool HasSelection(IWpfTextView view) =>
@@ -142,6 +164,22 @@ namespace ResourcePreview.Refactoring
             if (selection?.StyleKey != null)
             {
                 _refactorings.AddToStyle(filePath, view.TextSnapshot, selection);
+            }
+        }
+
+        private void FindMatchingStatus(OleMenuCommand command)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            Show(command, FindSearchInput(out _, out _) != null, Localizer.Get(Strings.FindMatchingResource));
+        }
+
+        private void FindMatching()
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            AttributeSelection selection = FindSearchInput(out IWpfTextView view, out string filePath);
+            if (selection != null)
+            {
+                _refactorings.FindMatching(filePath, view.TextSnapshot, selection);
             }
         }
 

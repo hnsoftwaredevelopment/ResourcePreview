@@ -10,7 +10,10 @@ param([string]$Configuration = 'Debug')
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
 $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
-$vs = & $vswhere -latest -prerelease -products * -requires Microsoft.Component.MSBuild -property installationPath
+# Prefer a full IDE: Build Tools may be newer but lack the .NET SDK resolver and the VSSDK build tasks.
+$ides = 'Microsoft.VisualStudio.Product.Enterprise', 'Microsoft.VisualStudio.Product.Professional', 'Microsoft.VisualStudio.Product.Community'
+$vs = & $vswhere -latest -prerelease -products $ides -requires Microsoft.Component.MSBuild -property installationPath
+if (-not $vs) { $vs = & $vswhere -latest -prerelease -products * -requires Microsoft.Component.MSBuild -property installationPath }
 if (-not $vs) { throw 'No Visual Studio installation with MSBuild found.' }
 
 $msbuild = Join-Path $vs 'MSBuild\Current\Bin\MSBuild.exe'
