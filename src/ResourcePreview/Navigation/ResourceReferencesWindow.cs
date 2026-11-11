@@ -33,6 +33,7 @@ namespace ResourcePreview.Navigation
             _root.SetResourceReference(Panel.BackgroundProperty, EnvironmentColors.ToolWindowBackgroundBrushKey);
             _summary.SetResourceReference(TextBlock.ForegroundProperty, EnvironmentColors.ToolWindowTextBrushKey);
             _tree.SetResourceReference(FrameworkElement.StyleProperty, VsResourceKeys.ThemedDialogTreeViewStyleKey);
+            _tree.SetResourceReference(Control.ForegroundProperty, EnvironmentColors.ToolWindowTextBrushKey);
 
             DockPanel.SetDock(_summary, Dock.Top);
             _root.Children.Add(_summary);
@@ -133,12 +134,8 @@ namespace ResourcePreview.Navigation
             return item;
         }
 
-        private static TextBlock CreateText(string text, double opacity)
-        {
-            var block = new TextBlock { Text = text, Opacity = opacity };
-            block.SetResourceReference(TextBlock.ForegroundProperty, EnvironmentColors.ToolWindowTextBrushKey);
-            return block;
-        }
+        /// <summary>No Foreground of its own, so a selected item uses the selected-text color of the theme.</summary>
+        private static TextBlock CreateText(string text, double opacity) => new TextBlock { Text = text, Opacity = opacity };
 
         private static string Shorten(string text) => text.Length > 160 ? text.Substring(0, 159) + "…" : text;
     }

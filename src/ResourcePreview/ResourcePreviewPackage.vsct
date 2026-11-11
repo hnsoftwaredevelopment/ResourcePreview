@@ -2,6 +2,8 @@
 <CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <Extern href="stdidcmd.h" />
   <Extern href="vsshlids.h" />
+  <!-- The image monikers of VS, for the icon of the XAML Resources menu item. -->
+  <Include href="KnownImageIds.vsct" />
 
   <Commands package="guidResourcePreviewPackage">
     <Groups>
@@ -99,6 +101,8 @@
       <!-- View > Other Windows > XAML Resources. Always visible, so VS loads the package when it is clicked. -->
       <Button guid="guidResourcePreviewCmdSet" id="cmdidOpenResourcesWindow" priority="0x0100" type="Button">
         <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
+        <Icon guid="ImageCatalogGuid" id="ResourceView" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>XAML Resources</ButtonText>

@@ -30,6 +30,7 @@ namespace ResourcePreview.Resources
         private readonly object _scanGate = new object();
         private readonly Dictionary<string, XamlFileModel> _entriesByFile = new Dictionary<string, XamlFileModel>(StringComparer.OrdinalIgnoreCase);
         private readonly Dictionary<string, XamlFileModel> _liveOverrides = new Dictionary<string, XamlFileModel>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, string> _liveTexts = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         private readonly ConcurrentDictionary<string, string> _projectDirectories = new ConcurrentDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         private readonly HashSet<string> _dirtyFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         private List<string> _projectFiles = new List<string>();
@@ -58,6 +59,12 @@ namespace ResourcePreview.Resources
         /// </summary>
         public event EventHandler FilesChanged;
 
+        /// <summary>
+        /// Raised on the calling thread when an open editor buffer brings resources the index did not have yet:
+        /// unsaved edits, such as a resource added by "Extract to resource" in a file that is open.
+        /// </summary>
+        public event EventHandler LiveTextChanged;
+
         /// <summary>Returns the index for the solution containing this file. One index per solution folder.</summary>
         public static ResourceIndex ForFile(string filePath)
         {
@@ -71,6 +78,15 @@ namespace ResourcePreview.Resources
         /// </summary>
         public void SetLiveText(string filePath, string text)
         {
+            // Hovers and lookups pass the same text again and again: skip parsing it twice.
+            lock (_gate)
+            {
+                if (_liveTexts.TryGetValue(filePath, out string known) && string.Equals(known, text, StringComparison.Ordinal))
+                {
+                    return;
+                }
+            }
+
             XamlFileModel model = ParseModel(filePath, text);
             if (model == null)
             {
@@ -80,18 +96,29 @@ namespace ResourcePreview.Resources
             lock (_gate)
             {
                 _liveOverrides[filePath] = model;
+                _liveTexts[filePath] = text;
                 _version++;
             }
+
+            LiveTextChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public void ClearLiveText(string filePath)
         {
+            bool removed;
             lock (_gate)
             {
-                if (_liveOverrides.Remove(filePath))
+                _liveTexts.Remove(filePath);
+                removed = _liveOverrides.Remove(filePath);
+                if (removed)
                 {
                     _version++;
                 }
+            }
+
+            if (removed)
+            {
+                LiveTextChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 

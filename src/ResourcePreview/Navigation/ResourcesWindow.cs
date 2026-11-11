@@ -13,6 +13,7 @@ using System.Windows.Media;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Editor;
+using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -53,6 +54,8 @@ namespace ResourcePreview.Navigation
         private IReadOnlyList<CatalogItem> _items = Array.Empty<CatalogItem>();
         private string _activeFile;
         private CancellationTokenSource _loading;
+        private CancellationTokenSource _reloadPause;
+        private bool _dirty;
         private Point _dragStart;
         private CatalogItem _dragItem;
 
@@ -61,9 +64,13 @@ namespace ResourcePreview.Navigation
         {
             Caption = Localizer.Get(Strings.ResourcesWindowTitle);
 
+            // The same icon as the menu item, on the tab of the window.
+            BitmapImageMoniker = KnownMonikers.ResourceView;
+
             _root.SetResourceReference(Panel.BackgroundProperty, EnvironmentColors.ToolWindowBackgroundBrushKey);
             _summary.SetResourceReference(TextBlock.ForegroundProperty, EnvironmentColors.ToolWindowTextBrushKey);
             _tree.SetResourceReference(FrameworkElement.StyleProperty, VsResourceKeys.ThemedDialogTreeViewStyleKey);
+            _tree.SetResourceReference(Control.ForegroundProperty, EnvironmentColors.ToolWindowTextBrushKey);
             _search.SetResourceReference(FrameworkElement.StyleProperty, VsResourceKeys.TextBoxStyleKey);
             _grouping.SetResourceReference(FrameworkElement.StyleProperty, VsResourceKeys.ComboBoxStyleKey);
             _refresh.SetResourceReference(FrameworkElement.StyleProperty, VsResourceKeys.ButtonStyleKey);
@@ -108,6 +115,16 @@ namespace ResourcePreview.Navigation
             _root.Children.Add(_summary);
             _root.Children.Add(_tree);
             Content = _root;
+
+            // A hidden tab does not reload on every change; it catches up when it is shown again.
+            _root.IsVisibleChanged += (s, e) =>
+            {
+                ThreadHelper.ThrowIfNotOnUIThread();
+                if (_root.IsVisible && _dirty)
+                {
+                    Reload();
+                }
+            };
         }
 
         /// <summary>Called by VS after the window is created, also when VS restores it at startup.</summary>
@@ -145,6 +162,7 @@ namespace ResourcePreview.Navigation
                 return;
             }
 
+            _dirty = false;
             _loading?.Cancel();
             _loading = new CancellationTokenSource();
             CancellationToken token = _loading.Token;
@@ -187,9 +205,11 @@ namespace ResourcePreview.Navigation
                     if (_index != null)
                     {
                         _index.FilesChanged -= OnFilesChanged;
+                        _index.LiveTextChanged -= OnFilesChanged;
                     }
 
                     index.FilesChanged += OnFilesChanged;
+                    index.LiveTextChanged += OnFilesChanged;
                 }
 
                 _index = index;
@@ -199,14 +219,36 @@ namespace ResourcePreview.Navigation
             }).FileAndForget("ResourcePreview/ResourcesWindow");
         }
 
-        /// <summary>A .xaml file changed on disk: load again after a short pause, so a save of several files is one load.</summary>
+        /// <summary>
+        /// A .xaml file changed, on disk or in an open editor: load again after a short pause, so a save of
+        /// several files or a burst of edits is one load. Arrives on any thread.
+        /// </summary>
         private void OnFilesChanged(object sender, EventArgs e)
         {
             _package.JoinableTaskFactory.RunAsync(async () =>
             {
-                await Task.Delay(1000);
                 await _package.JoinableTaskFactory.SwitchToMainThreadAsync();
-                Reload();
+                _reloadPause?.Cancel();
+                _reloadPause = new CancellationTokenSource();
+                CancellationToken token = _reloadPause.Token;
+                try
+                {
+                    await Task.Delay(700, token);
+                }
+                catch (OperationCanceledException)
+                {
+                    return; // a newer change restarts the pause
+                }
+
+                await _package.JoinableTaskFactory.SwitchToMainThreadAsync();
+                if (_root.IsVisible)
+                {
+                    Reload();
+                }
+                else
+                {
+                    _dirty = true;
+                }
             }).FileAndForget("ResourcePreview/ResourcesWindow");
         }
 
@@ -444,12 +486,12 @@ namespace ResourcePreview.Navigation
             }
         }
 
-        private static TextBlock Text(string text, double opacity)
-        {
-            var block = new TextBlock { Text = text, Opacity = opacity, VerticalAlignment = VerticalAlignment.Center };
-            block.SetResourceReference(TextBlock.ForegroundProperty, EnvironmentColors.ToolWindowTextBrushKey);
-            return block;
-        }
+        /// <summary>
+        /// Text in a tree item. No Foreground of its own: it inherits from the TreeViewItem, whose themed style
+        /// switches to the selected-text color. A fixed color stayed white on the white selection in a dark theme.
+        /// </summary>
+        private static TextBlock Text(string text, double opacity) =>
+            new TextBlock { Text = text, Opacity = opacity, VerticalAlignment = VerticalAlignment.Center };
 
         /// <summary>A grey hint in an empty text box.</summary>
         private static UIElement WithPlaceholder(TextBox box, string hint)
@@ -511,9 +553,11 @@ namespace ResourcePreview.Navigation
                 if (_index != null)
                 {
                     _index.FilesChanged -= OnFilesChanged;
+                    _index.LiveTextChanged -= OnFilesChanged;
                 }
 
                 _loading?.Cancel();
+                _reloadPause?.Cancel();
             }
 
             base.Dispose(disposing);

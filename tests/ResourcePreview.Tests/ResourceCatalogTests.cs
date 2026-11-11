@@ -142,6 +142,31 @@ namespace ResourcePreview.Tests
         }
 
         [TestMethod]
+        public void LiveText_NewResource_RaisesChanged_SameTextDoesNot()
+        {
+            using (var solution = new TempSolution())
+            {
+                string main = Setup(solution);
+                string file = Path.Combine(solution.Root, "A.xaml");
+                ResourceIndex index = ResourceIndex.ForFile(main);
+                Assert.IsFalse(Build(main, activeOnly: false).Any(i => i.Key == "Unsaved"));
+
+                int raised = 0;
+                index.LiveTextChanged += (s, e) => raised++;
+                string text = Xaml.Dictionary(Brush("Shared") + Brush("OnlyA") + Brush("Unsaved"));
+                index.SetLiveText(file, text);
+                index.SetLiveText(file, text);
+
+                Assert.AreEqual(1, raised);
+                Assert.IsTrue(Build(main, activeOnly: false).Any(i => i.Key == "Unsaved"));
+
+                index.ClearLiveText(file);
+                Assert.AreEqual(2, raised);
+                Assert.IsFalse(Build(main, activeOnly: false).Any(i => i.Key == "Unsaved"));
+            }
+        }
+
+        [TestMethod]
         public void Sample_KnownNotes()
         {
             string main = Path.Combine(RepoPaths.SampleApp, "MainWindow.xaml");
