@@ -185,7 +185,7 @@
     <value>IntelliSense'te önizleme göster</value>
   </data>
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
-    <value>{StaticResource veya {DynamicResource sonrasındaki IntelliSense listesinde resimler, geometriler ve fırçalar için bir simge, seçili öğenin araç ipucunda ise önizlemeyi gösterir.</value>
+    <value>{StaticResource veya {DynamicResource sonrasındaki IntelliSense listesinde seçili öğenin araç ipucunda, üzerine gelindiğindeki önizlemenin aynısını gösterir.</value>
   </data>
   <data name="MissingStaticKeyFormat" xml:space="preserve">
     <value>'{0}' bu çözümün hiçbir yerinde tanımlı değil. WPF bu StaticResource'u yüklerken bir özel durum oluşturur.</value>

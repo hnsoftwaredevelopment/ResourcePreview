@@ -185,7 +185,7 @@
     <value>Показывать предпросмотр в IntelliSense</value>
   </data>
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
-    <value>Показывает значок изображений, геометрий и кистей в списке IntelliSense после {StaticResource или {DynamicResource, а также предпросмотр во всплывающей подсказке выбранного элемента.</value>
+    <value>Показывает тот же предпросмотр, что и при наведении, во всплывающей подсказке выбранного элемента списка IntelliSense после {StaticResource или {DynamicResource.</value>
   </data>
   <data name="MissingStaticKeyFormat" xml:space="preserve">
     <value>'{0}' нигде не определён в этом решении. WPF выдаёт исключение при загрузке этого StaticResource.</value>

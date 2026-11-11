@@ -185,7 +185,7 @@
     <value>Zobrazovat náhledy v IntelliSense</value>
   </data>
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
-    <value>Zobrazí ikonu obrázků, geometrií a štětců v seznamu IntelliSense za {StaticResource nebo {DynamicResource a náhled v popisku vybrané položky.</value>
+    <value>Zobrazí stejný náhled jako při najetí myší v popisku vybrané položky seznamu IntelliSense po {StaticResource nebo {DynamicResource.</value>
   </data>
   <data name="MissingStaticKeyFormat" xml:space="preserve">
     <value>'{0}' není v tomto řešení nikde definován. WPF při načítání tohoto StaticResource vyvolá výjimku.</value>

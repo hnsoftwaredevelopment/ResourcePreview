@@ -8,6 +8,8 @@ Click the preview or the file name to jump to the definition.
 
 Works in Visual Studio 2022 (17.14 and later) and Visual Studio 2026.
 
+Version 1.5 adds checks in the Error List, refactorings, color swatches and a window with all resources. See the [changelog](https://github.com/hnsoftwaredevelopment/ResourcePreview/blob/main/CHANGELOG.md).
+
 ## Icons, brushes and images
 
 Geometries, drawings, `DrawingImage`, `BitmapImage` and brushes are drawn on a light and a dark tile, so a white icon stays visible in a light theme and a black one in a dark theme. Below the tiles you see the type and size.
@@ -199,7 +201,7 @@ The window refreshes when a .xaml file is saved, or with the refresh button.
 | Warn about overridden keys | On | Warnings in the Error List for definitions WPF never uses. |
 | Check resource references | On | Error List entries for references WPF will not resolve. |
 | Report unused resources | On | Error List messages for resources nothing uses. |
-| Show previews in IntelliSense | On | Icons and the preview tooltip in the IntelliSense list. |
+| Show previews in IntelliSense | On | The preview tooltip in the IntelliSense list. |
 | Tile size | 64 | Size of a preview tile in pixels, 16 to 256. |
 | Tiles | Light and dark | Both tiles, or only one of them. |
 | Tile colors | | Foreground and background of each tile. The foreground is used for geometries, which have no color of their own. |

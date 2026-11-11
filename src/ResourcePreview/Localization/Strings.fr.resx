@@ -185,7 +185,7 @@
     <value>Afficher les aperçus dans IntelliSense</value>
   </data>
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
-    <value>Affiche une icône pour les images, géométries et pinceaux dans la liste IntelliSense après {StaticResource ou {DynamicResource, et l'aperçu dans l'info-bulle de l'élément sélectionné.</value>
+    <value>Affiche le même aperçu qu'au survol dans l'info-bulle de l'élément sélectionné de la liste IntelliSense après {StaticResource ou {DynamicResource.</value>
   </data>
   <data name="MissingStaticKeyFormat" xml:space="preserve">
     <value>'{0}' n'est défini nulle part dans cette solution. WPF lève une exception lors du chargement de cette StaticResource.</value>

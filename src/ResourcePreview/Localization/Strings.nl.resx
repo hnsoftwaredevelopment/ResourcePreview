@@ -185,7 +185,7 @@
     <value>Previews tonen in IntelliSense</value>
   </data>
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
-    <value>Toont een icoon voor afbeeldingen, geometrieën en brushes in de IntelliSense-lijst na {StaticResource of {DynamicResource, en de preview in de tooltip van het geselecteerde item.</value>
+    <value>Toont dezelfde preview als bij hoveren in de tooltip van het geselecteerde item in de IntelliSense-lijst na {StaticResource of {DynamicResource.</value>
   </data>
   <data name="MissingStaticKeyFormat" xml:space="preserve">
     <value>'{0}' is nergens in deze solution gedefinieerd. WPF geeft een exceptie bij het laden van deze StaticResource.</value>

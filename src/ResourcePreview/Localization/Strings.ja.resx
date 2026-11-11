@@ -185,7 +185,7 @@
     <value>IntelliSense にプレビューを表示する</value>
   </data>
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
-    <value>{StaticResource または {DynamicResource の後の IntelliSense 一覧で、画像、ジオメトリ、ブラシのアイコンを表示し、選択した項目のツールヒントにプレビューを表示します。</value>
+    <value>{StaticResource または {DynamicResource の後の IntelliSense 一覧で、選択した項目のツールヒントにホバー時と同じプレビューを表示します。</value>
   </data>
   <data name="MissingStaticKeyFormat" xml:space="preserve">
     <value>'{0}' はこのソリューションのどこにも定義されていません。WPF はこの StaticResource を読み込むときに例外をスローします。</value>

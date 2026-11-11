@@ -4,27 +4,27 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Windows.Media;
 using Microsoft.VisualStudio.Language.Intellisense;
-using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Threading;
 using Microsoft.VisualStudio.Utilities;
 using ResourcePreview.Options;
-using ResourcePreview.Preview;
 using ResourcePreview.Resources;
 using Task = System.Threading.Tasks.Task;
 
 namespace ResourcePreview.IntelliSense
 {
     /// <summary>
-    /// Adds icons to the IntelliSense list of the XAML editor after {StaticResource and {DynamicResource.
+    /// Previews in the IntelliSense list of the XAML editor after {StaticResource and {DynamicResource.
     ///
     /// The XAML editor fills that list with its own completion source ("XAML Completion Source", the
     /// classic ICompletionSource API). We add no items of our own, which would give every key twice.
-    /// Instead this source runs after the XAML one and decorates its items: an icon, and a note in the
-    /// item's property bag that <see cref="ResourceCompletionToolTipProvider"/> uses for the tooltip.
+    /// Instead this source runs after the XAML one and puts the definition in each item's property bag,
+    /// which <see cref="ResourceCompletionToolTipProvider"/> uses for the tooltip.
+    ///
+    /// No icons: the XAML items carry an image moniker, and Visual Studio shows that one, never
+    /// Completion.IconSource. Making icons anyway only cost time on the UI thread while typing.
     /// </summary>
     [Export(typeof(ICompletionSourceProvider))]
     [Name("XAML Resource Preview Completion")]
@@ -108,7 +108,6 @@ namespace ResourcePreview.IntelliSense
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            Brush foreground = GetForeground();
             foreach (CompletionSet set in completionSets.ToList())
             {
                 if (set.Completions.Count > MaxDecoratedItems)
@@ -132,31 +131,12 @@ namespace ResourcePreview.IntelliSense
 
                     item.Properties.AddProperty(typeof(ResourceEntry), entry);
                     item.Properties.AddProperty(typeof(ResourceIndex), index);
-
-                    ImageSource icon = CompletionIconFactory.Get(index, entry, foreground);
-                    if (icon != null)
-                    {
-                        item.IconSource = icon;
-                    }
                 }
             }
-        }
-
-        /// <summary>Text color of the IntelliSense list in the current theme, for geometries without a color.</summary>
-        private static Brush GetForeground()
-        {
-            var brush = new SolidColorBrush(VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowTextColorKey).ToMediaColor());
-            brush.Freeze();
-            return brush;
         }
 
         public void Dispose()
         {
         }
-    }
-
-    internal static class ColorExtensions
-    {
-        public static Color ToMediaColor(this System.Drawing.Color color) => Color.FromArgb(color.A, color.R, color.G, color.B);
     }
 }

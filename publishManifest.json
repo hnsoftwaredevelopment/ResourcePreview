@@ -27,6 +27,38 @@
     {
       "pathOnDisk": "docs/images/values.png",
       "targetPath": "docs/images/values.png"
+    },
+    {
+      "pathOnDisk": "docs/images/overridden.png",
+      "targetPath": "docs/images/overridden.png"
+    },
+    {
+      "pathOnDisk": "docs/images/errorlist.png",
+      "targetPath": "docs/images/errorlist.png"
+    },
+    {
+      "pathOnDisk": "docs/images/intellisense.png",
+      "targetPath": "docs/images/intellisense.png"
+    },
+    {
+      "pathOnDisk": "docs/images/references.png",
+      "targetPath": "docs/images/references.png"
+    },
+    {
+      "pathOnDisk": "docs/images/extract.png",
+      "targetPath": "docs/images/extract.png"
+    },
+    {
+      "pathOnDisk": "docs/images/swatches.png",
+      "targetPath": "docs/images/swatches.png"
+    },
+    {
+      "pathOnDisk": "docs/images/findmatching.png",
+      "targetPath": "docs/images/findmatching.png"
+    },
+    {
+      "pathOnDisk": "docs/images/xamlresourceswindow.png",
+      "targetPath": "docs/images/xamlresourceswindow.png"
     }
   ]
 }

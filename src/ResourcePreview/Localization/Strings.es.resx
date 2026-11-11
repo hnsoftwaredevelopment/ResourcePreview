@@ -185,7 +185,7 @@
     <value>Mostrar vistas previas en IntelliSense</value>
   </data>
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
-    <value>Muestra un icono para imágenes, geometrías y pinceles en la lista de IntelliSense después de {StaticResource o {DynamicResource, y la vista previa en la información sobre herramientas del elemento seleccionado.</value>
+    <value>Muestra la misma vista previa que al pasar el ratón en la información sobre herramientas del elemento seleccionado de la lista de IntelliSense después de {StaticResource o {DynamicResource.</value>
   </data>
   <data name="MissingStaticKeyFormat" xml:space="preserve">
     <value>'{0}' no está definido en ninguna parte de esta solución. WPF produce una excepción al cargar este StaticResource.</value>

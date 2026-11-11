@@ -185,7 +185,7 @@
     <value>Mostra anteprime in IntelliSense</value>
   </data>
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
-    <value>Mostra un'icona per immagini, geometrie e pennelli nell'elenco IntelliSense dopo {StaticResource o {DynamicResource, e l'anteprima nella descrizione comando dell'elemento selezionato.</value>
+    <value>Mostra la stessa anteprima del passaggio del mouse nella descrizione comando dell'elemento selezionato nell'elenco IntelliSense dopo {StaticResource o {DynamicResource.</value>
   </data>
   <data name="MissingStaticKeyFormat" xml:space="preserve">
     <value>'{0}' non è definito in nessuna parte di questa soluzione. WPF genera un'eccezione quando carica questa StaticResource.</value>

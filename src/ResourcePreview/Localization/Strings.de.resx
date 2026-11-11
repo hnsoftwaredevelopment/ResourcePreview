@@ -185,7 +185,7 @@
     <value>Vorschau in IntelliSense anzeigen</value>
   </data>
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
-    <value>Zeigt in der IntelliSense-Liste nach {StaticResource oder {DynamicResource ein Symbol für Bilder, Geometrien und Pinsel sowie die Vorschau in der QuickInfo des ausgewählten Eintrags.</value>
+    <value>Zeigt im Tooltip des ausgewählten Elements der IntelliSense-Liste nach {StaticResource oder {DynamicResource dieselbe Vorschau wie beim Zeigen mit der Maus.</value>
   </data>
   <data name="MissingStaticKeyFormat" xml:space="preserve">
     <value>'{0}' ist in dieser Projektmappe nirgends definiert. WPF löst beim Laden dieser StaticResource eine Ausnahme aus.</value>

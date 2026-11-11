@@ -185,7 +185,7 @@
     <value>在 IntelliSense 中顯示預覽</value>
   </data>
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
-    <value>在 {StaticResource 或 {DynamicResource 之後的 IntelliSense 清單中顯示影像、幾何圖形和筆刷的圖示，並在所選項目的工具提示中顯示預覽。</value>
+    <value>在 {StaticResource 或 {DynamicResource 之後的 IntelliSense 清單中，所選項目的工具提示會顯示與暫留時相同的預覽。</value>
   </data>
   <data name="MissingStaticKeyFormat" xml:space="preserve">
     <value>「{0}」在此方案中的任何位置都未定義。WPF 在載入此 StaticResource 時會擲回例外狀況。</value>

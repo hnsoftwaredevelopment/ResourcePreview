@@ -185,7 +185,7 @@
     <value>Mostrar visualizações no IntelliSense</value>
   </data>
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
-    <value>Mostra um ícone para imagens, geometrias e pincéis na lista do IntelliSense após {StaticResource ou {DynamicResource, e a visualização na dica de ferramenta do item selecionado.</value>
+    <value>Mostra a mesma visualização do passar o mouse na dica de ferramenta do item selecionado na lista do IntelliSense após {StaticResource ou {DynamicResource.</value>
   </data>
   <data name="MissingStaticKeyFormat" xml:space="preserve">
     <value>'{0}' não está definido em nenhum lugar desta solução. O WPF gera uma exceção ao carregar este StaticResource.</value>

@@ -185,7 +185,7 @@
     <value>Pokazuj podglądy w IntelliSense</value>
   </data>
   <data name="OptionsShowInCompletionDescription" xml:space="preserve">
-    <value>Pokazuje ikonę obrazów, geometrii i pędzli na liście IntelliSense po {StaticResource lub {DynamicResource oraz podgląd w etykietce wybranego elementu.</value>
+    <value>Pokazuje ten sam podgląd co po najechaniu myszą w etykiecie zaznaczonego elementu listy IntelliSense po {StaticResource lub {DynamicResource.</value>
   </data>
   <data name="MissingStaticKeyFormat" xml:space="preserve">
     <value>'{0}' nie jest nigdzie zdefiniowany w tym rozwiązaniu. WPF zgłasza wyjątek podczas wczytywania tego StaticResource.</value>
