@@ -203,6 +203,8 @@ The window refreshes when a .xaml file is saved, or with the refresh button.
 - **Resources added in code** (`Application.Current.Resources.MergedDictionaries.Add(...)`) are not followed. Such a file is shown as "not in any MergedDictionaries".
 - **A UserControl** sees the resources of the window it is placed in at runtime. The extension does not know that window, and only follows the UserControl itself and `App.xaml`.
 - **References that span several lines** are not recognized.
+- **Safe preview.** The preview never creates types that run code or load content when they are created (`ObjectDataProvider`, `XmlDataProvider`, `Frame`, `WebBrowser`), and only loads types from WPF itself and the `System` namespace (`sys:Double`, `sys:String`). A .xaml file from a repository you just cloned cannot run code in Visual Studio through this extension.
+- **Keys built in code** (`$"{name}Brush"`) are not seen, so such a resource is reported as unused.
 
 ## Building from source
 
