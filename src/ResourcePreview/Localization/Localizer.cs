@@ -57,6 +57,8 @@ namespace ResourcePreview.Localization
         public const string SamplePressed = nameof(SamplePressed);
         public const string OptionsShowInCompletionName = nameof(OptionsShowInCompletionName);
         public const string OptionsShowInCompletionDescription = nameof(OptionsShowInCompletionDescription);
+        public const string OptionsColorSwatchesName = nameof(OptionsColorSwatchesName);
+        public const string OptionsColorSwatchesDescription = nameof(OptionsColorSwatchesDescription);
         public const string MissingStaticKeyFormat = nameof(MissingStaticKeyFormat);
         public const string MissingDynamicKeyFormat = nameof(MissingDynamicKeyFormat);
         public const string DidYouMeanFormat = nameof(DidYouMeanFormat);

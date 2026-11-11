@@ -340,4 +340,10 @@
   <data name="MatchAppliedFormat" xml:space="preserve">
     <value>Element używa teraz '{0}' z {1}.</value>
   </data>
+  <data name="OptionsColorSwatchesName" xml:space="preserve">
+    <value>Pokaż próbki kolorów w edytorze</value>
+  </data>
+  <data name="OptionsColorSwatchesDescription" xml:space="preserve">
+    <value>Pokazuje mały kwadrat koloru przed wartościami kolorów w plikach .xaml oraz przed odwołaniami do zasobu SolidColorBrush lub Color.</value>
+  </data>
 </root>

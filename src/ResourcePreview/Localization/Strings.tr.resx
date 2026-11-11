@@ -340,4 +340,10 @@
   <data name="MatchAppliedFormat" xml:space="preserve">
     <value>Öğe artık {1} içindeki '{0}' kaynağını kullanıyor.</value>
   </data>
+  <data name="OptionsColorSwatchesName" xml:space="preserve">
+    <value>Düzenleyicide renk örneklerini göster</value>
+  </data>
+  <data name="OptionsColorSwatchesDescription" xml:space="preserve">
+    <value>.xaml dosyalarındaki renk değerlerinin ve SolidColorBrush ya da Color kaynağına yapılan başvuruların önünde küçük bir renk karesi gösterir.</value>
+  </data>
 </root>

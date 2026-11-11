@@ -118,6 +118,7 @@ namespace ResourcePreview.Options
             writer.EnqueueChange(SettingMonikers.ShowInCompletion, settings.ShowInCompletion);
             writer.EnqueueChange(SettingMonikers.CheckReferences, settings.CheckReferences);
             writer.EnqueueChange(SettingMonikers.ReportUnused, settings.ReportUnused);
+            writer.EnqueueChange(SettingMonikers.ShowColorSwatches, settings.ShowColorSwatches);
 
             // RequestCommit may ask the user for approval first (PendingApproval). Commit() is obsolete.
             writer.RequestCommit("Changed on the legacy options page");
@@ -153,7 +154,8 @@ namespace ResourcePreview.Options
                 ValueOr(reader.GetValue<bool>(SettingMonikers.WarnOverriddenKeys, SettingReadOptions.NoRequirements), defaults.WarnOverriddenKeys),
                 ValueOr(reader.GetValue<bool>(SettingMonikers.ShowInCompletion, SettingReadOptions.NoRequirements), defaults.ShowInCompletion),
                 ValueOr(reader.GetValue<bool>(SettingMonikers.CheckReferences, SettingReadOptions.NoRequirements), defaults.CheckReferences),
-                ValueOr(reader.GetValue<bool>(SettingMonikers.ReportUnused, SettingReadOptions.NoRequirements), defaults.ReportUnused));
+                ValueOr(reader.GetValue<bool>(SettingMonikers.ReportUnused, SettingReadOptions.NoRequirements), defaults.ReportUnused),
+                ValueOr(reader.GetValue<bool>(SettingMonikers.ShowColorSwatches, SettingReadOptions.NoRequirements), defaults.ShowColorSwatches));
         }
 
         private static System.Windows.Media.Color ReadColor(ISettingsReader reader, string moniker, System.Windows.Media.Color fallback)

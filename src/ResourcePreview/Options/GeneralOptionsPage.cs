@@ -96,6 +96,12 @@ namespace ResourcePreview.Options
         [DefaultValue(true)]
         public bool ShowLiveSample { get; set; }
 
+        [LocalizedCategory(Strings.OptionsCategoryAppearance)]
+        [LocalizedDisplayName(Strings.OptionsColorSwatchesName)]
+        [LocalizedDescription(Strings.OptionsColorSwatchesDescription)]
+        [DefaultValue(true)]
+        public bool ShowColorSwatches { get; set; }
+
         internal ExtensionSettings ToSettings()
         {
             return new ExtensionSettings(
@@ -106,7 +112,8 @@ namespace ResourcePreview.Options
                 WarnOverriddenKeys,
                 ShowInCompletion,
                 CheckReferences,
-                ReportUnused);
+                ReportUnused,
+                ShowColorSwatches);
         }
 
         private void FromSettings(ExtensionSettings settings)
@@ -124,6 +131,7 @@ namespace ResourcePreview.Options
             ShowInCompletion = settings.ShowInCompletion;
             CheckReferences = settings.CheckReferences;
             ReportUnused = settings.ReportUnused;
+            ShowColorSwatches = settings.ShowColorSwatches;
         }
 
         /// <summary>Refreshes the values from Unified Settings when the page opens.</summary>

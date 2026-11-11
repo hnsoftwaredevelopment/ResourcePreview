@@ -340,4 +340,10 @@
   <data name="MatchAppliedFormat" xml:space="preserve">
     <value>Элемент теперь использует '{0}' из {1}.</value>
   </data>
+  <data name="OptionsColorSwatchesName" xml:space="preserve">
+    <value>Показывать образцы цвета в редакторе</value>
+  </data>
+  <data name="OptionsColorSwatchesDescription" xml:space="preserve">
+    <value>Показывает небольшой цветной квадрат перед значениями цвета в файлах .xaml и перед ссылками на ресурс SolidColorBrush или Color.</value>
+  </data>
 </root>

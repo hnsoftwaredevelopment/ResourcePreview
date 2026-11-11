@@ -340,4 +340,10 @@
   <data name="MatchAppliedFormat" xml:space="preserve">
     <value>要素は {1} の '{0}' を使用するようになりました。</value>
   </data>
+  <data name="OptionsColorSwatchesName" xml:space="preserve">
+    <value>エディターにカラー見本を表示</value>
+  </data>
+  <data name="OptionsColorSwatchesDescription" xml:space="preserve">
+    <value>.xaml ファイルの色の値と、SolidColorBrush または Color リソースへの参照の前に小さな色の四角形を表示します。</value>
+  </data>
 </root>

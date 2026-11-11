@@ -37,10 +37,11 @@ namespace ResourcePreview.Options
         public const string ShowInCompletion = "resourcePreview.general.showInCompletion";
         public const string CheckReferences = "resourcePreview.general.checkReferences";
         public const string ReportUnused = "resourcePreview.general.reportUnused";
+        public const string ShowColorSwatches = "resourcePreview.appearance.showColorSwatches";
 
         public static readonly string[] All =
         {
-            Language, MaxListedDefinitions, TileSize, Tiles, LightForeground, LightBackground, DarkForeground, DarkBackground, ShowLiveSample, WarnOverriddenKeys, ShowInCompletion, CheckReferences, ReportUnused,
+            Language, MaxListedDefinitions, TileSize, Tiles, LightForeground, LightBackground, DarkForeground, DarkBackground, ShowLiveSample, WarnOverriddenKeys, ShowInCompletion, CheckReferences, ReportUnused, ShowColorSwatches,
         };
     }
 
@@ -57,7 +58,7 @@ namespace ResourcePreview.Options
 
         public static readonly ExtensionSettings Default = new ExtensionSettings(
             ExtensionLanguage.Automatic, 5, 64, PreviewTiles.Both,
-            Colors.Black, Colors.White, Colors.White, Color.FromRgb(0x1E, 0x1E, 0x1E), showLiveSample: true, warnOverriddenKeys: true, showInCompletion: true, checkReferences: true, reportUnused: true);
+            Colors.Black, Colors.White, Colors.White, Color.FromRgb(0x1E, 0x1E, 0x1E), showLiveSample: true, warnOverriddenKeys: true, showInCompletion: true, checkReferences: true, reportUnused: true, showColorSwatches: true);
 
         public ExtensionSettings(
             ExtensionLanguage language,
@@ -72,7 +73,8 @@ namespace ResourcePreview.Options
             bool warnOverriddenKeys = true,
             bool showInCompletion = true,
             bool checkReferences = true,
-            bool reportUnused = true)
+            bool reportUnused = true,
+            bool showColorSwatches = true)
         {
             Language = language;
             MaxListedDefinitions = Clamp(maxListedDefinitions, MinListedDefinitions, MaxListedDefinitionsLimit);
@@ -87,6 +89,7 @@ namespace ResourcePreview.Options
             ShowInCompletion = showInCompletion;
             CheckReferences = checkReferences;
             ReportUnused = reportUnused;
+            ShowColorSwatches = showColorSwatches;
         }
 
         public ExtensionLanguage Language { get; }
@@ -112,6 +115,9 @@ namespace ResourcePreview.Options
 
         /// <summary>Error List messages for definitions nothing uses.</summary>
         public bool ReportUnused { get; }
+
+        /// <summary>Small color squares before color values in the .xaml editor.</summary>
+        public bool ShowColorSwatches { get; }
 
         private static int Clamp(int value, int min, int max) => Math.Max(min, Math.Min(max, value));
 

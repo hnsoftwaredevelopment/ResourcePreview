@@ -340,4 +340,10 @@
   <data name="MatchAppliedFormat" xml:space="preserve">
     <value>Het element gebruikt nu '{0}' uit {1}.</value>
   </data>
+  <data name="OptionsColorSwatchesName" xml:space="preserve">
+    <value>Kleurvakjes in de editor tonen</value>
+  </data>
+  <data name="OptionsColorSwatchesDescription" xml:space="preserve">
+    <value>Toont een klein kleurvakje vóór kleurwaarden in .xaml-bestanden, en vóór verwijzingen naar een SolidColorBrush- of Color-resource.</value>
+  </data>
 </root>

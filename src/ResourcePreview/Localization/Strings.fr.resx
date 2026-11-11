@@ -340,4 +340,10 @@
   <data name="MatchAppliedFormat" xml:space="preserve">
     <value>L'élément utilise maintenant '{0}' de {1}.</value>
   </data>
+  <data name="OptionsColorSwatchesName" xml:space="preserve">
+    <value>Afficher des pastilles de couleur dans l'éditeur</value>
+  </data>
+  <data name="OptionsColorSwatchesDescription" xml:space="preserve">
+    <value>Affiche un petit carré de couleur avant les valeurs de couleur dans les fichiers .xaml, et avant les références à une ressource SolidColorBrush ou Color.</value>
+  </data>
 </root>

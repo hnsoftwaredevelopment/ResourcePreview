@@ -119,6 +119,13 @@
       "description": "@OptionsLiveSampleDescription;{69e55270-ef51-4488-9e95-cfd1a6852056}",
       "default": true,
       "order": 6
+    },
+    "resourcePreview.appearance.showColorSwatches": {
+      "type": "boolean",
+      "title": "@OptionsColorSwatchesName;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "description": "@OptionsColorSwatchesDescription;{69e55270-ef51-4488-9e95-cfd1a6852056}",
+      "default": true,
+      "order": 7
     }
   },
   "categories": {

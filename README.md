@@ -143,6 +143,16 @@ Select some attributes in a start tag, for example `Fill="White" Stretch="Unifor
 
 Event handlers such as `Click="OnClick"`, `x:Name` and `x:Key` stay on the element. Elements with a prefix (`local:MyControl`) are not supported, because the target file may not know that prefix.
 
+## Color swatches in the editor
+
+A small square before each color value in a .xaml file shows the color, without hovering:
+
+- literal colors in brush and color properties: `Background="White"`, `Fill="#2D7D9A"`, `Color="#80FF0000"`, and `Value="White"` in a `Setter` for such a property;
+- references: `Foreground="{StaticResource AccentBrush}"` shows the color of `AccentBrush` when it is a `SolidColorBrush` or a `Color`, also when the brush refers to a `Color` resource;
+- `<Color x:Key="Accent">#FF2D7D9A</Color>`.
+
+Semi-transparent colors show on a checkerboard. Gradients and brushes with an `Opacity` get no swatch. Hover over a swatch to see the color code. Turn the swatches off in the settings.
+
 ## Find an existing resource
 
 You type `Fill="White"`, but a `WhiteBrush` already exists. Select some attributes (or put the caret in one) and choose **Find Matching Resource...** from the context menu or the light bulb. A list shows the existing resources that fit; nothing changes until you pick one and click **Apply**.
@@ -170,6 +180,7 @@ You type `Fill="White"`, but a `WhiteBrush` already exists. Select some attribut
 | Tiles | Light and dark | Both tiles, or only one of them. |
 | Tile colors | | Foreground and background of each tile. The foreground is used for geometries, which have no color of their own. |
 | Show live sample | On | The real control above a style table or instead of a template tree. |
+| Show color swatches in the editor | On | Color squares before color values and color references in .xaml files. |
 
 ## Limitations
 

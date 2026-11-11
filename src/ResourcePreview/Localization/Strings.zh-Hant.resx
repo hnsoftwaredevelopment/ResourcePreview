@@ -340,4 +340,10 @@
   <data name="MatchAppliedFormat" xml:space="preserve">
     <value>元素現在使用 {1} 中的 '{0}'。</value>
   </data>
+  <data name="OptionsColorSwatchesName" xml:space="preserve">
+    <value>在編輯器中顯示色塊</value>
+  </data>
+  <data name="OptionsColorSwatchesDescription" xml:space="preserve">
+    <value>在 .xaml 檔案中的色彩值，以及對 SolidColorBrush 或 Color 資源的參考前，顯示一個小色塊。</value>
+  </data>
 </root>

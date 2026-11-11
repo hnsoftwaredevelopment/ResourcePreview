@@ -369,4 +369,10 @@
   <data name="MatchAppliedFormat" xml:space="preserve">
     <value>The element now uses '{0}' from {1}.</value>
   </data>
+  <data name="OptionsColorSwatchesName" xml:space="preserve">
+    <value>Show color swatches in the editor</value>
+  </data>
+  <data name="OptionsColorSwatchesDescription" xml:space="preserve">
+    <value>Shows a small color square before color values in .xaml files, and before references to a SolidColorBrush or Color resource.</value>
+  </data>
 </root>

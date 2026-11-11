@@ -340,4 +340,10 @@
   <data name="MatchAppliedFormat" xml:space="preserve">
     <value>이제 요소가 {1}의 '{0}'을(를) 사용합니다.</value>
   </data>
+  <data name="OptionsColorSwatchesName" xml:space="preserve">
+    <value>편집기에 색 견본 표시</value>
+  </data>
+  <data name="OptionsColorSwatchesDescription" xml:space="preserve">
+    <value>.xaml 파일의 색 값과 SolidColorBrush 또는 Color 리소스에 대한 참조 앞에 작은 색 사각형을 표시합니다.</value>
+  </data>
 </root>

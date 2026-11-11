@@ -340,4 +340,10 @@
   <data name="MatchAppliedFormat" xml:space="preserve">
     <value>Prvek nyní používá '{0}' z {1}.</value>
   </data>
+  <data name="OptionsColorSwatchesName" xml:space="preserve">
+    <value>Zobrazit vzorky barev v editoru</value>
+  </data>
+  <data name="OptionsColorSwatchesDescription" xml:space="preserve">
+    <value>Zobrazí malý barevný čtverec před hodnotami barev v souborech .xaml a před odkazy na prostředek SolidColorBrush nebo Color.</value>
+  </data>
 </root>
