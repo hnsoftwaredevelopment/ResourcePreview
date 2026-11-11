@@ -76,7 +76,7 @@ namespace ResourcePreview.Tests
             Assert.AreEqual(RenameRejection.Unchanged, KeyRenamer.Check(index, "InfoBrush", "InfoBrush", CancellationToken.None));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("")]
         [DataRow("Two words")]
         [DataRow("Quote\"")]

@@ -16,7 +16,7 @@ namespace ResourcePreview.Tests
     {
         private static string MainWindow => Path.Combine(RepoPaths.SampleApp, "MainWindow.xaml");
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("<Button Style=\"{StaticResource ", true)]
         [DataRow("<Button Style=\"{StaticResource Prim", true)]
         [DataRow("<Path Fill=\"{DynamicResource Accent", true)]
@@ -31,7 +31,7 @@ namespace ResourcePreview.Tests
             Assert.AreEqual(expected, ResourceCompletionSource.IsKeyPosition(textBeforeCaret));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("GeometryGroup", true)]
         [DataRow("PathGeometry", true)]
         [DataRow("DrawingImage", true)]

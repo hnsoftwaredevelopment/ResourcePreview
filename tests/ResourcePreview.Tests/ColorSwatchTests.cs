@@ -13,7 +13,7 @@ namespace ResourcePreview.Tests
         private static string Describe(string line) =>
             string.Join(" | ", ColorSwatchFinder.Find(line).Select(s => line.Substring(s.Position, 3) + "=" + (s.Key ?? s.Color.ToString())));
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("<Border Background=\"White\" />", "Whi=#FFFFFFFF")]
         [DataRow("<Path Fill=\"#2D7D9A\" Stroke=\"#80FF0000\" />", "#2D=#FF2D7D9A | #80=#80FF0000")]
         [DataRow("<GradientStop Color=\"Red\" Offset=\"1\" />", "Red=#FFFF0000")]
@@ -27,7 +27,7 @@ namespace ResourcePreview.Tests
             Assert.AreEqual(expected, Describe(line));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("<TextBlock Text=\"Red\" />", DisplayName = "text, not a color")]
         [DataRow("<Button Content=\"White\" Tag=\"#FF0000\" />", DisplayName = "no color property")]
         [DataRow("<Setter Property=\"Content\" Value=\"Red\" />", DisplayName = "setter for text")]

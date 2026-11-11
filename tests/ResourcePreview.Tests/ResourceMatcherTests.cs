@@ -62,7 +62,7 @@ namespace ResourcePreview.Tests
                 TextChange.Apply(IconLine, ResourceMatcher.Apply(selection, match)));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("<Setter Property=\"Width\" Value=\"16\" /><Setter Property=\"Opacity\" Value=\"0.5\" />", DisplayName = "sets more")]
         [DataRow("<Setter Property=\"Width\" Value=\"24\" />", DisplayName = "other value")]
         [DataRow("<Setter Property=\"Width\"><Setter.Value>16</Setter.Value></Setter>", DisplayName = "element syntax")]
@@ -74,7 +74,7 @@ namespace ResourcePreview.Tests
             Assert.AreEqual(0, Find(selection, $"<Style x:Key=\"S\" TargetType=\"Path\">{setters}</Style>").Count);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("Path", true)]
         [DataRow("Shape", true)]
         [DataRow("{x:Type FrameworkElement}", true)]
@@ -148,7 +148,7 @@ namespace ResourcePreview.Tests
 
         // --- Single values ---
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("<SolidColorBrush x:Key=\"V\" Color=\"#FFF\" />", "<Path Fill=\"White\" />", "Fill")]
         [DataRow("<SolidColorBrush x:Key=\"V\" Color=\"White\" />", "<Path Fill=\"#FFFFFFFF\" />", "Fill")]
         [DataRow("<Color x:Key=\"V\">#FF2D7D9A</Color>", "<GradientStop Color=\"#2D7D9A\" />", "Color")]
@@ -166,7 +166,7 @@ namespace ResourcePreview.Tests
             StringAssert.Contains(TextChange.Apply(element, ResourceMatcher.Apply(selection, match)), property + "=\"{StaticResource V}\"");
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("<SolidColorBrush x:Key=\"V\" Color=\"White\" Opacity=\"0.5\" />", "<Path Fill=\"White\" />", "Fill", DisplayName = "brush with opacity")]
         [DataRow("<SolidColorBrush x:Key=\"V\" Color=\"Black\" />", "<Path Fill=\"White\" />", "Fill", DisplayName = "other color")]
         [DataRow("<Color x:Key=\"V\">White</Color>", "<Path Fill=\"White\" />", "Fill", DisplayName = "Color is no Brush")]
@@ -190,7 +190,7 @@ namespace ResourcePreview.Tests
 
         // --- Caret and what the element can see ---
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(14, "Fill", DisplayName = "in the value")]
         [DataRow(18, "Fill", DisplayName = "after the quote")]
         [DataRow(6, "Fill", DisplayName = "on the name")]

@@ -16,7 +16,7 @@ namespace ResourcePreview.Tests
             return ExtractPlanner.TryFind(text, caret);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("<Border Background=\"#FF2D7D9A\" />", "#", "SolidColorBrush")]
         [DataRow("<Border Background=\"SteelBlue\" />", "S", "SolidColorBrush")]
         [DataRow("<GradientStop Color=\"Red\" />", "R", "Color")]
@@ -32,7 +32,7 @@ namespace ResourcePreview.Tests
             Assert.AreEqual(expectedType, At(text, marker)?.ResourceType);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("<Border Background=\"{StaticResource Accent}\" />", "A")]
         [DataRow("<Border x:Key=\"Accent\" />", "A")]
         [DataRow("<Border Tag=\"Something\" />", "S")]

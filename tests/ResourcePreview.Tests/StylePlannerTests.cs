@@ -70,7 +70,7 @@ namespace ResourcePreview.Tests
             CollectionAssert.AreEqual(new[] { "Margin" }, selection.Selected.Select(a => a.Name).ToArray());
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("<local:Fancy Width=\"4\" />", "Width", "\"4\"")]
         [DataRow("<Button Style=\"{x:Null}\" Width=\"4\" />", "Width", "\"4\"")]
         [DataRow("<Button Click=\"OnClick\" />", "Click", "\"OnClick\"")]
