@@ -50,12 +50,7 @@ The extension reads every `.xaml` file in the solution folder, so it finds resou
 
 When a key is defined more than once, the tooltip shows the definition WPF actually uses, and lists the others as links:
 
-```
-Resources\Values.xaml, line 12
-WPF uses this definition here.
-Also defined in:
-Resources\Brushes.xaml, line 9  · overridden by Values.xaml
-```
+![Tooltip of an overridden key](https://raw.githubusercontent.com/hnsoftwaredevelopment/ResourcePreview/main/docs/images/overridden.png)
 
 The extension follows the `MergedDictionaries` the way WPF does:
 
@@ -88,6 +83,8 @@ A `{StaticResource}` that WPF cannot resolve compiles fine and only fails when t
 
 A `{DynamicResource}` is looked up again at runtime and code can still add the key, so only a missing key is reported, as a message instead of a warning.
 
+![Error List with overridden keys, references WPF will not find and unused resources](https://raw.githubusercontent.com/hnsoftwaredevelopment/ResourcePreview/main/docs/images/errorlist.png)
+
 To avoid false alarms, a missing key is not reported when `App.xaml` merges a dictionary from outside the solution (such as a NuGet theme) or when there is no `App.xaml` (a class library). "Not loaded" is not reported for a `UserControl`, because at runtime it also sees the resources of the window it is placed in.
 
 ## Unused resources
@@ -98,7 +95,9 @@ Only files the app loads are checked: `App.xaml`, windows and controls, and dict
 
 ## IntelliSense
 
-After `{StaticResource ` or `{DynamicResource ` the IntelliSense list shows a small icon for images, geometries, drawings, brushes and colors. Select an item and its tooltip shows the same preview as on hover, also for styles and templates.
+After `{StaticResource ` or `{DynamicResource `, select an item in the IntelliSense list and its tooltip shows the same preview as on hover, also for styles and templates.
+
+![IntelliSense with the preview of a brush](https://raw.githubusercontent.com/hnsoftwaredevelopment/ResourcePreview/main/docs/images/intellisense.png)
 
 ## Go To Resource Definition
 
@@ -109,6 +108,8 @@ When the key is defined more than once, the command opens the definition WPF use
 ## Find Resource References
 
 Right-click a reference or an `x:Key` and choose **Find Resource References**, or press **Shift+Alt+F12**. The **Resource References** window lists the definitions of the key and every `{StaticResource}` and `{DynamicResource}` that uses it, grouped by file. Double-click a line (or press Enter) to open it.
+
+![The Resource References window](https://raw.githubusercontent.com/hnsoftwaredevelopment/ResourcePreview/main/docs/images/references.png)
 
 When a key has several definitions, the list shows where a use gets another definition than the one you started from ("uses the definition in Values.xaml"), or where WPF does not find the key at all.
 
@@ -121,6 +122,8 @@ Files that are open in an editor are changed but not saved, so you can check the
 ## Extract to resource
 
 Put the caret in a fixed value, such as `Background="#FF2D7D9A"` or `Margin="4,2"`, and press **Ctrl+.** (the light bulb), or right-click and choose **Extract to Resource...**. Enter a key and pick the dictionary. The value becomes a resource in that dictionary, and the attribute becomes `{StaticResource Key}`.
+
+![The light bulb on a fixed color](https://raw.githubusercontent.com/hnsoftwaredevelopment/ResourcePreview/main/docs/images/extract.png)
 
 | Property | Resource |
 |---|---|
@@ -151,11 +154,17 @@ A small square before each color value in a .xaml file shows the color, without 
 - references: `Foreground="{StaticResource AccentBrush}"` shows the color of `AccentBrush` when it is a `SolidColorBrush` or a `Color`, also when the brush refers to a `Color` resource;
 - `<Color x:Key="Accent">#FF2D7D9A</Color>`.
 
+![Color swatches in a dictionary](https://raw.githubusercontent.com/hnsoftwaredevelopment/ResourcePreview/main/docs/images/swatches.png)
+
 Semi-transparent colors show on a checkerboard. Gradients and brushes with an `Opacity` get no swatch. Hover over a swatch to see the color code. Turn the swatches off in the settings.
+
+Visual Studio has color swatches of its own: **Tools > Options > Languages > XAML > Advanced > Show inline color previews**. With both on, you see two swatches per color: the one from Visual Studio before the quote, this one after it. Turn off the one you like least. The swatches of this extension also show the resource key and color code when you hover over them.
 
 ## Find an existing resource
 
 You type `Fill="White"`, but a `WhiteBrush` already exists. Select some attributes (or put the caret in one) and choose **Find Matching Resource...** from the context menu or the light bulb. A list shows the existing resources that fit; nothing changes until you pick one and click **Apply**.
+
+![Find Matching Resource on a button](https://raw.githubusercontent.com/hnsoftwaredevelopment/ResourcePreview/main/docs/images/findmatching.png)
 
 - **Styles** fit when every setter they have, including those from `BasedOn`, is one of the selected attributes with the same value. Selected attributes the style does not set stay on the element. A style that sets more than you selected is not shown, because it would change the look. Styles with triggers are shown with the number of triggers.
 - **Single values** fit one attribute: a `SolidColorBrush`, `Color`, `Thickness`, `CornerRadius`, `sys:Double`, `FontFamily`, `FontWeight` or `sys:String` with the same value.
