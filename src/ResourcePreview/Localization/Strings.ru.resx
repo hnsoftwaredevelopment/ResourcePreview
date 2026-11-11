@@ -346,4 +346,61 @@
   <data name="OptionsColorSwatchesDescription" xml:space="preserve">
     <value>Показывает небольшой цветной квадрат перед значениями цвета в файлах .xaml и перед ссылками на ресурс SolidColorBrush или Color.</value>
   </data>
+  <data name="ResourcesWindowTitle" xml:space="preserve">
+    <value>Ресурсы XAML</value>
+  </data>
+  <data name="ResourcesSearchPlaceholder" xml:space="preserve">
+    <value>Поиск по ключу</value>
+  </data>
+  <data name="ResourcesGroupByFile" xml:space="preserve">
+    <value>По файлам</value>
+  </data>
+  <data name="ResourcesGroupByType" xml:space="preserve">
+    <value>По типам</value>
+  </data>
+  <data name="ResourcesActiveFileOnly" xml:space="preserve">
+    <value>Только то, что может использовать активный файл</value>
+  </data>
+  <data name="ResourcesRefresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="ResourcesSummaryFormat" xml:space="preserve">
+    <value>Ресурсов: {0}, файлов: {1}</value>
+  </data>
+  <data name="ResourcesFilteredFormat" xml:space="preserve">
+    <value>{0} из {1} ресурсов</value>
+  </data>
+  <data name="ResourcesNoFile" xml:space="preserve">
+    <value>Откройте решение или файл .xaml, чтобы увидеть его ресурсы.</value>
+  </data>
+  <data name="ResourcesNoActiveFile" xml:space="preserve">
+    <value>Откройте файл .xaml, чтобы увидеть, что он может использовать.</value>
+  </data>
+  <data name="ResourcesLoading" xml:space="preserve">
+    <value>Чтение ресурсов...</value>
+  </data>
+  <data name="ResourcesUnused" xml:space="preserve">
+    <value>не используется</value>
+  </data>
+  <data name="ResourcesCopyFormat" xml:space="preserve">
+    <value>Копировать {0}</value>
+  </data>
+  <data name="CategoryBrushes" xml:space="preserve">
+    <value>Кисти</value>
+  </data>
+  <data name="CategoryColors" xml:space="preserve">
+    <value>Цвета</value>
+  </data>
+  <data name="CategoryImages" xml:space="preserve">
+    <value>Изображения и геометрии</value>
+  </data>
+  <data name="CategoryStyles" xml:space="preserve">
+    <value>Стили</value>
+  </data>
+  <data name="CategoryTemplates" xml:space="preserve">
+    <value>Шаблоны</value>
+  </data>
+  <data name="CategoryValues" xml:space="preserve">
+    <value>Значения</value>
+  </data>
 </root>

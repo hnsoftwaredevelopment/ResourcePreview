@@ -346,4 +346,61 @@
   <data name="OptionsColorSwatchesDescription" xml:space="preserve">
     <value>Zobrazí malý barevný čtverec před hodnotami barev v souborech .xaml a před odkazy na prostředek SolidColorBrush nebo Color.</value>
   </data>
+  <data name="ResourcesWindowTitle" xml:space="preserve">
+    <value>Prostředky XAML</value>
+  </data>
+  <data name="ResourcesSearchPlaceholder" xml:space="preserve">
+    <value>Hledat podle klíče</value>
+  </data>
+  <data name="ResourcesGroupByFile" xml:space="preserve">
+    <value>Podle souboru</value>
+  </data>
+  <data name="ResourcesGroupByType" xml:space="preserve">
+    <value>Podle typu</value>
+  </data>
+  <data name="ResourcesActiveFileOnly" xml:space="preserve">
+    <value>Jen to, co může použít aktivní soubor</value>
+  </data>
+  <data name="ResourcesRefresh" xml:space="preserve">
+    <value>Aktualizovat</value>
+  </data>
+  <data name="ResourcesSummaryFormat" xml:space="preserve">
+    <value>{0} prostředků v {1} souborech</value>
+  </data>
+  <data name="ResourcesFilteredFormat" xml:space="preserve">
+    <value>{0} z {1} prostředků</value>
+  </data>
+  <data name="ResourcesNoFile" xml:space="preserve">
+    <value>Otevřete řešení nebo soubor .xaml, abyste viděli jeho prostředky.</value>
+  </data>
+  <data name="ResourcesNoActiveFile" xml:space="preserve">
+    <value>Otevřete soubor .xaml, abyste viděli, co může použít.</value>
+  </data>
+  <data name="ResourcesLoading" xml:space="preserve">
+    <value>Načítání prostředků...</value>
+  </data>
+  <data name="ResourcesUnused" xml:space="preserve">
+    <value>nepoužitý</value>
+  </data>
+  <data name="ResourcesCopyFormat" xml:space="preserve">
+    <value>Kopírovat {0}</value>
+  </data>
+  <data name="CategoryBrushes" xml:space="preserve">
+    <value>Štětce</value>
+  </data>
+  <data name="CategoryColors" xml:space="preserve">
+    <value>Barvy</value>
+  </data>
+  <data name="CategoryImages" xml:space="preserve">
+    <value>Obrázky a geometrie</value>
+  </data>
+  <data name="CategoryStyles" xml:space="preserve">
+    <value>Styly</value>
+  </data>
+  <data name="CategoryTemplates" xml:space="preserve">
+    <value>Šablony</value>
+  </data>
+  <data name="CategoryValues" xml:space="preserve">
+    <value>Hodnoty</value>
+  </data>
 </root>

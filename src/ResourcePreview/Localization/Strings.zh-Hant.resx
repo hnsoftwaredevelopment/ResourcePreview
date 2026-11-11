@@ -346,4 +346,61 @@
   <data name="OptionsColorSwatchesDescription" xml:space="preserve">
     <value>在 .xaml 檔案中的色彩值，以及對 SolidColorBrush 或 Color 資源的參考前，顯示一個小色塊。</value>
   </data>
+  <data name="ResourcesWindowTitle" xml:space="preserve">
+    <value>XAML 資源</value>
+  </data>
+  <data name="ResourcesSearchPlaceholder" xml:space="preserve">
+    <value>依索引鍵搜尋</value>
+  </data>
+  <data name="ResourcesGroupByFile" xml:space="preserve">
+    <value>依檔案</value>
+  </data>
+  <data name="ResourcesGroupByType" xml:space="preserve">
+    <value>依類型</value>
+  </data>
+  <data name="ResourcesActiveFileOnly" xml:space="preserve">
+    <value>僅顯示作用中檔案可使用的資源</value>
+  </data>
+  <data name="ResourcesRefresh" xml:space="preserve">
+    <value>重新整理</value>
+  </data>
+  <data name="ResourcesSummaryFormat" xml:space="preserve">
+    <value>{1} 個檔案中的 {0} 個資源</value>
+  </data>
+  <data name="ResourcesFilteredFormat" xml:space="preserve">
+    <value>{0}/{1} 個資源</value>
+  </data>
+  <data name="ResourcesNoFile" xml:space="preserve">
+    <value>開啟方案或 .xaml 檔案以檢視其資源。</value>
+  </data>
+  <data name="ResourcesNoActiveFile" xml:space="preserve">
+    <value>開啟 .xaml 檔案以檢視它可使用的資源。</value>
+  </data>
+  <data name="ResourcesLoading" xml:space="preserve">
+    <value>正在讀取資源...</value>
+  </data>
+  <data name="ResourcesUnused" xml:space="preserve">
+    <value>未使用</value>
+  </data>
+  <data name="ResourcesCopyFormat" xml:space="preserve">
+    <value>複製 {0}</value>
+  </data>
+  <data name="CategoryBrushes" xml:space="preserve">
+    <value>筆刷</value>
+  </data>
+  <data name="CategoryColors" xml:space="preserve">
+    <value>色彩</value>
+  </data>
+  <data name="CategoryImages" xml:space="preserve">
+    <value>影像和幾何圖形</value>
+  </data>
+  <data name="CategoryStyles" xml:space="preserve">
+    <value>樣式</value>
+  </data>
+  <data name="CategoryTemplates" xml:space="preserve">
+    <value>範本</value>
+  </data>
+  <data name="CategoryValues" xml:space="preserve">
+    <value>值</value>
+  </data>
 </root>

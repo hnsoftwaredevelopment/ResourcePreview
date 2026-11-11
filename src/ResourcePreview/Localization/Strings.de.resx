@@ -346,4 +346,61 @@
   <data name="OptionsColorSwatchesDescription" xml:space="preserve">
     <value>Zeigt ein kleines Farbfeld vor Farbwerten in .xaml-Dateien und vor Verweisen auf eine SolidColorBrush- oder Color-Ressource.</value>
   </data>
+  <data name="ResourcesWindowTitle" xml:space="preserve">
+    <value>XAML-Ressourcen</value>
+  </data>
+  <data name="ResourcesSearchPlaceholder" xml:space="preserve">
+    <value>Nach Schlüssel suchen</value>
+  </data>
+  <data name="ResourcesGroupByFile" xml:space="preserve">
+    <value>Nach Datei</value>
+  </data>
+  <data name="ResourcesGroupByType" xml:space="preserve">
+    <value>Nach Typ</value>
+  </data>
+  <data name="ResourcesActiveFileOnly" xml:space="preserve">
+    <value>Nur was die aktive Datei verwenden kann</value>
+  </data>
+  <data name="ResourcesRefresh" xml:space="preserve">
+    <value>Aktualisieren</value>
+  </data>
+  <data name="ResourcesSummaryFormat" xml:space="preserve">
+    <value>{0} Ressourcen in {1} Dateien</value>
+  </data>
+  <data name="ResourcesFilteredFormat" xml:space="preserve">
+    <value>{0} von {1} Ressourcen</value>
+  </data>
+  <data name="ResourcesNoFile" xml:space="preserve">
+    <value>Öffnen Sie eine Projektmappe oder eine .xaml-Datei, um ihre Ressourcen zu sehen.</value>
+  </data>
+  <data name="ResourcesNoActiveFile" xml:space="preserve">
+    <value>Öffnen Sie eine .xaml-Datei, um zu sehen, was sie verwenden kann.</value>
+  </data>
+  <data name="ResourcesLoading" xml:space="preserve">
+    <value>Ressourcen werden gelesen...</value>
+  </data>
+  <data name="ResourcesUnused" xml:space="preserve">
+    <value>unbenutzt</value>
+  </data>
+  <data name="ResourcesCopyFormat" xml:space="preserve">
+    <value>{0} kopieren</value>
+  </data>
+  <data name="CategoryBrushes" xml:space="preserve">
+    <value>Pinsel</value>
+  </data>
+  <data name="CategoryColors" xml:space="preserve">
+    <value>Farben</value>
+  </data>
+  <data name="CategoryImages" xml:space="preserve">
+    <value>Bilder und Geometrien</value>
+  </data>
+  <data name="CategoryStyles" xml:space="preserve">
+    <value>Styles</value>
+  </data>
+  <data name="CategoryTemplates" xml:space="preserve">
+    <value>Vorlagen</value>
+  </data>
+  <data name="CategoryValues" xml:space="preserve">
+    <value>Werte</value>
+  </data>
 </root>

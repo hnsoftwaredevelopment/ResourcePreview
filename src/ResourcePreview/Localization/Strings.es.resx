@@ -346,4 +346,61 @@
   <data name="OptionsColorSwatchesDescription" xml:space="preserve">
     <value>Muestra un pequeño cuadro de color antes de los valores de color en archivos .xaml y antes de las referencias a un recurso SolidColorBrush o Color.</value>
   </data>
+  <data name="ResourcesWindowTitle" xml:space="preserve">
+    <value>Recursos XAML</value>
+  </data>
+  <data name="ResourcesSearchPlaceholder" xml:space="preserve">
+    <value>Buscar por clave</value>
+  </data>
+  <data name="ResourcesGroupByFile" xml:space="preserve">
+    <value>Por archivo</value>
+  </data>
+  <data name="ResourcesGroupByType" xml:space="preserve">
+    <value>Por tipo</value>
+  </data>
+  <data name="ResourcesActiveFileOnly" xml:space="preserve">
+    <value>Solo lo que puede usar el archivo activo</value>
+  </data>
+  <data name="ResourcesRefresh" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="ResourcesSummaryFormat" xml:space="preserve">
+    <value>{0} recursos en {1} archivos</value>
+  </data>
+  <data name="ResourcesFilteredFormat" xml:space="preserve">
+    <value>{0} de {1} recursos</value>
+  </data>
+  <data name="ResourcesNoFile" xml:space="preserve">
+    <value>Abra una solución o un archivo .xaml para ver sus recursos.</value>
+  </data>
+  <data name="ResourcesNoActiveFile" xml:space="preserve">
+    <value>Abra un archivo .xaml para ver lo que puede usar.</value>
+  </data>
+  <data name="ResourcesLoading" xml:space="preserve">
+    <value>Leyendo recursos...</value>
+  </data>
+  <data name="ResourcesUnused" xml:space="preserve">
+    <value>sin usar</value>
+  </data>
+  <data name="ResourcesCopyFormat" xml:space="preserve">
+    <value>Copiar {0}</value>
+  </data>
+  <data name="CategoryBrushes" xml:space="preserve">
+    <value>Pinceles</value>
+  </data>
+  <data name="CategoryColors" xml:space="preserve">
+    <value>Colores</value>
+  </data>
+  <data name="CategoryImages" xml:space="preserve">
+    <value>Imágenes y geometrías</value>
+  </data>
+  <data name="CategoryStyles" xml:space="preserve">
+    <value>Estilos</value>
+  </data>
+  <data name="CategoryTemplates" xml:space="preserve">
+    <value>Plantillas</value>
+  </data>
+  <data name="CategoryValues" xml:space="preserve">
+    <value>Valores</value>
+  </data>
 </root>

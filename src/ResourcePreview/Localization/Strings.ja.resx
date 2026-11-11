@@ -346,4 +346,61 @@
   <data name="OptionsColorSwatchesDescription" xml:space="preserve">
     <value>.xaml ファイルの色の値と、SolidColorBrush または Color リソースへの参照の前に小さな色の四角形を表示します。</value>
   </data>
+  <data name="ResourcesWindowTitle" xml:space="preserve">
+    <value>XAML リソース</value>
+  </data>
+  <data name="ResourcesSearchPlaceholder" xml:space="preserve">
+    <value>キーで検索</value>
+  </data>
+  <data name="ResourcesGroupByFile" xml:space="preserve">
+    <value>ファイル別</value>
+  </data>
+  <data name="ResourcesGroupByType" xml:space="preserve">
+    <value>種類別</value>
+  </data>
+  <data name="ResourcesActiveFileOnly" xml:space="preserve">
+    <value>アクティブなファイルが使用できるもののみ</value>
+  </data>
+  <data name="ResourcesRefresh" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="ResourcesSummaryFormat" xml:space="preserve">
+    <value>{1} 個のファイルに {0} 個のリソース</value>
+  </data>
+  <data name="ResourcesFilteredFormat" xml:space="preserve">
+    <value>{1} 個中 {0} 個のリソース</value>
+  </data>
+  <data name="ResourcesNoFile" xml:space="preserve">
+    <value>リソースを表示するには、ソリューションまたは .xaml ファイルを開いてください。</value>
+  </data>
+  <data name="ResourcesNoActiveFile" xml:space="preserve">
+    <value>使用できるものを表示するには、.xaml ファイルを開いてください。</value>
+  </data>
+  <data name="ResourcesLoading" xml:space="preserve">
+    <value>リソースを読み込んでいます...</value>
+  </data>
+  <data name="ResourcesUnused" xml:space="preserve">
+    <value>未使用</value>
+  </data>
+  <data name="ResourcesCopyFormat" xml:space="preserve">
+    <value>{0} をコピー</value>
+  </data>
+  <data name="CategoryBrushes" xml:space="preserve">
+    <value>ブラシ</value>
+  </data>
+  <data name="CategoryColors" xml:space="preserve">
+    <value>色</value>
+  </data>
+  <data name="CategoryImages" xml:space="preserve">
+    <value>画像とジオメトリ</value>
+  </data>
+  <data name="CategoryStyles" xml:space="preserve">
+    <value>スタイル</value>
+  </data>
+  <data name="CategoryTemplates" xml:space="preserve">
+    <value>テンプレート</value>
+  </data>
+  <data name="CategoryValues" xml:space="preserve">
+    <value>値</value>
+  </data>
 </root>

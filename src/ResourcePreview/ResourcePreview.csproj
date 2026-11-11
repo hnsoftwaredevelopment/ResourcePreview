@@ -99,6 +99,8 @@
     <Compile Include="Refactoring\RefactoringCommands.cs" />
     <Compile Include="Editor\ColorSwatchTagger.cs" />
     <Compile Include="Resources\ColorSwatchFinder.cs" />
+    <Compile Include="Navigation\ResourcesWindow.cs" />
+    <Compile Include="Resources\ResourceCatalog.cs" />
     <Compile Include="Resources\ResourceMatcher.cs" />
     <Compile Include="Resources\StylePlanner.cs" />
     <Compile Include="Resources\UsageFinder.cs" />

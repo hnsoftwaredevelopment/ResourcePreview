@@ -164,6 +164,19 @@ You type `Fill="White"`, but a `WhiteBrush` already exists. Select some attribut
 - Only resources the element can use are searched: the lookup order of the file, and in the file itself only resources above the element.
 - An element that already has a `Style` only gets single values.
 
+## XAML Resources window
+
+**View > Other Windows > XAML Resources** lists the resources of the solution.
+
+- **By file** shows the dictionaries in the order WPF searches them from `App.xaml`, then the other files. **By type** groups them as brushes, colors, images and geometries, styles, templates and values.
+- **Only what the active file can use** follows the active .xaml file: its own resources, its merged dictionaries and those of `App.xaml`, one definition per key, the one WPF picks.
+- Each resource shows a small preview, its type, and the same notes as the Error List: overridden by another file, not in any MergedDictionaries, unused.
+- Type in the search box to filter by key. Hover for the full preview. Double-click or press Enter to open the definition.
+- Right-click for Go To Resource Definition, Find Resource References, Rename Resource Key and Copy `{StaticResource Key}`.
+- Drag a resource into the editor to insert `{StaticResource Key}` where you drop it.
+
+The window refreshes when a .xaml file is saved, or with the refresh button.
+
 ## Settings
 
 **Tools > Options > XAML Resource Preview**, in both the new and the legacy Options dialog.

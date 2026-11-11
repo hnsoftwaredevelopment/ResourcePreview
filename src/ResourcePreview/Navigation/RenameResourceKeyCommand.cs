@@ -40,6 +40,9 @@ namespace ResourcePreview.Navigation
             _documents = documents;
         }
 
+        /// <summary>The command, for the XAML Resources window. Null until the package has initialized it.</summary>
+        public static RenameResourceKeyCommand Instance { get; private set; }
+
         public static async Task InitializeAsync(AsyncPackage package)
         {
             var commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
@@ -56,6 +59,7 @@ namespace ResourcePreview.Navigation
                 componentModel.GetService<IVsEditorAdaptersFactoryService>(),
                 componentModel.GetService<ITextDocumentFactoryService>());
 
+            Instance = instance;
             var command = new OleMenuCommand(instance.Execute, new CommandID(GoToResourceDefinitionCommand.CommandSet, CommandId));
             command.BeforeQueryStatus += instance.OnBeforeQueryStatus;
             commandService.AddCommand(command);
@@ -88,13 +92,24 @@ namespace ResourcePreview.Navigation
                 .FileAndForget("ResourcePreview/RenameResourceKey");
         }
 
+        /// <summary>Renames a key from the XAML Resources window. BufferEditor applies the changes to the current editor text.</summary>
+        public void Rename(string filePath, string key)
+        {
+            _package.JoinableTaskFactory
+                .RunAsync(() => RenameAsync(filePath, key, null))
+                .FileAndForget("ResourcePreview/RenameResourceKey");
+        }
+
         private async Task RenameAsync(string filePath, string key, string text)
         {
             // The first lookup in a solution reads every .xaml file. Keep that off the UI thread.
             await TaskScheduler.Default;
 
             ResourceIndex index = ResourceIndex.ForFile(filePath);
-            index.SetLiveText(filePath, text);
+            if (text != null)
+            {
+                index.SetLiveText(filePath, text);
+            }
             IReadOnlyList<RenameFile> plan = KeyRenamer.Plan(index, key, _package.DisposalToken);
 
             await _package.JoinableTaskFactory.SwitchToMainThreadAsync(_package.DisposalToken);

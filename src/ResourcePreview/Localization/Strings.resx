@@ -375,4 +375,61 @@
   <data name="OptionsColorSwatchesDescription" xml:space="preserve">
     <value>Shows a small color square before color values in .xaml files, and before references to a SolidColorBrush or Color resource.</value>
   </data>
+  <data name="ResourcesWindowTitle" xml:space="preserve">
+    <value>XAML Resources</value>
+  </data>
+  <data name="ResourcesSearchPlaceholder" xml:space="preserve">
+    <value>Search by key</value>
+  </data>
+  <data name="ResourcesGroupByFile" xml:space="preserve">
+    <value>By file</value>
+  </data>
+  <data name="ResourcesGroupByType" xml:space="preserve">
+    <value>By type</value>
+  </data>
+  <data name="ResourcesActiveFileOnly" xml:space="preserve">
+    <value>Only what the active file can use</value>
+  </data>
+  <data name="ResourcesRefresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="ResourcesSummaryFormat" xml:space="preserve">
+    <value>{0} resources in {1} files</value>
+  </data>
+  <data name="ResourcesFilteredFormat" xml:space="preserve">
+    <value>{0} of {1} resources</value>
+  </data>
+  <data name="ResourcesNoFile" xml:space="preserve">
+    <value>Open a solution or a .xaml file to see its resources.</value>
+  </data>
+  <data name="ResourcesNoActiveFile" xml:space="preserve">
+    <value>Open a .xaml file to see what it can use.</value>
+  </data>
+  <data name="ResourcesLoading" xml:space="preserve">
+    <value>Reading resources...</value>
+  </data>
+  <data name="ResourcesUnused" xml:space="preserve">
+    <value>unused</value>
+  </data>
+  <data name="ResourcesCopyFormat" xml:space="preserve">
+    <value>Copy {0}</value>
+  </data>
+  <data name="CategoryBrushes" xml:space="preserve">
+    <value>Brushes</value>
+  </data>
+  <data name="CategoryColors" xml:space="preserve">
+    <value>Colors</value>
+  </data>
+  <data name="CategoryImages" xml:space="preserve">
+    <value>Images and geometries</value>
+  </data>
+  <data name="CategoryStyles" xml:space="preserve">
+    <value>Styles</value>
+  </data>
+  <data name="CategoryTemplates" xml:space="preserve">
+    <value>Templates</value>
+  </data>
+  <data name="CategoryValues" xml:space="preserve">
+    <value>Values</value>
+  </data>
 </root>

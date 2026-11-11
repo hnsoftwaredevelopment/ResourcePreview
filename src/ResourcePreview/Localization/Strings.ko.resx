@@ -346,4 +346,61 @@
   <data name="OptionsColorSwatchesDescription" xml:space="preserve">
     <value>.xaml 파일의 색 값과 SolidColorBrush 또는 Color 리소스에 대한 참조 앞에 작은 색 사각형을 표시합니다.</value>
   </data>
+  <data name="ResourcesWindowTitle" xml:space="preserve">
+    <value>XAML 리소스</value>
+  </data>
+  <data name="ResourcesSearchPlaceholder" xml:space="preserve">
+    <value>키로 검색</value>
+  </data>
+  <data name="ResourcesGroupByFile" xml:space="preserve">
+    <value>파일별</value>
+  </data>
+  <data name="ResourcesGroupByType" xml:space="preserve">
+    <value>유형별</value>
+  </data>
+  <data name="ResourcesActiveFileOnly" xml:space="preserve">
+    <value>활성 파일이 사용할 수 있는 것만</value>
+  </data>
+  <data name="ResourcesRefresh" xml:space="preserve">
+    <value>새로 고침</value>
+  </data>
+  <data name="ResourcesSummaryFormat" xml:space="preserve">
+    <value>{1}개 파일의 리소스 {0}개</value>
+  </data>
+  <data name="ResourcesFilteredFormat" xml:space="preserve">
+    <value>리소스 {1}개 중 {0}개</value>
+  </data>
+  <data name="ResourcesNoFile" xml:space="preserve">
+    <value>리소스를 보려면 솔루션 또는 .xaml 파일을 여세요.</value>
+  </data>
+  <data name="ResourcesNoActiveFile" xml:space="preserve">
+    <value>사용할 수 있는 항목을 보려면 .xaml 파일을 여세요.</value>
+  </data>
+  <data name="ResourcesLoading" xml:space="preserve">
+    <value>리소스를 읽는 중...</value>
+  </data>
+  <data name="ResourcesUnused" xml:space="preserve">
+    <value>사용 안 함</value>
+  </data>
+  <data name="ResourcesCopyFormat" xml:space="preserve">
+    <value>{0} 복사</value>
+  </data>
+  <data name="CategoryBrushes" xml:space="preserve">
+    <value>브러시</value>
+  </data>
+  <data name="CategoryColors" xml:space="preserve">
+    <value>색</value>
+  </data>
+  <data name="CategoryImages" xml:space="preserve">
+    <value>이미지 및 기하 도형</value>
+  </data>
+  <data name="CategoryStyles" xml:space="preserve">
+    <value>스타일</value>
+  </data>
+  <data name="CategoryTemplates" xml:space="preserve">
+    <value>템플릿</value>
+  </data>
+  <data name="CategoryValues" xml:space="preserve">
+    <value>값</value>
+  </data>
 </root>

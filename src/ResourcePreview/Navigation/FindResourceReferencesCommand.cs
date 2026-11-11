@@ -35,6 +35,9 @@ namespace ResourcePreview.Navigation
             _navigator = new DefinitionNavigator(package, editorAdapters, package.JoinableTaskFactory.Context);
         }
 
+        /// <summary>The command, for the XAML Resources window. Null until the package has initialized it.</summary>
+        public static FindResourceReferencesCommand Instance { get; private set; }
+
         public static async Task InitializeAsync(AsyncPackage package)
         {
             var commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
@@ -51,6 +54,7 @@ namespace ResourcePreview.Navigation
                 componentModel.GetService<IVsEditorAdaptersFactoryService>(),
                 componentModel.GetService<ITextDocumentFactoryService>());
 
+            Instance = instance;
             var command = new OleMenuCommand(instance.Execute, new CommandID(GoToResourceDefinitionCommand.CommandSet, CommandId));
             command.BeforeQueryStatus += instance.OnBeforeQueryStatus;
             commandService.AddCommand(command);
@@ -83,6 +87,29 @@ namespace ResourcePreview.Navigation
                 .FileAndForget("ResourcePreview/FindResourceReferences");
         }
 
+        /// <summary>The references of one definition, from the XAML Resources window.</summary>
+        public void FindFor(ResourceEntry entry)
+        {
+            _package.JoinableTaskFactory
+                .RunAsync(() => FindForAsync(entry))
+                .FileAndForget("ResourcePreview/FindResourceReferences");
+        }
+
+        private async Task FindForAsync(ResourceEntry entry)
+        {
+            await TaskScheduler.Default;
+            ResourceIndex index = ResourceIndex.ForFile(entry.FilePath);
+            UsageReport report = UsageFinder.Find(index, entry.Key, entry, _package.DisposalToken);
+            await ShowAsync(report, index);
+        }
+
+        private async Task ShowAsync(UsageReport report, ResourceIndex index)
+        {
+            await _package.JoinableTaskFactory.SwitchToMainThreadAsync(_package.DisposalToken);
+            var window = await _package.ShowToolWindowAsync(typeof(ResourceReferencesWindow), 0, create: true, _package.DisposalToken) as ResourceReferencesWindow;
+            window?.Show(report, index, _navigator);
+        }
+
         private async Task FindAsync(CaretResource caret, string text)
         {
             // The first search in a solution reads every .xaml file. Keep that off the UI thread.
@@ -100,11 +127,7 @@ namespace ResourcePreview.Navigation
                 : index.Resolve(key, caret.FilePath, _package.DisposalToken).FirstOrDefault(d => d.Status == DefinitionStatus.Used)?.Entry;
 
             UsageReport report = UsageFinder.Find(index, key, selected, _package.DisposalToken);
-
-            await _package.JoinableTaskFactory.SwitchToMainThreadAsync(_package.DisposalToken);
-
-            var window = await _package.ShowToolWindowAsync(typeof(ResourceReferencesWindow), 0, create: true, _package.DisposalToken) as ResourceReferencesWindow;
-            window?.Show(report, index, _navigator);
+            await ShowAsync(report, index);
         }
     }
 }

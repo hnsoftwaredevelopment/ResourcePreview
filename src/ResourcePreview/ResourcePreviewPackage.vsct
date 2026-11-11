@@ -96,6 +96,16 @@
           <LocCanonicalName>.ResourcePreview.FindMatchingResource</LocCanonicalName>
         </Strings>
       </Button>
+      <!-- View > Other Windows > XAML Resources. Always visible, so VS loads the package when it is clicked. -->
+      <Button guid="guidResourcePreviewCmdSet" id="cmdidOpenResourcesWindow" priority="0x0100" type="Button">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>XAML Resources</ButtonText>
+          <CanonicalName>.View.XamlResources</CanonicalName>
+          <LocCanonicalName>.View.XamlResources</LocCanonicalName>
+        </Strings>
+      </Button>
     </Buttons>
   </Commands>
 
@@ -124,6 +134,7 @@
       <IDSymbol name="cmdidExtractToStyle" value="0x0104" />
       <IDSymbol name="cmdidAddToStyle" value="0x0105" />
       <IDSymbol name="cmdidFindMatchingResource" value="0x0106" />
+      <IDSymbol name="cmdidOpenResourcesWindow" value="0x0107" />
     </GuidSymbol>
 
     <!-- Key binding scope "Text Editor" in Tools > Options > Keyboard. -->

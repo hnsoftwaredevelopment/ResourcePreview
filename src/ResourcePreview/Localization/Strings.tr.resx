@@ -346,4 +346,61 @@
   <data name="OptionsColorSwatchesDescription" xml:space="preserve">
     <value>.xaml dosyalarındaki renk değerlerinin ve SolidColorBrush ya da Color kaynağına yapılan başvuruların önünde küçük bir renk karesi gösterir.</value>
   </data>
+  <data name="ResourcesWindowTitle" xml:space="preserve">
+    <value>XAML Kaynakları</value>
+  </data>
+  <data name="ResourcesSearchPlaceholder" xml:space="preserve">
+    <value>Anahtara göre ara</value>
+  </data>
+  <data name="ResourcesGroupByFile" xml:space="preserve">
+    <value>Dosyaya göre</value>
+  </data>
+  <data name="ResourcesGroupByType" xml:space="preserve">
+    <value>Türe göre</value>
+  </data>
+  <data name="ResourcesActiveFileOnly" xml:space="preserve">
+    <value>Yalnızca etkin dosyanın kullanabildikleri</value>
+  </data>
+  <data name="ResourcesRefresh" xml:space="preserve">
+    <value>Yenile</value>
+  </data>
+  <data name="ResourcesSummaryFormat" xml:space="preserve">
+    <value>{1} dosyada {0} kaynak</value>
+  </data>
+  <data name="ResourcesFilteredFormat" xml:space="preserve">
+    <value>{0} / {1} kaynak</value>
+  </data>
+  <data name="ResourcesNoFile" xml:space="preserve">
+    <value>Kaynaklarını görmek için bir çözüm veya .xaml dosyası açın.</value>
+  </data>
+  <data name="ResourcesNoActiveFile" xml:space="preserve">
+    <value>Neleri kullanabileceğini görmek için bir .xaml dosyası açın.</value>
+  </data>
+  <data name="ResourcesLoading" xml:space="preserve">
+    <value>Kaynaklar okunuyor...</value>
+  </data>
+  <data name="ResourcesUnused" xml:space="preserve">
+    <value>kullanılmıyor</value>
+  </data>
+  <data name="ResourcesCopyFormat" xml:space="preserve">
+    <value>{0} kopyala</value>
+  </data>
+  <data name="CategoryBrushes" xml:space="preserve">
+    <value>Fırçalar</value>
+  </data>
+  <data name="CategoryColors" xml:space="preserve">
+    <value>Renkler</value>
+  </data>
+  <data name="CategoryImages" xml:space="preserve">
+    <value>Resimler ve geometriler</value>
+  </data>
+  <data name="CategoryStyles" xml:space="preserve">
+    <value>Stiller</value>
+  </data>
+  <data name="CategoryTemplates" xml:space="preserve">
+    <value>Şablonlar</value>
+  </data>
+  <data name="CategoryValues" xml:space="preserve">
+    <value>Değerler</value>
+  </data>
 </root>

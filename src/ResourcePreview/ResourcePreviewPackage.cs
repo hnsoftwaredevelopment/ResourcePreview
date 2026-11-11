@@ -27,9 +27,10 @@ namespace ResourcePreview
         UnifiedSettingsCategoryMoniker = "resourcePreview.general")]
     [ProvideSettingsManifest(PackageRelativeManifestFile = @"Options\registration.json")]
     // Raise the version after every change to the .vsct, otherwise VS keeps its cached menus and key bindings.
-    [ProvideMenuResource("Menus.ctmenu", 6)]
+    [ProvideMenuResource("Menus.ctmenu", 7)]
     // The list of references opens as a tab next to the Output window the first time.
     [ProvideToolWindow(typeof(ResourceReferencesWindow), Style = VsDockStyle.Tabbed, Window = "34E76E81-EE4A-11D0-AE2E-00A0C90FFFC3")]
+    [ProvideToolWindow(typeof(ResourcesWindow), Style = VsDockStyle.Tabbed, Window = "3AE79031-E1BC-11D0-8F78-00A0C9110057")]
     // Load in the background as soon as a .xaml file is active, so the context menu command
     // can decide whether to show itself. Without this the hidden menu item never appears.
     [ProvideAutoLoad(XamlFileContextGuidString, PackageAutoLoadFlags.BackgroundLoad)]
@@ -54,6 +55,7 @@ namespace ResourcePreview
             await FindResourceReferencesCommand.InitializeAsync(this);
             await RenameResourceKeyCommand.InitializeAsync(this);
             await RefactoringCommands.InitializeAsync(this);
+            await ResourcesWindow.InitializeCommandAsync(this);
             await ResourceErrorList.InitializeAsync(this);
 
             _instance = this;
