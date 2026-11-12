@@ -109,7 +109,16 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           $version = '${{ steps.version.outputs.version }}'
-          $arguments = @("v$version", '${{ steps.vsix.outputs.path }}', '--title', "XAML Resource Preview $version", '--generate-notes')
+          # The section "## <version>" of CHANGELOG.md becomes the release notes; without it GitHub lists the commits.
+          $notes = $null
+          if (Test-Path CHANGELOG.md) {
+            $text = Get-Content CHANGELOG.md -Raw
+            $match = [regex]::Match($text, "(?ms)^## $([regex]::Escape($version))\s*$\r?\n(.*?)(?=^## |\z)")
+            if ($match.Success) { $notes = $match.Groups[1].Value.Trim() }
+          }
+          $arguments = @("v$version", '${{ steps.vsix.outputs.path }}', '--title', "XAML Resource Preview $version")
+          if ($notes) { Set-Content release-notes.md $notes -Encoding utf8; $arguments += @('--notes-file', 'release-notes.md') }
+          else { $arguments += '--generate-notes' }
           if ($env:GITHUB_REF_TYPE -ne 'tag') { $arguments += @('--target', $env:GITHUB_SHA) }
           if ('${{ inputs.prerelease }}' -eq 'true') { $arguments += '--prerelease' }
           gh release create @arguments
