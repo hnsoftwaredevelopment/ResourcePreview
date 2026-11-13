@@ -167,7 +167,7 @@ namespace ResourcePreview.Tests
             return Directory.GetFiles(Path.Combine(RepoPaths.SampleApp, "Resources"), "*.xaml")
                 .Concat(Directory.GetFiles(Path.Combine(RepoPaths.SampleApp, "Broken"), "*.xaml"))
                 .SelectMany(file => XDocument.Load(file).Root.Elements())
-                .Select(e => (string)e.Attribute(x + "Key"))
+                .Select(e => ResourceKeys.Normalize((string)e.Attribute(x + "Key")))
                 .Where(k => k != null)
                 .Distinct()
                 .Select(k => new object[] { k });

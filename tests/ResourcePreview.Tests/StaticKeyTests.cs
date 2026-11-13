@@ -255,6 +255,21 @@ namespace ResourcePreview.Tests
             }
         }
 
+        [TestMethod]
+        public void SampleApp_ValueEditor_FromMainWindowWithAnotherPrefix()
+        {
+            string main = System.IO.Path.Combine(RepoPaths.SampleApp, "MainWindow.xaml");
+            var index = ResourceIndex.ForFile(main);
+
+            ResourceEntry entry = index.Find("{x:Static TemplateKeys.ValueEditor}", main, CancellationToken.None).Single();
+            Assert.AreEqual("DataTemplate", entry.ElementTypeName);
+            Assert.AreEqual("{x:Static res:TemplateKeys.ValueEditor}", entry.KeyText);
+
+            UsageReport report = UsageFinder.Find(index, entry.Key, entry, CancellationToken.None);
+            Assert.AreEqual(main, report.Usages.Single().FilePath);
+            Assert.AreEqual(entry, report.Usages.Single().ResolvesTo);
+        }
+
         // --- Styles ---
 
         [TestMethod]
