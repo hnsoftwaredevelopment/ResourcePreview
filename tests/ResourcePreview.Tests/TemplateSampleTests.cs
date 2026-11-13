@@ -272,30 +272,65 @@ namespace ResourcePreview.Tests
         }
 
         [TestMethod]
-        public void Render_OnBothTiles_TextWithoutColorGetsTheTileForeground()
+        public void ChooseBackground_KeepsTheThemeUnlessTheTemplateColorsDoNotRead()
+        {
+            Color dark = Color.FromRgb(0x1E, 0x1E, 0x1E);
+            Color[] others = { dark, Colors.White };
+
+            Assert.IsNull(TemplateSampleRenderer.ChooseBackground(new Color[0], Colors.White, others), "no colors of its own");
+            Assert.IsNull(TemplateSampleRenderer.ChooseBackground(new[] { Colors.Black, Colors.Gray }, Colors.White, others), "dark text on a light theme");
+            Assert.AreEqual(dark, TemplateSampleRenderer.ChooseBackground(new[] { Colors.White, Colors.Silver }, Colors.White, others), "white text on a light theme");
+            Assert.AreEqual(Colors.White, TemplateSampleRenderer.ChooseBackground(new[] { Colors.Black }, Color.FromRgb(0x25, 0x25, 0x26), others), "black text on a dark theme");
+            Assert.IsNull(TemplateSampleRenderer.ChooseBackground(new[] { Colors.White, Colors.Black }, Colors.White, others), "no background makes both readable");
+        }
+
+        [TestMethod]
+        public void Contrast_FollowsWcag()
+        {
+            Assert.AreEqual(21.0, TemplateSampleRenderer.Contrast(Colors.Black, Colors.White), 0.01);
+            Assert.AreEqual(1.0, TemplateSampleRenderer.Contrast(Colors.Gray, Colors.Gray), 0.01);
+            Assert.AreEqual(3.95, TemplateSampleRenderer.Contrast(Color.FromRgb(0x80, 0x80, 0x80), Colors.White), 0.01);
+        }
+
+        /// <summary>Renders the template in the test, where the theme background falls back to white.</summary>
+        private static (Color? Background, Color Plain, Color Own) RenderColors(string body)
         {
             SettingsService.SetCurrentForTests(ExtensionSettings.Default);
-            ExtensionSettings settings = ExtensionSettings.Default;
-            string xaml = Template("<StackPanel><TextBlock x:Name=\"Plain\" Text=\"{Binding Title}\" /><TextBlock x:Name=\"White\" Text=\"Fixed\" Foreground=\"White\" /></StackPanel>");
-
-            var colors = Sta.Run(() =>
+            string xaml = Template(body);
+            return Sta.Run(() =>
             {
-                var tiles = (StackPanel)TemplateSampleRenderer.ForDataTemplate((DataTemplate)XamlReader.Parse(xaml), Bindings(xaml)).Sample;
-                return tiles.Children.OfType<Border>().Select(tile =>
-                {
-                    tile.Arrange(new Rect(tile.DesiredSize));
-                    return (Background: ((SolidColorBrush)tile.Background).Color,
-                            Plain: ((SolidColorBrush)FindVisual<TextBlock>(tile, t => t.Name == "Plain").Foreground).Color,
-                            White: ((SolidColorBrush)FindVisual<TextBlock>(tile, t => t.Name == "White").Foreground).Color);
-                }).ToList();
+                var frame = (Border)TemplateSampleRenderer.ForDataTemplate((DataTemplate)XamlReader.Parse(xaml), Bindings(xaml)).Sample;
+                frame.Arrange(new Rect(frame.DesiredSize));
+                return ((frame.Background as SolidColorBrush)?.Color,
+                        ((SolidColorBrush)FindVisual<TextBlock>(frame, t => t.Name == "Plain").Foreground).Color,
+                        ((SolidColorBrush)FindVisual<TextBlock>(frame, t => t.Name == "Own").Foreground).Color);
             });
+        }
 
-            Assert.AreEqual(2, colors.Count);
-            Assert.AreEqual(settings.LightBackground, colors[0].Background);
-            Assert.AreEqual(settings.LightForeground, colors[0].Plain);
-            Assert.AreEqual(settings.DarkBackground, colors[1].Background);
-            Assert.AreEqual(settings.DarkForeground, colors[1].Plain);
-            Assert.AreEqual(Colors.White, colors[0].White, "a color of the template itself stays");
+        [TestMethod]
+        public void Render_WhiteTextOnALightTheme_GetsADarkBackground()
+        {
+            var colors = RenderColors("<StackPanel><TextBlock x:Name=\"Plain\" Text=\"{Binding Title}\" /><TextBlock x:Name=\"Own\" Text=\"Fixed\" Foreground=\"White\" /></StackPanel>");
+
+            Assert.AreEqual(ExtensionSettings.Default.DarkBackground, colors.Background);
+            Assert.AreEqual(Colors.White, colors.Plain, "text without a color of its own follows the background");
+            Assert.AreEqual(Colors.White, colors.Own, "a color of the template itself stays");
+        }
+
+        [TestMethod]
+        public void Render_ReadableColors_KeepTheTheme()
+        {
+            var colors = RenderColors("<StackPanel><TextBlock x:Name=\"Plain\" Text=\"{Binding Title}\" /><TextBlock x:Name=\"Own\" Text=\"Fixed\" Foreground=\"DarkBlue\" /></StackPanel>");
+            Assert.IsNull(colors.Background);
+        }
+
+        [TestMethod]
+        public void Render_WhiteTextOnItsOwnCard_KeepsTheTheme()
+        {
+            var colors = RenderColors(
+                "<StackPanel><TextBlock x:Name=\"Plain\" Text=\"{Binding Title}\" />" +
+                "<Border Background=\"#FF202020\"><TextBlock x:Name=\"Own\" Text=\"Fixed\" Foreground=\"White\" /></Border></StackPanel>");
+            Assert.IsNull(colors.Background);
         }
 
         [TestMethod]
@@ -315,7 +350,7 @@ namespace ResourcePreview.Tests
                 bool rendered = Sta.Run(() =>
                 {
                     var preview = (Panel)PreviewRenderer.Render(data);
-                    return preview.Children.OfType<StackPanel>().Any(p => p.Children.OfType<Border>().Any(b => b.ClipToBounds));
+                    return preview.Children.OfType<Border>().Any(b => b.ClipToBounds);
                 });
                 Assert.IsTrue(rendered, key);
             }

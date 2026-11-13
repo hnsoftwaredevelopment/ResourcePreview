@@ -40,7 +40,7 @@ A `DataTemplate` is rendered with sample data, with its element tree and binding
 
 The preview never loads types from your own project (see [Limitations](#limitations)). A control of your own (`local:Rating`) becomes a dashed box with its name, in the same place and size. A converter of your own is left out, so that binding shows the plain value. Converters from WPF itself, such as `BooleanToVisibilityConverter`, keep working.
 
-Like an icon, the sample appears on the light and the dark tile from the settings, because a template often sets its own colors (`Foreground="White"` for a dark app) and only reads well on one of them. Set **Tiles** to Light or Dark if you only want one.
+The sample uses the colors of your Visual Studio theme. When the template sets colors of its own that do not read on that background, such as `Foreground="White"` in a light theme, the sample gets a background they do read on, so the text is always readable.
 
 An `ItemsPanelTemplate` is shown with a few sample items in the panel, so you see how a `WrapPanel` or a horizontal `StackPanel` arranges them.
 
