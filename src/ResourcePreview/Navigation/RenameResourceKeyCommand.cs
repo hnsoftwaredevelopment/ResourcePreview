@@ -70,7 +70,9 @@ namespace ResourcePreview.Navigation
             ThreadHelper.ThrowIfNotOnUIThread();
 
             var command = (OleMenuCommand)sender;
-            bool available = CaretResource.TryGet(_package, _editorAdapters, _documents, includeDefinitions: true) != null;
+            // A static key is the name of a member in code; renaming it is a C# refactoring.
+            CaretResource caret = CaretResource.TryGet(_package, _editorAdapters, _documents, includeDefinitions: true);
+            bool available = caret != null && !ResourceKeys.IsStatic(caret.Reference.Key);
             command.Visible = available;
             command.Enabled = available;
             command.Text = Localizer.Get(Strings.RenameResourceKey);
@@ -81,7 +83,7 @@ namespace ResourcePreview.Navigation
             ThreadHelper.ThrowIfNotOnUIThread();
 
             CaretResource caret = CaretResource.TryGet(_package, _editorAdapters, _documents, includeDefinitions: true);
-            if (caret == null)
+            if (caret == null || ResourceKeys.IsStatic(caret.Reference.Key))
             {
                 return;
             }

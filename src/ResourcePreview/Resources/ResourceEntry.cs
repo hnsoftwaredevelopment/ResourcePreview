@@ -10,9 +10,10 @@ namespace ResourcePreview.Resources
     /// </summary>
     internal sealed class ResourceEntry
     {
-        public ResourceEntry(string key, XElement element, string filePath, int lineNumber, int column, IReadOnlyDictionary<string, string> namespaces, bool isRootScope = true)
+        public ResourceEntry(string key, XElement element, string filePath, int lineNumber, int column, IReadOnlyDictionary<string, string> namespaces, bool isRootScope = true, string keyText = null)
         {
             Key = key;
+            KeyText = keyText ?? key;
             Element = element;
             FilePath = filePath;
             LineNumber = lineNumber;
@@ -21,7 +22,17 @@ namespace ResourcePreview.Resources
             IsRootScope = isRootScope;
         }
 
+        /// <summary>The key the index uses; see <see cref="ResourceKeys.Normalize"/>.</summary>
         public string Key { get; }
+
+        /// <summary>
+        /// The key as written in x:Key, such as "{x:Static res:TemplateKeys.ValueEditor}". Used for text we insert,
+        /// so the prefix of the source file stays. The same as <see cref="Key"/> for a plain key.
+        /// </summary>
+        public string KeyText { get; }
+
+        /// <summary>The reference to insert in XAML: {StaticResource AccentBrush}.</summary>
+        public string StaticReference => "{StaticResource " + KeyText + "}";
 
         /// <summary>Copy of the element, detached from the source document.</summary>
         public XElement Element { get; }

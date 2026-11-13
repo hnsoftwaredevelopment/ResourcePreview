@@ -175,7 +175,7 @@ namespace ResourcePreview.Preview
             object resource;
             try
             {
-                resource = ((ResourceDictionary)XamlReader.Parse(setter.ResourceXaml))[setter.ValueText];
+                resource = ((ResourceDictionary)XamlReader.Parse(setter.ResourceXaml))[ResourceKeys.PreviewKey(setter.ValueText)];
             }
             catch (Exception)
             {

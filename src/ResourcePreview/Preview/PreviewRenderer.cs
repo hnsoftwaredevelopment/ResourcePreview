@@ -60,7 +60,7 @@ namespace ResourcePreview.Preview
             try
             {
                 var dictionary = (ResourceDictionary)XamlReader.Parse(data.Xaml);
-                resource = dictionary[data.Key];
+                resource = dictionary[global::ResourcePreview.Resources.ResourceKeys.PreviewKey(data.Key)];
             }
             catch (Exception ex)
             {
@@ -163,7 +163,7 @@ namespace ResourcePreview.Preview
             try
             {
                 var dictionary = (ResourceDictionary)XamlReader.Parse(data.Xaml);
-                return dictionary[data.Key] is Style style ? LiveSampleRenderer.ForStyle(style) : null;
+                return dictionary[global::ResourcePreview.Resources.ResourceKeys.PreviewKey(data.Key)] is Style style ? LiveSampleRenderer.ForStyle(style) : null;
             }
             catch (Exception ex)
             {

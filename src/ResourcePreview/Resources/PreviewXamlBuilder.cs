@@ -43,7 +43,7 @@ namespace ResourcePreview.Resources
         private static readonly XNamespace CompatibilityNamespace = "http://schemas.openxmlformats.org/markup-compatibility/2006";
 
         private static readonly Regex ReferencePattern =
-            new Regex(@"\{\s*(?:StaticResource|DynamicResource)\s+(?:ResourceKey\s*=\s*)?(?<key>[^\s,}{]+)", RegexOptions.Compiled);
+            new Regex(@"\{\s*(?:StaticResource|DynamicResource)\s+(?:ResourceKey\s*=\s*)?" + ResourceKeys.KeyPattern, RegexOptions.Compiled);
 
         private static readonly Regex DynamicResourcePattern =
             new Regex(@"\{\s*DynamicResource\b", RegexOptions.Compiled);
@@ -93,6 +93,13 @@ namespace ResourcePreview.Resources
                     ResourceEntry dependency = index.Find(dependencyKey, entry.FilePath, cancellationToken).FirstOrDefault();
                     if (dependency == null)
                     {
+                        // {x:Static SystemColors.ControlBrushKey}: WPF itself provides it, so it is not missing.
+                        // A static key of the project that no file defines stays as it is; the type check catches it.
+                        if (ResourceKeys.IsStatic(dependencyKey))
+                        {
+                            continue;
+                        }
+
                         if (!missing.Contains(dependencyKey))
                         {
                             missing.Add(dependencyKey);
@@ -109,8 +116,13 @@ namespace ResourcePreview.Resources
                 ordered.Add(entry);
             }
 
-            string unloadable = ordered.Select(FindUnloadableType).FirstOrDefault(t => t != null);
-            return new PreviewXaml(CreateDictionary(index, ordered).ToString(SaveOptions.DisableFormatting), missing, unloadable);
+            // Static keys we found a definition for become plain text in the preview, also where they are used.
+            var staticKeys = new HashSet<string>(ordered.Select(e => e.Key).Where(ResourceKeys.IsStatic), StringComparer.Ordinal);
+            var prepared = ordered.Select(e => (Entry: e, Element: PrepareElement(index, e, staticKeys))).ToList();
+
+            // Checked on the prepared copies: the original x:Key="{x:Static res:...}" names a type of the project.
+            string unloadable = prepared.Select(p => FindUnloadableType(p.Element, p.Entry.Namespaces)).FirstOrDefault(t => t != null);
+            return new PreviewXaml(CreateDictionary(prepared).ToString(SaveOptions.DisableFormatting), missing, unloadable);
         }
 
         /// <summary>Namespaces Visual Studio can always load. d: and mc: are listed because they get stripped.</summary>
@@ -279,25 +291,21 @@ namespace ResourcePreview.Resources
                 {
                     foreach (Match match in ReferencePattern.Matches(attribute.Value))
                     {
-                        keys.Add(match.Groups["key"].Value);
+                        keys.Add(ResourceKeys.Normalize(match.Groups["key"].Value));
                     }
                 }
 
                 // Element syntax: <StaticResource ResourceKey="Foo" />
                 if (node.Name.LocalName == "StaticResource" || node.Name.LocalName == "DynamicResource")
                 {
-                    string key = (string)node.Attribute("ResourceKey");
-                    if (!string.IsNullOrEmpty(key) && !key.StartsWith("{", StringComparison.Ordinal))
-                    {
-                        keys.Add(key);
-                    }
+                    keys.Add(ResourceKeys.Normalize((string)node.Attribute("ResourceKey")));
                 }
             }
 
-            return keys.Distinct(StringComparer.Ordinal);
+            return keys.Where(k => k != null).Distinct(StringComparer.Ordinal);
         }
 
-        private static XElement CreateDictionary(ResourceIndex index, IEnumerable<ResourceEntry> entries)
+        private static XElement CreateDictionary(IEnumerable<(ResourceEntry Entry, XElement Element)> entries)
         {
             var root = new XElement(
                 PresentationNamespace + "ResourceDictionary",
@@ -306,10 +314,8 @@ namespace ResourcePreview.Resources
 
             var declaredPrefixes = new HashSet<string> { string.Empty, "x" };
 
-            foreach (ResourceEntry entry in entries)
+            foreach ((ResourceEntry entry, XElement copy) in entries)
             {
-                XElement copy = PrepareElement(index, entry);
-
                 // LINQ to XML does not see prefixes inside attribute values, such as {x:Static sys:Math.PI}.
                 // Copy the source file's declaration for every prefix that appears in the text.
                 string text = copy.ToString();
@@ -333,9 +339,14 @@ namespace ResourcePreview.Resources
             return root;
         }
 
-        private static XElement PrepareElement(ResourceIndex index, ResourceEntry entry)
+        private static XElement PrepareElement(ResourceIndex index, ResourceEntry entry, ISet<string> staticKeys)
         {
             var copy = new XElement(entry.Element);
+
+            if (ResourceKeys.IsStatic(entry.Key))
+            {
+                copy.SetAttributeValue(ResourceIndex.XamlNamespace + "Key", ResourceKeys.PreviewKey(entry.Key));
+            }
 
             // XamlReader rejects d: and mc: attributes without mc:Ignorable, so strip them.
             foreach (XElement node in copy.DescendantsAndSelf())
@@ -377,9 +388,23 @@ namespace ResourcePreview.Resources
                     node.Name = node.Name.Namespace + "StaticResource";
                 }
 
+                if (node.Name.LocalName == "StaticResource")
+                {
+                    XAttribute resourceKey = node.Attribute("ResourceKey");
+                    string key = ResourceKeys.Normalize(resourceKey?.Value);
+                    if (key != null && staticKeys.Contains(key))
+                    {
+                        resourceKey.Value = ResourceKeys.PreviewKey(key);
+                    }
+                }
+
                 foreach (XAttribute attribute in node.Attributes().Where(a => !a.IsNamespaceDeclaration))
                 {
                     string value = DynamicResourcePattern.Replace(attribute.Value, "{StaticResource");
+                    if (staticKeys.Count > 0 && attribute.Name != ResourceIndex.XamlNamespace + "Key")
+                    {
+                        value = ReplaceStaticReferences(value, staticKeys);
+                    }
 
                     // Font references contain a #, which must not become part of the file path.
                     if (attribute.Name.LocalName == "FontFamily" || (attribute.Name.LocalName == "Source" && node.Name.LocalName == "FontFamily"))
@@ -400,6 +425,22 @@ namespace ResourcePreview.Resources
             }
 
             return copy;
+        }
+
+        /// <summary>{StaticResource {x:Static res:Keys.A}} becomes {StaticResource xStatic.Keys.A} when the preview defines that key.</summary>
+        private static string ReplaceStaticReferences(string value, ISet<string> staticKeys)
+        {
+            return ReferencePattern.Replace(value, match =>
+            {
+                Group key = match.Groups["key"];
+                string normalized = ResourceKeys.Normalize(key.Value);
+                if (normalized == null || !staticKeys.Contains(normalized))
+                {
+                    return match.Value;
+                }
+
+                return match.Value.Substring(0, key.Index - match.Index) + ResourceKeys.PreviewKey(normalized);
+            });
         }
 
         /// <summary>

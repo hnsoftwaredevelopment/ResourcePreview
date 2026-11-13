@@ -14,7 +14,8 @@ namespace ResourcePreview.Resources
     /// - solutions without App.xaml (a class library: the app that uses it is elsewhere);
     /// - dictionaries that nothing merges (they may be loaded by another solution or from code);
     /// - theme files such as Themes\Generic.xaml;
-    /// - the dictionaries inside ResourceDictionary.ThemeDictionaries, whose keys ("Light", "Dark") WPF uses itself.
+    /// - the dictionaries inside ResourceDictionary.ThemeDictionaries, whose keys ("Light", "Dark") WPF uses itself;
+    /// - static keys such as {x:Static res:TemplateKeys.A}: code uses them through the member, not as a string.
     /// </summary>
     internal static class UnusedResourceScanner
     {
@@ -46,8 +47,10 @@ namespace ResourcePreview.Resources
                     continue;
                 }
 
+                // A static key ({x:Static res:TemplateKeys.A}) exists to be used from code, which we cannot follow.
                 result.AddRange(file.Value.Entries.Where(e =>
                     e.ElementTypeName != "ResourceDictionary"
+                    && !ResourceKeys.IsStatic(e.Key)
                     && !used.Contains(e.Key)
                     && !codeStrings.Contains(e.Key)));
             }

@@ -114,7 +114,7 @@ namespace ResourcePreview.Refactoring
                     if (attributes.StyleKey != null)
                     {
                         yield return new RefactoringAction(
-                            Localizer.Format(Strings.AddToStyleFormat, attributes.StyleKey),
+                            Localizer.Format(Strings.AddToStyleFormat, attributes.StyleKeyText),
                             () => _refactorings.AddToStyle(filePath, snapshot, attributes));
                     }
 

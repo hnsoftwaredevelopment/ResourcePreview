@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using ResourcePreview.Resources;
 
 namespace ResourcePreview.QuickInfo
 {
@@ -28,14 +29,15 @@ namespace ResourcePreview.QuickInfo
     ///   {StaticResource ResourceKey=BuildInstaller}
     ///   &lt;StaticResource ResourceKey="BuildInstaller" /&gt;
     ///   x:Key="BuildInstaller"   (preview on the definition itself)
+    ///   {StaticResource {x:Static res:TemplateKeys.ValueEditor}} and x:Key="{x:Static res:TemplateKeys.ValueEditor}"
     /// </summary>
     internal static class ResourceReferenceFinder
     {
         private static readonly Regex[] Patterns =
         {
-            new Regex(@"\{\s*(?:StaticResource|DynamicResource)\s+(?:ResourceKey\s*=\s*)?(?<key>[^\s,}{]+)[^}]*\}", RegexOptions.Compiled),
-            new Regex(@"<\s*(?:StaticResource|DynamicResource)\s+ResourceKey\s*=\s*""(?<key>[^""{]+)""", RegexOptions.Compiled),
-            new Regex(@"\bx:Key\s*=\s*""(?<key>[^""{]+)""", RegexOptions.Compiled),
+            new Regex(@"\{\s*(?:StaticResource|DynamicResource)\s+(?:ResourceKey\s*=\s*)?" + ResourceKeys.KeyPattern + @"[^}]*\}", RegexOptions.Compiled),
+            new Regex(@"<\s*(?:StaticResource|DynamicResource)\s+ResourceKey\s*=\s*""" + ResourceKeys.QuotedKeyPattern + @"""", RegexOptions.Compiled),
+            new Regex(@"\bx:Key\s*=\s*""" + ResourceKeys.QuotedKeyPattern + @"""", RegexOptions.Compiled),
         };
 
         public static bool TryFind(string lineText, int positionInLine, out ResourceReference reference) =>
@@ -58,7 +60,13 @@ namespace ResourcePreview.QuickInfo
                     // Inclusive end so hovering the last character still counts.
                     if (positionInLine >= match.Index && positionInLine <= match.Index + match.Length)
                     {
-                        reference = new ResourceReference(match.Groups["key"].Value, match.Index, match.Length);
+                        string key = ResourceKeys.Normalize(match.Groups["key"].Value);
+                        if (key == null)
+                        {
+                            continue; // {x:Type Button} and other markup we do not support
+                        }
+
+                        reference = new ResourceReference(key, match.Index, match.Length);
                         return true;
                     }
                 }

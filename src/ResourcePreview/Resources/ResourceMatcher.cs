@@ -159,7 +159,7 @@ namespace ResourcePreview.Resources
             if (match.Kind == MatchKind.Value)
             {
                 XamlAttribute attribute = match.Covered[0];
-                return new[] { new TextChange(attribute.ValueStart, attribute.Value.Length, "{StaticResource " + match.Key + "}") };
+                return new[] { new TextChange(attribute.ValueStart, attribute.Value.Length, match.Entry.StaticReference) };
             }
 
             var covered = new AttributeSelection(selection.ElementName, selection.TagStart, match.Covered, null, null);

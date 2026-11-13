@@ -369,7 +369,7 @@ namespace ResourcePreview.Navigation
             }
 
             header.Children.Add(icon);
-            header.Children.Add(Text(item.Key, 1.0));
+            header.Children.Add(Text(item.Entry.KeyText, 1.0));
             header.Children.Add(Text("  " + item.Entry.ElementTypeName, 0.6));
             if (showFile)
             {
@@ -440,7 +440,7 @@ namespace ResourcePreview.Navigation
             return node;
         }
 
-        private static string Reference(CatalogItem item) => "{StaticResource " + item.Key + "}";
+        private static string Reference(CatalogItem item) => item.Entry.StaticReference;
 
         private static string Note(CatalogItem item)
         {
@@ -493,7 +493,12 @@ namespace ResourcePreview.Navigation
                 _navigator.NavigateTo(item.Entry);
             }));
             menu.Items.Add(MenuItem(Localizer.Get(Strings.FindResourceReferences), () => FindResourceReferencesCommand.Instance?.FindFor(item.Entry)));
-            menu.Items.Add(MenuItem(Localizer.Get(Strings.RenameResourceKey), () => RenameResourceKeyCommand.Instance?.Rename(item.Entry.FilePath, item.Key)));
+            if (!ResourceKeys.IsStatic(item.Key))
+            {
+                // A static key is the name of a member in code; renaming it is a C# refactoring.
+                menu.Items.Add(MenuItem(Localizer.Get(Strings.RenameResourceKey), () => RenameResourceKeyCommand.Instance?.Rename(item.Entry.FilePath, item.Key)));
+            }
+
             menu.Items.Add(new Separator());
             menu.Items.Add(MenuItem(Localizer.Format(Strings.ResourcesCopyFormat, Reference(item)), () => Clipboard.SetText(Reference(item))));
             return menu;

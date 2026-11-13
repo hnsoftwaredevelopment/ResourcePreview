@@ -41,7 +41,7 @@ namespace ResourcePreview.Resources
             new Regex(@"(?<name>[\w.:]+)\s*=\s*(?<q>[""'])(?<value>[^""']*)\k<q>", RegexOptions.Compiled);
 
         private static readonly Regex Reference =
-            new Regex(@"^\{\s*(?:StaticResource|DynamicResource)\s+(?:ResourceKey\s*=\s*)?(?<key>[^\s,{}]+)\s*\}$", RegexOptions.Compiled);
+            new Regex(@"^\{\s*(?:StaticResource|DynamicResource)\s+(?:ResourceKey\s*=\s*)?" + ResourceKeys.KeyPattern + @"\s*\}$", RegexOptions.Compiled);
 
         private static readonly Regex SetterProperty =
             new Regex(@"<Setter\b[^>]*?\bProperty\s*=\s*[""'](?<property>[\w.:]+)[""']", RegexOptions.Compiled);
@@ -90,7 +90,11 @@ namespace ResourcePreview.Resources
                 Match reference = Reference.Match(trimmed);
                 if (reference.Success)
                 {
-                    spots.Add(new SwatchSpot(start, null, reference.Groups["key"].Value));
+                    string key = ResourceKeys.Normalize(reference.Groups["key"].Value);
+                    if (key != null)
+                    {
+                        spots.Add(new SwatchSpot(start, null, key));
+                    }
                 }
                 else if (ColorParser.TryParse(trimmed, out Color color))
                 {
@@ -145,7 +149,12 @@ namespace ResourcePreview.Resources
                     return ColorParser.TryParse(text, out Color color) ? color : (Color?)null;
                 }
 
-                key = reference.Groups["key"].Value;
+                key = ResourceKeys.Normalize(reference.Groups["key"].Value);
+                if (key == null)
+                {
+                    return null;
+                }
+
                 fromFile = entry.FilePath;
             }
 

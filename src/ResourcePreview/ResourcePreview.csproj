@@ -66,6 +66,7 @@
     <Compile Include="QuickInfo\ResourceReferenceFinder.cs" />
     <Compile Include="Resources\ResourceEntry.cs" />
     <Compile Include="Resources\ResourceIndex.cs" />
+    <Compile Include="Resources\ResourceKeys.cs" />
     <Compile Include="Resources\PreviewXamlBuilder.cs" />
     <Compile Include="Resources\StyleInfo.cs" />
     <Compile Include="Resources\TemplateTree.cs" />

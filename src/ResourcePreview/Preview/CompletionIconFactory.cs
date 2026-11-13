@@ -75,7 +75,7 @@ namespace ResourcePreview.Preview
             object resource;
             try
             {
-                resource = ((ResourceDictionary)XamlReader.Parse(xaml.Xaml))[entry.Key];
+                resource = ((ResourceDictionary)XamlReader.Parse(xaml.Xaml))[ResourceKeys.PreviewKey(entry.Key)];
             }
             catch (Exception)
             {

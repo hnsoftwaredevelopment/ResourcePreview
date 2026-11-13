@@ -49,7 +49,8 @@ namespace ResourcePreview.Resources
     ///
     /// We only report what we can be sure of, using the same lookup order as the tooltip (<see cref="MergeGraph"/>):
     /// - Missing: no file in the solution defines the key. Skipped when the lookup passes a dictionary from
-    ///   outside the solution (a NuGet theme), or when there is no App.xaml: those may define it.
+    ///   outside the solution (a NuGet theme), or when there is no App.xaml: those may define it. For a static
+    ///   key ({x:Static res:TemplateKeys.A}) only when the solution defines other keys of that class.
     /// - DefinedLater (StaticResource only): the only reachable definition is lower in the same file.
     /// - NotLoaded (StaticResource only): defined, but not in any file WPF searches from here. Only for Windows,
     ///   App.xaml and dictionaries. A UserControl also sees the resources of the window it is placed in, which we do not know.
@@ -91,6 +92,13 @@ namespace ResourcePreview.Resources
             IReadOnlyList<ResourceEntry> definitions = keys.Get(use.Key);
             if (definitions.Count == 0)
             {
+                // {x:Static SystemColors.ControlBrushKey} comes from WPF, and a key class may be used from code only.
+                // Only report a static key when other keys of the same class are defined in XAML.
+                if (ResourceKeys.IsStatic(use.Key) && !keys.HasStaticType(ResourceKeys.StaticTypeName(use.Key)))
+                {
+                    return null;
+                }
+
                 return graph.IsLookupComplete(filePath)
                     ? new ReferenceProblem(filePath, use, ReferenceProblemKind.Missing, null, keys.FindOtherCase(use.Key))
                     : null;
@@ -141,6 +149,7 @@ namespace ResourcePreview.Resources
             private static readonly IReadOnlyList<ResourceEntry> None = new ResourceEntry[0];
             private readonly Dictionary<string, List<ResourceEntry>> _byKey = new Dictionary<string, List<ResourceEntry>>(StringComparer.Ordinal);
             private readonly Dictionary<string, string> _byLowerCase = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            private readonly HashSet<string> _staticTypes = new HashSet<string>(StringComparer.Ordinal);
 
             public KeyTable(MergeGraph graph)
             {
@@ -150,6 +159,10 @@ namespace ResourcePreview.Resources
                     {
                         _byKey[entry.Key] = list = new List<ResourceEntry>();
                         _byLowerCase[entry.Key] = entry.Key;
+                        if (ResourceKeys.IsStatic(entry.Key))
+                        {
+                            _staticTypes.Add(ResourceKeys.StaticTypeName(entry.Key));
+                        }
                     }
 
                     list.Add(entry);
@@ -157,6 +170,8 @@ namespace ResourcePreview.Resources
             }
 
             public IReadOnlyList<ResourceEntry> Get(string key) => _byKey.TryGetValue(key, out List<ResourceEntry> list) ? list : None;
+
+            public bool HasStaticType(string typeName) => typeName != null && _staticTypes.Contains(typeName);
 
             public string FindOtherCase(string key) => _byLowerCase.TryGetValue(key, out string match) ? match : null;
         }

@@ -85,7 +85,7 @@ namespace ResourcePreview.Resources
     internal static class StyleInfoBuilder
     {
         private static readonly Regex ReferencePattern =
-            new Regex(@"^\{\s*(?:StaticResource|DynamicResource)\s+(?:ResourceKey\s*=\s*)?(?<key>[^\s,}{]+)\s*\}$", RegexOptions.Compiled);
+            new Regex(@"^\{\s*(?:StaticResource|DynamicResource)\s+(?:ResourceKey\s*=\s*)?" + ResourceKeys.KeyPattern + @"\s*\}$", RegexOptions.Compiled);
 
         private static readonly Regex TypePattern =
             new Regex(@"^\{\s*x:Type\s+(?:TypeName\s*=\s*)?(?<type>[^\s}]+)\s*\}$", RegexOptions.Compiled);
@@ -210,9 +210,9 @@ namespace ResourcePreview.Resources
             }
 
             Match reference = ReferencePattern.Match(value);
-            if (reference.Success)
+            string key = reference.Success ? ResourceKeys.Normalize(reference.Groups["key"].Value) : null;
+            if (key != null)
             {
-                string key = reference.Groups["key"].Value;
                 var info = new SetterInfo(property, key, SetterValueKind.ResourceReference, inheritedFrom);
                 ResourceEntry target = index.Find(key, source.FilePath, cancellationToken).FirstOrDefault();
                 if (target != null)

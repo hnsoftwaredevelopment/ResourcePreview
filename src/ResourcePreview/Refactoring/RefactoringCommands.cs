@@ -155,7 +155,7 @@ namespace ResourcePreview.Refactoring
             ThreadHelper.ThrowIfNotOnUIThread();
             AttributeSelection selection = FindAttributes(out _, out _);
             bool available = selection?.StyleKey != null;
-            Show(command, available, available ? Localizer.Format(Strings.AddToStyleFormat, selection.StyleKey) : string.Empty);
+            Show(command, available, available ? Localizer.Format(Strings.AddToStyleFormat, selection.StyleKeyText) : string.Empty);
         }
 
         private void AddToStyle()

@@ -46,13 +46,14 @@ namespace ResourcePreview.Resources
     /// <summary>The attributes selected in one start tag, and what the element already has as Style.</summary>
     internal sealed class AttributeSelection
     {
-        public AttributeSelection(string elementName, int tagStart, IReadOnlyList<XamlAttribute> selected, XamlAttribute style, string styleKey)
+        public AttributeSelection(string elementName, int tagStart, IReadOnlyList<XamlAttribute> selected, XamlAttribute style, string styleKey, string styleKeyText = null)
         {
             ElementName = elementName;
             TagStart = tagStart;
             Selected = selected;
             Style = style;
             StyleKey = styleKey;
+            StyleKeyText = styleKeyText ?? styleKey;
         }
 
         /// <summary>"Path", "Button" ... Only elements from the default WPF namespace.</summary>
@@ -66,8 +67,11 @@ namespace ResourcePreview.Resources
         /// <summary>The Style attribute of the element, or null.</summary>
         public XamlAttribute Style { get; }
 
-        /// <summary>The key in Style="{StaticResource Key}", or null.</summary>
+        /// <summary>The key in Style="{StaticResource Key}" as the index uses it (<see cref="ResourceKeys.Normalize"/>), or null.</summary>
         public string StyleKey { get; }
+
+        /// <summary>The key as written, such as "{x:Static res:Styles.Card}". For text we show or insert.</summary>
+        public string StyleKeyText { get; }
 
         /// <summary>
         /// False for elements that cannot have a Style, such as a Setter or a GradientStop. Their attributes
@@ -87,7 +91,7 @@ namespace ResourcePreview.Resources
             new Regex(@"(?<name>[\w.:]+)\s*=\s*(?<q>[""'])(?<value>.*?)\k<q>", RegexOptions.Compiled | RegexOptions.Singleline);
 
         private static readonly Regex StyleReference =
-            new Regex(@"^\{\s*(?:StaticResource|DynamicResource)\s+(?:ResourceKey\s*=\s*)?(?<key>[^\s,{}]+)\s*\}$", RegexOptions.Compiled);
+            new Regex(@"^\{\s*(?:StaticResource|DynamicResource)\s+(?:ResourceKey\s*=\s*)?" + ResourceKeys.KeyPattern + @"\s*\}$", RegexOptions.Compiled);
 
         // Events cannot be setters (they need an EventSetter), so these stay on the element.
         private static readonly Regex EventName =
@@ -146,15 +150,17 @@ namespace ResourcePreview.Resources
 
             XamlAttribute style = attributes.FirstOrDefault(a => a.Name == "Style");
             string styleKey = null;
+            string styleKeyText = null;
             if (style != null)
             {
                 Match reference = StyleReference.Match(style.Value.Trim());
-                if (!reference.Success)
+                styleKey = reference.Success ? ResourceKeys.Normalize(reference.Groups["key"].Value) : null;
+                if (styleKey == null)
                 {
                     return null; // Style="{x:Null}" or a binding: we cannot combine that with a new style
                 }
 
-                styleKey = reference.Groups["key"].Value;
+                styleKeyText = reference.Groups["key"].Value.Trim();
             }
 
             List<XamlAttribute> selected = attributes
@@ -162,7 +168,7 @@ namespace ResourcePreview.Resources
                 .Where(a => CanBeSetter(a.Name))
                 .ToList();
 
-            return selected.Count == 0 ? null : new AttributeSelection(name, tagStart, selected, style, styleKey);
+            return selected.Count == 0 ? null : new AttributeSelection(name, tagStart, selected, style, styleKey, styleKeyText);
         }
 
         /// <summary>The attribute at the caret as a selection of one, or null. Also works just after the closing quote.</summary>
@@ -217,7 +223,7 @@ namespace ResourcePreview.Resources
         /// <summary>The new Style, one line per element. BasedOn the style the element already had.</summary>
         public static IReadOnlyList<string> StyleLines(AttributeSelection selection, string key)
         {
-            string basedOn = selection.StyleKey == null ? string.Empty : $" BasedOn=\"{{StaticResource {selection.StyleKey}}}\"";
+            string basedOn = selection.StyleKey == null ? string.Empty : $" BasedOn=\"{{StaticResource {selection.StyleKeyText}}}\"";
             var lines = new List<string> { $"<Style x:Key=\"{key}\" TargetType=\"{selection.ElementName}\"{basedOn}>" };
             lines.AddRange(selection.Selected.Select(a => "    " + a.ToSetter()));
             lines.Add("</Style>");

@@ -156,7 +156,7 @@ namespace ResourcePreview.Refactoring
 
             if (style == null)
             {
-                ShowStatus(Localizer.Format(Strings.AddToStyleNotFoundFormat, selection.StyleKey));
+                ShowStatus(Localizer.Format(Strings.AddToStyleNotFoundFormat, selection.StyleKeyText));
                 return;
             }
 
@@ -181,7 +181,7 @@ namespace ResourcePreview.Refactoring
 
             if (changed == 0)
             {
-                ShowStatus(Localizer.Format(Strings.AddToStyleNotFoundFormat, selection.StyleKey));
+                ShowStatus(Localizer.Format(Strings.AddToStyleNotFoundFormat, selection.StyleKeyText));
                 return;
             }
 
@@ -243,15 +243,15 @@ namespace ResourcePreview.Refactoring
                 }
 
                 description = string.Join(" · ", parts);
-                change = "Style=\"{StaticResource " + match.Key + "}\"";
+                change = "Style=\"" + match.Entry.StaticReference + "\"";
             }
             else
             {
                 description = Localizer.Format(Strings.MatchValueFormat, match.Entry.ElementTypeName, covered);
-                change = covered + "=\"{StaticResource " + match.Key + "}\"";
+                change = covered + "=\"" + match.Entry.StaticReference + "\"";
             }
 
-            return new MatchRow(match, match.Key, description, change, ReferenceChecker.Relative(index, match.Entry.FilePath) + ":" + match.Entry.LineNumber);
+            return new MatchRow(match, match.Entry.KeyText, description, change, ReferenceChecker.Relative(index, match.Entry.FilePath) + ":" + match.Entry.LineNumber);
         }
 
         /// <summary>The positions are from the snapshot the action saw. Stop if the text changed since.</summary>

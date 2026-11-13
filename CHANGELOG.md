@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- **Keys from a class.** Resources with a key such as `x:Key="{x:Static res:TemplateKeys.ValueEditor}"` now get a preview on hover and show up in the XAML Resources window. Go To Resource Definition, Find Resource References and the Error List work with them too. Keys match on class and member, so another namespace prefix in another file is fine.
+
 ## 1.5.0
 
 Hover previews were only the start. This version helps you keep resource dictionaries correct and tidy.

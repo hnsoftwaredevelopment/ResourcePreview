@@ -53,8 +53,8 @@ namespace ResourcePreview.Tests
 
             List<ResourceUse> uses = ResourceIndex.FindUses(text);
 
-            CollectionAssert.AreEqual(new[] { "A", "B", "C" }, uses.Select(u => u.Key).ToArray());
-            CollectionAssert.AreEqual(new[] { true, false, true }, uses.Select(u => u.IsStatic).ToArray());
+            CollectionAssert.AreEqual(new[] { "A", "B", "C", "{x:Static SystemColors.ControlBrushKey}" }, uses.Select(u => u.Key).ToArray());
+            CollectionAssert.AreEqual(new[] { true, false, true, true }, uses.Select(u => u.IsStatic).ToArray());
             Assert.AreEqual(2, uses[0].Line);
             Assert.AreEqual(text.Split('\n')[1].IndexOf("A}") + 1, uses[0].Column);
             Assert.AreEqual(4, uses[2].Line);

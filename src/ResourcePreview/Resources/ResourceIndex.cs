@@ -560,9 +560,10 @@ namespace ResourcePreview.Resources
             foreach (XElement element in root.Descendants())
             {
                 XAttribute keyAttribute = element.Attribute(XamlNamespace + "Key");
-                if (keyAttribute == null || keyAttribute.Value.StartsWith("{", StringComparison.Ordinal))
+                string key = keyAttribute == null ? null : ResourceKeys.Normalize(keyAttribute.Value);
+                if (key == null)
                 {
-                    continue; // no key, or a markup key such as {x:Type Button} or {x:Static ...}
+                    continue; // no key, or a markup key we do not support, such as {x:Type Button}
                 }
 
                 // Use the x:Key attribute's position as the navigation target, even for multi-line elements.
@@ -570,15 +571,15 @@ namespace ResourcePreview.Resources
                 int line = lineInfo.HasLineInfo() ? lineInfo.LineNumber : 0;
                 int column = lineInfo.HasLineInfo() ? lineInfo.LinePosition : 0;
                 bool isRootScope = rootDictionary != null && element.Parent == rootDictionary;
-                result.Add(new ResourceEntry(keyAttribute.Value, new XElement(element), filePath, line, column, namespaces, isRootScope));
+                result.Add(new ResourceEntry(key, new XElement(element), filePath, line, column, namespaces, isRootScope, keyAttribute.Value));
             }
 
             return new XamlFileModel(result, FindMergedSources(rootDictionary), kind, root.Name.LocalName, FindUses(text));
         }
 
         private static readonly Regex UsePattern = new Regex(
-            @"\{\s*(?<kind>StaticResource|DynamicResource)\s+(?:ResourceKey\s*=\s*)?(?<key>[^\s,}{]+)" +
-            @"|<\s*(?<kind>StaticResource|DynamicResource)\s+ResourceKey\s*=\s*""(?<key>[^""{]+)""",
+            @"\{\s*(?<kind>StaticResource|DynamicResource)\s+(?:ResourceKey\s*=\s*)?" + ResourceKeys.KeyPattern +
+            @"|<\s*(?<kind>StaticResource|DynamicResource)\s+ResourceKey\s*=\s*""" + ResourceKeys.QuotedKeyPattern + @"""",
             RegexOptions.Compiled);
 
         private static readonly Regex CommentPattern = new Regex("<!--.*?-->", RegexOptions.Compiled | RegexOptions.Singleline);
@@ -599,7 +600,11 @@ namespace ResourcePreview.Resources
                 foreach (Match match in UsePattern.Matches(lines[i]))
                 {
                     Group key = match.Groups["key"];
-                    uses.Add(new ResourceUse(key.Value, i + 1, key.Index + 1, match.Groups["kind"].Value == "StaticResource", lines[i].Trim()));
+                    string normalized = ResourceKeys.Normalize(key.Value);
+                    if (normalized != null)
+                    {
+                        uses.Add(new ResourceUse(normalized, i + 1, key.Index + 1, match.Groups["kind"].Value == "StaticResource", lines[i].Trim()));
+                    }
                 }
             }
 
