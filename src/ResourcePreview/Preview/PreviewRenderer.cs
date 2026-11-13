@@ -369,7 +369,7 @@ namespace ResourcePreview.Preview
             };
         }
 
-        private static Brush ToBrush(Color color) => Freeze(new SolidColorBrush(color));
+        internal static Brush ToBrush(Color color) => Freeze(new SolidColorBrush(color));
 
         private static Brush Freeze(Brush brush)
         {

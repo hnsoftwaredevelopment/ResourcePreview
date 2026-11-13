@@ -53,7 +53,7 @@
                 <StackPanel Grid.Column="1">
                     <TextBlock x:Name="TitleText" Text="{Binding Title}" FontWeight="Bold" Foreground="White" />
                     <TextBlock Text="{Binding Author, StringFormat='by {0}'}" Foreground="White" />
-                    <TextBlock Foreground="Gray">Book</TextBlock>
+                    <TextBlock Foreground="Silver">Book</TextBlock>
                 </StackPanel>
             </Grid>
         </Border>

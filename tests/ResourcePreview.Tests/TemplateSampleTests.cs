@@ -272,6 +272,33 @@ namespace ResourcePreview.Tests
         }
 
         [TestMethod]
+        public void Render_OnBothTiles_TextWithoutColorGetsTheTileForeground()
+        {
+            SettingsService.SetCurrentForTests(ExtensionSettings.Default);
+            ExtensionSettings settings = ExtensionSettings.Default;
+            string xaml = Template("<StackPanel><TextBlock x:Name=\"Plain\" Text=\"{Binding Title}\" /><TextBlock x:Name=\"White\" Text=\"Fixed\" Foreground=\"White\" /></StackPanel>");
+
+            var colors = Sta.Run(() =>
+            {
+                var tiles = (StackPanel)TemplateSampleRenderer.ForDataTemplate((DataTemplate)XamlReader.Parse(xaml), Bindings(xaml)).Sample;
+                return tiles.Children.OfType<Border>().Select(tile =>
+                {
+                    tile.Arrange(new Rect(tile.DesiredSize));
+                    return (Background: ((SolidColorBrush)tile.Background).Color,
+                            Plain: ((SolidColorBrush)FindVisual<TextBlock>(tile, t => t.Name == "Plain").Foreground).Color,
+                            White: ((SolidColorBrush)FindVisual<TextBlock>(tile, t => t.Name == "White").Foreground).Color);
+                }).ToList();
+            });
+
+            Assert.AreEqual(2, colors.Count);
+            Assert.AreEqual(settings.LightBackground, colors[0].Background);
+            Assert.AreEqual(settings.LightForeground, colors[0].Plain);
+            Assert.AreEqual(settings.DarkBackground, colors[1].Background);
+            Assert.AreEqual(settings.DarkForeground, colors[1].Plain);
+            Assert.AreEqual(Colors.White, colors[0].White, "a color of the template itself stays");
+        }
+
+        [TestMethod]
         public void Render_FromTheSampleApp_ValueEditorAndPropertyRow()
         {
             SettingsService.SetCurrentForTests(ExtensionSettings.Default);
@@ -288,7 +315,7 @@ namespace ResourcePreview.Tests
                 bool rendered = Sta.Run(() =>
                 {
                     var preview = (Panel)PreviewRenderer.Render(data);
-                    return preview.Children.OfType<Border>().Any(b => b.ClipToBounds);
+                    return preview.Children.OfType<StackPanel>().Any(p => p.Children.OfType<Border>().Any(b => b.ClipToBounds));
                 });
                 Assert.IsTrue(rendered, key);
             }

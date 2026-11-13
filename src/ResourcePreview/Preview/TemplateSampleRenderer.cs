@@ -6,7 +6,10 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Media;
 using ResourcePreview.Localization;
+using ResourcePreview.Options;
 using ResourcePreview.Resources;
 
 namespace ResourcePreview.Preview
@@ -14,6 +17,10 @@ namespace ResourcePreview.Preview
     /// <summary>
     /// Renders a DataTemplate with sample data, and an ItemsPanelTemplate with a few sample items.
     /// The template comes from <see cref="TemplateSampleBuilder"/>, so own types are already boxes.
+    ///
+    /// Like an icon, the sample is shown on the light and the dark tile from the settings. A template often sets
+    /// its own colors (Foreground="White" for a dark app), which only reads well on one of them. Text without a
+    /// color of its own gets the foreground of the tile; the tooltip text color does not inherit into the sample.
     /// Call on the UI thread only.
     /// </summary>
     internal static class TemplateSampleRenderer
@@ -25,64 +32,92 @@ namespace ResourcePreview.Preview
 
         public static LiveSampleRenderer.Result ForDataTemplate(DataTemplate template, IReadOnlyList<SampleBinding> bindings)
         {
-            var presenter = new ContentPresenter
+            return Render(() => new ContentPresenter
             {
                 ContentTemplate = template,
                 Content = CreateData(bindings),
-            };
-
-            return Render(presenter, MaxWidth);
+            }, MaxWidth);
         }
 
         public static LiveSampleRenderer.Result ForItemsPanel(ItemsPanelTemplate template)
         {
-            var items = new ItemsControl { ItemsPanel = template, Width = PanelWidth };
             string text = Localizer.Get(Strings.SampleText);
-            for (int i = 1; i <= PanelItems; i++)
+            return Render(() =>
             {
-                items.Items.Add(new Border
+                var items = new ItemsControl { ItemsPanel = template, Width = PanelWidth };
+                for (int i = 1; i <= PanelItems; i++)
                 {
-                    BorderBrush = PreviewRenderer.SampleItemBorder,
-                    BorderThickness = new Thickness(1),
-                    Padding = new Thickness(6, 2, 6, 2),
-                    Margin = new Thickness(2),
-                    Child = new TextBlock { Text = text + " " + i },
-                });
-            }
+                    items.Items.Add(new Border
+                    {
+                        BorderBrush = PreviewRenderer.SampleItemBorder,
+                        BorderThickness = new Thickness(1),
+                        Padding = new Thickness(6, 2, 6, 2),
+                        Margin = new Thickness(2),
+                        Child = new TextBlock { Text = text + " " + i },
+                    });
+                }
 
-            return Render(items, PanelWidth);
+                return items;
+            }, PanelWidth);
         }
 
-        private static LiveSampleRenderer.Result Render(FrameworkElement sample, double width)
+        /// <summary>One sample per tile from the settings (light, dark or both), below each other.</summary>
+        private static LiveSampleRenderer.Result Render(Func<FrameworkElement> create, double width)
         {
-            sample.HorizontalAlignment = HorizontalAlignment.Left;
-            sample.VerticalAlignment = VerticalAlignment.Top;
-
-            // Keep the sample static and let clicks fall through to the panel, which navigates to the definition.
-            sample.IsHitTestVisible = false;
-            sample.Focusable = false;
-
-            var frame = new Border
+            ExtensionSettings settings = SettingsService.Current;
+            var tiles = new List<(Color Foreground, Color Background)>();
+            if (settings.Tiles != PreviewTiles.Dark)
             {
-                Child = sample,
-                MaxWidth = width,
-                MaxHeight = MaxHeight,
-                ClipToBounds = true,
-                HorizontalAlignment = HorizontalAlignment.Left,
-                Margin = new Thickness(0, 6, 0, 2),
-            };
-
-            try
-            {
-                // Measure applies the template, so errors in it are thrown here and not later in the tooltip.
-                frame.Measure(new Size(width, MaxHeight));
-            }
-            catch (Exception ex)
-            {
-                return new LiveSampleRenderer.Result(null, Localizer.Format(Strings.NoLiveSampleFormat, LiveSampleRenderer.FirstLine(ex)));
+                tiles.Add((settings.LightForeground, settings.LightBackground));
             }
 
-            return new LiveSampleRenderer.Result(frame, null);
+            if (settings.Tiles != PreviewTiles.Light)
+            {
+                tiles.Add((settings.DarkForeground, settings.DarkBackground));
+            }
+
+            var panel = new StackPanel { Margin = new Thickness(0, 6, 0, 2), HorizontalAlignment = HorizontalAlignment.Left };
+            foreach ((Color foreground, Color background) in tiles)
+            {
+                FrameworkElement sample = create();
+                sample.HorizontalAlignment = HorizontalAlignment.Left;
+                sample.VerticalAlignment = VerticalAlignment.Top;
+
+                // Keep the sample static and let clicks fall through to the panel, which navigates to the definition.
+                sample.IsHitTestVisible = false;
+                sample.Focusable = false;
+
+                var frame = new Border
+                {
+                    Child = sample,
+                    Background = PreviewRenderer.ToBrush(background),
+                    BorderBrush = PreviewRenderer.SampleItemBorder,
+                    BorderThickness = new Thickness(1),
+                    Padding = new Thickness(6),
+                    MaxWidth = width + 14,
+                    MaxHeight = MaxHeight,
+                    ClipToBounds = true,
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Margin = new Thickness(0, 0, 0, 4),
+                };
+
+                // Inherited by every TextBlock and Control in the sample that sets no color itself.
+                TextElement.SetForeground(frame, PreviewRenderer.ToBrush(foreground));
+
+                try
+                {
+                    // Measure applies the template, so errors in it are thrown here and not later in the tooltip.
+                    frame.Measure(new Size(width + 14, MaxHeight));
+                }
+                catch (Exception ex)
+                {
+                    return new LiveSampleRenderer.Result(null, Localizer.Format(Strings.NoLiveSampleFormat, LiveSampleRenderer.FirstLine(ex)));
+                }
+
+                panel.Children.Add(frame);
+            }
+
+            return new LiveSampleRenderer.Result(panel, null);
         }
 
         /// <summary>
