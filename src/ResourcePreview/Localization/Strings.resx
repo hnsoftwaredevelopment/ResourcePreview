@@ -162,6 +162,10 @@
     <value>No live sample: {0} is not a WPF type, so Visual Studio can't load it.</value>
     <comment>{0} = type name with prefix, e.g. local:FancyControl</comment>
   </data>
+  <data name="SamplePlaceholdersFormat" xml:space="preserve">
+    <value>Shown as a box because Visual Studio can't load it: {0}</value>
+    <comment>{0} = type names with prefix, e.g. local:Rating, local:Chart</comment>
+  </data>
   <data name="NoPreviewOwnTypeFormat" xml:space="preserve">
     <value>No preview: {0} is not a WPF type, so Visual Studio can't load it.</value>
     <comment>{0} = type name with prefix, e.g. local:Book</comment>
@@ -170,7 +174,7 @@
     <value>Show live sample</value>
   </data>
   <data name="OptionsLiveSampleDescription" xml:space="preserve">
-    <value>Shows a real control with the style or ControlTemplate applied. A second, disabled sample appears when the style reacts to IsEnabled.</value>
+    <value>Shows a real control with the style or ControlTemplate applied, also as mouse over, pressed and disabled when the style reacts to that. A DataTemplate is shown with sample data, an ItemsPanelTemplate with sample items.</value>
   </data>
   <data name="GoToResourceDefinition" xml:space="preserve">
     <value>Go To Resource Definition</value>

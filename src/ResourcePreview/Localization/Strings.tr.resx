@@ -139,6 +139,9 @@
   <data name="NoLiveSampleOwnTypeFormat" xml:space="preserve">
     <value>Canlı örnek yok: {0} bir WPF türü değil, bu yüzden Visual Studio onu yükleyemiyor.</value>
   </data>
+  <data name="SamplePlaceholdersFormat" xml:space="preserve">
+    <value>Visual Studio yükleyemediği için kutu olarak gösterildi: {0}</value>
+  </data>
   <data name="NoPreviewOwnTypeFormat" xml:space="preserve">
     <value>Önizleme yok: {0} bir WPF türü değil, bu yüzden Visual Studio onu yükleyemiyor.</value>
   </data>
@@ -146,7 +149,7 @@
     <value>Canlı örneği göster</value>
   </data>
   <data name="OptionsLiveSampleDescription" xml:space="preserve">
-    <value>Stilin veya ControlTemplate'in uygulandığı gerçek bir denetim gösterir. Stil IsEnabled'a tepki veriyorsa ikinci, devre dışı bir örnek görünür.</value>
+    <value>Stilin veya ControlTemplate'in uygulandığı gerçek bir denetim gösterir; stil bunlara tepki veriyorsa fare üzerindeyken, basılıyken ve devre dışıyken de. DataTemplate örnek verilerle, ItemsPanelTemplate örnek öğelerle gösterilir.</value>
   </data>
   <data name="GoToResourceDefinition" xml:space="preserve">
     <value>Kaynak tanımına git</value>

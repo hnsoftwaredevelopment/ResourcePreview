@@ -139,6 +139,9 @@
   <data name="NoLiveSampleOwnTypeFormat" xml:space="preserve">
     <value>Aucun aperçu en direct : {0} n'est pas un type WPF, Visual Studio ne peut donc pas le charger.</value>
   </data>
+  <data name="SamplePlaceholdersFormat" xml:space="preserve">
+    <value>Affiché comme une boîte, car Visual Studio ne peut pas le charger : {0}</value>
+  </data>
   <data name="NoPreviewOwnTypeFormat" xml:space="preserve">
     <value>Aucun aperçu : {0} n'est pas un type WPF, Visual Studio ne peut donc pas le charger.</value>
   </data>
@@ -146,7 +149,7 @@
     <value>Afficher l'aperçu en direct</value>
   </data>
   <data name="OptionsLiveSampleDescription" xml:space="preserve">
-    <value>Affiche un vrai contrôle avec le style ou le ControlTemplate appliqué. Un second exemple désactivé apparaît si le style réagit à IsEnabled.</value>
+    <value>Affiche un vrai contrôle avec le style ou le ControlTemplate appliqué, aussi survolé, enfoncé et désactivé si le style y réagit. Un DataTemplate est affiché avec des données d'exemple, un ItemsPanelTemplate avec des éléments d'exemple.</value>
   </data>
   <data name="GoToResourceDefinition" xml:space="preserve">
     <value>Atteindre la définition de la ressource</value>

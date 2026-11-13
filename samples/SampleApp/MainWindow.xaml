@@ -74,6 +74,9 @@
         <ContentControl Margin="0,8,0,0" ContentTemplate="{StaticResource {x:Static keys:TemplateKeys.ValueEditor}}">
             <local:PropertyItem Name="Width" Value="120" IsReadOnly="False" />
         </ContentControl>
+        <ContentControl Margin="0,8,0,0" ContentTemplate="{StaticResource PropertyRowTemplate}">
+            <local:PropertyItem Name="Height" Value="40" />
+        </ContentControl>
         <ItemsControl ItemsPanel="{StaticResource WrapPanelTemplate}" Foreground="White" Margin="0,8,0,0">
             <sys:String xmlns:sys="clr-namespace:System;assembly=System.Runtime">One</sys:String>
             <sys:String xmlns:sys="clr-namespace:System;assembly=System.Runtime">Two</sys:String>

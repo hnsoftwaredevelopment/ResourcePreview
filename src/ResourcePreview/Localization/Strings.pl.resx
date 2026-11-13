@@ -139,6 +139,9 @@
   <data name="NoLiveSampleOwnTypeFormat" xml:space="preserve">
     <value>Brak podglądu na żywo: {0} nie jest typem WPF, więc program Visual Studio nie może go załadować.</value>
   </data>
+  <data name="SamplePlaceholdersFormat" xml:space="preserve">
+    <value>Pokazano jako ramkę, ponieważ program Visual Studio nie może tego załadować: {0}</value>
+  </data>
   <data name="NoPreviewOwnTypeFormat" xml:space="preserve">
     <value>Brak podglądu: {0} nie jest typem WPF, więc program Visual Studio nie może go załadować.</value>
   </data>
@@ -146,7 +149,7 @@
     <value>Pokaż podgląd na żywo</value>
   </data>
   <data name="OptionsLiveSampleDescription" xml:space="preserve">
-    <value>Pokazuje prawdziwą kontrolkę z zastosowanym stylem lub szablonem ControlTemplate. Drugi, wyłączony przykład pojawia się, gdy styl reaguje na IsEnabled.</value>
+    <value>Pokazuje prawdziwą kontrolkę z zastosowanym stylem lub szablonem ControlTemplate, także po najechaniu myszą, wciśniętą i wyłączoną, gdy styl na to reaguje. Szablon DataTemplate jest pokazywany z przykładowymi danymi, a ItemsPanelTemplate z przykładowymi elementami.</value>
   </data>
   <data name="GoToResourceDefinition" xml:space="preserve">
     <value>Przejdź do definicji zasobu</value>

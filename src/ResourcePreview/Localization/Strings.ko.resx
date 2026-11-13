@@ -139,6 +139,9 @@
   <data name="NoLiveSampleOwnTypeFormat" xml:space="preserve">
     <value>라이브 샘플 없음: {0}은(는) WPF 형식이 아니므로 Visual Studio에서 로드할 수 없습니다.</value>
   </data>
+  <data name="SamplePlaceholdersFormat" xml:space="preserve">
+    <value>Visual Studio에서 로드할 수 없어 상자로 표시됨: {0}</value>
+  </data>
   <data name="NoPreviewOwnTypeFormat" xml:space="preserve">
     <value>미리 보기 없음: {0}은(는) WPF 형식이 아니므로 Visual Studio에서 로드할 수 없습니다.</value>
   </data>
@@ -146,7 +149,7 @@
     <value>라이브 샘플 표시</value>
   </data>
   <data name="OptionsLiveSampleDescription" xml:space="preserve">
-    <value>스타일 또는 ControlTemplate이 적용된 실제 컨트롤을 표시합니다. 스타일이 IsEnabled에 반응하면 사용 안 함 상태의 두 번째 샘플이 표시됩니다.</value>
+    <value>스타일 또는 ControlTemplate이 적용된 실제 컨트롤을 표시합니다. 스타일이 반응하면 마우스 오버, 누름, 사용 안 함 상태도 표시합니다. DataTemplate은 샘플 데이터로, ItemsPanelTemplate은 샘플 항목으로 표시합니다.</value>
   </data>
   <data name="GoToResourceDefinition" xml:space="preserve">
     <value>리소스 정의로 이동</value>

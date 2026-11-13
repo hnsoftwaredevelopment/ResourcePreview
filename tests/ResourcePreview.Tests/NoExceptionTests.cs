@@ -203,10 +203,7 @@ namespace ResourcePreview.Tests
 
             // Same steps as ResourceQuickInfoSource, without VS.
             ResourceEntry entry = index.Find(key, fromFile, CancellationToken.None).First();
-            StyleInfo style = StyleInfoBuilder.IsStyle(entry) ? StyleInfoBuilder.Build(index, entry, CancellationToken.None) : null;
-            TemplateTree tree = TemplateTreeBuilder.IsTemplate(entry) ? TemplateTreeBuilder.Build(entry.Element) : null;
-            PreviewXaml xaml = PreviewXamlBuilder.Build(index, entry, CancellationToken.None);
-            var data = new ResourcePreviewData(entry.Key, entry.ElementTypeName, xaml.Xaml, xaml.MissingKeys, null, style, tree, xaml.UnloadableType);
+            ResourcePreviewData data = ResourcePreviewData.Create(index, entry, null, CancellationToken.None);
 
             var thrown = new List<string>();
             Sta.Run(() =>
@@ -223,7 +220,10 @@ namespace ResourcePreview.Tests
                 AppDomain.CurrentDomain.FirstChanceException += handler;
                 try
                 {
-                    PreviewRenderer.Render(data);
+                    // Measure and Arrange as the tooltip does, so errors in an applied template show up too.
+                    System.Windows.UIElement preview = PreviewRenderer.Render(data);
+                    preview.Measure(new System.Windows.Size(800, 600));
+                    preview.Arrange(new System.Windows.Rect(preview.DesiredSize));
                 }
                 finally
                 {

@@ -139,6 +139,9 @@
   <data name="NoLiveSampleOwnTypeFormat" xml:space="preserve">
     <value>Нет живого примера: {0} не является типом WPF, поэтому Visual Studio не может его загрузить.</value>
   </data>
+  <data name="SamplePlaceholdersFormat" xml:space="preserve">
+    <value>Показано как рамка, так как Visual Studio не может это загрузить: {0}</value>
+  </data>
   <data name="NoPreviewOwnTypeFormat" xml:space="preserve">
     <value>Нет предварительного просмотра: {0} не является типом WPF, поэтому Visual Studio не может его загрузить.</value>
   </data>
@@ -146,7 +149,7 @@
     <value>Показывать живой пример</value>
   </data>
   <data name="OptionsLiveSampleDescription" xml:space="preserve">
-    <value>Показывает настоящий элемент управления с примененным стилем или ControlTemplate. Второй, отключенный пример появляется, если стиль реагирует на IsEnabled.</value>
+    <value>Показывает настоящий элемент управления с примененным стилем или ControlTemplate, а также при наведении мыши, нажатии и в отключенном состоянии, если стиль на это реагирует. DataTemplate показывается с примерными данными, ItemsPanelTemplate с примерными элементами.</value>
   </data>
   <data name="GoToResourceDefinition" xml:space="preserve">
     <value>Перейти к определению ресурса</value>

@@ -139,6 +139,9 @@
   <data name="NoLiveSampleOwnTypeFormat" xml:space="preserve">
     <value>无实时示例: {0} 不是 WPF 类型，因此 Visual Studio 无法加载它。</value>
   </data>
+  <data name="SamplePlaceholdersFormat" xml:space="preserve">
+    <value>Visual Studio 无法加载，因此显示为方框: {0}</value>
+  </data>
   <data name="NoPreviewOwnTypeFormat" xml:space="preserve">
     <value>无预览: {0} 不是 WPF 类型，因此 Visual Studio 无法加载它。</value>
   </data>
@@ -146,7 +149,7 @@
     <value>显示实时示例</value>
   </data>
   <data name="OptionsLiveSampleDescription" xml:space="preserve">
-    <value>显示应用了该样式或 ControlTemplate 的真实控件。如果样式响应 IsEnabled，还会显示第二个已禁用的示例。</value>
+    <value>显示应用了该样式或 ControlTemplate 的真实控件；如果样式有响应，还会显示鼠标悬停、按下和禁用状态。DataTemplate 使用示例数据显示，ItemsPanelTemplate 使用示例项显示。</value>
   </data>
   <data name="GoToResourceDefinition" xml:space="preserve">
     <value>转到资源定义</value>

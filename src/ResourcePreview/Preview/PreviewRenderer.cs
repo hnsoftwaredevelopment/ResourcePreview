@@ -21,6 +21,9 @@ namespace ResourcePreview.Preview
     {
         private static readonly Brush TileBorder = Freeze(new SolidColorBrush(Color.FromRgb(0x80, 0x80, 0x80)));
 
+        /// <summary>The border of the sample items in an ItemsPanelTemplate preview.</summary>
+        internal static Brush SampleItemBorder => TileBorder;
+
         public static UIElement Render(ResourcePreviewData data)
         {
             if (data.Style != null)
@@ -36,8 +39,8 @@ namespace ResourcePreview.Preview
             {
                 if (data.TemplateTree != null)
                 {
-                    // The tree comes from the XML and still works. DataTemplates are never rendered live, so no note.
-                    string note = data.TemplateTree.TemplateKind == "ControlTemplate" ? LiveSampleRenderer.OwnTypeNote(data.UnloadableType) : null;
+                    // The tree comes from the XML and still works.
+                    string note = HasLiveSample(data) ? LiveSampleRenderer.OwnTypeNote(data.UnloadableType) : null;
                     return CreateTemplatePreview(data, null, note);
                 }
 
@@ -52,7 +55,7 @@ namespace ResourcePreview.Preview
             {
                 string missing = Localizer.Format(Strings.MissingInSolutionFormat, string.Join(", ", data.MissingKeys));
                 return data.TemplateTree != null
-                    ? CreateTemplatePreview(data, null, data.TemplateTree.TemplateKind == "ControlTemplate" ? Localizer.Format(Strings.NoLiveSampleFormat, missing) : null)
+                    ? CreateTemplatePreview(data, null, HasLiveSample(data) ? Localizer.Format(Strings.NoLiveSampleFormat, missing) : null)
                     : CreateText(missing);
             }
 
@@ -67,7 +70,7 @@ namespace ResourcePreview.Preview
                 // A template with custom types fails to load, but the tree from the XML still works.
                 if (data.TemplateTree != null)
                 {
-                    string note = data.TemplateTree.TemplateKind == "ControlTemplate"
+                    string note = HasLiveSample(data)
                         ? Localizer.Format(Strings.NoLiveSampleFormat, LiveSampleRenderer.FirstLine(ex))
                         : null;
                     return CreateTemplatePreview(data, null, note);
@@ -82,7 +85,23 @@ namespace ResourcePreview.Preview
                 return CreateTemplatePreview(data, sample.Sample, sample.Problem);
             }
 
-            // Data and panel templates have nothing to render without data, so show the tree.
+            // A DataTemplate with sample data, an ItemsPanelTemplate with sample items; the tree below it.
+            if (data.Sample != null && SettingsService.Current.ShowLiveSample)
+            {
+                LiveSampleRenderer.Result sample =
+                    resource is ItemsPanelTemplate panel ? TemplateSampleRenderer.ForItemsPanel(panel)
+                    : resource is DataTemplate dataTemplate ? TemplateSampleRenderer.ForDataTemplate(dataTemplate, data.Sample.Bindings)
+                    : null;
+                if (sample != null)
+                {
+                    string boxes = data.Sample.Placeholders.Count > 0 && sample.Sample != null
+                        ? Localizer.Format(Strings.SamplePlaceholdersFormat, string.Join(", ", data.Sample.Placeholders))
+                        : null;
+                    return CreateTemplatePreview(data, sample.Sample, sample.Problem ?? boxes, withTree: true);
+                }
+            }
+
+            // Other templates (HierarchicalDataTemplate) have nothing to render without data, so show the tree.
             if (resource is FrameworkTemplate && data.TemplateTree != null)
             {
                 return CreateTemplatePreview(data, null, null);
@@ -174,7 +193,12 @@ namespace ResourcePreview.Preview
         /// <summary>
         /// Shows the live sample if there is one, otherwise the template tree, plus an optional note.
         /// </summary>
-        private static UIElement CreateTemplatePreview(ResourcePreviewData data, UIElement sample, string note)
+        /// <summary>True when the template gets a rendered sample, so a note may say why there is none.</summary>
+        private static bool HasLiveSample(ResourcePreviewData data) =>
+            SettingsService.Current.ShowLiveSample && (data.TemplateTree?.TemplateKind == "ControlTemplate" || data.Sample != null);
+
+        /// <param name="withTree">Also show the tree below the sample. A DataTemplate sample shows sample data, so the bindings are only in the tree.</param>
+        private static UIElement CreateTemplatePreview(ResourcePreviewData data, UIElement sample, string note, bool withTree = false)
         {
             var root = new StackPanel { Margin = new Thickness(0, 4, 0, 0) };
 
@@ -186,6 +210,10 @@ namespace ResourcePreview.Preview
                 }
 
                 root.Children.Add(sample);
+                if (withTree && data.TemplateTree != null)
+                {
+                    root.Children.Add(TemplateTreeRenderer.Render(data.TemplateTree));
+                }
             }
             else if (data.TemplateTree != null)
             {

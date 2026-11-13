@@ -1,7 +1,10 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:SampleApp"
-                    xmlns:res="clr-namespace:SampleApp.Resources">
+                    xmlns:res="clr-namespace:SampleApp.Resources"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d">
     <!-- Live samples and templates. -->
 
     <!-- Style with an IsEnabled trigger: the preview shows Normal and Disabled side by side. -->
@@ -38,7 +41,7 @@
         </Border>
     </ControlTemplate>
 
-    <!-- DataTemplate: without data the bindings stay empty, so the preview shows the tree. -->
+    <!-- DataTemplate: the preview renders it with sample data ("Title", "Author") and shows the tree below. -->
     <DataTemplate x:Key="BookTemplate" DataType="{x:Type local:Book}">
         <Border BorderBrush="Gray" BorderThickness="1" Padding="6">
             <Grid>
@@ -61,7 +64,21 @@
         <TextBox Text="{Binding Value, Mode=TwoWay}" IsReadOnly="{Binding IsReadOnly}" />
     </DataTemplate>
 
-    <!-- ItemsPanelTemplate: also shown as a tree. -->
+    <!-- DataTemplate with an own converter and control: the preview leaves out the converter and draws a box
+         for FancyControl. d:Text sets the sample value, as in the XAML designer. -->
+    <local:UpperCaseConverter x:Key="UpperCase" />
+    <DataTemplate x:Key="PropertyRowTemplate" DataType="{x:Type local:PropertyItem}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding Name, Converter={StaticResource UpperCase}}" d:Text="WIDTH" Foreground="White" VerticalAlignment="Center" />
+            <local:FancyControl Grid.Column="1" Margin="4,0,0,0" Height="22" />
+        </Grid>
+    </DataTemplate>
+
+    <!-- ItemsPanelTemplate: the preview shows sample items in the panel. -->
     <ItemsPanelTemplate x:Key="WrapPanelTemplate">
         <WrapPanel Orientation="Horizontal" ItemWidth="80" />
     </ItemsPanelTemplate>

@@ -69,6 +69,7 @@
     <Compile Include="Resources\ResourceKeys.cs" />
     <Compile Include="Resources\PreviewXamlBuilder.cs" />
     <Compile Include="Resources\StyleInfo.cs" />
+    <Compile Include="Resources\TemplateSampleBuilder.cs" />
     <Compile Include="Resources\TemplateTree.cs" />
     <Compile Include="Resources\ColorParser.cs" />
     <Compile Include="Preview\ResourcePreviewData.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Preview\CompletionIconFactory.cs" />
     <Compile Include="IntelliSense\ResourceCompletionSource.cs" />
     <Compile Include="IntelliSense\ResourceCompletionToolTipProvider.cs" />
+    <Compile Include="Preview\TemplateSampleRenderer.cs" />
     <Compile Include="Preview\TemplateTreeRenderer.cs" />
     <Compile Include="Navigation\DefinitionNavigator.cs" />
     <Compile Include="Navigation\GoToResourceDefinitionCommand.cs" />

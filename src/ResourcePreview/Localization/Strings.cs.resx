@@ -139,6 +139,9 @@
   <data name="NoLiveSampleOwnTypeFormat" xml:space="preserve">
     <value>Bez živé ukázky: {0} není typ WPF, takže ho Visual Studio nemůže načíst.</value>
   </data>
+  <data name="SamplePlaceholdersFormat" xml:space="preserve">
+    <value>Zobrazeno jako rámeček, protože Visual Studio to nemůže načíst: {0}</value>
+  </data>
   <data name="NoPreviewOwnTypeFormat" xml:space="preserve">
     <value>Bez náhledu: {0} není typ WPF, takže ho Visual Studio nemůže načíst.</value>
   </data>
@@ -146,7 +149,7 @@
     <value>Zobrazit živou ukázku</value>
   </data>
   <data name="OptionsLiveSampleDescription" xml:space="preserve">
-    <value>Zobrazí skutečný ovládací prvek s použitým stylem nebo šablonou ControlTemplate. Druhá, zakázaná ukázka se zobrazí, pokud styl reaguje na IsEnabled.</value>
+    <value>Zobrazí skutečný ovládací prvek s použitým stylem nebo šablonou ControlTemplate, také při najetí myší, stisknutý a zakázaný, pokud na to styl reaguje. Šablona DataTemplate se zobrazí s ukázkovými daty, ItemsPanelTemplate s ukázkovými položkami.</value>
   </data>
   <data name="GoToResourceDefinition" xml:space="preserve">
     <value>Přejít na definici prostředku</value>

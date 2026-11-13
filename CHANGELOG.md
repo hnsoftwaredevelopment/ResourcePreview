@@ -3,6 +3,8 @@
 ## Unreleased
 
 - **Keys from a class.** Resources with a key such as `x:Key="{x:Static res:TemplateKeys.ValueEditor}"` now get a preview on hover and show up in the XAML Resources window. Go To Resource Definition, Find Resource References and the Error List work with them too. Keys match on class and member, so another namespace prefix in another file is fine.
+- **Rendered DataTemplates.** A `DataTemplate` is now rendered with sample data above its element tree. Bindings get a value that fits the property (`{Binding Title}` shows "Title"), and `d:Text="120"` and other design-time values set your own. Controls from your project become a dashed box with their name; converters from your project are left out.
+- **ItemsPanelTemplate** is shown with sample items in the panel.
 
 ## 1.5.0
 

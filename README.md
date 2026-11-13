@@ -28,7 +28,19 @@ Above the table you see a real control with the style applied. When the style ha
 
 ## Templates
 
-A `ControlTemplate` for a standard control is shown as a real control. A `DataTemplate` needs data to show anything, so it is shown as an element tree with its bindings instead.
+A `ControlTemplate` for a standard control is shown as a real control.
+
+A `DataTemplate` is rendered with sample data, with its element tree and bindings below it, so you can check the controls, spacing and alignment without running the app. Each binding gets a value that fits the property it sets: `{Binding Title}` on a `TextBlock` shows "Title", a list (`ItemsSource`) gets three items, and other properties keep their default. Paths such as `Author.Name` work too. For your own sample values, use the design-time properties of the XAML designer, which WPF ignores at runtime:
+
+```xml
+<DataTemplate x:Key="PropertyRow">
+    <TextBox Text="{Binding Value}" d:Text="120" IsReadOnly="{Binding IsReadOnly}" />
+</DataTemplate>
+```
+
+The preview never loads types from your own project (see [Limitations](#limitations)). A control of your own (`local:Rating`) becomes a dashed box with its name, in the same place and size. A converter of your own is left out, so that binding shows the plain value. Converters from WPF itself, such as `BooleanToVisibilityConverter`, keep working.
+
+An `ItemsPanelTemplate` is shown with a few sample items in the panel, so you see how a `WrapPanel` or a horizontal `StackPanel` arranges them.
 
 ![Template previews](https://raw.githubusercontent.com/hnsoftwaredevelopment/ResourcePreview/main/docs/images/templates.png)
 
@@ -219,7 +231,7 @@ The window refreshes when a .xaml file is saved, or with the refresh button.
 | Tile size | 64 | Size of a preview tile in pixels, 16 to 256. |
 | Tiles | Light and dark | Both tiles, or only one of them. |
 | Tile colors | | Foreground and background of each tile. The foreground is used for geometries, which have no color of their own. |
-| Show live sample | On | The real control above a style table or instead of a template tree. |
+| Show live sample | On | The real control above a style table or instead of a template tree, and the rendered `DataTemplate` and `ItemsPanelTemplate`. |
 | Show color swatches in the editor | On | Color squares before color values and color references in .xaml files. |
 
 ## Limitations

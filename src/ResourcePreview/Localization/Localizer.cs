@@ -133,6 +133,7 @@ namespace ResourcePreview.Localization
         public const string TemplateMoreElementsFormat = nameof(TemplateMoreElementsFormat);
         public const string TemplateEmpty = nameof(TemplateEmpty);
         public const string NoLiveSampleOwnTypeFormat = nameof(NoLiveSampleOwnTypeFormat);
+        public const string SamplePlaceholdersFormat = nameof(SamplePlaceholdersFormat);
         public const string NoPreviewOwnTypeFormat = nameof(NoPreviewOwnTypeFormat);
         public const string BlockedTypeFormat = nameof(BlockedTypeFormat);
         public const string BufferSaveFailedFormat = nameof(BufferSaveFailedFormat);

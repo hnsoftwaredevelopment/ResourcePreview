@@ -11,8 +11,9 @@ namespace ResourcePreview.Preview
     /// </summary>
     internal sealed class ResourcePreviewData
     {
-        public ResourcePreviewData(string key, string elementTypeName, string xaml, IReadOnlyList<string> missingKeys, Action navigate, StyleInfo style = null, TemplateTree templateTree = null, string unloadableType = null)
+        public ResourcePreviewData(string key, string elementTypeName, string xaml, IReadOnlyList<string> missingKeys, Action navigate, StyleInfo style = null, TemplateTree templateTree = null, string unloadableType = null, TemplateSample sample = null)
         {
+            Sample = sample;
             Key = key;
             ElementTypeName = elementTypeName;
             Xaml = xaml;
@@ -31,10 +32,14 @@ namespace ResourcePreview.Preview
         {
             StyleInfo style = StyleInfoBuilder.IsStyle(target) ? StyleInfoBuilder.Build(index, target, cancellationToken) : null;
             TemplateTree templateTree = TemplateTreeBuilder.IsTemplate(target) ? TemplateTreeBuilder.Build(target.Element) : null;
-            PreviewXaml previewXaml = PreviewXamlBuilder.Build(index, target, cancellationToken);
+
+            // A DataTemplate or ItemsPanelTemplate is rendered from a copy with own types as boxes. The tree
+            // keeps showing the original.
+            TemplateSample sample = TemplateSampleBuilder.CanRender(target) ? TemplateSampleBuilder.Prepare(index, target, cancellationToken) : null;
+            PreviewXaml previewXaml = PreviewXamlBuilder.Build(index, sample?.Entry ?? target, cancellationToken);
             return new ResourcePreviewData(
                 target.Key, target.ElementTypeName, previewXaml.Xaml, previewXaml.MissingKeys,
-                navigate, style, templateTree, previewXaml.UnloadableType);
+                navigate, style, templateTree, previewXaml.UnloadableType, sample);
         }
 
         public string Key { get; }
@@ -55,6 +60,9 @@ namespace ResourcePreview.Preview
 
         /// <summary>Set for a DataTemplate or ControlTemplate: its element tree as text.</summary>
         public TemplateTree TemplateTree { get; }
+
+        /// <summary>For a DataTemplate or ItemsPanelTemplate: the bindings and the boxes of the rendered sample. Null otherwise.</summary>
+        public TemplateSample Sample { get; }
 
         /// <summary>A type in the XAML that Visual Studio cannot load, such as "local:Book". Parsing is skipped when set.</summary>
         public string UnloadableType { get; }
