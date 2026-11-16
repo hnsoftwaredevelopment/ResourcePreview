@@ -39,20 +39,22 @@ function T($name) { $asm.GetType($name, $true) }
 $main = [string](Join-Path $root 'samples\SampleApp\MainWindow.xaml')
 $index = (T 'ResourcePreview.Resources.ResourceIndex').GetMethod('ForFile', $flags).Invoke($null, @($main))
 $ct = [Threading.CancellationToken]::None
-$styleBuilder = T 'ResourcePreview.Resources.StyleInfoBuilder'
-$treeBuilder = T 'ResourcePreview.Resources.TemplateTreeBuilder'
-$isStyle = $styleBuilder.GetMethods($flags) | Where-Object { $_.Name -eq 'IsStyle' } | Select-Object -First 1
-$isTemplate = $treeBuilder.GetMethods($flags) | Where-Object { $_.Name -eq 'IsTemplate' -and $_.GetParameters()[0].ParameterType.Name -eq 'ResourceEntry' }
-$xamlBuilder = (T 'ResourcePreview.Resources.PreviewXamlBuilder').GetMethod('Build', $flags)
 $render = (T 'ResourcePreview.Preview.PreviewRenderer').GetMethod('Render', $flags)
-$dataType = T 'ResourcePreview.Preview.ResourcePreviewData'
+$create = (T 'ResourcePreview.Preview.ResourcePreviewData').GetMethod('Create', $flags)
 
 # Colors of the VS tooltip in the Dark and Light themes.
 if ($Theme -eq 'Dark') { $back = '#FF252526'; $fore = '#FFF1F1F1'; $border = '#FF3F3F46'; $keyword = '#FF569CD6'; $link = '#FF9CDCFE'; $page = '#FF1E1E1E' }
 else { $back = '#FFF6F6F6'; $fore = '#FF1E1E1E'; $border = '#FFCCCEDB'; $keyword = '#FF0000FF'; $link = '#FF0066BF'; $page = '#FFFFFFFF' }
 function B($c) { New-Object Windows.Media.SolidColorBrush ([Windows.Media.ColorConverter]::ConvertFromString($c)) }
 
-$textKey = $shell.GetType('Microsoft.VisualStudio.PlatformUI.EnvironmentColors').GetProperty('ToolTipTextBrushKey').GetValue($null)
+$colors = $shell.GetType('Microsoft.VisualStudio.PlatformUI.EnvironmentColors')
+$textKey = $colors.GetProperty('ToolTipTextBrushKey').GetValue($null)
+$backKey = $colors.GetProperty('ToolTipBrushKey').GetValue($null)
+
+# The template sample looks up the theme background in the application resources, as it does inside Visual Studio.
+$app = if ([Windows.Application]::Current) { [Windows.Application]::Current } else { New-Object Windows.Application }
+$app.Resources[$textKey] = (B $fore).psobject.BaseObject
+$app.Resources[$backKey] = (B $back).psobject.BaseObject
 
 $wrap = New-Object Windows.Controls.WrapPanel -Property @{ Width = ($CardWidth + 16) * $Columns + 16; Background = (B $page) }
 $wrap.Resources.Add($textKey, (B $fore).psobject.BaseObject)
@@ -60,17 +62,16 @@ $wrap.Margin = '0'
 
 foreach ($key in $Keys) {
     $entry = $index.Find($key, $main, $ct)[0]
-    $style = $null; $tree = $null
-    if ($isStyle.Invoke($null, @($entry))) { $style = $styleBuilder.GetMethod('Build', $flags).Invoke($null, @($index, $entry, $ct)) }
-    if ($isTemplate.Invoke($null, @($entry))) { $tree = $treeBuilder.GetMethod('Build', $flags).Invoke($null, @($entry.Element)) }
-    $xaml = $xamlBuilder.Invoke($null, @($index, $entry, $ct))
-    $data = [Activator]::CreateInstance($dataType, $instance, $null, @($entry.Key, $entry.ElementTypeName, $xaml.Xaml, $xaml.MissingKeys, $null, $style, $tree, $xaml.UnloadableType), $null)
+    if (-not $entry) { throw "Key not found: $key" }
+
+    # The same data as the tooltip: style table, template tree, rendered template sample.
+    $data = $create.Invoke($null, @($index, $entry, $null, $ct))
     $ui = $render.Invoke($null, @($data))
 
     # Header and location link, drawn the way Quick Info shows them.
     $header = New-Object Windows.Controls.TextBlock -Property @{ FontFamily = 'Consolas'; FontSize = 13 }
     $header.Inlines.Add((New-Object Windows.Documents.Run -Property @{ Text = $entry.ElementTypeName + ' '; Foreground = (B $keyword) }))
-    $header.Inlines.Add((New-Object Windows.Documents.Run -Property @{ Text = $entry.Key; Foreground = (B $fore) }))
+    $header.Inlines.Add((New-Object Windows.Documents.Run -Property @{ Text = $entry.KeyText; Foreground = (B $fore) }))
     $relative = $entry.FilePath.Substring((Join-Path $root 'samples\SampleApp').Length + 1)
     $location = New-Object Windows.Controls.TextBlock -Property @{ Text = "$relative, line $($entry.LineNumber)"; Foreground = (B $link); TextDecorations = [Windows.TextDecorations]::Underline; Margin = '0,6,0,0' }
 

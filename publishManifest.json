@@ -25,6 +25,10 @@
       "targetPath": "docs/images/templates.png"
     },
     {
+      "pathOnDisk": "docs/images/templates-light.png",
+      "targetPath": "docs/images/templates-light.png"
+    },
+    {
       "pathOnDisk": "docs/images/values.png",
       "targetPath": "docs/images/values.png"
     },
